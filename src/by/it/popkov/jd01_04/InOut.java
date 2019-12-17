@@ -5,7 +5,7 @@ class InOut {
         String[] s = line.trim().split(" ");
         double[] outPut = new double[s.length];
         for (int i = 0; i < s.length; i++) {
-            outPut[i] = Integer.parseInt(s[i]);
+            outPut[i] = Double.parseDouble(s[i]);
         }
         return outPut;
     }
