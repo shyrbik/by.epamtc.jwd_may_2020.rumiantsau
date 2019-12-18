@@ -2,7 +2,6 @@ package by.it.popkov.jd01_05;
 
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 
 import static java.lang.Math.*;
@@ -10,7 +9,7 @@ import static java.lang.Math.*;
 
 public class TaskC {
     public static void main(String[] args) {
-
+        step1();
         step2();
     }
 
@@ -87,6 +86,7 @@ public class TaskC {
             }
             System.out.printf("B[ %-2d] = %-7.5f    ", i, b[i]);
         }
+        System.out.println();
     }
 
 
