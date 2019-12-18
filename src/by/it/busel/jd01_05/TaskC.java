@@ -18,6 +18,7 @@ public class TaskC {
 
     /**
      * A method that calculates an arithmetic mean value of the input array;
+     *
      * @param arrayB an array of doubles;
      * @return an arithmetic mean value of all numbers of a aforementioned array;
      */
@@ -31,8 +32,9 @@ public class TaskC {
 
     /**
      * A method that fills a target-array with numbers from an original array that are more than 3.5;
+     *
      * @param originalArrayA an array which contains numbers that are more than 3.5 and that are be copied to a target-array;
-     * @param TargetArrayB an array, which is to be filled with numbers that are more than 3.5;
+     * @param TargetArrayB   an array, which is to be filled with numbers that are more than 3.5;
      */
     private static void arrayFillerB(double[] originalArrayA, double[] TargetArrayB) {
         int indexWithinArrayB = 0;
@@ -45,6 +47,7 @@ public class TaskC {
 
     /**
      * A method that finds dimensions of an array "b";
+     *
      * @param arrayA an array which will be looked though in order to find numbers that are more than 3.5;
      * @return a length of an array "b";
      */
@@ -60,6 +63,7 @@ public class TaskC {
 
     /**
      * A method, which fills an array "a" according to a statement of a problem;
+     *
      * @param arrayA an array that is to be filled according to a statement of a problem;
      */
     private static void arrayFillerA(double[] arrayA) {
@@ -76,7 +80,7 @@ public class TaskC {
      * in the following range: [5.33, 9);
      */
     private static double generatorX() {
-         return Math.round((Math.random() * 3.67) * 1000000000000000.00) / 1000000000000000.00 + 5.33;
+        return Math.round((Math.random() * 3.67) * 1000000000000000.00) / 1000000000000000.00 + 5.33;
         // range [5.33, 9):
         // return Math.random() * 3.67 + 5.33;
     }
