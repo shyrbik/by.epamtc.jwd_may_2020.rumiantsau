@@ -41,7 +41,7 @@ public class TaskC {
             //Из-за ошибок втискитвания вещественного числа в double точно на 9 можем и не выйти.
             if (i == (countOfElements - 1)) x = 9;
             returnArr[i] = cbrt(pow(x, 2) + 4.5);
-            System.out.println("i:" + i + " X:" + x + " z:" + returnArr[i]);
+           // System.out.println("i:" + i + " X:" + x + " z:" + returnArr[i]);
             x += deltaX;
         }
         return returnArr;
