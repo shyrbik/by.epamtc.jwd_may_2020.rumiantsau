@@ -9,7 +9,7 @@ public class TaskC {
     public static void main(String[] args) {
         double[] arr = createArray(27);
         printArray(arr, "A", 5);
-        double geomMean = getGeomMean(arr);
+        double geomMean = getGeometricMean(arr);
 
         System.out.println("Среднее геометрическое " + geomMean);
         runTask7();
@@ -18,7 +18,6 @@ public class TaskC {
     /**
      * Вывод элементов массива с применением printf c указанием имени элемента массива
      * Вывод производится по строкам с указанным количеством колонок
-     *
      * @param inArr       массив, который надо вывести
      * @param name        имя, которе будет выводиться перед каждым элементом массива
      * @param columnCount Количество элементов массива, которые будут выведены в одну строку. т.е количество колонок.
@@ -40,19 +39,43 @@ public class TaskC {
      **/
     private static void runTask7() {
         double[] arrayA;
+        double[] arrayB;
         arrayA = new double[31];
         //Формируем массив A
         for (int i = 0; i < arrayA.length; i++) {
-            arrayA[i] = round(103.00+(random() * (450.0 - 103.0 + 1.0)));
+            arrayA[i] = round(103.00 + (random() * (450.0 - 103.0 + 1.0)));
         }
-        //Формируем массив B
+        //Формируем массив B. Для начала подсчитаем, сколько элементов массива A больше своих индексов
+        int lengthOfArrayB = 0;
+        for (int i = 0; i < arrayA.length; i++) {
+            if ((arrayA[i] / 10) > (double) i) lengthOfArrayB++;
+        }
+        //А потом заведём массив B и засунем в него подмножестово массива A.
+        arrayB = new double[lengthOfArrayB];
+        int indexForArrayB = 0;
+        for (int i = 0; i < arrayA.length; i++) {
+            if ((arrayA[i] / 10) > (double) i){arrayB[indexForArrayB++]=arrayA[i];}
+        }
+        //Ну наконец-то! Нконец-то! Ах, как я ждал этой функции!
+        printArrayBeautifully(arrayA,5);
 
+
+    }
+    /**
+     * печать массива в прекрасном псевдографическом виде, с блекджеком и мадемуазелями!
+     * надеюсь, я не наделал ошибок в слове beautifully?
+     * @param arrayA  массив, который надо напечатать
+     * @param countOfColumns - во сколько колонок печатать
+     * */
+    private static void printArrayBeautifully(double[] arrayA, int countOfColumns) {
     }
 
     /**
      * Вычисление среднего геометрического
+     * @param arr массив чисел, по которым рассчитываем среднее геометрическое
+     * @return среднее геометрическое
      */
-    private static double getGeomMean(double[] arr) {
+    private static double getGeometricMean(double[] arr) {
         double retValue = 0;
         for (int i = 0; i < arr.length; i++) {
             retValue += log10(arr[i]);
@@ -62,7 +85,9 @@ public class TaskC {
 
     /**
      * Формирование массива  double c заданнным количеством элементов
-     * со значениями функции при диапазоне аргументов функции [5.33, 9]
+     * Элементы массива - значения функции при диапазоне аргументов функции [5.33, 9]
+     * @param countOfElements количество элементов массива,который надо построить
+     * @return массив
      */
     private static double[] createArray(int countOfElements) {
         double x;
