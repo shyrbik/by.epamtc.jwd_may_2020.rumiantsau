@@ -22,6 +22,7 @@ public class TaskC {
     /**
      * Вывод элементов массива с применением printf c указанием имени элемента массива
      * Вывод производится по строкам с указанным количеством колонок
+     *
      * @param inArr       массив, который надо вывести
      * @param name        имя, которе будет выводиться перед каждым элементом массива
      * @param columnCount Количество элементов массива, которые будут выведены в одну строку. т.е количество колонок.
@@ -58,84 +59,94 @@ public class TaskC {
         arrayB = new double[lengthOfArrayB];
         int indexForArrayB = 0;
         for (int i = 0; i < arrayA.length; i++) {
-            if ((arrayA[i] / 10) > (double) i){arrayB[indexForArrayB++]=arrayA[i];}
+            if ((arrayA[i] / 10) > (double) i) {
+                arrayB[indexForArrayB++] = arrayA[i];
+            }
         }
         Arrays.sort(arrayB);
         //Ну наконец-то!  Ах, как я ждал этой функции!
-        printArrayBeautifully(arrayA, "A", 5,true);
+        printArrayBeautifully(arrayA, "A", 5, true);
 
-        printArrayBeautifully(arrayB,"B", 2,false);
+        printArrayBeautifully(arrayB, "B", 2, false);
 
     }
+
     /**
      * печать массива в прекрасном псевдографическом виде, с блекджеком и мадемуазелями!
      * надеюсь, я не наделал ошибок в слове beautifully?
-     * @param inArray  массив, который надо напечатать
+     *
+     * @param inArray        массив, который надо напечатать
      * @param countOfColumns - во сколько колонок печатать
-     * @param horizontal true для печати в горизонталь. false для китайского вертикального массива
-     * */
+     * @param horizontal     true для печати в горизонталь. false для китайского вертикального массива
+     */
     private static void printArrayBeautifully(double[] inArray, String arrayName, int countOfColumns, boolean horizontal) {
-        final int lengthOfField=12; //Длина поля
-        int arrayCounter=0; //Счётчик [0 - длина массива) Но это не индекс!
-        int arrayIndex=0;   //Индекс.
-        int printingStr=0;  //Печатаемая строка
-        int countOfStrings=inArray.length/countOfColumns;
-        if(inArray.length%countOfColumns==0)countOfStrings++;
+        final int lengthOfField = 12; //Длина поля
+        int arrayCounter = 0; //Счётчик [0 - длина массива и чуть больше. Но это не индекс!
+        int arrayIndex = 0;   //Индекс.
+        int printingStr = 0;  //Печатаемая строка
+        int countOfStrings = inArray.length / countOfColumns;   //
+        if (inArray.length % countOfColumns == 0) countOfStrings++;
         String strStart;    //псевдографическая строка, начинающая массив
         String strMiddle;   //псевдографическая строка, разделяющая строки
         String strFinish;   //псевдографическая строка, завершающая строки
-        strStart= formPeriodicString("╔","╦","╗",countOfColumns,lengthOfField);
-        strMiddle= formPeriodicString("╠","╬","╣",countOfColumns,lengthOfField);
-        strFinish= formPeriodicString("╚","╩","╝",countOfColumns,lengthOfField);
+        strStart = formPeriodicString("╔", "╦", "╗", countOfColumns, lengthOfField);
+        strMiddle = formPeriodicString("╠", "╬", "╣", countOfColumns, lengthOfField);
+        strFinish = formPeriodicString("╚", "╩", "╝", countOfColumns, lengthOfField);
         System.out.println(strStart);       //Стартовая строка
         do {
             System.out.print("║");          //Начинаем выводить строоку значений
             for (int printingColumn = 0; printingColumn < countOfColumns; printingColumn++) {
-                if (arrayCounter >= inArray.length) {
+                //Найдём индекс массива, в зависимости от горизонтальности
+                if (horizontal == true) arrayIndex = arrayCounter;
+                else {
+                    arrayIndex = printingColumn * countOfStrings + printingStr;
+                }
+                if (arrayIndex >= inArray.length) {
                     for (int j = 0; j < lengthOfField; j++) System.out.print(" ");
                 } else {
-                    if(horizontal==true)arrayIndex=arrayCounter;    //Для горизонтальных индекс массива=счётчику
-                    else{arrayIndex =printingColumn*countOfStrings+printingStr;
-                    }
                     System.out.printf("%s[%2d]=%5.2f", arrayName, arrayIndex, inArray[arrayIndex]);
-                    arrayCounter++;
                 }
                 System.out.print("║");
+                arrayCounter++;
             }
             System.out.println();
             if (arrayCounter >= inArray.length) System.out.println(strFinish);
             else System.out.println(strMiddle);
             printingStr++;
             //Закончили с выводом строки
-        }while(arrayCounter<inArray.length);
+        } while (arrayCounter < inArray.length);
     }
 
     /**
      * Формиривание строки A====B====C
-     * @param startSequence A
-     * @param middleSequence B
-     * @param finishSequence С
+     *
+     * @param startSequence   A
+     * @param middleSequence  B
+     * @param finishSequence  С
      * @param countOfElements количество элементов ====
      * @param lengthOfElement длина элемента =
      * @return Строка A====B====C. или A=====C для countOfElements==1
-     * */
+     */
     private static String formPeriodicString(String startSequence, String middleSequence, String finishSequence, int countOfElements, int lengthOfElement) {
-        String retString=new String();
+        String retString = new String();
 
         retString = startSequence;
 
-        for (int i = 0; i <countOfElements ; i++) {
-            for (int j = 0; j <lengthOfElement ; j++) {
-                retString +="═";
+        for (int i = 0; i < countOfElements; i++) {
+            for (int j = 0; j < lengthOfElement; j++) {
+                retString += "═";
             }
-            if(i==(countOfElements-1))retString +=finishSequence;
-            else{retString +=middleSequence;}
+            if (i == (countOfElements - 1)) retString += finishSequence;
+            else {
+                retString += middleSequence;
+            }
         }
         return retString;
     }
 
     /**
      * Вычисление среднего геометрического
+     *
      * @param arr массив чисел, по которым рассчитываем среднее геометрическое
      * @return среднее геометрическое
      */
@@ -150,6 +161,7 @@ public class TaskC {
     /**
      * Формирование массива  double c заданнным количеством элементов
      * Элементы массива - значения функции при диапазоне аргументов функции [5.33, 9]
+     *
      * @param countOfElements количество элементов массива,который надо построить
      * @return массив
      */
