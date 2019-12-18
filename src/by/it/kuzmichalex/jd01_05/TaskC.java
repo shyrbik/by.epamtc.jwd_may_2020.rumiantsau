@@ -10,6 +10,18 @@ public class TaskC {
         double[] arr = createArray(27);
         double geomMean=getGeomMean(arr);
         System.out.println("Среднее геометрическое "+geomMean);
+        runTask7();
+
+
+    }
+    /**
+     * Задание 7, с псевдографикой
+     **/
+    private static void runTask7() {
+        //intarrayA
+        for (int i = 0; i <31 ; i++) {
+
+        }
     }
 
     /**
