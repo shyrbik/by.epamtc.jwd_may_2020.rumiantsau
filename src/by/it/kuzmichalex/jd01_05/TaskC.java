@@ -9,12 +9,14 @@ import static java.lang.Math.*;
  */
 public class TaskC {
     public static void main(String[] args) {
+        //Задача 6
         double[] arr = createArray(27);
         printArray(arr, "A", 5);
         double geomMean = getGeometricMean(arr);
-
         System.out.println("Среднее геометрическое " + geomMean);
+        //Задача 7
         runTask7();
+
     }
 
     /**
