@@ -8,12 +8,33 @@ import static java.lang.Math.*;
 public class TaskC {
     public static void main(String[] args) {
         double[] arr = createArray(27);
+        printArray(arr,"A",5);
         double geomMean=getGeomMean(arr);
+
         System.out.println("Среднее геометрическое "+geomMean);
         runTask7();
-
-
     }
+
+    /**
+     * Вывод элементов массива с применением printf c указанием имени элемента массива
+     * Вывод производится по строкам с указанным количеством колонок
+     *
+     * @param inArr       массив, который надо вывести
+     * @param name        имя, которе будет выводиться перед каждым элементом массива
+     * @param columnCount Количество элементов массива, которые будут выведены в одну строку. т.е количество колонок.
+     */
+    private static void printArray(double[] inArr, String name, int columnCount) {
+        for (int i = 0; i < inArr.length; i++) {
+            System.out.printf("%s[%d]=%f ", name, i, inArr[i]);
+            if ((i + 1) % columnCount == 0) {
+                System.out.println();
+            }
+        }
+        if ((inArr.length % columnCount != 0) && (columnCount > 1)) {
+            System.out.println();
+        }
+    }
+
     /**
      * Задание 7, с псевдографикой
      **/
@@ -53,7 +74,7 @@ public class TaskC {
             //Из-за ошибок втискитвания вещественного числа в double точно на 9 можем и не выйти.
             if (i == (countOfElements - 1)) x = 9;
             returnArr[i] = cbrt(pow(x, 2) + 4.5);
-           // System.out.println("i:" + i + " X:" + x + " z:" + returnArr[i]);
+            //System.out.println("i:" + i + " X:" + x + " z:" + returnArr[i]);
             x += deltaX;
         }
         return returnArr;
