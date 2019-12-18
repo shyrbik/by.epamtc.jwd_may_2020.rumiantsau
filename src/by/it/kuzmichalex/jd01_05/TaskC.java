@@ -57,17 +57,75 @@ public class TaskC {
             if ((arrayA[i] / 10) > (double) i){arrayB[indexForArrayB++]=arrayA[i];}
         }
         //Ну наконец-то! Нконец-то! Ах, как я ждал этой функции!
-        printArrayBeautifully(arrayA,5);
+        printArrayBeautifully(arrayA,5,true);
 
+        printArrayBeautifully(arrayB,2,true);
 
     }
     /**
      * печать массива в прекрасном псевдографическом виде, с блекджеком и мадемуазелями!
      * надеюсь, я не наделал ошибок в слове beautifully?
-     * @param arrayA  массив, который надо напечатать
+     * @param inArray  массив, который надо напечатать
      * @param countOfColumns - во сколько колонок печатать
+     * @param horizontal true для печати в горизонталь. false для китайского вертикального массива
      * */
-    private static void printArrayBeautifully(double[] arrayA, int countOfColumns) {
+    private static void printArrayBeautifully(double[] inArray, int countOfColumns, boolean horizontal) {
+        final int lengthOfField=10;
+        int arrayCounter=0; //Счётчик 0 - длина массива. Но это не индекс!
+        int arrayIndex=0;   //Индекс. Вычисляется из счётчика.
+        String strStart;    //псевдографическая строка, начинающая массив
+        String strMiddle;   //псевдографическая строка, разделяющая строки
+        String strFinish;   //псевдографическая строка, завершающая строки
+        strStart= formPeriodicString("╔","╦","╗",countOfColumns,lengthOfField);
+        strMiddle= formPeriodicString("╠","╬","╣",countOfColumns,lengthOfField);
+        strFinish= formPeriodicString("╚","╩","╝",countOfColumns,lengthOfField);
+
+        System.out.println(strStart);       //Стартовая строка
+        do {
+            System.out.print("║");          //Начинаем выводить строоку значений
+            for (int i = 0; i < countOfColumns; i++) {
+                if (arrayCounter >= inArray.length) {
+                    for (int j = 0; j < lengthOfField; j++) System.out.print(" ");
+                } else {
+                    if(horizontal==true)arrayIndex=arrayCounter;    //Для горизонтальных индекс массива=счётчику
+                    else{
+
+                    }
+                    System.out.printf("%10.2f", inArray[arrayIndex]);
+                    arrayCounter++;
+                }
+
+                System.out.print("║");
+            }
+            System.out.println();
+            if (arrayCounter >= inArray.length) System.out.println(strFinish);
+            else System.out.println(strMiddle);
+            //Закончили с выводом строки
+        }while(arrayCounter<inArray.length);
+    }
+
+    /**
+     * Формиривание строки A====B====C
+     * @param startSequence A
+     * @param middleSequence B
+     * @param finishSequence С
+     * @param countOfElements количество элементов ====
+     * @param lengthOfElement длина элемента =
+     * @return Строка A====B====C. или A=====C для countOfElements==1
+     * */
+    private static String formPeriodicString(String startSequence, String middleSequence, String finishSequence, int countOfElements, int lengthOfElement) {
+        String retString=new String();
+
+        retString = startSequence;
+
+        for (int i = 0; i <countOfElements ; i++) {
+            for (int j = 0; j <lengthOfElement ; j++) {
+                retString +="═";
+            }
+            if(i==(countOfElements-1))retString +=finishSequence;
+            else{retString +=middleSequence;}
+        }
+        return retString;
     }
 
     /**
