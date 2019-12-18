@@ -1,6 +1,5 @@
 package by.it.kuzmichalex.jd01_05;
 
-import sun.security.x509.OtherName;
 
 import static java.lang.Math.*;
 
