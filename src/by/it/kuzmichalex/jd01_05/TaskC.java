@@ -1,5 +1,7 @@
 package by.it.kuzmichalex.jd01_05;
 
+import java.util.Arrays;
+
 import static java.lang.Math.*;
 
 /**
@@ -56,10 +58,11 @@ public class TaskC {
         for (int i = 0; i < arrayA.length; i++) {
             if ((arrayA[i] / 10) > (double) i){arrayB[indexForArrayB++]=arrayA[i];}
         }
-        //Ну наконец-то! Нконец-то! Ах, как я ждал этой функции!
-        printArrayBeautifully(arrayA,5,true);
+        Arrays.sort(arrayB);
+        //Ну наконец-то!  Ах, как я ждал этой функции!
+        printArrayBeautifully(arrayA, "A", 5,true);
 
-        printArrayBeautifully(arrayB,2,true);
+        printArrayBeautifully(arrayB,"B", 2,false);
 
     }
     /**
@@ -69,37 +72,38 @@ public class TaskC {
      * @param countOfColumns - во сколько колонок печатать
      * @param horizontal true для печати в горизонталь. false для китайского вертикального массива
      * */
-    private static void printArrayBeautifully(double[] inArray, int countOfColumns, boolean horizontal) {
-        final int lengthOfField=10;
-        int arrayCounter=0; //Счётчик 0 - длина массива. Но это не индекс!
-        int arrayIndex=0;   //Индекс. Вычисляется из счётчика.
+    private static void printArrayBeautifully(double[] inArray, String arrayName, int countOfColumns, boolean horizontal) {
+        final int lengthOfField=12; //Длина поля
+        int arrayCounter=0; //Счётчик [0 - длина массива) Но это не индекс!
+        int arrayIndex=0;   //Индекс.
+        int printingStr=0;  //Печатаемая строка
+        int countOfStrings=inArray.length/countOfColumns;
+        if(inArray.length%countOfColumns==0)countOfStrings++;
         String strStart;    //псевдографическая строка, начинающая массив
         String strMiddle;   //псевдографическая строка, разделяющая строки
         String strFinish;   //псевдографическая строка, завершающая строки
         strStart= formPeriodicString("╔","╦","╗",countOfColumns,lengthOfField);
         strMiddle= formPeriodicString("╠","╬","╣",countOfColumns,lengthOfField);
         strFinish= formPeriodicString("╚","╩","╝",countOfColumns,lengthOfField);
-
         System.out.println(strStart);       //Стартовая строка
         do {
             System.out.print("║");          //Начинаем выводить строоку значений
-            for (int i = 0; i < countOfColumns; i++) {
+            for (int printingColumn = 0; printingColumn < countOfColumns; printingColumn++) {
                 if (arrayCounter >= inArray.length) {
                     for (int j = 0; j < lengthOfField; j++) System.out.print(" ");
                 } else {
                     if(horizontal==true)arrayIndex=arrayCounter;    //Для горизонтальных индекс массива=счётчику
-                    else{
-
+                    else{arrayIndex =printingColumn*countOfStrings+printingStr;
                     }
-                    System.out.printf("%10.2f", inArray[arrayIndex]);
+                    System.out.printf("%s[%2d]=%5.2f", arrayName, arrayIndex, inArray[arrayIndex]);
                     arrayCounter++;
                 }
-
                 System.out.print("║");
             }
             System.out.println();
             if (arrayCounter >= inArray.length) System.out.println(strFinish);
             else System.out.println(strMiddle);
+            printingStr++;
             //Закончили с выводом строки
         }while(arrayCounter<inArray.length);
     }
