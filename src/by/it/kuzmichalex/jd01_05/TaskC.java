@@ -8,10 +8,10 @@ import static java.lang.Math.*;
 public class TaskC {
     public static void main(String[] args) {
         double[] arr = createArray(27);
-        printArray(arr,"A",5);
-        double geomMean=getGeomMean(arr);
+        printArray(arr, "A", 5);
+        double geomMean = getGeomMean(arr);
 
-        System.out.println("Среднее геометрическое "+geomMean);
+        System.out.println("Среднее геометрическое " + geomMean);
         runTask7();
     }
 
@@ -39,19 +39,23 @@ public class TaskC {
      * Задание 7, с псевдографикой
      **/
     private static void runTask7() {
-        //intarrayA
-        for (int i = 0; i <31 ; i++) {
-
+        double[] arrayA;
+        arrayA = new double[31];
+        //Формируем массив A
+        for (int i = 0; i < arrayA.length; i++) {
+            arrayA[i] = round(103.00+(random() * (450.0 - 103.0 + 1.0)));
         }
+        //Формируем массив B
+
     }
 
     /**
      * Вычисление среднего геометрического
-     * */
+     */
     private static double getGeomMean(double[] arr) {
-        double retValue=0;
-        for (int i = 0; i <arr.length ; i++) {
-            retValue+=log10(arr[i]);
+        double retValue = 0;
+        for (int i = 0; i < arr.length; i++) {
+            retValue += log10(arr[i]);
         }
         return retValue;
     }
@@ -68,7 +72,7 @@ public class TaskC {
             return null;
         }
         x = 5.33;
-        deltaX = (9.0 - 5.33) / (double)(countOfElements-1);
+        deltaX = (9.0 - 5.33) / (double) (countOfElements - 1);
         double[] returnArr = new double[countOfElements];
         for (int i = 0; i < countOfElements; i++) {
             //Из-за ошибок втискитвания вещественного числа в double точно на 9 можем и не выйти.
