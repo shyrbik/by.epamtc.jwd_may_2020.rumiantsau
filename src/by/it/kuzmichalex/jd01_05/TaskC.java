@@ -7,7 +7,20 @@ import static java.lang.Math.*;
  */
 public class TaskC {
     public static void main(String[] args) {
-        double[] arr = createArray(28);
+        double[] arr = createArray(27);
+        double geomMean=getGeomMean(arr);
+        System.out.println("Среднее геометрическое "+geomMean);
+    }
+
+    /**
+     * Вычисление среднего геометрического
+     * */
+    private static double getGeomMean(double[] arr) {
+        double retValue=0;
+        for (int i = 0; i <arr.length ; i++) {
+            retValue+=log10(arr[i]);
+        }
+        return retValue;
     }
 
     /**
