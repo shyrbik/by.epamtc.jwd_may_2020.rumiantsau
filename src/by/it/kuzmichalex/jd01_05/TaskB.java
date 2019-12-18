@@ -50,7 +50,7 @@ public class TaskB {
     private static void step1() {
         double x;
         double a;
-        double y = 0;
+        double y;
         for (a = 0.0; a <= 2.0; a += 0.2) {
             y = 0;
             for (x = 1.0; x <= 6; x++) {
