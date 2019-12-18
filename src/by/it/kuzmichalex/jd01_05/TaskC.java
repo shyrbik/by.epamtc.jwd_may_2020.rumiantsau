@@ -45,11 +45,11 @@ public class TaskC {
         double[] arrayA;
         double[] arrayB;
         arrayA = new double[31];
-        //Формируем массив A
+        //Формируем массив A из произвольных элементов [103 - 450]
         for (int i = 0; i < arrayA.length; i++) {
             arrayA[i] = round(103.00 + (random() * (450.0 - 103.0 + 1.0)));
         }
-        //Формируем массив B. Для начала подсчитаем, сколько элементов массива A больше своих индексов
+        //Формируем массив B. Для начала подсчитаем, сколько элементов массива A больше 10% своих индексов
         int lengthOfArrayB = 0;
         for (int i = 0; i < arrayA.length; i++) {
             if ((arrayA[i] / 10) > (double) i) lengthOfArrayB++;
