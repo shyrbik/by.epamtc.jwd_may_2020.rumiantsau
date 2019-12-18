@@ -1,12 +1,60 @@
 package by.it.popkov.jd01_05;
 
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+
 import static java.lang.Math.*;
 
 
 public class TaskC {
     public static void main(String[] args) {
-        step1();
+
+        step2();
+    }
+
+    private static void step2() {
+        ArrayList<Integer> b = new ArrayList<>();
+        int[] a = new int[31];
+        for (int i = 0; i < a.length; i++) {
+            a[i] = (int) round(random() * 347 + 103);
+            if (a[i] / 10.0 > i) {
+                b.add(a[i]);
+            }
+        }
+        Collections.sort(b);
+
+        System.out.println("Array A (index of rows)");
+        System.out.print("╔═══════════╦═══════════╦═══════════╦═══════════╦═══════════╗\n");
+        for (int i = 0; i < a.length; i++) {
+            if (i % 5 == 0 && i != 0) {
+                System.out.print("\n╚═══════════╩═══════════╩═══════════╩═══════════╩═══════════╝");
+                System.out.print("\n╔═══════════╦═══════════╦═══════════╦═══════════╦═══════════╗\n");
+            }
+            if ((i + 1) % 5 == 0) {
+                System.out.printf("║ A[%2d]=%d ║", i + 1, a[i]);
+            } else {
+                System.out.printf("║ A[%2d]=%d ", i + 1, a[i]);
+            }
+        }
+        System.out.print("\n╚═══════════╩═══════════╩═══════════╩═══════════╩═══════════╝");
+
+
+        System.out.println("\nArray B (index of cols)");
+        System.out.print("╔═══════════╦═══════════╗\n");
+        for (int i = 0; i < b.size(); i++) {
+            if (i % 2 == 0 && i != 0) {
+                System.out.print("\n╚═══════════╩═══════════╝");
+                System.out.print("\n╔═══════════╦═══════════╗\n");
+            }
+            if ((i + 1) % 2 == 0) {
+                System.out.printf("║ B[%2d]=%d ║", i + 1, b.get(i));
+            } else {
+                System.out.printf("║ B[%2d]=%d ", i + 1, b.get(i));
+            }
+        }
+        System.out.print("\n╚═══════════╩═══════════╝");
     }
 
     private static void step1() {
@@ -40,5 +88,6 @@ public class TaskC {
             System.out.printf("B[ %-2d] = %-7.5f    ", i, b[i]);
         }
     }
+
 
 }
