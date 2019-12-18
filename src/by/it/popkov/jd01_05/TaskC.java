@@ -49,9 +49,9 @@ public class TaskC {
                 System.out.print("\n╔═══════════╦═══════════╗\n");
             }
             if ((i + 1) % 2 == 0) {
-                System.out.printf("║ B[%2d]=%d ║", i + 1, b.get(i));
+                System.out.printf("║ B[%2d]=%d ║", (i + b.size()) / 2 + 1, b.get((i + b.size()) / 2));
             } else {
-                System.out.printf("║ B[%2d]=%d ", i + 1, b.get(i));
+                System.out.printf("║ B[%2d]=%d ", i / 2 + 1, b.get(i / 2));
             }
         }
         System.out.print("\n╚═══════════╩═══════════╝");
