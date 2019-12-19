@@ -83,7 +83,7 @@ public class TaskC {
         final int lengthOfField = 12; //Длина поля
         int arrayCounter = 0; //Счётчик [0 - длина массива и чуть больше. Но это не индекс!
         int arrayIndex;   //Индекс.
-        int printingStr = 0;  //Печатаемая строка
+        int printingStr = 0;  //номер печатаемой строки. Да, с нуля!
         int countOfStrings = inArray.length / countOfColumns;   //
         if (inArray.length % countOfColumns != 0) countOfStrings++;
         //псевдографическая строки, начинающие-разделюющие-завершающие массив
