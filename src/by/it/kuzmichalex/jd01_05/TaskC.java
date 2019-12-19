@@ -84,7 +84,7 @@ public class TaskC {
         int arrayCounter = 0; //Счётчик [0 - длина массива и чуть больше. Но это не индекс!
         int arrayIndex;   //Индекс.
         int printingStr = 0;  //номер печатаемой строки. Да, с нуля!
-        int countOfStrings = inArray.length / countOfColumns;   //
+        int countOfStrings = inArray.length / countOfColumns;
         if (inArray.length % countOfColumns != 0) countOfStrings++;
         //псевдографическая строки, начинающие-разделюющие-завершающие массив
         String strStart = formPeriodicString("╔", "╦", "╗", countOfColumns, lengthOfField);
@@ -96,14 +96,10 @@ public class TaskC {
             for (int printingColumn = 0; printingColumn < countOfColumns; printingColumn++) {
                 //Найдём индекс массива, в зависимости от горизонтальности
                 if (horizontal) arrayIndex = arrayCounter;
-                else {
-                    arrayIndex = printingColumn * countOfStrings + printingStr;
-                }
-                if (arrayIndex >= inArray.length) {
-                    for (int j = 0; j < lengthOfField; j++) System.out.print(" ");
-                } else {
-                    System.out.printf("%s[%2d]=%5.2f", arrayName, arrayIndex, inArray[arrayIndex]);
-                }
+                else arrayIndex = printingColumn * countOfStrings + printingStr;
+                //Печатнём элемент массива. А если вылезли за размерность будем печатать пробелы.
+                if (arrayIndex >= inArray.length) for (int j = 0; j < lengthOfField; j++) System.out.print(" ");
+                else System.out.printf("%s[%2d]=%5.2f", arrayName, arrayIndex, inArray[arrayIndex]);
                 System.out.print("║");
                 arrayCounter++;
             }
