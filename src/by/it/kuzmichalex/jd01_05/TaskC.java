@@ -128,20 +128,19 @@ public class TaskC {
      * @return Строка A====B====C. или A=====C для countOfElements==1
      */
     private static String formPeriodicString(String startSequence, String middleSequence, String finishSequence, int countOfElements, int lengthOfElement) {
-        String retString = new String();
-
-        retString = startSequence;
+        StringBuilder returnString = new StringBuilder();
+        returnString.append(startSequence);
 
         for (int i = 0; i < countOfElements; i++) {
             for (int j = 0; j < lengthOfElement; j++) {
-                retString += "═";
+                returnString.append("═");
             }
-            if (i == (countOfElements - 1)) retString += finishSequence;
+            if (i == (countOfElements - 1)) returnString.append(finishSequence); //retString += finishSequence;
             else {
-                retString += middleSequence;
+                returnString.append(middleSequence);
             }
         }
-        return retString;
+        return returnString.toString();
     }
 
     /**
