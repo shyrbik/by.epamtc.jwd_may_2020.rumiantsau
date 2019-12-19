@@ -41,6 +41,7 @@ public class TaskB {
             //  System.out.printf("%-25s %-11d %-11d %-11d %-11d %-25d %n",employes[i],salary [i][j],salary [i][j],salary [i][j],salary [i][j],sum);
         }
         middle = total / (n * 4);
+        System.out.println("----------------------------------------------------------------------------------------------------");
         System.out.printf("%-25s %-11.4f %n","Итого", total);
         System.out.printf("%-25s %-11.4f %n", "Средняя",middle);
 
