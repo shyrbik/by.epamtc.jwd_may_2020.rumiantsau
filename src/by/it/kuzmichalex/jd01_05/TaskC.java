@@ -82,22 +82,20 @@ public class TaskC {
     private static void printArrayBeautifully(double[] inArray, String arrayName, int countOfColumns, boolean horizontal) {
         final int lengthOfField = 12; //Длина поля
         int arrayCounter = 0; //Счётчик [0 - длина массива и чуть больше. Но это не индекс!
-        int arrayIndex = 0;   //Индекс.
+        int arrayIndex;   //Индекс.
         int printingStr = 0;  //Печатаемая строка
         int countOfStrings = inArray.length / countOfColumns;   //
         if (inArray.length % countOfColumns != 0) countOfStrings++;
-        String strStart;    //псевдографическая строка, начинающая массив
-        String strMiddle;   //псевдографическая строка, разделяющая строки
-        String strFinish;   //псевдографическая строка, завершающая строки
-        strStart = formPeriodicString("╔", "╦", "╗", countOfColumns, lengthOfField);
-        strMiddle = formPeriodicString("╠", "╬", "╣", countOfColumns, lengthOfField);
-        strFinish = formPeriodicString("╚", "╩", "╝", countOfColumns, lengthOfField);
+        //псевдографическая строки, начинающие-разделюющие-завершающие массив
+        String strStart = formPeriodicString("╔", "╦", "╗", countOfColumns, lengthOfField);
+        String strMiddle = formPeriodicString("╠", "╬", "╣", countOfColumns, lengthOfField);
+        String strFinish = formPeriodicString("╚", "╩", "╝", countOfColumns, lengthOfField);
         System.out.println(strStart);       //Стартовая строка
         do {
             System.out.print("║");          //Начинаем выводить строоку значений
             for (int printingColumn = 0; printingColumn < countOfColumns; printingColumn++) {
                 //Найдём индекс массива, в зависимости от горизонтальности
-                if (horizontal == true) arrayIndex = arrayCounter;
+                if (horizontal) arrayIndex = arrayCounter;
                 else {
                     arrayIndex = printingColumn * countOfStrings + printingStr;
                 }
@@ -151,8 +149,8 @@ public class TaskC {
      */
     private static double getGeometricMean(double[] arr) {
         double retValue = 0;
-        for (int i = 0; i < arr.length; i++) {
-            retValue += log10(arr[i]);
+        for (double v : arr) {
+            retValue += log10(v);
         }
         return retValue;
     }
