@@ -10,37 +10,38 @@ import java.util.regex.Pattern;
  */
 public class TaskA2 {
     private static String[] lexicon;
-    private static int[] counterWordUsed;
+    private static int[] countWordUsage;
 
     public static void main(String[] args) {
-        lexicon= new String[0];
-        counterWordUsed= new int[0];
+        lexicon = new String[0];
+        countWordUsage = new int[0];
         Pattern patternRussianWord = Pattern.compile("[А-Яа-яЁё]{1,}");
         Matcher russianWord = patternRussianWord.matcher(Poem.text);
-        while(russianWord.find()){
+        while (russianWord.find()) {
             calcWord(russianWord.group());
         }
         for (int i = 0; i < lexicon.length; i++) {
-            System.out.printf("%s=%d%n",lexicon[i],counterWordUsed[i]);
+            System.out.printf("%s=%d%n", lexicon[i], countWordUsage[i]);
         }
     }
 
     /**
      * Добавление слова в массив lexicon, если там его ещё нет
      * и подсчёт количества вхождений этого слова в совпадающем по индексам массиве counterWordUsed
+     *
      * @param wordToCalculate Добавляемое (подсчитываемое слово)
-     * */
+     */
     private static void calcWord(String wordToCalculate) {
-        for (int i = 0; i <lexicon.length ; i++) {
-            if(lexicon[i].equals(wordToCalculate)){
-                counterWordUsed[i]++;
+        for (int i = 0; i < lexicon.length; i++) {
+            if (lexicon[i].equals(wordToCalculate)) {
+                countWordUsage[i]++;
                 return;
             }
         }
         //Слово не найдено. будем добавлять
-        lexicon = Arrays.copyOf(lexicon,lexicon.length+1);
-        lexicon[lexicon.length-1]=wordToCalculate;
-        counterWordUsed=Arrays.copyOf(counterWordUsed,counterWordUsed.length+1);
-        counterWordUsed[counterWordUsed.length-1]=1;
+        lexicon = Arrays.copyOf(lexicon, lexicon.length + 1);
+        lexicon[lexicon.length - 1] = wordToCalculate;
+        countWordUsage = Arrays.copyOf(countWordUsage, countWordUsage.length + 1);
+        countWordUsage[countWordUsage.length - 1] = 1;
     }
 }
