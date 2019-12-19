@@ -44,9 +44,9 @@ public class TaskC {
                 System.out.println();
                 System.out.println("|_____________||_____________||_____________||_____________||_____________|");
             }
-            if (i==a.length-1){
-                int f=0;
-                while (f<4){
+            if (i == a.length - 1) {
+                int f = 0;
+                while (f < 4) {
                     System.out.print("|             |");
                     f++;
                 }
@@ -57,11 +57,35 @@ public class TaskC {
         System.out.println();
         int[] b = new int[n];
         System.out.println("Массив B[индекс по столбцу]");
-        for (int i = 0; i < b.length; i++) {
-            b[i] = a[a.length - 1 - n + i];
+        System.arraycopy(a, a.length - 1 - n, b, 0, b.length);
+        for (int i = 0; i < n / 6; i++) {
+            System.out.print("_______________");
         }
-        for (int i = 0; i < b.length; i++) {
+        if (n % 6 > 0) {
+            System.out.print("_______________");
+        }
+        System.out.println();
+        int m = 1;
+        for (int i = 0; i < 6; i++) {
+            int c = 6;
             System.out.printf("| %s[% -3d]= %d |", "B", i, b[i]);
+            int count=1;
+            while (i + c < b.length) {
+                System.out.printf("| %s[% -3d]= %d |", "B", i + c, b[i + c]);
+                c += 6;
+                if (i==0){
+                    m++;
+                }
+                count++;
+            }
+            if (count<m){
+                System.out.print("|             |");
+            }
+            System.out.println();
+            for (int j = 0; j < m; j++) {
+                System.out.print("|_____________|");
+            }
+            System.out.println();
         }
     }
 }
