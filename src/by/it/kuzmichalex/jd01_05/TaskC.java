@@ -85,7 +85,7 @@ public class TaskC {
         int arrayIndex = 0;   //Индекс.
         int printingStr = 0;  //Печатаемая строка
         int countOfStrings = inArray.length / countOfColumns;   //
-        if (inArray.length % countOfColumns == 0) countOfStrings++;
+        if (inArray.length % countOfColumns != 0) countOfStrings++;
         String strStart;    //псевдографическая строка, начинающая массив
         String strMiddle;   //псевдографическая строка, разделяющая строки
         String strFinish;   //псевдографическая строка, завершающая строки
