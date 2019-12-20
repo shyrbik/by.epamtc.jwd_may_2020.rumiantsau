@@ -30,7 +30,6 @@ public class TaskB2 {
         for (int i = 0, textArrayLength = textArray.length; i < textArrayLength; i++) {
             if (i == 4) continue;
             newText.append(textArray[i]).append("\n");
-
         }
         System.out.print(newText);
     }
