@@ -9,7 +9,11 @@ public class TaskA1 {
         Pattern p1 = Pattern.compile("[[А-Я[а-я]]Ёё]{4,}");
         Matcher m1 = p1.matcher(text);
         while (m1.find()){
-            System.out.println(m1.group());
+            text.replace(m1.start()+3, m1.start()+4,"#");
+            if (m1.group().length()>6){
+                text.replace(m1.start()+6, m1.start()+7,"#");
+            }
         }
+        System.out.println(text);
     }
 }
