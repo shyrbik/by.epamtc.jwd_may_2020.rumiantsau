@@ -16,8 +16,22 @@ public class TaskB2 {
         String[] textArray = split.split(sbText);
         for (int i = 0; i < textArray.length; i++) {
             textArray[i] = textArray[i].trim().replaceAll("\\s{2,}", " ");
-            System.out.println(textArray[i]);
         }
+        for (int a = 1; a < textArray.length; a++) {
+            for (int b = textArray.length - 1; b >= a; b--) {
+                if (textArray[b - 1].length() > textArray[b].length()) {
+                    String t = textArray[b - 1];
+                    textArray[b - 1] = textArray[b];
+                    textArray[b] = t;
+                }
+            }
+        }
+        StringBuilder newText = new StringBuilder();
+        for (int i = 0, textArrayLength = textArray.length; i < textArrayLength; i++) {
+            if (i == 4) continue;
+            newText.append(textArray[i]).append("\n");
 
+        }
+        System.out.print(newText);
     }
 }
