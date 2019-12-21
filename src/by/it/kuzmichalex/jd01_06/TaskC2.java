@@ -9,7 +9,7 @@ import java.util.Random;
  */
 public class TaskC2 {
     final static int countOfWords = 10000;
-    final static int initRandomValue = 1234;
+    final static int initRandomValue = 12345;
 
     public static void main(String[] args) {
         final String testText = "Soy un chico delicado Que nacio para el amor Esto coche me ha estopeado Para las pilas senor";
