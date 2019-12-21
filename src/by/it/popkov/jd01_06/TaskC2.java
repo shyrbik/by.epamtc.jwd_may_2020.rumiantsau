@@ -33,9 +33,8 @@ public class TaskC2 {
         String outText = "";
         String[] words = textToWords(text);
         Random rand = new Random(47);
-        while (outText.length() <= 150000) {
-            int r = rand.nextInt(words.length);
-            outText += words[r] + " ";
+        while (outText.length() <= 100000) {
+            outText += words[rand.nextInt(words.length)] + " ";
         }
         return outText;
     }
@@ -44,9 +43,8 @@ public class TaskC2 {
         StringBuilder outText = new StringBuilder();
         String[] words = textToWords(text);
         Random rand = new Random(47);
-        while (outText.length() <= 150000) {
-            int r = rand.nextInt(words.length);
-            outText.append(words[r]).append(" ");
+        while (outText.length() <= 100000) {
+            outText.append(words[rand.nextInt(words.length)]).append(" ");
         }
         return outText.toString();
     }
