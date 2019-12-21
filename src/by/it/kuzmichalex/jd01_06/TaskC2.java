@@ -27,7 +27,7 @@ public class TaskC2 {
     /**
      * @param inputString Строка текста, слова которого будут применяться для сосотавления случайного текста
      * @return Случайный текст.
-     * @author kuzmivhalex
+     * @author kuzmichalex
      * Медленная операция составления случайного текста из слов входного предложения
      */
     private static String slow(String inputString) {
@@ -46,7 +46,7 @@ public class TaskC2 {
     /**
      * @param inputString Строка текста, слова которого будут применяться для сосотавления случайного текста
      * @return Случайный текст.
-     * @author kuzmivhalex
+     * @author kuzmichalex
      * Быстрая операция составления случайного текста из слов входного предложения
      */
     private static String fast(String inputString) {
