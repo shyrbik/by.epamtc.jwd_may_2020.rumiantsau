@@ -28,7 +28,7 @@ public class TaskA2 {
     /**
      * Добавление слова в массив lexicon, если там его ещё нет
      * и подсчёт количества вхождений этого слова в совпадающем по индексам массиве counterWordUsed
-     *
+     * @author kuzmichalex
      * @param wordToCalculate Добавляемое (подсчитываемое слово)
      */
     private static void calcWord(String wordToCalculate) {

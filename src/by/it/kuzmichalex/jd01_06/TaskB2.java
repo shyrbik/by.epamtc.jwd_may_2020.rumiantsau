@@ -5,6 +5,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /***
+ * @author kuzmichalex
  * Задание B2. Вывести через \n предолжения поэмы в порядке возрастания количества символов.
  */
 public class TaskB2 {

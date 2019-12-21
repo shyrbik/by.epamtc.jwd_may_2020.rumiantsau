@@ -5,6 +5,7 @@ import com.sun.org.apache.xml.internal.utils.StringBufferPool;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 /**
+ * @author kuzmichalex
  * Тестовое задание B1 Вывод слов поэмы, начинающихся солгасной буквой и заканчивающейся гласной
  * */
 public class TaskB1 {
@@ -17,6 +18,7 @@ public class TaskB1 {
         }
     }
     /**
+     * @author kuzmichalex
      * Проверка слова. Должно начинаться согласной буквой и заканчиваться гласной. регулярные не использовать.
      * @param wordToCheck проверяемое слова
      * @return true если слово начинается с согласной буквы и заканчивается гласной

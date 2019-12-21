@@ -4,6 +4,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
+ * @author kuzmichalex
  * Тестовое задание A1 в каждом смлове 4 и 7 заменить на диез
  * */
 public class TaskA1 {
