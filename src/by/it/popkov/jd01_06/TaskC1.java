@@ -51,9 +51,9 @@ public class TaskC1 {
             }
             while (sbRow.length() != max) {
 
-                for (int i1 = pos.length - 1; i1 >= 0; i1--) {
+                for (int i1 = 0, shift = 0; i1 < pos.length; i1++, shift++) {
                     if (sbRow.length() == max) break;
-                    sbRow.insert(pos[i1], " ");
+                    sbRow.insert(pos[i1]+shift, " ");
                 }
                 Matcher m2 = p.matcher(sbRow);
                 int newPos = 0;
