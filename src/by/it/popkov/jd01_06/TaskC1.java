@@ -19,7 +19,7 @@ public class TaskC1 {
             }
         }
         for (int i = 0; i < rows.length; i++) {
-//            Pattern p = Pattern.compile(" ");
+            Pattern p = Pattern.compile(" +");
 //            String[] word = p.split(rows[i]);
 //            int counter = 0;
 //            for (int j = 0; counter != max; j++) {
@@ -43,8 +43,10 @@ public class TaskC1 {
 //                rows[i] += word[i1];
 //            }
 //            Matcher m = p.matcher(rows[i]);
-//            while (m.find() && rows[i].length() != max) {
-//                rows[i] = rows[i].split(p)
+//            while (m.find() && rows[i].length() < max) {
+//                StringBuilder sb = new StringBuilder(rows[i]);
+//                sb.insert(m.end()," ");
+//                rows[i] = sb.toString();
 //            }
             for (int j = 1; rows[i].length() < max; j++) {
                 rows[i] = rows[i].replaceFirst(" ", "  ");
