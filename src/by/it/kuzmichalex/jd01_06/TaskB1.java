@@ -25,7 +25,7 @@ public class TaskB1 {
      * */
     private static boolean checkWord(String wordToCheck) {
         final String aaaLetters="АЕЁИОУЫЭЮЯ";    //Их так мало. Кто бы мог подумать!
-        final String bbbLetters="БВГДЖЗЙКЛМНПРСТФХЦЧШЩЬЪ";
+        final String bbbLetters="БВГДЖЗЙКЛМНПРСТФХЦЧШЩЬЪ";      //Дада. Я в курсе, что можно обойтись одним массивом.
         if(wordToCheck.length()<1)return false;
         StringBuffer letter = new StringBuffer();
         letter.append(wordToCheck.toUpperCase().charAt(0));
