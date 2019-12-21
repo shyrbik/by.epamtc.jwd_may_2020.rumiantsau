@@ -16,10 +16,12 @@ public class TaskC2 {
         long slowTime = System.nanoTime();
         String resultString = slow(testText);
         slowTime = System.nanoTime() - slowTime;
+        System.out.println("Медленный метод: " + slowTime);
 
         long fastTime = System.nanoTime();
         resultString = fast(testText);
-        fastTime=fastTime -System.nanoTime();
+        fastTime = System.nanoTime()-fastTime;
+        System.out.println("Быстрый метод: " + fastTime);
     }
 
     /**
