@@ -1,4 +1,4 @@
-package by.it.rumiantcau;
+package by.it.rumiantcau.jd01_01;
 
 public class Main {
 

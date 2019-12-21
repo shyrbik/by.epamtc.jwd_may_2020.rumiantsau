@@ -1,4 +1,4 @@
-package by.it.rumiantcau;
+package by.it.rumiantcau.jd01_01;
 
 /*
 Ускорение свободного падения на Земле и Марсе таково:

@@ -1,4 +1,4 @@
-package by.it.rumiantcau;
+package by.it.rumiantcau.jd01_01;
 /*
         Уберите комментарии с части кода, чтобы на экран вывелось сообщение «C Новым Годом».
 
