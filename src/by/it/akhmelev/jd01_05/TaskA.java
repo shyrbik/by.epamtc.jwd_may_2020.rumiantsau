@@ -16,6 +16,8 @@ public class TaskA {
         double part3=log(abs((a-1.12*x)/4));
         double z=part1-part2-part3;
         System.out.println("z="+z);
+        //ok
+
     }
 
 
