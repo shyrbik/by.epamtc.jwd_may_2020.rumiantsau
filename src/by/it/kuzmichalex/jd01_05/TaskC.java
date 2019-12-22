@@ -144,10 +144,11 @@ public class TaskC {
      * @return среднее геометрическое
      */
     private static double getGeometricMean(double[] arr) {
-        double retValue = 0;
+        double retValue = 1;
         for (double v : arr) {
-            retValue += log10(v);
+            retValue *= v;
         }
+        retValue=pow(retValue,1.0/arr.length);
         return retValue;
     }
 
