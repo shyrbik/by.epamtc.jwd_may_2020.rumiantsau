@@ -146,7 +146,7 @@ public class TaskC {
     private static double getGeometricMean(double[] arr) {
         double retValue = 0;
         for (double v : arr) {
-            retValue += log10(v);
+            retValue += log(v);
         }
         return retValue;
     }
