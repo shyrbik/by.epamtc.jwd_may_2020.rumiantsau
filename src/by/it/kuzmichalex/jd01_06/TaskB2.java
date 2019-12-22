@@ -1,9 +1,5 @@
 package by.it.kuzmichalex.jd01_06;
 
-import java.util.Arrays;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
 /***
  * @author kuzmichalex
  * Задание B2. Вывести через \n предолжения поэмы в порядке возрастания количества символов.
@@ -14,7 +10,7 @@ public class TaskB2 {
         String inputBuffer = new String(Poem.text.replace("\n", " ").replace("!",".").replace(" - "," ").
                 replace("...","").replace(",","").replace(":","").trim());
         String[] arrSentences=inputBuffer.split("[\\\\.][ ]");
-        //Наверняка есть способ отсортировать это при помощи Arrays.sort и copmarator.... аа, ладно.
+        //Наверняка есть способ отсортировать это при помощи Arrays.sort и comparator.... аа, ладно.
         int[] arrLength=new int[arrSentences.length];
         int minLength=Integer.MAX_VALUE;
         int maxLength=Integer.MIN_VALUE;
