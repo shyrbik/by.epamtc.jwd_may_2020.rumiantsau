@@ -56,6 +56,7 @@ public class TaskC2 {
 
         for (int i = 0; i < countOfWords; i++) {
             int randomIdx = pseudoRandom.nextInt(arrWords.length);
+            //Как показал эксперимент, 2 раза append быстрее колбасы их двух append
             returnString.append(arrWords[randomIdx]);
             returnString.append(" ");
         }
