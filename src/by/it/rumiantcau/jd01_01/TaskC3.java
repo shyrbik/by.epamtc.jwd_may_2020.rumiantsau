@@ -1,5 +1,7 @@
 package by.it.rumiantcau.jd01_01;
 
+import java.util.Scanner;
+
 /*
 Ускорение свободного падения на Земле и Марсе таково:
 Марс   3.86
@@ -30,5 +32,8 @@ package by.it.rumiantcau.jd01_01;
 
 */
 class TaskC3 {
+
+
+
 
 }
