@@ -1,13 +1,9 @@
 package by.it.lozouski.jd01_06;
 
-import java.util.Arrays;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
 public class TaskB2 {
     public static void main(String[] args) {
         String sbr = Poem.text;
-        String[] sss = sbr.replaceAll("[\\n]|(\\.){2,}", " ").split("\\.+");
+        String[] sss = sbr.replaceAll("[\\n]|(\\.){2,}", " ").split("\\.");
         for (int i = 0; i < sss.length; i++) {
             sss[i] = sss[i].replaceAll("[^ЁёА-Яа-я\\s]", "").replaceAll("\\s+",  " ").trim();
         }
