@@ -4,28 +4,41 @@ import java.util.Scanner;
 
 public class TaskC {
     public static int[][] step1(int n) {
-        int[][] mass = new int[n][n];
-        boolean f1 = false, f2 = false;
-        while (!f1 && !f2) {
+        boolean isNumbers = false;
+        int[][] result = null;
+        while (!isNumbers) {
+            boolean flagPos = false;
+            boolean flagNeg = false;
+            result = new int[n][n];
             for (int i = 0; i < n; i++) {
                 for (int j = 0; j < n; j++) {
-                    mass[i][j] = (int) (Math.random() * (n + n + 1)) + (-n);
-                    if (mass[i][j] == n) {
-                        f1 = true;
+                    result[i][j] = randomNumber(n);
+
+                    if (!flagPos && result[i][j] == n) {
+                        flagPos = true;
                     }
-                    if (mass[i][j] == -n) {
-                        f2 = true;
+                    if (!flagNeg && result[i][j] == -n) {
+                        flagNeg = true;
                     }
                 }
             }
+            isNumbers = flagPos && flagNeg;
         }
-        for (int i = 0; i < n; i++) {
-            for (int j = 0; j < n; j++) {
-                System.out.print(mass[i][j] + " ");
+        printMatrix(result);
+        return result;
+    }
+
+    private static int randomNumber(int sizeMass) {
+        return (int) (Math.random() * (sizeMass * 2 + 1)) - sizeMass;
+    }
+
+    private static void printMatrix(int[][] mass) {
+        for (int[] ints : mass) {
+            for (int j = 0; j < mass[0].length; j++) {
+                System.out.print(ints[j] + " ");
             }
-            System.out.println();
+            System.out.print("\n");
         }
-        return mass;
     }
 
     public static int step2(int[][] mas) {
@@ -105,12 +118,7 @@ public class TaskC {
             }
         }
         System.out.println("step3");
-        for (int i = 0; i < masResult.length; i++) {
-            for (int j = 0; j < masResult[i].length; j++) {
-                System.out.print(masResult[i][j] + " ");
-            }
-            System.out.println();
-        }
+        printMatrix(masResult);
         return masResult;
     }
 
