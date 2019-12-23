@@ -75,77 +75,84 @@ public class TaskC {
     private static void printArrayA(int[] arrayA) {
         int cols = 0;
         System.out.print ("\u2554");
-        for (int i = 1; i < 65; i++) {
+        for (int i = 1; i < 55; i++) {
             System.out.print ("\u2550");
-            if (i%13==0) System.out.print ("\u2566");
+            if (i%11==0) System.out.print ("\u2566");
         }
         System.out.println ("\u2557");
+
+        // основной вывод массива
         for (int i = 0; i < arrayA.length; i++) {
-            System.out.printf("\u2551  %s[%2d]=%3d  ", "A", i, arrayA[i]);
+            System.out.printf("\u2551 %s[%2d]=%3d ", "A", i, arrayA[i]);
             cols++;
             if (cols%5 == 0) {
                 System.out.print ("\u2551\n");
                 System.out.print ("\u2560");
-                for (int j = 1; j < 65; j++) {
+                for (int j = 1; j < 55; j++) {
                     System.out.print ("\u2550");
-                    if (j%13==0) System.out.print ("\u256C");
+                    if (j%11==0) System.out.print ("\u256C");
                 }
                 System.out.println ("\u2563");
             }
             if ((i==arrayA.length-1)&(arrayA.length-1%5!=0)) {
                 for (int j = 0; j < 5-((arrayA.length)%5); j++) {
-                    System.out.printf("\u2551             ");
+                    System.out.printf("\u2551           ");
                 }
                 System.out.printf ("\u2551\n");
             }
         }
         System.out.print ("\u255A");
-        for (int i = 1; i < 65; i++) {
+        for (int i = 1; i < 55; i++) {
             System.out.print ("\u2550");
-            if (i%13==0) System.out.print ("\u2569");
+            if (i%11==0) System.out.print ("\u2569");
         }
         System.out.println ("\u255D");
     }
 
     private static void printArrayB(int[] arrayB) {
-        int cols = 0;
+        int rows = round(arrayB.length/5);
+        if (arrayB.length%5<5) rows++;
 
-       /* System.out.print ("\u2554");
-        for (int i = 1; i < 65; i++) {
+        System.out.print ("\u2554");
+        for (int i = 1; i < 55; i++) {
             System.out.print ("\u2550");
-            if (i%13==0) System.out.print ("\u2566");
+            if (i%11==0) System.out.print ("\u2566");
         }
-        System.out.println ("\u2557");*/
-        for (int i = 0; i < arrayB.length; i++) {
-
-            System.out.printf("\u2551  %s[%2d]=%3d  ", "B", i, arrayB[i]);
-            cols++;
-            if (cols%5 == 0) {
-                System.out.print ("\u2551\n");
-              /*  System.out.print ("\u2560");
-                for (int j = 1; j < 65; j++) {
-                    System.out.print ("\u2550");
-                    if (j%13==0) System.out.print ("\u256C");
+        System.out.println ("\u2557");
 
 
+        // основной вывод массива
+        for (int i = 0; i <= rows; i++) {
+            int cols = 0;
+            for (int j = i;  j< arrayB.length; j=j+rows) {
+                System.out.printf("\u2551 %s[%2d]=%3d ", "B", j, arrayB[j]);
+                cols++;
+                if (((j+rows)>arrayB.length-1)&(cols == 4)) {
+                    System.out.printf("\u2551           ");
+                    cols++;
                 }
-                System.out.println ("\u2563");*/
-            }
-          /*  if ((i==arrayB.length-1)&(arrayB.length-1%5!=0)) {
-                for (int j = 0; j < 5-((arrayB.length)%5); j++) {
-                    System.out.printf("\u2551             ");
+                if (cols == 5) {
+                    System.out.println("\u2551");
+                    if (i!=rows) {
+                        System.out.print ("\u2560");
+                        for (int k = 1; k < 55; k++) {
+                            System.out.print ("\u2550");
+                            if (k%11==0) System.out.print ("\u256C");
+                        }
+                        System.out.println ("\u2563");
+                    }
+                    break;
                 }
-                System.out.printf ("\u2551\n");
             }
-*/
         }
-       /* System.out.print ("\u255A");
-        for (int i = 1; i < 65; i++) {
+        System.out.print ("\u255A");
+        for (int i = 1; i < 55; i++) {
             System.out.print ("\u2550");
-            if (i%13==0) System.out.print ("\u2569");
-
+            if (i%11==0) System.out.print ("\u2569");
         }
-        System.out.println ("\u255D");*/
+        System.out.println ("\u255D");
+
+
     }
 
 }
