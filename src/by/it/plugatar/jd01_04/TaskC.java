@@ -19,12 +19,12 @@ public class TaskC {
         }
     }
     static void buildOneDimArray(String line){
-        double [] array= by.it.Plugatar.jd01_03.InOut.getArray(line);
+        double [] array= by.it.plugatar.jd01_03.InOut.getArray(line);
         double first=array[0];
         double last = array[array.length-1];
-        by.it.Plugatar.jd01_03.InOut.printArray(array,"V",5);//2-ой пункт
-        by.it.Plugatar.jd01_03.Helper.sort(array);//3-ий пункт
-        by.it.Plugatar.jd01_03.InOut.printArray(array,"V",4);//4-ий пункт
+        by.it.plugatar.jd01_03.InOut.printArray(array,"V",5);//2-ой пункт
+        by.it.plugatar.jd01_03.Helper.sort(array);//3-ий пункт
+        by.it.plugatar.jd01_03.InOut.printArray(array,"V",4);//4-ий пункт
         for (int i = 0; i <array.length ; i++) {
             if (array[i]==first) System.out.println("first element="+i);//break;//indexFirst=i;
         }
@@ -32,11 +32,11 @@ public class TaskC {
             if (array[i]==last) System.out.println("last element="+i);//break;//indexLast=i;
         }
         String name = "V";
-        by.it.Plugatar.jd01_03.InOut.printArray(array, name, 5);
+        by.it.plugatar.jd01_03.InOut.printArray(array, name, 5);
         //double first = array[0];
        // double last = array[array.length - 1];
         mergeSort(array);
-        by.it.Plugatar.jd01_03.InOut.printArray(array, name, 4);
+        by.it.plugatar.jd01_03.InOut.printArray(array, name, 4);
 
     }
 

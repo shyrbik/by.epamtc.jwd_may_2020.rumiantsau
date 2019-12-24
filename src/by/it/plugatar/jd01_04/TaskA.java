@@ -1,7 +1,7 @@
-package by.it.Plugatar.jd01_04;
+package by.it.plugatar.jd01_04;
 
-import by.it.Plugatar.jd01_03.Helper;
-import by.it.Plugatar.jd01_03.InOut;
+import by.it.plugatar.jd01_03.Helper;
+import by.it.plugatar.jd01_03.InOut;
 
 import java.util.Arrays;
 import java.util.Scanner;

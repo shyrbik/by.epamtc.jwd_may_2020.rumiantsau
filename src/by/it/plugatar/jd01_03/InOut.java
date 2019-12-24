@@ -1,4 +1,4 @@
-package by.it.Plugatar.jd01_03;
+package by.it.plugatar.jd01_03;
 
  public class InOut {
     public static double[] getArray(String line) {
