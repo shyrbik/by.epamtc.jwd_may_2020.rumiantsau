@@ -1,4 +1,4 @@
-package by.it.Plugatar.jd01_03;
+package by.it.plugatar.jd01_03;
 
 public class Helper {
     static double findMin(double[ ] arr){
@@ -39,5 +39,12 @@ public class Helper {
             }
         return arr;
     }
-
+    static double[] mul(double[][] matrix, double[] vector) {
+        double[] res = new double[matrix.length];
+        for (int i = 0; i < matrix.length; i++)
+            for (int j = 0; j < matrix[0].length; j++) {
+                res[i] += matrix[i][j] * vector[j];
+            }
+        return res;
+    }
 }
