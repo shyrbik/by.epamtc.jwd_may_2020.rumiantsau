@@ -1,8 +1,10 @@
 package by.it.akhmelev.jd01_01;
 
+import java.util.Scanner;
+
 /*
 Ускорение свободного падения на Земле и Марсе таково:
-Марс   3.86
+Марс   3.86/9.81
 Земля   9.81
 
 С клавиатуры вводится вес человека в килограммах.
@@ -30,5 +32,23 @@ package by.it.akhmelev.jd01_01;
 
 */
 class TaskC3 {
+
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        int me = scanner.nextInt();
+        double mm = getWeight(me);
+
+    }
+
+    private static double getWeight(int me) {
+        double mm = me * 3.86 / 9.81;
+        int mm100 = (int) (mm * 100);
+        double delta = mm * 100 - mm100;
+        if (delta >= 0.5)
+            return (mm100 + 1) / 100.0;
+        else
+            return (mm100) / 100;
+    }
 
 }
