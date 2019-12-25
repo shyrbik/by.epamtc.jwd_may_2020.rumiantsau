@@ -6,6 +6,7 @@ package by.it.rumiantcau.jd01_07;
 //3. Из строки вида {1.0, 2.0, 4.0} сигнатура конструктора Vector(String strVector)
 //    Переопределите метод String toString() так, чтобы он возвращал строку вида {1.0, 2.0, 4.0}
 
+import java.lang.reflect.Array;
 import java.util.Arrays;
 
 class Vector extends Var {
@@ -19,6 +20,22 @@ class Vector extends Var {
     Vector(Vector vector) {
         this.value = vector.value;
     }
+
+    Vector(String strVector){
+        strVector = strVector.replace("{", "");
+        strVector = strVector.replace("}", "");
+        String[] sb= strVector.split(",");
+
+        this.value = new double[sb.length];
+        for (int i = 0; i < sb.length; i++) {
+                value [i] = Double.parseDouble(sb[i]) ;
+        }
+        }
+
+
+
+
+
 
 
 
