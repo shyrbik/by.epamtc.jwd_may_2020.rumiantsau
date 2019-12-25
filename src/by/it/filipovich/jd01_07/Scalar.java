@@ -1,7 +1,5 @@
 package by.it.filipovich.jd01_07;
 
-import java.util.Scanner;
-
 public class Scalar extends Var {
     private double value;
 
