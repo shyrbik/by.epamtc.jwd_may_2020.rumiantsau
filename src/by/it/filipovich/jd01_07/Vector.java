@@ -1,5 +1,7 @@
 package by.it.filipovich.jd01_07;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Vector extends Var{
 
@@ -11,12 +13,23 @@ public class Vector extends Var{
     }
 
     public Vector(Vector vector){
-        this.value = new double[vector.value.length];
-        System.arraycopy(vector,0,this.value,0,vector.value.length);
+        this.value = vector.value;
     }
 
     public Vector(String strVector){
+        Pattern pattern = Pattern.compile("[^}{]+");
+        Matcher matcher = pattern.matcher(strVector);
+        if (matcher.find()) {
+            String[] a = matcher.group().replaceAll("\\,","").split(" ");
 
+            double[] arr = new double[a.length];
+            for (int i = 0; i < a.length; i++) {
+                arr[i] = Double.parseDouble(a[i]);
+            }
+            this.value = new double[arr.length];
+            System.arraycopy(arr, 0, this.value, 0, arr.length);
+
+        }
     }
 
     public String toString(){
