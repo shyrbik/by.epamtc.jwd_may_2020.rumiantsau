@@ -20,6 +20,8 @@ class Vector extends Var {
         this.value = vector.value;
     }
 
+
+
     public String toString() {
         StringBuilder sb=new StringBuilder("{");
         String delimiter="";
