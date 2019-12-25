@@ -25,7 +25,6 @@ class Matrix extends Var {
         Matcher m = p.matcher(str);
         double[][] array = new double[2][2];
         int i = 0;
-
         while (m.find()){
             String string = m.group();
             if (!string.equals(",")) {
