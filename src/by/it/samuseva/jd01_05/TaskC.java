@@ -63,7 +63,6 @@ public class TaskC {
                 index++;
             }
         }
-        System.out.println(arrayB.length);
         Arrays.sort(arrayB);
         System.out.println("Массив А (индекс по строкам)");
         printArrayA(arrayA);
