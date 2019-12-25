@@ -24,5 +24,8 @@ public class Runner {
         Matrix matrix = new Matrix(new double[][]{{1.0, 2.0}, {3.0, 4.0}});
         System.out.println(matrix);
 
+        Matrix matrix2 = new Matrix(matrix);
+        System.out.println(matrix2);
+
     }
 }
