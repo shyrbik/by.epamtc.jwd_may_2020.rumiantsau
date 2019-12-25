@@ -1,7 +1,5 @@
 package by.it.filipovich.jd01_07;
 
-import java.lang.reflect.Array;
-
 public class Matrix extends Var {
 
     private double[][] value;
@@ -14,6 +12,10 @@ public class Matrix extends Var {
             this.value[i][j] = value[i][j];
         }
     }
+    }
+
+    public Matrix(Matrix matrix){
+        this.value = matrix.value;
     }
 
     public String toString(){
