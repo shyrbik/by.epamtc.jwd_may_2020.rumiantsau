@@ -9,5 +9,9 @@ public class Runner {
         System.out.println(v2);
         System.out.println(v3);
 
+        Var v4 = new Vector(new String("{1.0, 2.0, 6.0}"));
+
+        System.out.println(v4);
+
     }
 }
