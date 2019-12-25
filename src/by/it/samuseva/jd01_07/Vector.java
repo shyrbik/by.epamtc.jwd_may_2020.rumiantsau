@@ -15,7 +15,7 @@ class Vector extends Var {
         str.trim();
        //  по другому не смогла удолить фигурные скобки
         String[] string = str.split("[{ ,}]+");
-        if (string[0]!="")
+        if (string[0].equals(""))
             for (int i = 0; i < string.length-1; i++) {
                 string[i]=string[i+1];
             }
