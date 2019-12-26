@@ -13,7 +13,7 @@ public class Vector extends Var{
     }
 
     public Vector(Vector vector){
-        this.value = vector.value;
+        this(vector.value);
     }
 
     public Vector(String strVector){

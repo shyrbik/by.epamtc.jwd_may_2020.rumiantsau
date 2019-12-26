@@ -15,7 +15,7 @@ public class Matrix extends Var {
     }
 
     public Matrix(Matrix matrix){
-        this.value = matrix.value;
+        this(matrix.value);
     }
 
     public Matrix(String strMatrix){
