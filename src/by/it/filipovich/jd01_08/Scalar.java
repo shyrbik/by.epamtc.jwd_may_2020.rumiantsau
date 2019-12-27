@@ -32,7 +32,7 @@ public class Scalar extends Var {
             double diff = this.value - ((Scalar) other).value;
             return new Scalar(diff);
         }
-        return other.sub(this);
+        return other.mul(new Scalar (-1)).add(this);
     }
 
     @Override
