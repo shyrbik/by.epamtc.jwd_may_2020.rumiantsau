@@ -1,6 +1,5 @@
 package by.it.akhmelev.jd01_07;
 
-import java.util.Arrays;
 
 class Vector extends Var {
     private double[] value;
