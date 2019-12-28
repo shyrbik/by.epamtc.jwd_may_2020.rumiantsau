@@ -1,5 +1,6 @@
 package by.it.popkov.jd01_08;
 
+
 class Vector extends Var {
     private double[] value;
 
@@ -60,16 +61,49 @@ class Vector extends Var {
 
     @Override
     public Var sub(Var other) {
-        return super.sub(other);
+        if (other instanceof Vector) {
+            double[] out = new double[this.value.length];
+            for (int i = 0; i < out.length; i++) {
+                out[i] = this.value[i] - ((Vector) other).value[i];
+            }
+            return new Vector(out);
+        } else if (other instanceof Scalar) {
+            double[] out = new double[this.value.length];
+            for (int i = 0; i < out.length; i++) {
+                out[i] = this.value[i] - ((Scalar) other).getValue();
+            }
+            return new Vector(out);
+        }
+        return super.mul(other);
     }
 
     @Override
     public Var mul(Var other) {
+        if (other instanceof Scalar) {
+            double[] out = new double[this.value.length];
+            for (int i = 0; i < out.length; i++) {
+                out[i] = this.value[i] * ((Scalar) other).getValue();
+            }
+            return new Vector(out);
+        } else if (other instanceof Vector) {
+            double out = 0;
+            for (int i = 0; i < this.value.length; i++) {
+                out += this.value[i] * ((Vector) other).value[i];
+            }
+            return new Scalar(out);
+        }
         return super.mul(other);
     }
 
     @Override
     public Var div(Var other) {
+        if (other instanceof Scalar) {
+            double[] out = new double[this.value.length];
+            for (int i = 0; i < out.length; i++) {
+                out[i] = this.value[i] / ((Scalar) other).getValue();
+            }
+            return new Vector(out);
+        }
         return super.div(other);
     }
 }
