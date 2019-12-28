@@ -35,4 +35,31 @@ class Vector extends Var {
         }
         return toStr.toString();
     }
+
+    @Override
+    public Var add(Var other) {
+        if (other instanceof Vector) {
+            double[] out = new double[this.value.length];
+            for (int i = 0; i < out.length; i++) {
+                out[i] = this.value[i] + ((Vector) other).value[i];
+            }
+            return new Vector(out);
+        }
+        return other.add(this);
+    }
+
+    @Override
+    public Var sub(Var other) {
+        return super.sub(other);
+    }
+
+    @Override
+    public Var mul(Var other) {
+        return super.mul(other);
+    }
+
+    @Override
+    public Var div(Var other) {
+        return super.div(other);
+    }
 }
