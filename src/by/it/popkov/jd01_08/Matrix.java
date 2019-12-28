@@ -66,6 +66,10 @@ class Matrix extends Var {
         return toStr.toString();
     }
 
+    public double[][] getValue() {
+        return value;
+    }
+
     @Override
     public Var add(Var other) {
         return super.add(other);

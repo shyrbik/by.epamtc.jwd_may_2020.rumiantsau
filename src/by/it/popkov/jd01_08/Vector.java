@@ -36,12 +36,22 @@ class Vector extends Var {
         return toStr.toString();
     }
 
+    public double[] getValue() {
+        return value;
+    }
+
     @Override
     public Var add(Var other) {
         if (other instanceof Vector) {
             double[] out = new double[this.value.length];
             for (int i = 0; i < out.length; i++) {
                 out[i] = this.value[i] + ((Vector) other).value[i];
+            }
+            return new Vector(out);
+        } else if (other instanceof Scalar) {
+            double[] out = new double[this.value.length];
+            for (int i = 0; i < out.length; i++) {
+                out[i] = this.value[i] + ((Scalar) other).getValue();
             }
             return new Vector(out);
         }
