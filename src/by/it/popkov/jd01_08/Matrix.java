@@ -82,7 +82,7 @@ class Matrix extends Var {
 
     @Override
     public Var mul(Var other) {
-        if (other instanceof Matrix){
+        if (other instanceof Matrix) {
             double[][] outPut = new double[this.value.length][((Matrix) other).value[0].length];
             for (int i = 0; i < this.value.length; i++) {
                 for (int j = 0; j < ((Matrix) other).value[0].length; j++) {
@@ -92,16 +92,23 @@ class Matrix extends Var {
                 }
             }
             return new Matrix(outPut);
-        }
-        if (other instanceof Vector){
+        } else if (other instanceof Vector) {
             double[] vector = ((Vector) other).getValue();
-            double[] outPut = new double[value.length];
+            double[] outPut = new double[this.value.length];
             for (int i = 0; i < this.value.length; i++) {
                 for (int j = 0; j < vector.length; j++) {
                     outPut[i] = outPut[i] + this.value[i][j] * vector[j];
                 }
             }
             return new Vector(outPut);
+        } else if (other instanceof Scalar) {
+            double[][] outPut = new double[this.value.length][this.value[0].length];
+            for (int i = 0; i < this.value.length; i++) {
+                for (int j = 0; j < this.value[0].length; j++) {
+                    outPut[i][j] = this.value[i][j] * ((Scalar) other).getValue();
+                }
+            }
+            return new Matrix(outPut);
         }
         return super.mul(other);
     }
