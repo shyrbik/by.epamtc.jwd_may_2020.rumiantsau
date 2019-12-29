@@ -36,11 +36,19 @@ class Matrix extends Var {
             numCounter++;
         }
         strMatrix = strMatrix.replaceAll(" }", "");
-        String[] nums = strMatrix.split("  ");
+        String[] nums = strMatrix.split(" ");
+        String[] newNums = new  String[nums.length+1/2];
+        for (int i = 0, j = 0; i < newNums.length; i++) {
+            if (!nums[i].equals("")){
+                newNums[j] = nums[i];
+                j++;
+            }
+        }
+
         value = new double[columnCounter][numCounter / columnCounter];
         for (int i = 0; i < value.length; i++) {
             for (int j = 0; j < value[0].length; j++) {
-                value[i][j] = Double.parseDouble(nums[i * value[0].length + j]);
+                value[i][j] = Double.parseDouble(newNums[i * value[0].length + j]);
             }
         }
 
