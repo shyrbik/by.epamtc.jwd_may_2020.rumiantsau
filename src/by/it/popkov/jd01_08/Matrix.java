@@ -82,6 +82,27 @@ class Matrix extends Var {
 
     @Override
     public Var mul(Var other) {
+        if (other instanceof Matrix){
+            double[][] outPut = new double[this.value.length][((Matrix) other).value[0].length];
+            for (int i = 0; i < this.value.length; i++) {
+                for (int j = 0; j < ((Matrix) other).value[0].length; j++) {
+                    for (int y = 0; y < ((Matrix) other).value[0].length; y++) {
+                        outPut[i][j] = outPut[i][j] + this.value[i][y] * ((Matrix) other).value[y][j];
+                    }
+                }
+            }
+            return new Matrix(outPut);
+        }
+        if (other instanceof Vector){
+            double[] vector = ((Vector) other).getValue();
+            double[] outPut = new double[value.length];
+            for (int i = 0; i < this.value.length; i++) {
+                for (int j = 0; j < vector.length; j++) {
+                    outPut[i] = outPut[i] + this.value[i][j] * vector[j];
+                }
+            }
+            return new Vector(outPut);
+        }
         return super.mul(other);
     }
 
