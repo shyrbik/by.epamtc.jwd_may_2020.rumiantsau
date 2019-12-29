@@ -92,7 +92,7 @@ class Vector extends Var {
             }
             return new Scalar(out);
         }
-        return super.mul(other);
+        return other.mul(this);
     }
 
     @Override
