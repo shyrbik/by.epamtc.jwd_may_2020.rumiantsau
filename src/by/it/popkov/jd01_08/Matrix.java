@@ -36,7 +36,7 @@ class Matrix extends Var {
             numCounter++;
         }
         strMatrix = strMatrix.replaceAll(" }", "");
-        String[] nums = strMatrix.split(" ");
+        String[] nums = strMatrix.split("  ");
         value = new double[columnCounter][numCounter / columnCounter];
         for (int i = 0; i < value.length; i++) {
             for (int j = 0; j < value[0].length; j++) {
@@ -55,7 +55,7 @@ class Matrix extends Var {
                 if (j != value[0].length - 1) {
                     toStr.append(value[i][j]).append(", ");
                 } else if (j == value[0].length - 1 && i != value.length - 1) {
-                    toStr.append(value[i][j]).append("},");
+                    toStr.append(value[i][j]).append("}, ");
                 } else if (j == value[0].length - 1 && i == value.length - 1) {
                     toStr.append(value[i][j]).append("}");
                 }
