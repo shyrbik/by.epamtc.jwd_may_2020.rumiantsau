@@ -98,6 +98,9 @@ class Vector extends Var {
     @Override
     public Var div(Var other) {
         if (other instanceof Scalar) {
+            if (((Scalar) other).getValue() == 0) {
+                System.out.println("Error");
+            }
             double[] out = new double[this.value.length];
             for (int i = 0; i < out.length; i++) {
                 out[i] = this.value[i] / ((Scalar) other).getValue();
