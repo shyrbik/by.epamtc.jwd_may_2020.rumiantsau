@@ -159,6 +159,9 @@ class Matrix extends Var {
     @Override
     public Var div(Var other) {
         if (other instanceof Scalar) {
+            if (((Scalar) other).getValue() == 0) {
+                System.out.println("Error");
+            }
             double[][] outPut = new double[this.value.length][this.value[0].length];
             for (int i = 0; i < this.value.length; i++) {
                 for (int j = 0; j < this.value[0].length; j++) {
