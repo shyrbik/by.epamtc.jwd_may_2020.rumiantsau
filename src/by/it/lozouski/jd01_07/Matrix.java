@@ -14,8 +14,8 @@ class Matrix extends Var {
     }
 
     Matrix(String strMatrix) {
-        String temp1 = strMatrix.replaceAll("[{}]{2,}", "").replaceAll(",", " ");
-        String[] temp2 = temp1.split("[}\\s{]{2,}");
+        String temp1 = strMatrix.replaceAll("[\\s]|[{}]{2,}", "");
+        String[] temp2 = temp1.replaceAll("[},{]{2,}", "}").replaceAll(",", " ").split("}");
         String[][] tempMatrix = new String[temp2.length][];
         for (int i = 0; i < temp2.length; i++) {
             tempMatrix[i] = temp2[i].split(" ");
