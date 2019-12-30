@@ -37,9 +37,9 @@ class Matrix extends Var {
         }
         strMatrix = strMatrix.replaceAll(" }", "");
         String[] nums = strMatrix.split(" ");
-        String[] newNums = new  String[nums.length+1/2];
+        String[] newNums = new String[nums.length];
         for (int i = 0, j = 0; i < newNums.length; i++) {
-            if (!nums[i].equals("")){
+            if (!nums[i].equals("")) {
                 newNums[j] = nums[i];
                 j++;
             }
@@ -88,7 +88,7 @@ class Matrix extends Var {
                 }
             }
             return new Matrix(outPut);
-        }else if (other instanceof Matrix){
+        } else if (other instanceof Matrix) {
             double[][] outPut = new double[this.value.length][this.value[0].length];
             for (int i = 0; i < this.value.length; i++) {
                 for (int j = 0; j < this.value[0].length; j++) {
@@ -111,7 +111,7 @@ class Matrix extends Var {
                 }
             }
             return new Matrix(outPut);
-        }else if (other instanceof Matrix){
+        } else if (other instanceof Matrix) {
             double[][] outPut = new double[this.value.length][this.value[0].length];
             for (int i = 0; i < this.value.length; i++) {
                 for (int j = 0; j < this.value[0].length; j++) {
