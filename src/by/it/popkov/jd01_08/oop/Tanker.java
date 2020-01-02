@@ -5,45 +5,49 @@ class Tanker extends CargoShip {
         super(name);
     }
 
+    Tanker() {
+        this("No Name");
+    }
+
     @Override
     public void sail() {
-        System.out.print(getName() + " ");
+        System.out.print("Tanker " + getName() + " ");
         super.sail();
     }
 
     @Override
     public void moor() {
-        System.out.print(getName() + " ");
+        System.out.print("Tanker " + getName() + " ");
         super.moor();
     }
 
     @Override
     public void dropAnchor() {
-        System.out.print(getName() + " ");
+        System.out.print("Tanker " + getName() + " ");
         super.dropAnchor();
     }
 
     @Override
     public void sos() {
-        System.out.print(getName() + " ");
+        System.out.print("Tanker " + getName() + " ");
         super.sos();
     }
 
     @Override
     public void stop() {
-        System.out.print(getName() + " ");
+        System.out.print("Tanker " + getName() + " ");
         super.stop();
     }
 
     @Override
     public void load() {
-        System.out.print(getName() + " ");
+        System.out.print("Tanker " + getName() + " ");
         super.load();
     }
 
     @Override
     public void unload() {
-        System.out.print(getName() + " ");
+        System.out.print("Tanker " + getName() + " ");
         super.unload();
     }
 
