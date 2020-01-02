@@ -2,7 +2,10 @@ package by.it.popkov.jd01_08.oop;
 
 abstract class cargoShip implements Ship {
     private String name;
-    private String type;
+
+    public cargoShip(String name) {
+        this.name = name;
+    }
 
     @Override
     public void sail() {
@@ -39,24 +42,8 @@ abstract class cargoShip implements Ship {
         System.out.println("Unload");
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
-
     @Override
     public String toString() {
-        return this.type + " " + this.name;
+        return this.name;
     }
 }
