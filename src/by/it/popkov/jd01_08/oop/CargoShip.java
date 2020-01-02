@@ -42,6 +42,10 @@ abstract class CargoShip implements Ship {
         System.out.println("Unload");
     }
 
+    public String getName() {
+        return name;
+    }
+
     @Override
     public String toString() {
         return this.name;
