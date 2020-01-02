@@ -1,9 +1,9 @@
 package by.it.popkov.jd01_08.oop;
 
-abstract class cargoShip implements Ship {
+abstract class CargoShip implements Ship {
     private String name;
 
-    public cargoShip(String name) {
+    public CargoShip(String name) {
         this.name = name;
     }
 
