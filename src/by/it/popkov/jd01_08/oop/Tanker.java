@@ -51,6 +51,10 @@ class Tanker extends CargoShip {
         super.unload();
     }
 
+    public void connectToOilTerminal() {
+        System.out.println("Tanker " + getName() + " Connect To Oil Terminal");
+    }
+
     @Override
     public String toString() {
         System.out.print("Great Tanker ");

@@ -5,5 +5,6 @@ public class Runner {
         Ship powerFull = new Tanker();
         powerFull.sail();
         System.out.println(powerFull);
+        ((Tanker)powerFull).connectToOilTerminal();
     }
 }
