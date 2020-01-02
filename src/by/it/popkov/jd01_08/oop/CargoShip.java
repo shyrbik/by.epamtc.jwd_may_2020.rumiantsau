@@ -3,7 +3,7 @@ package by.it.popkov.jd01_08.oop;
 abstract class CargoShip implements Ship {
     private String name;
 
-    public CargoShip(String name) {
+    CargoShip(String name) {
         this.name = name;
     }
 
