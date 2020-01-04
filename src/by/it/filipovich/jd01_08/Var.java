@@ -4,7 +4,7 @@ abstract class Var implements Operation{
 
     @Override
     public Var add(Var other) {
-        System.out.println("Operating for "+this+" + "+ other + " is impossibble");
+        System.out.println("Operating for "+this+" + "+ other + " is impossible");
         return null;
     }
 
