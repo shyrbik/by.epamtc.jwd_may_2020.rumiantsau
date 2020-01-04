@@ -1,6 +1,6 @@
 package by.it.lozouski.jd01_08.oop;
 
-public class GalaxyS1Duos extends SamsungMobile {
+class GalaxyS1Duos extends SamsungMobile {
 
     private String modelName;
     private String operationSystem;

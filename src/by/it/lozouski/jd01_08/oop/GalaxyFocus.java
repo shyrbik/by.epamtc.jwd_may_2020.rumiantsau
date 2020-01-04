@@ -1,6 +1,6 @@
 package by.it.lozouski.jd01_08.oop;
 
-public class GalaxyFocus extends SamsungMobile {
+class GalaxyFocus extends SamsungMobile {
     private String modelName;
     private String operationSystem;
     private int releaseYear;
