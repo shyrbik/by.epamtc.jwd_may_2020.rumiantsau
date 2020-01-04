@@ -60,7 +60,6 @@ class Tanker extends CargoShip {
 
     @Override
     public String toString() {
-        System.out.print("Great Tanker ");
-        return super.toString();
+        return "Great Tanker " + super.toString();
     }
 }
