@@ -56,7 +56,7 @@ abstract class SamsungMobile implements Mobile {
 
     @Override
     public void blueTooth() {
-        System.out.println("Model " + this + " doesn't support BlueTooth.");
+        System.out.println("Model " + this.modelName + " doesn't support BlueTooth.");
     }
 
     @Override
