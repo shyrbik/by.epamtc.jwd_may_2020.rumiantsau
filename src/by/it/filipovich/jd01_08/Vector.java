@@ -1,12 +1,5 @@
 package by.it.filipovich.jd01_08;
 
-import com.sun.deploy.security.SelectableSecurityManager;
-
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
-import static sun.management.snmp.jvminstr.JvmThreadInstanceEntryImpl.ThreadStateMap.Byte1.other;
-
 public class Vector extends Var {
 
     private double[] value;
@@ -21,12 +14,9 @@ public class Vector extends Var {
     }
 
     public Vector(String strVector){
-        //Pattern pattern = Pattern.compile("[^}{]+");
-        //Matcher matcher = pattern.matcher(strVector);
-        //if (matcher.find()) {
-            String[] a = strVector.replaceAll("\\}","")
+            String[] a = strVector.replaceAll("}","")
                                     .replaceAll("\\{","")
-                                    .replaceAll("\\,"," ")
+                                    .replaceAll(","," ")
                                     .split(" ");
 
             double[] arr = new double[a.length];

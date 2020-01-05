@@ -42,7 +42,7 @@ public class Scalar extends Var {
             double prod = this.value * ((Scalar) other).value;
             return new Scalar(prod);
         }
-        return other.add(this);
+        return other.mul(this);
     }
 
     @Override
@@ -54,9 +54,6 @@ public class Scalar extends Var {
             }
             else System.out.println("The denominator is ZERO!");
         }
-        if (other instanceof Vector) {
-            return super.div(other);
-        }
-        return other.div(this);
+        return super.div(other);
     }
 }

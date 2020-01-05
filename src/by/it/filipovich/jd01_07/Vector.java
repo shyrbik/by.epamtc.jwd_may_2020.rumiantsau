@@ -1,8 +1,5 @@
 package by.it.filipovich.jd01_07;
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
 public class Vector extends Var{
 
     private double[] value;
@@ -17,10 +14,10 @@ public class Vector extends Var{
     }
 
     public Vector(String strVector){
-        String[] a = strVector.replaceAll("\\}","")
+        String[] a = strVector.replaceAll("}","")
                 .replaceAll("\\{","")
                 .replaceAll(" ","")
-                .split("\\,");
+                .split(",");
 
             double[] arr = new double[a.length];
             for (int i = 0; i < a.length; i++) {

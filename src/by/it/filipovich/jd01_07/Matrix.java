@@ -8,9 +8,7 @@ public class Matrix extends Var {
     this.value = new double[value.length][value[0].length];
 
     for (int i = 0; i < value.length; i++) {
-        for (int j = 0; j < value[0].length; j++) {
-            this.value[i][j] = value[i][j];
-        }
+        System.arraycopy(value[i], 0, this.value[i], 0, value[0].length);
     }
     }
 
@@ -19,11 +17,11 @@ public class Matrix extends Var {
     }
 
     public Matrix(String strMatrix){
-        String[] a = strMatrix.replaceAll("\\}"," ")
+        String[] a = strMatrix.replaceAll("}"," ")
                 .replaceAll("\\{"," ")
-                .replaceAll("\\,"," ")
+                .replaceAll(","," ")
                 .trim()
-                .split("   ");
+                .split(" {3,}");
         String[] b = a[0].split(" ");
 
         double[][] arr = new double[a.length][b.length];
