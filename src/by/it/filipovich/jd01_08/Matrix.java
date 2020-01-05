@@ -19,7 +19,22 @@ public class Matrix extends Var {
     }
 
     public Matrix(String strMatrix){
+        String[] a = strMatrix.replaceAll("\\}"," ")
+                .replaceAll("\\{"," ")
+                .replaceAll("\\,"," ")
+                .trim()
+                .split("   ");
+        String[] b = a[0].split(" ");
 
+        double[][] arr = new double[a.length][b.length];
+        for (int i = 0; i < a.length; i++) {
+            String[] c = a[i].split(" ");
+            for (int j = 0; j < c.length; j++) {
+                arr[i][j] = Double.parseDouble(c[j]);
+            }
+        }
+        this.value = new double[arr.length][arr[0].length];
+        System.arraycopy(arr, 0, this.value, 0, arr.length);
     }
 
     public String toString(){

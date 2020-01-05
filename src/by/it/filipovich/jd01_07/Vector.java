@@ -17,10 +17,10 @@ public class Vector extends Var{
     }
 
     public Vector(String strVector){
-        Pattern pattern = Pattern.compile("[^}{]+");
-        Matcher matcher = pattern.matcher(strVector);
-        if (matcher.find()) {
-            String[] a = matcher.group().replaceAll("\\,","").split(" ");
+        String[] a = strVector.replaceAll("\\}","")
+                .replaceAll("\\{","")
+                .replaceAll(" ","")
+                .split("\\,");
 
             double[] arr = new double[a.length];
             for (int i = 0; i < a.length; i++) {
@@ -30,7 +30,6 @@ public class Vector extends Var{
             System.arraycopy(arr, 0, this.value, 0, arr.length);
 
         }
-    }
 
     public String toString(){
 

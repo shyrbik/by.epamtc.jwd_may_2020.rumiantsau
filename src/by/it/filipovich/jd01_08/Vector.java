@@ -26,7 +26,7 @@ public class Vector extends Var {
         //if (matcher.find()) {
             String[] a = strVector.replaceAll("\\}","")
                                     .replaceAll("\\{","")
-                                    .replaceAll("\\,","")
+                                    .replaceAll("\\,"," ")
                                     .split(" ");
 
             double[] arr = new double[a.length];
@@ -61,28 +61,70 @@ public class Vector extends Var {
             }
             return new Vector(sum);
         }
+        if(other instanceof Scalar) {
+            double[] sum = new double[this.value.length];
+            for (int i = 0; i < sum.length; i++) {
+                sum[i] = this.value[i]+((Scalar) other).value;
+            }
+            return new Vector(sum);
+        }
         return super.add(this);
     }
 
     @Override
     public Var sub(Var other) {
         if(other instanceof Vector) {
-            double[] sub = new double[this.value.length];
-            for (int i = 0; i < sub.length; i++) {
-                sub[i] = this.value[i]-((Vector) other).value[i];
+            double[] diff = new double[this.value.length];
+            for (int i = 0; i < diff.length; i++) {
+                diff[i] = this.value[i]-((Vector) other).value[i];
             }
-            return new Vector(sub);
+            return new Vector(diff);
+        }
+        if(other instanceof Scalar) {
+            double[] diff = new double[this.value.length];
+            for (int i = 0; i < diff.length; i++) {
+                diff[i] = this.value[i]-((Scalar) other).value;
+            }
+            return new Vector(diff);
         }
         return super.add(this);
     }
 
     @Override
     public Var mul(Var other) {
+        if(other instanceof Vector) {
+            if (this.value.length == ((Vector) other).value.length) {
+                double diff = 0;
+                for (int i = 0; i < this.value.length; i++) {
+                    diff = diff+this.value[i] * ((Vector) other).value[i];
+                }
+                return new Scalar(diff);
+            }
+        }
+        if(other instanceof Scalar) {
+            double[] diff = new double[this.value.length];
+            for (int i = 0; i < diff.length; i++) {
+                diff[i] = this.value[i]*((Scalar) other).value;
+            }
+            return new Vector(diff);
+        }
         return super.mul(other);
     }
 
     @Override
     public Var div(Var other) {
+        if(other instanceof Vector) {
+            return super.div(other);
+        }
+        if(other instanceof Scalar) {
+            if(((Scalar) other).value != 0) {
+                double[] div = new double[this.value.length];
+                for (int i = 0; i < div.length; i++) {
+                    div[i] = this.value[i] / ((Scalar) other).value;
+                }
+                return new Vector(div);
+            }
+        }
         return super.div(other);
     }
 }

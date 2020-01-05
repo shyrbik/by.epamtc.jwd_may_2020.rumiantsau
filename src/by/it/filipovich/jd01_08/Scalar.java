@@ -1,7 +1,7 @@
 package by.it.filipovich.jd01_08;
 
 public class Scalar extends Var {
-    private double value;
+    protected double value;
 
     public Scalar(double value){
         this.value = value;
@@ -53,6 +53,9 @@ public class Scalar extends Var {
                 return new Scalar(div);
             }
             else System.out.println("The denominator is ZERO!");
+        }
+        if (other instanceof Vector) {
+            return super.div(other);
         }
         return other.div(this);
     }
