@@ -42,11 +42,13 @@ class Scalar extends Var {
     }
 
     @Override
+    public Var add(Matrix other) {
+        return other.add(this);
+    }
+
+    @Override
     public Var sub(Var other) {
-        if (other instanceof Scalar) {
-            return new Scalar(this.value - ((Scalar) other).value);
-        }
-        return new Scalar(-1).mul(other.sub(this));
+        return other.sub(this);
     }
 
     @Override
@@ -64,6 +66,21 @@ class Scalar extends Var {
     }
 
     @Override
+    public Var sub(Matrix other) {
+        double[][] op1 = Arrays.copyOf(other.getValue(), other.getValue().length);
+        for (int i = 0; i < op1.length; i++) {
+            op1[i] = Arrays.copyOf(other.getValue()[i], other.getValue()[i].length);
+        }
+        for (int i = 0; i < op1.length; i++) {
+            for (int j = 0; j < op1[i].length; j++) {
+                op1[i][j] = op1[i][j] - value;
+            }
+
+        }
+        return new Matrix(op1);
+    }
+
+    @Override
     public Var mul(Var other) {
         return other.mul(this);
     }
@@ -75,6 +92,11 @@ class Scalar extends Var {
 
     @Override
     public Var mul(Vector other) {
+        return other.mul(this);
+    }
+
+    @Override
+    public Var mul(Matrix other) {
         return other.mul(this);
     }
 
@@ -100,6 +122,25 @@ class Scalar extends Var {
                 op1[i] = op1[i] / value;
             }
             return new Vector(op1);
+        }
+        System.out.println("Division by zero");
+        return super.div(other);
+    }
+
+    @Override
+    public Var div(Matrix other) {
+        if (value!=0){
+            double[][] op1 = Arrays.copyOf(other.getValue(), other.getValue().length);
+            for (int i = 0; i < op1.length; i++) {
+                op1[i] = Arrays.copyOf(other.getValue()[i], other.getValue()[i].length);
+            }
+            for (int i = 0; i < op1.length; i++) {
+                for (int j = 0; j < op1[i].length; j++) {
+                    op1[i][j] = op1[i][j]/value;
+                }
+
+            }
+            return new Matrix(op1);
         }
         System.out.println("Division by zero");
         return super.div(other);

@@ -59,7 +59,7 @@ class Vector extends Var {
 
     @Override
     public Var add(Vector other) {
-        if(this.value.length==other.value.length) {
+        if (this.value.length == other.value.length) {
             double[] op1 = Arrays.copyOf(value, value.length);
             for (int i = 0; i < op1.length; i++) {
                 op1[i] += other.value[i];
@@ -78,15 +78,14 @@ class Vector extends Var {
     public Var sub(Scalar other) {
         double[] op1 = Arrays.copyOf(value, value.length);
         for (int i = 0; i < op1.length; i++) {
-            op1[i] = other.getValue()-op1[i];
+            op1[i] = other.getValue() - op1[i];
         }
         return new Vector(op1);
     }
 
     @Override
     public Var sub(Vector other) {
-        if(this.value.length==other.value.length)
-        {
+        if (this.value.length == other.value.length) {
             double[] op1 = Arrays.copyOf(other.value, other.value.length);
             for (int i = 0; i < op1.length; i++) {
                 op1[i] -= value[i];
@@ -102,12 +101,20 @@ class Vector extends Var {
     }
 
     @Override
+    public Var mul(Scalar other) {
+        double[] op1 = Arrays.copyOf(value, value.length);
+        for (int i = 0; i < op1.length; i++) {
+            op1[i] *= other.getValue();
+        }
+        return new Vector(op1);
+    }
+
+    @Override
     public Var mul(Vector other) {
-        if(this.value.length==other.value.length)
-        {
-            double res=0;
+        if (this.value.length == other.value.length) {
+            double res = 0;
             for (int i = 0; i < value.length; i++) {
-                res+=value[i]*other.value[i];
+                res += value[i] * other.value[i];
             }
             return new Scalar(res);
         }
@@ -115,12 +122,17 @@ class Vector extends Var {
     }
 
     @Override
-    public Var mul(Scalar other) {
-        double[] op1 = Arrays.copyOf(value, value.length);
-        for (int i = 0; i < op1.length; i++) {
-            op1[i] *= other.getValue();
+    public Var mul(Matrix other) {
+        if (other.getValue()[0].length == value.length) {
+            double[] op1 = new double[value.length];
+            for (int i = 0; i < op1.length; i++) {
+                for (int j = 0; j < other.getValue()[i].length; j++) {
+                    op1[i] = op1[i] + value[j] * other.getValue()[i][j];
+                }
+            }
+            return new Vector(op1);
         }
-        return new Vector(op1);
+        return super.mul(other);
     }
 
     @Override
