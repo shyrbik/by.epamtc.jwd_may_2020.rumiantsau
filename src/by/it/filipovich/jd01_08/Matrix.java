@@ -107,11 +107,57 @@ public class Matrix extends Var {
 
     @Override
     public Var mul(Var other) {
+        if(other instanceof Scalar){
+            double[][] mul = new double[this.value.length][this.value[0].length];
+            for (int i = 0; i < mul.length; i++) {
+                for (int j = 0; j < mul[0].length; j++) {
+                    mul[i][j] = this.value[i][j] * ((Scalar) other).value;
+                }
+            }
+            return new Matrix(mul);
+        }
+        if(other instanceof Vector){
+            if (this.value[0].length == ((Vector) other).value.length) {
+                double[] mul = new double[this.value[0].length];
+                for (int i = 0; i < mul.length; i++) {
+                    for (int j = 0; j < mul.length; j++) {
+                        mul[i] = mul[i]+this.value[i][j] * ((Vector) other).value[j];
+                    }
+                }
+                return new Vector(mul);
+            }
+        }
+        if(other instanceof Matrix) {
+            if (this.value.length == ((Matrix) other).value[0].length &&
+                    this.value[0].length == ((Matrix) other).value.length) {
+                double[][] mul = new double[this.value.length][((Matrix)other).value[0].length];
+                //int i1 = 0;
+                for (int i = 0; i < mul.length; i++) {
+                    for (int j1 = 0; j1 < mul[0].length; j1++) {
+                        for (int j = 0; j < mul[0].length; j++) {
+                            mul[i][j1] = mul[i][j1] + this.value[i][j] * ((Matrix) other).value[j][j1];
+                        }
+                    }
+                }
+                return new Matrix(mul);
+            }
+        }
         return super.mul(other);
     }
 
     @Override
     public Var div(Var other) {
+        if(other instanceof Scalar){
+            if(((Scalar) other).value !=  0) {
+                double[][] div = new double[this.value.length][this.value[0].length];
+                for (int i = 0; i < div.length; i++) {
+                    for (int j = 0; j < div[0].length; j++) {
+                        div[i][j] = this.value[i][j] * ((Scalar) other).value;
+                    }
+                }
+                return new Matrix(div);
+            }
+        }
         return super.div(other);
     }
 }
