@@ -17,6 +17,7 @@ public class Scalar extends Var {
       return Double.toString(value);
     }
 
+
     @Override
     public Var add(Var other) {
         if (other instanceof Scalar) {
