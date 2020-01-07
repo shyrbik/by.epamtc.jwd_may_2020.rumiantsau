@@ -27,7 +27,7 @@ class Matrix extends Var {
      * construct from string {{1,2},{3,4},{5,6}}
      */
     Matrix(String strMatrix) {
-        int ySize = 0;
+        int ySize;
         int xSize = 0;
         String[] stringOfMatrix = strMatrix.replace(" ", "").split("[\\}]{1}[\\,]{1}[\\{]{1}");
         ySize = stringOfMatrix.length;
