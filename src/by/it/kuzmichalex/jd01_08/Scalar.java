@@ -100,7 +100,6 @@ class Scalar extends Var {
     //Scalar*Scalar
     @Override
     public Var mul(Scalar leftOperand) {
-        System.out.println("Scalar * Scalar " + leftOperand + " " + this);
         return new Scalar(leftOperand.value * this.value);
     }
 
@@ -126,7 +125,6 @@ class Scalar extends Var {
     //Scalar/Scalar
     @Override
     public Var div(Scalar leftOperand) {
-        System.out.println("Scalar / Scalar " + leftOperand + " " + this);
         if (this.value == 0) {
             System.out.println("Деление на ноль detected");
             return null;
@@ -137,12 +135,23 @@ class Scalar extends Var {
     //Vector/Scalar
     @Override
     public Var div(Vector leftOperand) {
-        System.out.println("Vector /Scalar " + leftOperand + " " + this);
-        double[] returnVector = new double[leftOperand.value.length];
-        for (int i = 0; i < leftOperand.value.length; i++) {
-            returnVector[i] = leftOperand.value[i] / this.value;
+        if (this.value == 0) {
+            System.out.println("Деление на ноль detected");
+            return null;
         }
-        return new Vector(returnVector);
+        Var hyperScalar = new Scalar(1.0/this.value);
+        return leftOperand.mul(hyperScalar);
+    }
+
+    //Matrix/Scalar
+    @Override
+    public Var div(Matrix leftOperand) {
+        if (this.value == 0) {
+            System.out.println("Деление на ноль detected");
+            return null;
+        }
+        Var hyperScalar = new Scalar(1.0/this.value);
+        return leftOperand.mul(hyperScalar);
     }
 }
 

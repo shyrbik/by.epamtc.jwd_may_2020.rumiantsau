@@ -159,4 +159,10 @@ class Matrix extends Var {
         Var minusMatrix = this.mul(minusScalar);
         return leftOperand.add(minusMatrix);
     }
+
+    //Деления на матрицу. не существуют
+    @Override
+    public Var div(Var rightOperand) {
+        return super.div(rightOperand);
+    }
 }
