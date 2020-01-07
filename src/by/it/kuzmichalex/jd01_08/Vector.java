@@ -67,7 +67,7 @@ class Vector extends Var {
             System.out.println("Операция " + leftOperand + " + " + this + " невозможна: несовпадают размерности.");
             return null;
         }
-        double returnVector[] = new double[leftOperand.value.length];
+        double[] returnVector = new double[leftOperand.value.length];
         for (int i = 0; i < leftOperand.value.length; i++) {
             returnVector[i] = leftOperand.value[i] + this.value[i];
         }

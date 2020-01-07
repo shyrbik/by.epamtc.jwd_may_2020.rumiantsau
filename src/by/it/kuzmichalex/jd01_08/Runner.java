@@ -12,7 +12,7 @@ public class Runner {
    //     print(s.sub(s2));
       //  s.add(v);
 
-      // s.add(s);
+       s.add(s);
       //  s.add(v);
 
         /* Уровень сложности A (калькулятор) */

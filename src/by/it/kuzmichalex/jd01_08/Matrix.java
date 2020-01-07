@@ -73,7 +73,7 @@ class Matrix extends Var {
     //Scalar + Matrix
     @Override
     public Var add(Scalar leftOperand) {
-        double returnMatrix[][] = new double[this.value.length][this.value[0].length];
+        double[][] returnMatrix = new double[this.value.length][this.value[0].length];
         for (int y = 0; y < this.value.length; y++) {
             for (int x = 0; x < this.value[0].length; x++) {
                 returnMatrix[y][x] = this.value[y][x] + leftOperand.value;
@@ -94,7 +94,7 @@ class Matrix extends Var {
             System.out.println("Сложение матриц невозможно: количества столбцов не совпадают");
             return null;
         }
-        double returnMatrix[][] = new double[this.value.length][this.value[0].length];
+        double[][] returnMatrix = new double[this.value.length][this.value[0].length];
         for (int y = 0; y < this.value.length; y++) {
             for (int x = 0; x < this.value[0].length; x++) {
                 returnMatrix[y][x] = this.value[y][x] + leftOperand.value[y][x];
@@ -112,7 +112,7 @@ class Matrix extends Var {
     //Scalar*Matrix
     @Override
     public Var mul(Scalar leftOperand) {
-        double returmMatrix[][] = new double[this.value.length][this.value[0].length];
+        double[][] returmMatrix = new double[this.value.length][this.value[0].length];
         for (int y = 0; y <this.value.length ; y++) {
             for (int x = 0; x <this.value[0].length ; x++) {
                 returmMatrix[y][x]=this.value[y][x]*leftOperand.value;
