@@ -1,7 +1,7 @@
 package by.it.kuzmichalex.jd01_08;
 
 class Matrix extends Var {
-    double value[][];
+    double[][] value;
 
     /**
      * construct from double[][]
@@ -54,7 +54,7 @@ class Matrix extends Var {
         for (int y = 0; y < this.value.length; y++) {
             retStrBuffer.append("{");
             for (int x = 0; x < this.value[y].length; x++) {
-                retStrBuffer.append(Double.toString(this.value[y][x]));
+                retStrBuffer.append(this.value[y][x]);
                 if (x < (this.value[y].length - 1)) retStrBuffer.append(", ");
             }
             retStrBuffer.append("}");
