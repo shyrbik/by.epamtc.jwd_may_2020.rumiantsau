@@ -163,6 +163,6 @@ class Matrix extends Var {
     //Деления на матрицу. не существуют
     @Override
     public Var div(Var rightOperand) {
-        return super.div(rightOperand);
+        return rightOperand.div(this);
     }
 }
