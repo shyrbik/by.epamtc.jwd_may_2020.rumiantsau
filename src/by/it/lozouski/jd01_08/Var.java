@@ -43,13 +43,32 @@ abstract class Var implements Operation {
 
     @Override
     public Var mul(Var other) {
-        System.out.println("Operation multiplication " + this + " * " + other + " isn't possible.");
+        return null;
+    }
+    Var mul(Scalar otherScalar) {
+        System.out.println("Operation multiplication " + otherScalar + " * " + this + " isn't possible.");
+        return null;
+    }
+    Var mul(Vector otherVector) {
+        System.out.println("Operation multiplication " + otherVector + " * " + this + " isn't possible.");
+        return null;
+    }
+    Var mul(Matrix otherMatrix) {
+        System.out.println("Operation multiplication " + otherMatrix + " * " + this + " isn't possible.");
         return null;
     }
 
     @Override
     public Var div(Var other) {
-        System.out.println("Operation division " + this + " / " + other + " isn't possible.");
         return null;
     }
+    Var div(Scalar otherScalar){
+        System.out.println("Operation division " + otherScalar + " / " + this + " isn't possible.");
+        return null;
+    }
+    Var div(Vector otherVector){
+        System.out.println("Operation division " + otherVector + " / " + this + " isn't possible.");
+        return null;
+    }
+
 }

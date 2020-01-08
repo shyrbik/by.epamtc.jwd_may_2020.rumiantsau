@@ -60,28 +60,52 @@ class Scalar extends Var {
     @Override
     Var sub(Matrix otherMatrix) {
         double[][] sub = new double[otherMatrix.getValue().length][otherMatrix.getValue()[0].length];
-            for (int i = 0; i < otherMatrix.getValue().length; i++) {
-                for (int j = 0; j < otherMatrix.getValue().length; j++) {
-                    sub[i][j] = otherMatrix.getValue()[i][j] - this.value;
-                }
+        for (int i = 0; i < otherMatrix.getValue().length; i++) {
+            for (int j = 0; j < otherMatrix.getValue().length; j++) {
+                sub[i][j] = otherMatrix.getValue()[i][j] - this.value;
             }
-            return new Matrix(sub);
+        }
+        return new Matrix(sub);
     }
 
     @Override
     public Var mul(Var other) {
-        if (other instanceof Scalar) {
-            double mul = this.value * ((Scalar) other).value;
-            return new Scalar(mul);
-        } else return other.mul(this);
+        return other.mul(this);
+    }
+
+    @Override
+    Var mul(Scalar otherScalar) {
+        return new Scalar(otherScalar.value * this.value);
+    }
+
+    @Override
+    Var mul(Vector otherVector) {
+        return otherVector.mul(this);
+    }
+
+    @Override
+    Var mul(Matrix otherMatrix) {
+        return otherMatrix.mul(this);
     }
 
     @Override
     public Var div(Var other) {
-        if (other instanceof Scalar) {
-            double div = this.value / ((Scalar) other).value;
-            return new Scalar(div);
-        } else return super.div(other);
+        return other.div(this);
+    }
+
+    @Override
+    Var div(Scalar otherScalar) {
+        double div = otherScalar.value / this.value;
+        return new Scalar(div);
+    }
+
+    @Override
+    Var div(Vector otherVector) {
+        double[] div = new double[otherVector.getValue().length];
+        for (int i = 0; i < otherVector.getValue().length; i++) {
+            div[i] = otherVector.getValue()[i] / this.value;
+        }
+        return new Vector(div);
     }
 
     @Override
