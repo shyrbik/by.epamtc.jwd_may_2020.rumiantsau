@@ -11,7 +11,7 @@ class Matrix extends Var {
     }
 
     Matrix(Matrix matrix) {
-        value = matrix.value;
+        this(matrix.value);
     }
 
     Matrix(String strMatrix) {
@@ -44,61 +44,62 @@ class Matrix extends Var {
     @Override
     public Var add(Var other) {
         if (other.getClassName().equals("Matrix")) {
-            double[][] result = getArrayCopy(value);
-            for (int i = 0; i < result.length; i++) {
-                for (int j = 0; j < result.length; j++) {
-                    result[i][j] += ((Matrix) other).value[i][j];
-                }
-            }
-            return new Matrix(result);
-        }
-        if (other.getClassName().equals("Scalar")) {
-            double[][] result = getArrayCopy(value);
-            for (int i = 0; i < result.length; i++) {
-                for (int j = 0; j < result.length; j++) {
-                    result[i][j] += ((Scalar) other).getValue();
-                }
-            }
-            return new Matrix(result);
-        }
-        return super.add(other);
-    }
-
-    @Override
-    public Var sub(Var other) {
-        if (other.getClassName().equals("Matrix")) {
-            Matrix matrix = (Matrix) other;
-            if (matrix.value.length == value.length) {
-                double[][] result = getArrayCopy(value);
+            Matrix otherMatrix = (Matrix) other;
+            if (otherMatrix.value.length == value.length) {
+                double[][] result = new double[value.length][value.length];
                 for (int i = 0; i < result.length; i++) {
-                    if (matrix.value[i].length == value[i].length) {
-                        for (int j = 0; j < result.length; j++) {
-                            result[i][j] -= matrix.value[i][j];
-                        }
+                    for (int j = 0; j < result.length; j++) {
+                        result[i][j] = value[i][j] + otherMatrix.value[i][j];
                     }
                 }
                 return new Matrix(result);
             }
         }
         if (other.getClassName().equals("Scalar")) {
-            double[][] result = getArrayCopy(value);
+            double[][] result = new double[value.length][value.length];
             for (int i = 0; i < result.length; i++) {
                 for (int j = 0; j < result.length; j++) {
-                    result[i][j] -= ((Scalar) other).getValue();
+                    result[i][j] = value[i][j] + ((Scalar) other).getValue();
                 }
             }
             return new Matrix(result);
         }
-        return super.sub(other);
+        return getDefaultResult(other);
+    }
+
+    @Override
+    public Var sub(Var other) {
+        if (other.getClassName().equals("Matrix")) {
+            Matrix otherMatrix = (Matrix) other;
+            if (otherMatrix.value.length == value.length) {
+                double[][] result = new double[value.length][value.length];
+                for (int i = 0; i < result.length; i++) {
+                    for (int j = 0; j < result.length; j++) {
+                        result[i][j] = value[i][j] - otherMatrix.value[i][j];
+                    }
+                }
+                return new Matrix(result);
+            }
+        }
+        if (other.getClassName().equals("Scalar")) {
+            double[][] result = new double[value.length][value.length];
+            for (int i = 0; i < result.length; i++) {
+                for (int j = 0; j < result.length; j++) {
+                    result[i][j] = value[i][j] - ((Scalar) other).getValue();
+                }
+            }
+            return new Matrix(result);
+        }
+        return getDefaultResult(other);
     }
 
     @Override
     public Var mul(Var other) {
         if (other.getClassName().equals("Scalar")) {
-            double[][] result = getArrayCopy(value);
+            double[][] result = new double[value.length][value.length];
             for (int i = 0; i < result.length; i++) {
                 for (int j = 0; j < result.length; j++) {
-                    result[i][j] *= ((Scalar) other).getValue();
+                    result[i][j] = value[i][j] * ((Scalar) other).getValue();
                 }
             }
             return new Matrix(result);
@@ -114,25 +115,25 @@ class Matrix extends Var {
             return new Vector(result);
         }
         if (other.getClassName().equals("Matrix")) {
-            Matrix matrix = (Matrix) other;
-            if (matrix.value.length == value.length) {
+            Matrix otherMatrix = (Matrix) other;
+            if (otherMatrix.value.length == value.length) {
                 double[][] result = new double[value.length][value.length];
                 for (int i = 0; i < value.length; i++) {
                     for (int j = 0; j < value.length; j++) {
                         for (int k = 0; k < value.length; k++) {
-                            result[i][j] += value[i][k] * matrix.value[k][j];
+                            result[i][j] += value[i][k] * otherMatrix.value[k][j];
                         }
                     }
                 }
                 return new Matrix(result);
             }
         }
-        return super.mul(other);
+        return getDefaultResult(other);
     }
 
     @Override
     public Var div(Var other) {
-        return super.div(other);
+        return getDefaultResult(other);
     }
 
     @Override
@@ -149,15 +150,5 @@ class Matrix extends Var {
         }
         stringBuilder.append("}");
         return stringBuilder.toString();
-    }
-
-    private double[][] getArrayCopy(double[][] arr) {
-        double[][] result = new double[arr.length][arr.length];
-        for (int i = 0; i < arr.length; i++) {
-            for (int j = 0; j < arr.length; j++) {
-                result[i][j] = arr[i][j];
-            }
-        }
-        return result;
     }
 }

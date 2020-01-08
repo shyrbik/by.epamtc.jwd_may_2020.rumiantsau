@@ -9,7 +9,7 @@ class Vector extends Var {
     }
 
     Vector(Vector vector) {
-        value = vector.value;
+        this(vector.value);
     }
 
     Vector(String strVector) {
