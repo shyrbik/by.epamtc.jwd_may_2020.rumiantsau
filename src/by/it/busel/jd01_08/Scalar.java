@@ -32,23 +32,17 @@ class Scalar extends Var {
     public Var add(Var other) {
         try {
             return this.add((Scalar) other);
-        } catch (ClassCastException e) {
-            counter++;
+        } catch (ClassCastException e0) {
+            try {
+                return this.add((Vector) other);
+            } catch (ClassCastException e1) {
+                try {
+                    return this.add((Matrix) other);
+                } catch (ClassCastException e2) {
+                    return super.add(other);
+                }
+            }
         }
-
-        try {
-            return this.add((Vector) other);
-        } catch (ClassCastException e) {
-            counter++;
-        }
-
-        try {
-            return this.add((Matrix) other);
-        } catch (ClassCastException e) {
-            counter++;
-        }
-
-        return super.add(other);
     }
 
     private Var add(Scalar other) throws ClassCastException {
@@ -69,22 +63,16 @@ class Scalar extends Var {
         try {
             return this.sub((Scalar) other);
         } catch (ClassCastException e) {
-            counter++;
+            try {
+                return this.sub((Vector) other);
+            } catch (ClassCastException e1) {
+                try {
+                    return this.sub((Matrix) other);
+                } catch (ClassCastException e2) {
+                    return super.sub(other);
+                }
+            }
         }
-
-        try {
-            return this.sub((Vector) other);
-        } catch (ClassCastException e) {
-            counter++;
-        }
-
-        try {
-            return this.sub((Matrix) other);
-        } catch (ClassCastException e) {
-            counter++;
-        }
-
-        return super.sub(other);
     }
 
     private Var sub(Scalar other) throws ClassCastException {
@@ -105,22 +93,16 @@ class Scalar extends Var {
         try {
             return this.mul((Scalar) other);
         } catch (ClassCastException e) {
-            counter++;
+            try {
+                return this.mul((Vector) other);
+            } catch (ClassCastException e1) {
+                try {
+                    return this.mul((Matrix) other);
+                } catch (ClassCastException e2) {
+                    return super.mul(other);
+                }
+            }
         }
-
-        try {
-            return this.mul((Vector) other);
-        } catch (ClassCastException e) {
-            counter++;
-        }
-
-        try {
-            return this.mul((Matrix) other);
-        } catch (ClassCastException e) {
-            counter++;
-        }
-
-        return super.mul(other);
     }
 
     private Var mul(Scalar other) throws ClassCastException {
@@ -142,10 +124,8 @@ class Scalar extends Var {
         try {
             return this.div((Scalar) other);
         } catch (ClassCastException e) {
-            counter++;
+            return super.div(other);
         }
-
-        return super.div(other);
     }
 
     private Var div(Scalar other) throws ClassCastException {
