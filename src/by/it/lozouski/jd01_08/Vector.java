@@ -29,21 +29,25 @@ class Vector extends Var {
 
     @Override
     public Var add(Var other) {
-        if (other instanceof Scalar) {
-            double[] sum = Arrays.copyOf(value, value.length);
-            for (int i = 0; i < sum.length; i++) {
-                sum[i] = sum[i] + ((Scalar) other).getValue();
-            }
-            return new Vector(sum);
+        return other.add(this);
+    }
+
+    @Override
+    Var add(Scalar otherScalar) {
+        double[] sum = Arrays.copyOf(value, value.length);
+        for (int i = 0; i < sum.length; i++) {
+            sum[i] = sum[i] + otherScalar.getValue();
         }
-        if (other instanceof Vector) {
-            double[] sum = Arrays.copyOf(value, value.length);
-            for (int i = 0; i < sum.length; i++) {
-                sum[i] = sum[i] + ((Vector) other).value[i];
-            }
-            return new Vector(sum);
+        return new Vector(sum);
+    }
+
+    @Override
+    Var add(Vector otherVector) {
+        double[] sum = Arrays.copyOf(value, value.length);
+        for (int i = 0; i < sum.length; i++) {
+            sum[i] = sum[i] + otherVector.value[i];
         }
-        return super.add(other);
+        return new Vector(sum);
     }
 
     @Override

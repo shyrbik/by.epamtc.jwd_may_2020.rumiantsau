@@ -34,25 +34,29 @@ class Matrix extends Var {
 
     @Override
     public Var add(Var other) {
-        if (other instanceof Scalar) {
-            double[][] sum = Arrays.copyOf(value, value.length);
-            for (int i = 0; i < sum.length; i++) {
-                for (int j = 0; j < sum[i].length; j++) {
-                    sum[i][j] = sum[i][j] + ((Scalar) other).getValue();
-                }
+        return other.add(this);
+    }
+
+    @Override
+    Var add(Scalar otherScalar) {
+        double[][] sum = Arrays.copyOf(value, value.length);
+        for (int i = 0; i < sum.length; i++) {
+            for (int j = 0; j < sum[i].length; j++) {
+                sum[i][j] = sum[i][j] + otherScalar.getValue();
             }
-            return new Matrix(sum);
         }
-        if (other instanceof Matrix) {
-            double[][] sum = new double[this.value.length][this.value[0].length];
-            for (int i = 0; i < this.value.length; i++) {
-                for (int j = 0; j < this.value[0].length; j++) {
-                    sum[i][j] = this.value[i][j] + ((Matrix) other).value[i][j];
-                }
+        return new Matrix(sum);
+    }
+
+    @Override
+    Var add(Matrix otherMatrix) {
+        double[][] sum = new double[this.value.length][this.value[0].length];
+        for (int i = 0; i < this.value.length; i++) {
+            for (int j = 0; j < this.value[0].length; j++) {
+                sum[i][j] = this.value[i][j] + otherMatrix.value[i][j];
             }
-            return new Matrix(sum);
         }
-        return super.add(other);
+        return new Matrix(sum);
     }
 
     @Override
@@ -112,7 +116,6 @@ class Matrix extends Var {
         }
         return super.mul(other);
     }
-
 
     @Override
     public String toString() {

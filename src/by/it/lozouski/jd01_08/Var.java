@@ -3,7 +3,18 @@ package by.it.lozouski.jd01_08;
 abstract class Var implements Operation {
     @Override
     public Var add(Var other) {
-        System.out.println("Operation addition " + this + " + " + other + " isn't possible.");
+        return null;
+    }
+    Var add(Scalar otherScalar){
+        System.out.println("Operation addition " + otherScalar + " + " + this + " isn't possible.");
+        return null;
+    }
+    Var add(Vector otherVector){
+        System.out.println("Operation addition " + otherVector + " + " + this + " isn't possible.");
+        return null;
+    }
+    Var add(Matrix otherMatrix){
+        System.out.println("Operation addition " + otherMatrix + " + " + this + " isn't possible.");
         return null;
     }
 

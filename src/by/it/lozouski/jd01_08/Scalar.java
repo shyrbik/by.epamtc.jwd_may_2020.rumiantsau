@@ -22,10 +22,23 @@ class Scalar extends Var {
 
     @Override
     public Var add(Var other) {
-        if (other instanceof Scalar) {
-            double sum = this.value + ((Scalar) other).value;
-            return new Scalar(sum);
-        } else return other.add(this);
+        return other.add(this);
+    }
+
+    @Override
+    Var add(Scalar otherScalar) {
+        double sum = this.value + otherScalar.value;
+        return new Scalar(sum);
+    }
+
+    @Override
+    Var add(Vector otherVector) {
+       return otherVector.add(this);
+    }
+
+    @Override
+    Var add(Matrix otherMatrix) {
+        return otherMatrix.add(this);
     }
 
     @Override
