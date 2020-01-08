@@ -28,40 +28,43 @@ class Scalar extends Var {
         return "Scalar";
     }
 
-    @Override
-    public Var add(Var other) {
+    private Var getResult(Var other, String operation) {
         if (other.getClassName().equals("Scalar")) {
             Scalar otherScalar = (Scalar) other;
-            return new Scalar(this.value + otherScalar.value);
+            if (operation.equals("add")) {
+                return new Scalar(this.value + otherScalar.value);
+            }
+            if (operation.equals("sub")){
+                return new Scalar(this.value - otherScalar.value);
+            }
+            if (operation.equals("mul")){
+                return new Scalar(this.value * otherScalar.value);
+            }
+            if (operation.equals("div")){
+                return new Scalar(this.value / otherScalar.value);
+            }
         }
-        return other.add(this);
+        return getDefaultResult(this);
+    }
+
+    @Override
+    public Var add(Var other) {
+        return getResult(other,"add");
     }
 
     @Override
     public Var sub(Var other) {
-        if (other.getClassName().equals("Scalar")) {
-            Scalar otherScalar = (Scalar) other;
-            return new Scalar(this.value - otherScalar.value);
-        }
-        return other.sub(this);
+        return getResult(other,"sub");
     }
 
     @Override
     public Var mul(Var other) {
-        if (other.getClassName().equals("Scalar")) {
-            Scalar otherScalar = (Scalar) other;
-            return new Scalar(this.value * otherScalar.value);
-        }
-        return other.mul(this);
+        return getResult(other,"mul");
     }
 
     @Override
     public Var div(Var other) {
-        if (other.getClassName().equals("Scalar")) {
-            Scalar otherScalar = (Scalar) other;
-            return new Scalar(this.value / otherScalar.value);
-        }
-        return other.div(this);
+        return getResult(other,"div");
     }
 
     @Override
