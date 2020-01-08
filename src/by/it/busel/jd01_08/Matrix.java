@@ -14,8 +14,164 @@ class Matrix extends Var {
         this.value = matrix.value;
     }
 
+    @Override
+    public Var add(Var other) {
+        try {
+            return this.add((Scalar) other);
+        } catch (ClassCastException e0) {
+            try {
+                return this.add((Matrix) other);
+            } catch (ClassCastException e1) {
+                return super.add(other);
+            }
+        }
+    }
+
+    private Var add(Scalar other) {
+        double[][] result = new double[this.value.length][this.value[0].length];
+        double filler = other.getValue();
+        for (int i = 0; i < result.length; i++) {
+            for (int j = 0; j < result[0].length; j++) {
+                result[i][j] = this.value[i][j] + filler;
+            }
+        }
+        return new Matrix(result);
+    }
+
+    private Var add(Matrix other) {
+        if (this.value.length == other.value.length &&
+                this.value[0].length == other.value[0].length) {
+            double[][] result = new double[this.value.length][this.value[0].length];
+            for (int i = 0; i < result.length; i++) {
+                for (int j = 0; j < result[0].length; j++) {
+                    result[i][j] = this.value[i][j] + other.value[i][j];
+                }
+            }
+            return new Matrix(result);
+        }
+        return super.add(other);
+    }
+
+    @Override
+    public Var sub(Var other) {
+        try {
+            return this.sub((Scalar) other);
+        } catch (ClassCastException e0) {
+            try {
+                return this.sub((Matrix) other);
+            } catch (ClassCastException e1) {
+                return super.sub(other);
+            }
+        }
+    }
+
+    private Var sub(Scalar other) {
+        double[][] result = new double[this.value.length][this.value[0].length];
+        double filler = other.getValue();
+        for (int i = 0; i < result.length; i++) {
+            for (int j = 0; j < result[0].length; j++) {
+                result[i][j] = this.value[i][j] - filler;
+            }
+        }
+        return new Matrix(result);
+    }
+
+    private Var sub(Matrix other) {
+        if (this.value.length == other.value.length &&
+                this.value[0].length == other.value[0].length) {
+            double[][] result = new double[this.value.length][this.value[0].length];
+            for (int i = 0; i < result.length; i++) {
+                for (int j = 0; j < result[0].length; j++) {
+                    result[i][j] = this.value[i][j] - other.value[i][j];
+                }
+            }
+            return new Matrix(result);
+        }
+        return super.add(other);
+    }
+
+    @Override
+    public Var mul(Var other) {
+        try {
+            return this.mul((Scalar) other);
+        } catch (ClassCastException e0) {
+            try {
+                return this.mul((Vector) other);
+            } catch (ClassCastException e1) {
+                try {
+                    return this.mul((Matrix) other);
+                } catch (ClassCastException e2) {
+                    return super.mul(other);
+                }
+            }
+        }
+    }
+
+    private Var mul(Scalar other) {
+        double[][] result = new double[this.value.length][this.value[0].length];
+        double filler = other.getValue();
+        for (int i = 0; i < result.length; i++) {
+            for (int j = 0; j < result[0].length; j++) {
+                result[i][j] = this.value[i][j] * filler;
+            }
+        }
+        return new Matrix(result);
+    }
+
+    private Var mul(Vector other) {
+        double[] vector = other.getValue();
+        if (this.value[0].length == vector.length) {
+            double[] result = new double[this.value.length];
+            for (int i = 0; i < this.value.length; i++) {
+                for (int j = 0; j < this.value[0].length; j++) {
+                    result[i] = result[i] + this.value[i][j] * vector[j];
+                }
+            }
+            return new Vector(result);
+        }
+        return super.mul(other);
+    }
+
+    private Var mul(Matrix other) {
+        if (this.value[0].length == other.value.length) {
+            double[][] result = new double[this.value.length][other.value[0].length];
+            for (int i = 0; i < result.length; i++) {
+                for (int j = 0; j < result[0].length; j++) {
+                    for (int k = 0; k < this.value[0].length; k++) {
+                        result[i][j] = result[i][j] + this.value[i][k] * other.value[k][j];
+                    }
+                }
+            }
+            return new Matrix(result);
+        }
+        return super.mul(other);
+    }
+
+    @Override
+    public Var div(Var other) {
+        try {
+            return this.div((Scalar) other);
+        } catch (ClassCastException e0) {
+            return super.div(other);
+        }
+    }
+
+    private Var div(Scalar other) {
+        double filler = other.getValue();
+        if (filler != 0) {
+            double[][] result = new double[this.value.length][this.value[0].length];
+            for (int i = 0; i < this.value.length; i++) {
+                for (int j = 0; j < this.value[0].length; j++) {
+                    result[i][j] = this.value[i][j] / filler;
+                }
+            }
+            return new Matrix(result);
+        }
+        return super.div(other);
+    }
+
     Matrix(String strMatrix) {
-        Pattern patternToRows = Pattern.compile("[{][0-9,]+[}]");
+        Pattern patternToRows = Pattern.compile("[{][0-9, ]+[}]");
         Matcher matcherToRows = patternToRows.matcher(strMatrix);
         int numberOfRows = counterOfElementsOfAnArray(matcherToRows);
         String[] strArrayRows = concstructorArrayRows(matcherToRows, numberOfRows);
