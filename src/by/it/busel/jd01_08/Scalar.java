@@ -3,6 +3,10 @@ package by.it.busel.jd01_08;
 class Scalar extends Var {
     private double value;
 
+    public double getValue() {
+        return value;
+    }
+
     Scalar(double value) {
         this.value = value;
     }
@@ -33,13 +37,13 @@ class Scalar extends Var {
         }
 
         try {
-            return this.add(other);
+            return this.add((Vector) other);
         } catch (ClassCastException e) {
             counter++;
         }
 
         try {
-            return this.add(other);
+            return this.add((Matrix) other);
         } catch (ClassCastException e) {
             counter++;
         }
@@ -47,19 +51,18 @@ class Scalar extends Var {
         return super.add(other);
     }
 
-    public Var add(Scalar other) throws ClassCastException {
+    private Var add(Scalar other) throws ClassCastException {
         double sum = this.value + other.value;
         return new Scalar(sum);
     }
 
-//    public Var add(Vector other) throws ClassCastException {
-//        return new Vector(other);
-//    }
-//
-//    public Var add(Matrix other) throws ClassCastException {
-//
-//        return new Matrix(other);
-//    }
+    private Var add(Vector other) throws ClassCastException {
+        return other.add(this);
+    }
+
+    private Var add(Matrix other) throws ClassCastException {
+        return other.add(this);
+    }
 
     @Override
     public Var sub(Var other) {
@@ -70,13 +73,13 @@ class Scalar extends Var {
         }
 
         try {
-            return this.sub(other);
+            return this.sub((Vector) other);
         } catch (ClassCastException e) {
             counter++;
         }
 
         try {
-            return this.sub(other);
+            return this.sub((Matrix) other);
         } catch (ClassCastException e) {
             counter++;
         }
@@ -84,9 +87,17 @@ class Scalar extends Var {
         return super.sub(other);
     }
 
-    private Var sub(Scalar other) {
+    private Var sub(Scalar other) throws ClassCastException {
         double rem = this.value - other.value;
         return new Scalar(rem);
+    }
+
+    private Var sub(Vector other) throws ClassCastException {
+        return new Scalar(-1).mul(other).add(this);
+    }
+
+    private Var sub(Matrix other) throws ClassCastException {
+        return new Scalar(-1).mul(other).add(this);
     }
 
     @Override
@@ -98,13 +109,13 @@ class Scalar extends Var {
         }
 
         try {
-            return this.mul(other);
+            return this.mul((Vector) other);
         } catch (ClassCastException e) {
             counter++;
         }
 
         try {
-            return this.mul(other);
+            return this.mul((Matrix) other);
         } catch (ClassCastException e) {
             counter++;
         }
@@ -112,10 +123,19 @@ class Scalar extends Var {
         return super.mul(other);
     }
 
-    public Var mul(Scalar other) {
+    private Var mul(Scalar other) throws ClassCastException {
         double mul = this.value * other.value;
         return new Scalar(mul);
     }
+
+    private Var mul(Vector other) throws ClassCastException {
+        return other.mul(this);
+    }
+
+    private Var mul(Matrix other) throws ClassCastException {
+        return other.mul(this);
+    }
+
 
     @Override
     public Var div(Var other) {
@@ -125,23 +145,15 @@ class Scalar extends Var {
             counter++;
         }
 
-        try {
-            return this.div(other);
-        } catch (ClassCastException e) {
-            counter++;
-        }
-
-        try {
-            return this.div(other);
-        } catch (ClassCastException e) {
-            counter++;
-        }
         return super.div(other);
     }
 
-    private Var div(Scalar other) {
-        double div = this.value / other.value;
-        return new Scalar(div);
+    private Var div(Scalar other) throws ClassCastException {
+        if (other.value != 0) {
+            double div = this.value / other.value;
+            return new Scalar(div);
+        }
+        return super.div(other);
     }
 
 }

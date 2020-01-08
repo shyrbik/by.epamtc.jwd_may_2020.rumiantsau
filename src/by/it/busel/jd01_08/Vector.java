@@ -21,7 +21,147 @@ class Vector extends Var {
         if (counter > 0) {
             valueFiller(matcher, counter);
         }
+    }
 
+    @Override
+    public String toString() {
+        String sep = ", ";
+        StringBuilder sb = new StringBuilder("{");
+        for (int i = 0; i < value.length; i++) {
+            sb.append(value[i]);
+            if (i != value.length - 1) {
+                sb.append(sep);
+            }
+        }
+        sb.append("}");
+        return sb.toString();
+    }
+
+    @Override
+    public Var add(Var other) {
+        try {
+            return this.add((Scalar) other);
+        } catch (ClassCastException e) {
+            counter++;
+        }
+        try {
+            return this.add((Vector) other);
+        } catch (ClassCastException e) {
+            counter++;
+        }
+        return super.add(other);
+    }
+
+    public Var add(Scalar other) {
+        double[] result = new double[this.value.length];
+        double filler = other.getValue();
+        for (int i = 0; i < result.length; i++) {
+            result[i] = this.value[i] + filler;
+        }
+        return new Vector(result);
+    }
+
+    public Var add(Vector other) {
+        if (this.value.length == other.value.length) {
+            double[] result = new double[this.value.length];
+            for (int i = 0; i < value.length; i++) {
+                result[i] = this.value[i] + other.value[i];
+            }
+            return new Vector(result);
+        }
+        return super.add(other);
+    }
+
+    @Override
+    public Var sub(Var other) {
+        try {
+            return this.sub((Scalar) other);
+        } catch (ClassCastException e) {
+            counter++;
+        }
+        try {
+            return this.sub((Vector) other);
+
+        } catch (ClassCastException e) {
+            counter++;
+        }
+        return super.sub(other);
+    }
+
+    private Var sub(Scalar other) {
+        double[] result = new double[this.value.length];
+        double filler = other.getValue();
+        for (int i = 0; i < result.length; i++) {
+            result[i] = this.value[i] - filler;
+        }
+        return new Vector(result);
+    }
+
+    private Var sub(Vector other) {
+        if (this.value.length == other.value.length) {
+            double[] result = new double[this.value.length];
+            for (int i = 0; i < value.length; i++) {
+                result[i] = this.value[i] - other.value[i];
+            }
+            return new Vector(result);
+        }
+        return super.sub(other);
+    }
+
+    @Override
+    public Var mul(Var other) {
+        try {
+            return this.mul((Scalar) other);
+        } catch (ClassCastException e) {
+            counter++;
+        }
+        try {
+            return this.mul((Vector) other);
+        } catch (ClassCastException e) {
+            counter++;
+        }
+        return super.mul(other);
+    }
+
+    private Var mul(Scalar other) {
+        double[] result = new double[this.value.length];
+        double filler = other.getValue();
+        for (int i = 0; i < result.length; i++) {
+            result[i] = this.value[i] * filler;
+        }
+        return new Vector(result);
+    }
+
+    private Var mul(Vector other) {
+        if (this.value.length == other.value.length) {
+            double result = 0;
+            for (int i = 0; i < this.value.length; i++) {
+                result = result + this.value[i] * other.value[i];
+            }
+            return new Scalar(result);
+        }
+        return super.mul(other);
+    }
+
+    @Override
+    public Var div(Var other) {
+        try {
+            return this.div((Scalar) other);
+        } catch (ClassCastException e) {
+            return super.div(other);
+        }
+    }
+
+    private Var div(Scalar other) {
+        double filler = other.getValue();
+        if (filler != 0) {
+            double[] result = new double[this.value.length];
+            for (int i = 0; i < this.value.length; i++) {
+                result[i] = this.value[i] / filler;
+            }
+            return new Vector(result);
+        }
+        return super.div(other);
     }
 
     private void valueFiller(Matcher matcher, int counter) {
@@ -44,21 +184,6 @@ class Vector extends Var {
         }
         matcher.reset();
         return counter;
-
-    }
-
-    @Override
-    public String toString() {
-        String sep = ", ";
-        StringBuilder sb = new StringBuilder("{");
-        for (int i = 0; i < value.length; i++) {
-            sb.append(value[i]);
-            if (i != value.length - 1) {
-                sb.append(sep);
-            }
-        }
-        sb.append("}");
-        return sb.toString();
 
     }
 

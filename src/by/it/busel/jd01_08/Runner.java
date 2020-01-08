@@ -13,11 +13,26 @@ class Runner {
          * Task A
          */
         print(s.add(s));
+//        print(s.add(v));
+//        print(s.add(m));
         print(s.sub(s));
+//        print(s.sub(v));
+//        print(s.sub(m));
         print(s.mul(s));
+//        print(s.mul(v));
+//        print(s.mul(m));
         print(s.div(s));
+//        print(s.div(v));
+//        print(s.div(m));
 
-        
+
+        /*
+         * Task B
+         */
+        print(v.add(v));
+        print(v.sub(v));
+        print(v.mul(v));
+        print(v.div(v));
 
 
 
