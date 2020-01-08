@@ -4,6 +4,10 @@ import java.util.Arrays;
 
 class Matrix extends Var {
 
+    public double[][] getValue() {
+        return value;
+    }
+
     private double[][] value;
 
     Matrix(double[][] value) {
@@ -39,10 +43,10 @@ class Matrix extends Var {
 
     @Override
     Var add(Scalar otherScalar) {
-        double[][] sum = Arrays.copyOf(value, value.length);
-        for (int i = 0; i < sum.length; i++) {
-            for (int j = 0; j < sum[i].length; j++) {
-                sum[i][j] = sum[i][j] + otherScalar.getValue();
+        double[][] sum = new double[this.value.length][this.value[0].length];
+        for (int i = 0; i < this.value.length; i++) {
+            for (int j = 0; j < this.value[0].length; j++) {
+                sum[i][j] = this.value[i][j] + otherScalar.getValue();
             }
         }
         return new Matrix(sum);
@@ -59,27 +63,38 @@ class Matrix extends Var {
         return new Matrix(sum);
     }
 
+//    @Override
+//    public Var sub(Var other) {
+//        if (other instanceof Scalar) {
+//            double[][] sub = Arrays.copyOf(value, value.length);
+//            for (int i = 0; i < sub.length; i++) {
+//                for (int j = 0; j < sub[i].length; j++) {
+//                    sub[i][j] = sub[i][j] - ((Scalar) other).getValue();
+//                }
+//            }
+//            return new Matrix(sub);
+//        }
+//        if (other instanceof Matrix) {
+//            double[][] sub = new double[this.value.length][this.value[0].length];
+//            for (int i = 0; i < this.value.length; i++) {
+//                for (int j = 0; j < this.value[0].length; j++) {
+//                    sub[i][j] = this.value[i][j] - ((Matrix) other).value[i][j];
+//                }
+//            }
+//            return new Matrix(sub);
+//        }
+//        return super.sub(other);
+//    }
+
+
     @Override
     public Var sub(Var other) {
-        if (other instanceof Scalar) {
-            double[][] sub = Arrays.copyOf(value, value.length);
-            for (int i = 0; i < sub.length; i++) {
-                for (int j = 0; j < sub[i].length; j++) {
-                    sub[i][j] = sub[i][j] - ((Scalar) other).getValue();
-                }
-            }
-            return new Matrix(sub);
-        }
-        if (other instanceof Matrix) {
-            double[][] sub = new double[this.value.length][this.value[0].length];
-            for (int i = 0; i < this.value.length; i++) {
-                for (int j = 0; j < this.value[0].length; j++) {
-                    sub[i][j] = this.value[i][j] - ((Matrix) other).value[i][j];
-                }
-            }
-            return new Matrix(sub);
-        }
-        return super.sub(other);
+        return other.sub(this);
+    }
+
+    @Override
+    Var sub(Matrix otherMatrix) {
+        return otherMatrix.add(this.mul(new Scalar(-1)));
     }
 
     @Override

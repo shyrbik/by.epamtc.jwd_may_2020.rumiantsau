@@ -27,13 +27,13 @@ class Scalar extends Var {
 
     @Override
     Var add(Scalar otherScalar) {
-        double sum = this.value + otherScalar.value;
+        double sum = otherScalar.value + this.value;
         return new Scalar(sum);
     }
 
     @Override
     Var add(Vector otherVector) {
-       return otherVector.add(this);
+        return otherVector.add(this);
     }
 
     @Override
@@ -43,10 +43,29 @@ class Scalar extends Var {
 
     @Override
     public Var sub(Var other) {
-        if (other instanceof Scalar) {
-            double sub = this.value - ((Scalar) other).value;
-            return new Scalar(sub);
-        } else return new Scalar(-1).mul(other).add(this);
+        return other.sub(this);
+    }
+
+    @Override
+    Var sub(Scalar otherScalar) {
+        double sub = otherScalar.value - this.value;
+        return new Scalar(sub);
+    }
+
+    @Override
+    Var sub(Vector otherVector) {
+        return otherVector.add(new Scalar(this.value * -1.0));
+    }
+
+    @Override
+    Var sub(Matrix otherMatrix) {
+        double[][] sub = new double[otherMatrix.getValue().length][otherMatrix.getValue()[0].length];
+            for (int i = 0; i < otherMatrix.getValue().length; i++) {
+                for (int j = 0; j < otherMatrix.getValue().length; j++) {
+                    sub[i][j] = otherMatrix.getValue()[i][j] - this.value;
+                }
+            }
+            return new Matrix(sub);
     }
 
     @Override

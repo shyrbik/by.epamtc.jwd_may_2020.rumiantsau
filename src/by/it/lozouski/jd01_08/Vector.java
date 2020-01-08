@@ -34,39 +34,58 @@ class Vector extends Var {
 
     @Override
     Var add(Scalar otherScalar) {
-        double[] sum = Arrays.copyOf(value, value.length);
-        for (int i = 0; i < sum.length; i++) {
-            sum[i] = sum[i] + otherScalar.getValue();
+        double[] sum = new double[this.value.length];
+        for (int i = 0; i < this.value.length; i++) {
+            sum[i] = this.value[i] + otherScalar.getValue();
         }
         return new Vector(sum);
     }
 
     @Override
     Var add(Vector otherVector) {
-        double[] sum = Arrays.copyOf(value, value.length);
-        for (int i = 0; i < sum.length; i++) {
-            sum[i] = sum[i] + otherVector.value[i];
+        double[] sum = new double[this.value.length];
+        for (int i = 0; i < this.value.length; i++) {
+            sum[i] = this.value[i] + otherVector.value[i];
         }
         return new Vector(sum);
     }
 
+//    @Override
+//    public Var sub(Var other) {
+//        if (other instanceof Scalar) {
+//            double[] sum = Arrays.copyOf(value, value.length);
+//            for (int i = 0; i < sum.length; i++) {
+//                sum[i] = sum[i] - ((Scalar) other).getValue();
+//            }
+//            return new Vector(sum);
+//        }
+//        if (other instanceof Vector) {
+//            double[] sum = Arrays.copyOf(value, value.length);
+//            for (int i = 0; i < sum.length; i++) {
+//                sum[i] = sum[i] - ((Vector) other).value[i];
+//            }
+//            return new Vector(sum);
+//        }
+//        return super.sub(other);
+//    }
+
     @Override
     public Var sub(Var other) {
-        if (other instanceof Scalar) {
-            double[] sum = Arrays.copyOf(value, value.length);
-            for (int i = 0; i < sum.length; i++) {
-                sum[i] = sum[i] - ((Scalar) other).getValue();
+        return other.sub(this);
+    }
+
+    @Override
+    Var sub(Scalar otherScalar) {
+        double[] sub = Arrays.copyOf(value, value.length);
+            for (int i = 0; i < sub.length; i++) {
+                sub[i] = sub[i] - otherScalar.getValue();
             }
-            return new Vector(sum);
-        }
-        if (other instanceof Vector) {
-            double[] sum = Arrays.copyOf(value, value.length);
-            for (int i = 0; i < sum.length; i++) {
-                sum[i] = sum[i] - ((Vector) other).value[i];
-            }
-            return new Vector(sum);
-        }
-        return super.sub(other);
+            return new Vector(sub);
+    }
+
+    @Override
+    Var sub(Vector otherVector) {
+        return otherVector.add(this.mul(new Scalar(-1)));
     }
 
     @Override
