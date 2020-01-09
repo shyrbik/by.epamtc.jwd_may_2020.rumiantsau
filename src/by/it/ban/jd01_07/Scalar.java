@@ -1,7 +1,7 @@
 package by.it.ban.jd01_07;
 
-class Scalar extends Var {
-    private double value;
+public class Scalar extends Var {
+    public double value;
     Scalar(double value) {
         this.value=value;
     }
