@@ -9,7 +9,7 @@ class Vector extends Var {
         this.value = Arrays.copyOf(value, value.length);
     }
     Vector(Vector vector) {
-        this.value = vector.value;
+        this(vector.value);
     }
     Vector(String str) {
         str.trim();
