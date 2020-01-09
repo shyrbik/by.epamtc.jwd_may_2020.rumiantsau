@@ -9,7 +9,7 @@ class Vector extends Var {
     }
 
     Vector(Vector vector) {
-        value = vector.value;
+        this(vector.value);
     }
 
     Vector(String strVector) {
@@ -34,54 +34,71 @@ class Vector extends Var {
         return "Vector";
     }
 
-    @Override
-    public Var add(Var other) {
-        if (other.getClassName().equals("Scalar")) {
-            Scalar scalar = (Scalar) other;
-            double[] resultValue = new double[value.length];
+    private Var getResultOperationWithScalar(Var other, String operation) {
+        Scalar scalar = (Scalar) other;
+        double[] resultValue = new double[value.length];
+        if (operation.equals("add")) {
             for (int i = 0; i < value.length; i++) {
                 resultValue[i] = value[i] + scalar.getValue();
             }
-            return new Vector(resultValue);
         }
-        if (other.getClassName().equals("Vector")) {
-            Vector otherVector = (Vector) other;
-            if (otherVector.getValue().length == value.length) {
-                double[] resultValue = new double[value.length];
-                for (int i = 0; i < value.length; i++) {
-                    resultValue[i] = value[i] + otherVector.value[i];
-                }
-                return new Vector(resultValue);
+        if (operation.equals("sub")) {
+            for (int i = 0; i < value.length; i++) {
+                resultValue[i] = value[i] - scalar.getValue();
             }
         }
-        return other.add(this);
+        if (operation.equals("mul")) {
+            for (int i = 0; i < value.length; i++) {
+                resultValue[i] = value[i] * scalar.getValue();
+            }
+        }
+        if (operation.equals("div")) {
+            for (int i = 0; i < value.length; i++) {
+                resultValue[i] = value[i] / scalar.getValue();
+            }
+        }
+        return new Vector(resultValue);
+    }
+
+    private Var getResultAddOrSubVector(Var other, int sign) {
+        Vector otherVector = (Vector) other;
+        if (otherVector.getValue().length == value.length) {
+            double[] resultValue = new double[value.length];
+            for (int i = 0; i < value.length; i++) {
+                resultValue[i] = value[i] + sign * otherVector.value[i];
+            }
+            return new Vector(resultValue);
+        }
+        return getDefaultResult(this);
+    }
+
+    @Override
+    public Var add(Var other) {
+        if (other.getClassName().equals("Scalar")) {
+            return getResultOperationWithScalar(other, "add");
+        }
+        if (other.getClassName().equals("Vector")) {
+            return getResultAddOrSubVector(other, 1);
+        }
+        return getDefaultResult(this);
     }
 
     @Override
     public Var sub(Var other) {
         if (other.getClassName().equals("Scalar")) {
-            Scalar scalar = (Scalar) other;
-            double[] resultValue = new double[value.length];
-            for (int i = 0; i < value.length; i++) {
-                resultValue[i] = value[i] - scalar.getValue();
-            }
-            return new Vector(resultValue);
+            return getResultOperationWithScalar(other, "sub");
         }
         if (other.getClassName().equals("Vector")) {
-            Vector otherVector = (Vector) other;
-            if (otherVector.getValue().length == value.length) {
-                double[] resultValue = new double[value.length];
-                for (int i = 0; i < value.length; i++) {
-                    resultValue[i] = value[i] - otherVector.value[i];
-                }
-                return new Vector(resultValue);
-            }
+            return getResultAddOrSubVector(other, -1);
         }
-        return super.sub(other);
+        return getDefaultResult(other);
     }
 
     @Override
     public Var mul(Var other) {
+        if (other.getClassName().equals("Scalar")) {
+            return getResultOperationWithScalar(other, "mul");
+        }
         if (other.getClassName().equals("Vector")) {
             Vector otherVector = (Vector) other;
             if (otherVector.getValue().length == value.length) {
@@ -92,28 +109,15 @@ class Vector extends Var {
                 return new Scalar(result);
             }
         }
-        if (other.getClassName().equals("Scalar")) {
-            Scalar scalar = (Scalar) other;
-            double[] resultValue = new double[value.length];
-            for (int i = 0; i < value.length; i++) {
-                resultValue[i] = value[i] * scalar.getValue();
-            }
-            return new Vector(resultValue);
-        }
-        return super.mul(other);
+        return getDefaultResult(other);
     }
 
     @Override
     public Var div(Var other) {
         if (other.getClassName().equals("Scalar")) {
-            Scalar scalar = (Scalar) other;
-            double[] resultValue = new double[value.length];
-            for (int i = 0; i < value.length; i++) {
-                resultValue[i] = value[i] / scalar.getValue();
-            }
-            return new Vector(resultValue);
+            return getResultOperationWithScalar(other, "div");
         }
-        return super.div(other);
+        return getDefaultResult(other);
     }
 
     @Override
