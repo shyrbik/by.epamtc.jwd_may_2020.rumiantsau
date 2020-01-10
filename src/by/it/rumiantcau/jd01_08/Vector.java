@@ -109,6 +109,7 @@ class Vector extends Var {
 
     public Var mul(Var other) {
         if (other instanceof Scalar){
+
             double[] resMul = Arrays.copyOf(value, value.length);
 
             for (int i = 0; i < resMul.length; i++) {
@@ -120,16 +121,17 @@ class Vector extends Var {
             return new Vector(resMul);
         }
         else if (other instanceof Vector) {
-            double[] resMul = {0};
+            double resDouble = 0;
             double[] res = Arrays.copyOf(value, value.length);
 
             for (int i = 0; i < res.length; i++) {
-                resMul[0] = resMul[0] + res[i] * ((Vector)other).value[i];
+               // resMul[0] = resMul[0] + res[i] * ((Vector)other).value[i];
+                resDouble = resDouble + res[i] * ((Vector)other).value[i];
 
 
             }
             //   Double.toString(resMul);
-            return new Vector(resMul);
+            return new Scalar(resDouble);
         }
 
         else
@@ -153,6 +155,8 @@ class Vector extends Var {
 
 
     }
+
+
 
    /* public double toString() {
         Double.toString(valueDouble);
