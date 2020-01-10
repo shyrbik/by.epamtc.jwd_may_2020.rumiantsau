@@ -1,6 +1,21 @@
 package by.it.lozouski.jd01_09;
 
 abstract class Var implements Operation {
+
+    static Var createVar(String operand) {
+        operand = operand.trim().replace("\\s+", "");
+        if (operand.matches(Patterns.SCALAR)) {
+            return new Scalar(operand);
+        }
+        if (operand.matches(Patterns.VECTOR)) {
+            return new Vector(operand);
+        }
+        if (operand.matches(Patterns.MATRIX)) {
+            return new Matrix(operand);
+        }
+        return null; //TODO Добавить генерацию ошибки.(Lozouski)
+    }
+
     @Override
     public Var add(Var other) {
         return null;
@@ -45,14 +60,17 @@ abstract class Var implements Operation {
     public Var mul(Var other) {
         return null;
     }
+
     Var mul(Scalar otherScalar) {
         System.out.println("Operation multiplication " + otherScalar + " * " + this + " isn't possible.");
         return null;
     }
+
     Var mul(Vector otherVector) {
         System.out.println("Operation multiplication " + otherVector + " * " + this + " isn't possible.");
         return null;
     }
+
     Var mul(Matrix otherMatrix) {
         System.out.println("Operation multiplication " + otherMatrix + " * " + this + " isn't possible.");
         return null;
@@ -62,11 +80,13 @@ abstract class Var implements Operation {
     public Var div(Var other) {
         return null;
     }
-    Var div(Scalar otherScalar){
+
+    Var div(Scalar otherScalar) {
         System.out.println("Operation division " + otherScalar + " / " + this + " isn't possible.");
         return null;
     }
-    Var div(Vector otherVector){
+
+    Var div(Vector otherVector) {
         System.out.println("Operation division " + otherVector + " / " + this + " isn't possible.");
         return null;
     }
