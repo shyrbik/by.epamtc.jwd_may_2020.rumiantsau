@@ -9,7 +9,7 @@ class ConsoleRunner {
         Parser parser = new Parser();
         while (true) {
             String expression = scanner.next();
-            if (expression.equals("stop")) break;
+            if (expression.equals("end")) break;
             printer.print(parser.calc(expression));
         }
     }
