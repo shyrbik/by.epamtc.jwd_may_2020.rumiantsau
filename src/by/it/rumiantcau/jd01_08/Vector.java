@@ -11,8 +11,9 @@ import java.util.Arrays;
 class Vector extends Var {
 
     private double[] value;
-  //  private double valueDouble;
-
+    public double[] getValue() {
+        return value;
+    }
     Vector(double[] value) {
         this.value = value;
     }
@@ -140,9 +141,6 @@ class Vector extends Var {
 
 
     public String toString() {
-
-
-
             StringBuilder sb = new StringBuilder("{");
             String delimiter = "";
             for (double v : value) {
@@ -150,19 +148,10 @@ class Vector extends Var {
                 delimiter = ", ";
             }
             sb.append("}");
-
             return sb.toString();
-
-
     }
 
 
-
-   /* public double toString() {
-        Double.toString(valueDouble);
-        return valueDouble;
-
-    } */
 
 
 
