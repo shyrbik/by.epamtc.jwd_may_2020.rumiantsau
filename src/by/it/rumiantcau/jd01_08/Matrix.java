@@ -1,32 +1,111 @@
 package by.it.rumiantcau.jd01_08;
 
+import java.util.Arrays;
+
 class Matrix extends Var {
-private double[][] value;
+    private double[][] value;
 
-Matrix(String value){
-  //  this.value = value;
-}
-Matrix(Matrix matrix){
-    this.value = matrix.value;
-}
-
-
-public String toString() {
-    StringBuilder sb=new StringBuilder("{{");
-
-    for (int i = 0; i < value.length; i++) {
-        String delimiter="";
-        for (int j = 0; j < value[0].length; j++) {
-
-            sb.append(delimiter).append(value[i][j]);
-            delimiter=", ";
+    public Var mul(Var other) {
+        //МАТРИЦА НА СКАЛЯР
+        if (other instanceof Scalar){
+          /*  this.value = value;
+            double[][] resMul = new double[value.length][value[0].length];
+            for (int i = 0; i < resMul.length; i++) {
+                for (int j = 0; j < resMul[0].length; i++) {
+                    resMul[i][j] = value[i][j];
+                }
+            }*/
+            double[][] resMul = Arrays.copyOf(value, value.length);
+            for (int i = 0; i < resMul.length; i++) {
+                for (int j = 0; j < resMul[0].length; j++) {
+                    resMul[i][j] = resMul[i][j] * ((Scalar)other).getValue();
+                }
+            }
+            return new Matrix(resMul);
         }
-        if (i<value.length-1) sb.append("}, {");
+        //МАТРИЦА НА МАТРИЦУ
+        else if (other instanceof Matrix){
+            double[][] resMul = Arrays.copyOf(value, value.length);
+            double[][] x_mull = new double[resMul.length][((Matrix)other).value[0].length];
+            for (int i = 0; i < resMul.length; i++) {
+                for (int k = 0; k < ((Matrix)other).value.length; k++) {
+                    for (int j = 0; j < ((Matrix)other).value[0].length; j++) {
+                        x_mull[i][j] = x_mull[i][j] + resMul[i][k]*((Matrix)other).value[k][j];
+                    }
+                }
+            }
+            return new Matrix(x_mull);
+        }
+        //МАТРИЦА НА ВЕКТОР
+        else if (other instanceof Vector){
+            double[][] resMul = Arrays.copyOf(value, value.length);
+            double[] x_mull = new double[resMul.length];
+            double[] vectorMas = ((Vector)other).getValue();
+            for (int i = 0; i < resMul.length; i++) {
+            for (int j = 0; j < vectorMas.length; j++) {
+            x_mull[i] = x_mull[i] + resMul[i][j]*vectorMas[j];
+        }
+    }
+            return new Vector(x_mull);
+        }
+        else
+            return super.mul(this);
+    }
+
+
+
+
+
+
+
+    Matrix(double[ ][ ] value){
+        this.value = value;
+    }
+    Matrix(Matrix matrix){
+        this.value = matrix.value;
+    }
+    Matrix(String strMatrix){
+        int rowNumber = 0;
+        String resultStr;
+        strMatrix = strMatrix.replace("{{", "{");
+        strMatrix = strMatrix.replace("}}", "}");
+        //вычесляем количество рядов и столбцов у матрицы
+        char[] charMas = strMatrix.toCharArray();
+        for (int i = 0; i < charMas.length; i++) {
+            if (charMas[i] =='}') rowNumber++;
+        }
+        resultStr = strMatrix.substring(strMatrix.indexOf('{') + 1, strMatrix.indexOf('}'));
+        String[] sb= resultStr.split(",");
+        int columnNumber = sb.length;
+        this.value = new double[rowNumber][columnNumber];
+
+        for (int i = 0; i < rowNumber; i++) {
+            resultStr = strMatrix.substring(strMatrix.indexOf('{') + 1, strMatrix.indexOf('}'));
+            strMatrix = strMatrix.substring(strMatrix.indexOf('}') +1 , strMatrix.length());
+            sb= resultStr.split(",");
+
+            for (int j = 0; j < sb.length; j++) {
+                value[i][j] =  Double.parseDouble(sb[j]);
+            }
+        }
 
     }
-    sb.append("}}");
 
-    return sb.toString();
+
+
+    public String toString() {
+        StringBuilder sb=new StringBuilder("{{");
+        for (int i = 0; i < value.length; i++) {
+            String delimiter="";
+            for (int j = 0; j < value[0].length; j++) {
+                sb.append(delimiter).append(value[i][j]);
+                delimiter=", ";
+            }
+            if (i<value.length-1) sb.append("}, {");
+        }
+        sb.append("}}");
+
+        return sb.toString();
     }
 
 
