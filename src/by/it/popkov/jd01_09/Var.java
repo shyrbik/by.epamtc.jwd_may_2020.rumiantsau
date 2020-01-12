@@ -24,4 +24,9 @@ abstract class Var implements Operation {
         System.out.println(this + " / " + other + " impossible");
         return null;
     }
+
+    public static Var newVar(String strVar) {
+        if (strVar.matches(Patterns.SCALAR)) return new Scalar(strVar);
+        else return null;
+    }
 }
