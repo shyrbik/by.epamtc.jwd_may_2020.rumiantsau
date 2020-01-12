@@ -13,16 +13,18 @@ class Parser {
             String[] values = expression.split("[-+/*]");
             String first = values[0];
             String second = values[1];
-            switch (sing) {
-                case "+":
-                    return Var.newVar(first).add(Var.newVar(second));
-                case "-":
-                    return Var.newVar(first).sub(Var.newVar(second));
-                case "*":
-                    return Var.newVar(first).mul(Var.newVar(second));
-                case "/":
-                    return Var.newVar(first).div(Var.newVar(second));
+            if (Var.newVar(first) != null && Var.newVar(second) != null) {
+                switch (sing) {
+                    case "+":
+                        return Var.newVar(first).add(Var.newVar(second));
+                    case "-":
+                        return Var.newVar(first).sub(Var.newVar(second));
+                    case "*":
+                        return Var.newVar(first).mul(Var.newVar(second));
+                    case "/":
+                        return Var.newVar(first).div(Var.newVar(second));
 
+                }
             }
         }
         return null;
