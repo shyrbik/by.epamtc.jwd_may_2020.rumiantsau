@@ -35,6 +35,10 @@ abstract class Var implements Operation{
         String a = operand.trim();
         if(a.matches(Patterns.SCALAR))
             return new Scalar(a);
+        else if(a.matches(Patterns.VECTOR))
+            return new Vector(a);
+        else if(a.matches(Patterns.MATRIX))
+            return new Matrix(a);
 
         return null;
     }

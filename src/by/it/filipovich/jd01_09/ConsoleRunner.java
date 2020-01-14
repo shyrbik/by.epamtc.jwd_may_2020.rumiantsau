@@ -15,8 +15,6 @@ public class ConsoleRunner {
             else
             pr.print(parser.calc(expression));
         }
-
     }
-
 
 }
