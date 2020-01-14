@@ -5,16 +5,18 @@ import java.util.Scanner;
 public class ConsoleRunner {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        String expression = scanner.nextLine();
-
         Parser parser = new Parser();
-        print(parser.calc(expression));
-
+        Printer pr = new Printer();
+        while (true){
+            String expression = scanner.nextLine();
+            if(expression.equals("end")){
+                break;
+            }
+            else
+            pr.print(parser.calc(expression));
+        }
 
     }
 
-    private static void print(Var var){
-        if(var != null)
-            System.out.println(var);
-    }
+
 }
