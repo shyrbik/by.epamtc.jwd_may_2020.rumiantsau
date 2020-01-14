@@ -64,7 +64,7 @@ class Vector extends Var {
         }
 
         else
-            return super.add(this);
+            return super.add(other);
     }
 
     public Var sub(Var other) {
@@ -110,31 +110,21 @@ class Vector extends Var {
 
     public Var mul(Var other) {
         if (other instanceof Scalar){
-
             double[] resMul = Arrays.copyOf(value, value.length);
-
             for (int i = 0; i < resMul.length; i++) {
-
-
-                resMul[i] = resMul[i] * ((Scalar)other).getValue();
-
+               resMul[i] = resMul[i] * ((Scalar)other).getValue();
             }
             return new Vector(resMul);
         }
         else if (other instanceof Vector) {
             double resDouble = 0;
             double[] res = Arrays.copyOf(value, value.length);
-
             for (int i = 0; i < res.length; i++) {
                // resMul[0] = resMul[0] + res[i] * ((Vector)other).value[i];
                 resDouble = resDouble + res[i] * ((Vector)other).value[i];
-
-
             }
-            //   Double.toString(resMul);
             return new Scalar(resDouble);
         }
-
         else
             return super.mul(this);
     }

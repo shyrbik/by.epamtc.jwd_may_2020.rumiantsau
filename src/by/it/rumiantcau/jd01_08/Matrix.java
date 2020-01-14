@@ -4,17 +4,13 @@ import java.util.Arrays;
 
 class Matrix extends Var {
     private double[][] value;
-
+    public double[][] getValue() {
+        return value;
+    }
+//ОПЕРАЦИЯ УМНОЖЕНИЯ
     public Var mul(Var other) {
         //МАТРИЦА НА СКАЛЯР
         if (other instanceof Scalar){
-          /*  this.value = value;
-            double[][] resMul = new double[value.length][value[0].length];
-            for (int i = 0; i < resMul.length; i++) {
-                for (int j = 0; j < resMul[0].length; i++) {
-                    resMul[i][j] = value[i][j];
-                }
-            }*/
             double[][] resMul = Arrays.copyOf(value, value.length);
             for (int i = 0; i < resMul.length; i++) {
                 for (int j = 0; j < resMul[0].length; j++) {
@@ -49,15 +45,58 @@ class Matrix extends Var {
             return new Vector(x_mull);
         }
         else
-            return super.mul(this);
+            return super.mul(other);
     }
-
-
-
-
-
-
-
+    //ОПЕРАЦИЯ СЛОЖЕНИЯ
+    public Var add(Var other) {
+        if (other instanceof Matrix){
+            double[][] resMatrixAddMatrix = new double[value.length][value[0].length];
+            double[][] otherMatrix = ((Matrix)other).value;
+            for (int i = 0; i < value.length; i++) {
+                for (int j = 0; j < value[0].length; j++) {
+                    resMatrixAddMatrix[i][j] = value[i][j] + otherMatrix[i][j];;
+                }
+            }
+            return new Matrix(resMatrixAddMatrix);
+        }
+        else if  (other instanceof Scalar){
+            double[][] resMatrixAddScalar = new double[value.length][value[0].length];
+            double otherScalar = ((Scalar) other).getValue();
+            for (int i = 0; i < value.length; i++) {
+                for (int j = 0; j < value[0].length; j++) {
+                    resMatrixAddScalar[i][j] = value[i][j] + otherScalar;;
+                }
+            }
+            return new Matrix(resMatrixAddScalar);
+        }
+        else return super.add(other);
+    }
+// ОПЕРАЦИЯ ВЫЧИТАНИЯ
+    public Var sub(Var other) {
+        if (other instanceof Matrix){
+            //double[][] resMatrixSubMatrix = Arrays.copyOf(value, value.length);
+            double[][] resMatrixSubMatrix = new double[value.length][value[0].length];
+            double[][] otherMatrix = ((Matrix)other).value;
+            for (int i = 0; i < value.length; i++) {
+                for (int j = 0; j < value[0].length; j++) {
+                    resMatrixSubMatrix[i][j] = value[i][j] - otherMatrix[i][j];;
+                }
+            }
+            return new Matrix(resMatrixSubMatrix);
+        }
+        else if  (other instanceof Scalar){
+           // double[][] resMatrixSubScalar = Arrays.copyOf(value, value.length);
+            double[][] resMatrixSubScalar = new double[value.length][value[0].length];
+            double otherScalar = ((Scalar) other).getValue();
+            for (int i = 0; i < value.length; i++) {
+                for (int j = 0; j < value[0].length; j++) {
+                    resMatrixSubScalar[i][j] = value[i][j] - otherScalar;;
+                }
+            }
+            return new Matrix(resMatrixSubScalar);
+        }
+        else return super.sub(other);
+    }
     Matrix(double[ ][ ] value){
         this.value = value;
     }
@@ -90,9 +129,6 @@ class Matrix extends Var {
         }
 
     }
-
-
-
     public String toString() {
         StringBuilder sb=new StringBuilder("{{");
         for (int i = 0; i < value.length; i++) {
