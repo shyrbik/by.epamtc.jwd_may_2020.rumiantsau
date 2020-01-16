@@ -4,6 +4,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 class Parser {
+
     Var calc(String expression) {
         expression = expression.replace("\\s+", "");
         Matcher matcher = Pattern.compile(Patterns.OPERATION).matcher(expression);
@@ -27,4 +28,5 @@ class Parser {
         }
         return null;
     }
+
 }
