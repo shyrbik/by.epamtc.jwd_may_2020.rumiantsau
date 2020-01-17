@@ -27,8 +27,8 @@ abstract class Var implements Operation {
 
     static Var newVar(String strVar) {
         if (strVar.matches(Patterns.SCALAR)) return new Scalar(strVar);
-        if (strVar.matches(Patterns.VECTOR)) return new Vector(strVar);
-        if (strVar.matches(Patterns.MATRIX)) return new Matrix(strVar);
+        else if (strVar.matches(Patterns.VECTOR)) return new Vector(strVar);
+        else if (strVar.matches(Patterns.MATRIX)) return new Matrix(strVar);
         else return null;
     }
 }
