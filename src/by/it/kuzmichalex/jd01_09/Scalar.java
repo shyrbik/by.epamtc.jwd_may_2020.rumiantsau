@@ -80,12 +80,12 @@ class Scalar extends Var {
     //Matrix - Scalar
     @Override
     public Var sub(Matrix leftOperand) {
-        double[][] leftOperandValue=leftOperand.getValue();
+        double[][] leftOperandValue = leftOperand.getValue();
 
         double[][] returnMatrix = new double[leftOperandValue.length][leftOperandValue[0].length];
-        for (int y = 0; y <leftOperandValue.length ; y++) {
-            for (int x = 0; x <leftOperandValue.length ; x++) {
-                returnMatrix[x][y]=leftOperandValue[x][y]-this.value;
+        for (int y = 0; y < leftOperandValue.length; y++) {
+            for (int x = 0; x < leftOperandValue.length; x++) {
+                returnMatrix[x][y] = leftOperandValue[x][y] - this.value;
             }
         }
         return new Matrix(returnMatrix);
@@ -140,7 +140,7 @@ class Scalar extends Var {
             System.out.println("Деление на ноль detected");
             return null;
         }
-        Var hyperScalar = new Scalar(1.0/this.value);
+        Var hyperScalar = new Scalar(1.0 / this.value);
         return leftOperand.mul(hyperScalar);
     }
 
@@ -151,7 +151,7 @@ class Scalar extends Var {
             System.out.println("Деление на ноль detected");
             return null;
         }
-        Var hyperScalar = new Scalar(1.0/this.value);
+        Var hyperScalar = new Scalar(1.0 / this.value);
         return leftOperand.mul(hyperScalar);
     }
 }
