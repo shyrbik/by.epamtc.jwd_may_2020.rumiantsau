@@ -1,5 +1,8 @@
 package by.it.tarasevich.jd01_07;
 
+
+import java.util.Arrays;
+
 class Vector extends Var {
     private double[] value;
 
@@ -12,12 +15,13 @@ class Vector extends Var {
     }
 
     Vector(String str) {
-        String string = str.replaceAll("\\{", "").replaceAll("\\}","");;
+        String string = str.replace("{", "").replace("}","");
         String[] s1 = string.split(",");
-        Double[] doubles = new Double[s1.length];
-        for (int i = 0; i < s1.length; i++) {
-            doubles[i] = Double.parseDouble(s1[i]);
+        value = new double[s1.length];
+        for (int i = 0; i < value.length; i++) {
+            value[i] = Double.parseDouble(s1[i]);
         }
+
     }
 
     @Override
@@ -32,5 +36,6 @@ class Vector extends Var {
         sb.append("}");
         return sb.toString();
     }
-}
+    }
+
 
