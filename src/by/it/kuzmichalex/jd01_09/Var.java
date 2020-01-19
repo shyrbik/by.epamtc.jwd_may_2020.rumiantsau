@@ -13,6 +13,24 @@ abstract class Var implements Operation {
         return("abstract class Var");
     }
 
+    /**
+     * Create Var from expression
+     * 1.12 Scalar
+     * {1.23, 4.56} Vector
+     * {{1.23, 4.56},{7.89, 10.1112}} matrix
+     * */
+    static Var createVar(String strExperession) {
+        if (strExperession.matches(Patterns.SCALAR))
+            return new Scalar(strExperession);
+        else if (strExperession.matches(Patterns.VECTOR))
+            return new Vector(strExperession);
+        else if (strExperession.matches(Patterns.MATRIX))
+            return new Matrix(strExperession);
+        else
+            return null; //
+    }
+
+
     /////////// Methods for add operation
     @Override
     public Var add(Var rightOperand) {
@@ -35,7 +53,7 @@ abstract class Var implements Operation {
     /////////// Methods for sub operation
     @Override
     public Var sub(Var rightOperand) {
-        System.out.println("Var.add var" + rightOperand);
+        //System.out.println("Var.add var" + rightOperand);
         return null;
     }
     public Var sub(Scalar leftOperand){
@@ -54,7 +72,7 @@ abstract class Var implements Operation {
     /////////// Methods for mul operation
     @Override
     public Var mul(Var rightOperand) {
-        System.out.println("Var.mul var" + rightOperand);
+        //System.out.println("Var.mul var" + rightOperand);
         return null;
     }
     public Var mul(Scalar leftOperand){
