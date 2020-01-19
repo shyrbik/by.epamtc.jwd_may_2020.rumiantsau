@@ -9,19 +9,19 @@ public class Parser {
         Matcher matcher = Pattern.compile(Patterns.OPERATION).matcher(expression);
         if (matcher.find()) {
             String operation = matcher.group();
-            String[] part = expression.split(Patterns.OPERATION, 2);
-            Var left = Var.createVar(part[0]);
-            Var right = Var.createVar(part[1]);
-            if (left != null && right != null) {
+            String[] partsOfExpression = expression.split(Patterns.OPERATION, 2);
+            Var leftVar = Var.createVar(partsOfExpression[0]);
+            Var rightVar = Var.createVar(partsOfExpression[1]);
+            if (leftVar != null && rightVar != null) {
                 switch (operation) {
                     case "+":
-                        return left.add(right);
+                        return leftVar.add(rightVar);
                     case "-":
-                        return left.sub(right);
+                        return leftVar.sub(rightVar);
                     case "*":
-                        return left.mul(right);
+                        return leftVar.mul(rightVar);
                     case "/":
-                        return left.div(right);
+                        return leftVar.div(rightVar);
                 }
             }
         }
