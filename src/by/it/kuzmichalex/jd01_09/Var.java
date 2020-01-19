@@ -37,7 +37,7 @@ abstract class Var implements Operation {
     /////////// Methods for add operation
     @Override
     public Var add(Var rightOperand) {
-        System.out.println("Var.add var" + rightOperand);
+        //System.out.println("Var.add var" + rightOperand);
         return null;
     }
 
