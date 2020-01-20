@@ -1,18 +1,22 @@
-package by.it.ban.jd01_08;
+package by.it.ban.jd01_09;
 
+import by.it.ban.jd01_09.Matrix;
+import by.it.ban.jd01_09.Scalar;
+import by.it.ban.jd01_09.Var;
+import by.it.ban.jd01_09.Vector;
 
 public class Runner {
-    private static void print(Var var) {
+    private static void print(by.it.ban.jd01_09.Var var) {
         if (var != null)
             System.out.println(var);
     }
 
     public static void main(String[] args) {
-        Var s = new Scalar(3.0);
-        Var v = new Vector(new double[]{1, 2, 3});        // закомментируйте вектор и/или
-        Var m = new Matrix("{{1,2,3},{4,5,6},{7,8,9}}");// матрицу, если вы их не реализовали
-        Var m1 = new Matrix("{{1,2},{3,4}}");
-        Var m2 = new Matrix("{{4,5},{7,8}}");
+        by.it.ban.jd01_09.Var s = new by.it.ban.jd01_09.Scalar(3.0);
+        by.it.ban.jd01_09.Var v = new by.it.ban.jd01_09.Vector(new double[]{1, 2, 3});        // закомментируйте вектор и/или
+        by.it.ban.jd01_09.Var m = new by.it.ban.jd01_09.Matrix("{{1,2,3},{4,5,6},{7,8,9}}");// матрицу, если вы их не реализовали
+        by.it.ban.jd01_09.Var m1 = new by.it.ban.jd01_09.Matrix("{{1,2},{3,4}}");
+        Var m2 = new by.it.ban.jd01_09.Matrix("{{4,5},{7,8}}");
         /*  Уровень сложности A (калькулятор) */
         print(s.add(s)); //выведет в консоль 6.0
         print(v.add(s)); //
