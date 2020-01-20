@@ -1,4 +1,4 @@
-package by.it.tarasevich.jd01_08;
+package by.it.tarasevich.jd01_09;
 
 
 import java.util.Arrays;
@@ -82,6 +82,7 @@ class Vector extends Var {
 
     @Override
     public Var div(Var other) {
+
         if (other instanceof Scalar) {
             double[] res = new double[this.value.length];
             for (int i = 0; i < res.length; i++) {
