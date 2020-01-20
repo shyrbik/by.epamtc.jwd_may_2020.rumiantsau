@@ -1,4 +1,4 @@
-package by.it.kuzmichalex.jd01_08;
+package by.it.kuzmichalex.jd01_09;
 
 class Matrix extends Var {
     private double[][] value;
@@ -117,9 +117,9 @@ class Matrix extends Var {
     @Override
     public Var mul(Scalar leftOperand) {
         double[][] returmMatrix = new double[this.value.length][this.value[0].length];
-        for (int y = 0; y <this.value.length ; y++) {
-            for (int x = 0; x <this.value[0].length ; x++) {
-                returmMatrix[y][x]=this.value[y][x]*leftOperand.getValue();
+        for (int y = 0; y < this.value.length; y++) {
+            for (int x = 0; x < this.value[0].length; x++) {
+                returmMatrix[y][x] = this.value[y][x] * leftOperand.getValue();
             }
         }
         return new Matrix(returmMatrix);
@@ -131,7 +131,7 @@ class Matrix extends Var {
     @Override
     public Var mul(Matrix leftOperand) {
         //Умножение матриц. Кол-во столбцов левой матрицы должно соответствовать кол-ву строк правой.
-        if(leftOperand.value[0].length!=this.value.length){
+        if (leftOperand.value[0].length != this.value.length) {
             System.out.println("Количество столбцов левой матрицы должно соответствовать количеству строк правой");
             return null;
         }
@@ -140,7 +140,8 @@ class Matrix extends Var {
         double[][] returnMatrix = new double[resultRows][resultColumns];
         for (int y = 0; y < resultRows; y++) {
             for (int x = 0; x < resultColumns; x++) {
-                for (int s = 0; s < leftOperand.value[0].length; s++) returnMatrix[y][x] += leftOperand.value[y][s] * this.value[s][x];
+                for (int s = 0; s < leftOperand.value[0].length; s++)
+                    returnMatrix[y][x] += leftOperand.value[y][s] * this.value[s][x];
             }
         }
         return new Matrix(returnMatrix);

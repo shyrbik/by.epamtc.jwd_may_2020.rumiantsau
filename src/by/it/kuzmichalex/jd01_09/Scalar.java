@@ -1,9 +1,4 @@
-package by.it.kuzmichalex.jd01_08;
-
-import com.sun.istack.internal.NotNull;
-import com.sun.scenario.effect.impl.sw.sse.SSEBlend_SRC_OUTPeer;
-
-import java.sql.SQLOutput;
+package by.it.kuzmichalex.jd01_09;
 
 class Scalar extends Var {
     private double value;
@@ -38,14 +33,14 @@ class Scalar extends Var {
     //////////////////////// Сложения со скаляром
     @Override
     public Var add(Var rightOperand) {
-        System.out.println("Scalar.add var " + rightOperand);
+        //System.out.println("Scalar.add var " + rightOperand);
         return rightOperand.add(this);
     }
 
     //Scalar+Scalar
     @Override
     public Var add(Scalar leftOperand) {
-        System.out.println("Scalar + Scalar " + leftOperand + " " + this);
+        //System.out.println("Scalar + Scalar " + leftOperand + " " + this);
         return new Scalar(leftOperand.value + this.value);
     }
 
@@ -64,14 +59,14 @@ class Scalar extends Var {
     //////////////////////// Отнимание скаляра
     @Override
     public Var sub(Var rightOperand) {
-        System.out.println("Scalar.sub var " + rightOperand);
+        //System.out.println("Scalar.sub var " + rightOperand);
         return rightOperand.sub(this);
     }
 
     //Scalar-Scalar
     @Override
     public Var sub(Scalar leftOperand) {
-        System.out.println("Scalar - Scalar " + leftOperand + " " + this);
+        //System.out.println("Scalar - Scalar " + leftOperand + " " + this);
         return new Scalar(leftOperand.value - this.value);
     }
 
@@ -85,12 +80,12 @@ class Scalar extends Var {
     //Matrix - Scalar
     @Override
     public Var sub(Matrix leftOperand) {
-        double[][] leftOperandValue=leftOperand.getValue();
+        double[][] leftOperandValue = leftOperand.getValue();
 
         double[][] returnMatrix = new double[leftOperandValue.length][leftOperandValue[0].length];
-        for (int y = 0; y <leftOperandValue.length ; y++) {
-            for (int x = 0; x <leftOperandValue.length ; x++) {
-                returnMatrix[x][y]=leftOperandValue[x][y]-this.value;
+        for (int y = 0; y < leftOperandValue.length; y++) {
+            for (int x = 0; x < leftOperandValue.length; x++) {
+                returnMatrix[x][y] = leftOperandValue[x][y] - this.value;
             }
         }
         return new Matrix(returnMatrix);
@@ -99,7 +94,7 @@ class Scalar extends Var {
     //////////////////////// Умножения на скаляр
     @Override
     public Var mul(Var rightOperand) {
-        System.out.println("Scalar.sub var " + rightOperand);
+        //System.out.println("Scalar.sub var " + rightOperand);
         return rightOperand.mul(this);
     }
 
@@ -124,7 +119,7 @@ class Scalar extends Var {
     //////////////////////// деления на скаляр
     @Override
     public Var div(Var rightOperand) {
-        System.out.println("Scalar.div var " + rightOperand);
+        //System.out.println("Scalar.div var " + rightOperand);
         return rightOperand.div(this);
     }
 
@@ -145,7 +140,7 @@ class Scalar extends Var {
             System.out.println("Деление на ноль detected");
             return null;
         }
-        Var hyperScalar = new Scalar(1.0/this.value);
+        Var hyperScalar = new Scalar(1.0 / this.value);
         return leftOperand.mul(hyperScalar);
     }
 
@@ -156,7 +151,7 @@ class Scalar extends Var {
             System.out.println("Деление на ноль detected");
             return null;
         }
-        Var hyperScalar = new Scalar(1.0/this.value);
+        Var hyperScalar = new Scalar(1.0 / this.value);
         return leftOperand.mul(hyperScalar);
     }
 }
