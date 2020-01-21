@@ -1,20 +1,26 @@
 package by.it.cherkas.jd01_07;
 
-        class Vector extends AbstractVar {
+        class Vector extends Var {
 
                 private double[] value;
 
 
                  Vector(double[] value) {
-                        this.value = value;
+                        this.value = new double[value.length];
+                        System.arraycopy(value, 0, this.value,0,this.value.length);
 
                 }
                 Vector(Vector vector){
-                         this.value=vector.value;
+                         this.value=new double[vector.value.length];
+                         System.arraycopy(vector.value, 0, this.value, 0, vector.value.length);
                 }
 
                 Vector(String strVector){
-                     //   this.value=new double;
+                         String[] vectorString=strVector.substring(0, strVector.length()-1).split(", ");
+                       this.value=new double[vectorString.length];
+                        for (int i = 0; i <vectorString.length ; i++) {
+                        this.value[i]=Double.parseDouble(vectorString[i]);
+                        }
                 }
 
 
@@ -26,7 +32,7 @@ package by.it.cherkas.jd01_07;
                         for (double element:value ) {
                         sb.append(del);
                         sb.append(element);
-                        del=",";
+                        del=", ";
                         }
                         sb.append("}");
                         return sb.toString();

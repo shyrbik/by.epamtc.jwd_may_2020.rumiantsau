@@ -1,6 +1,6 @@
 package by.it.cherkas.jd01_07;
 
-         class Scalar extends AbstractVar {
+         class Scalar extends Var {
 
              private double value;
 
@@ -16,6 +16,8 @@ package by.it.cherkas.jd01_07;
               Scalar(String strScalar) {
                  this.value = Double.parseDouble(strScalar);
              }
+
+
 
              @Override
              public String toString() {
