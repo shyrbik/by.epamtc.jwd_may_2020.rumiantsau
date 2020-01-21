@@ -4,12 +4,11 @@ package by.it.popkov.jd01_10;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
-import java.lang.reflect.Parameter;
 
 public class PrintMath {
     public static void main(String[] args) {
         Class<Math> mathClass = Math.class;
-        Method[] methods = mathClass.getMethods();
+        Method[] methods = mathClass.getDeclaredMethods();
         StringBuilder sb = new StringBuilder();
         for (Method method : methods) {
             if (Modifier.isPublic(method.getModifiers())) {
