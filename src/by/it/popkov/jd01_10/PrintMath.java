@@ -6,8 +6,7 @@ import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 
 public class PrintMath {
-    public static void main(String[] args) {
-        Class<Math> mathClass = Math.class;
+    static void contract(Class<?> mathClass) {
         Method[] methods = mathClass.getDeclaredMethods();
         StringBuilder sb = new StringBuilder();
         for (Method method : methods) {
@@ -30,5 +29,9 @@ public class PrintMath {
             sb.append(field.getType().getName()).append(" ").append(field.getName()).append("\n");
         }
         System.out.println(sb);
+    }
+
+    public static void main(String[] args) {
+        contract(Math.class);
     }
 }
