@@ -1,6 +1,6 @@
 package by.it.popkov.jd01_10;
 
-public class Bean {
+class Bean {
     @Param(a = 1, b = 3)
     double sum(int a, int b) {
         return a + b;

@@ -5,7 +5,7 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 
-public class PrintMath {
+class PrintMath {
     static void getContract(Class<?> aClass) {
         Method[] methods = aClass.getDeclaredMethods();
         StringBuilder sb = new StringBuilder();
