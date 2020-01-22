@@ -1,7 +1,7 @@
 package by.it.busel.jd01_10;
 
-/**
- * by.it.busel.jd01_10.TaskA2
+/*
+by.it.busel.jd01_10.TaskA2
  */
 class Bean {
     @Param(a = 2, b = 5)
@@ -20,6 +20,6 @@ class Bean {
     }
 
     static double avg(int a, int b) {
-        return ((double) (a + b)) / 2;
+        return (a + b) / 2.0;
     }
 }
