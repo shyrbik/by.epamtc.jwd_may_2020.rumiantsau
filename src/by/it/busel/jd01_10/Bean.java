@@ -3,7 +3,7 @@ package by.it.busel.jd01_10;
 /**
  * by.it.busel.jd01_10.TaskA2
  */
-public class Bean {
+class Bean {
     @Param(a = 2, b = 5)
     static double sum(int a, int b) {
         return (double) (a + b);
