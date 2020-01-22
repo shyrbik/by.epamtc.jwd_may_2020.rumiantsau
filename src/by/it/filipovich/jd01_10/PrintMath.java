@@ -3,12 +3,11 @@ package by.it.filipovich.jd01_10;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
-import java.lang.reflect.Parameter;
 
 public class PrintMath {
-    public static void main(String[] args) throws NoSuchMethodException {
+    public static void main(String[] args) {
         Method[] methods = Math.class.getMethods();
-        Field[] declaredFields = Math.class.getFields();
+        Field[] fields = Math.class.getFields();
 
         for (Method declaredMethod1 : methods) {
             int modifier = declaredMethod1.getModifiers();
@@ -18,20 +17,22 @@ public class PrintMath {
                         .append(" ")
                         .append(declaredMethod1.getReturnType().toString())
                         .append(" ")
-                        .append(declaredMethod1.getName().toString())
+                        .append(declaredMethod1.getName())
                         .append("(")
                         .append(toString(declaredMethod1.getParameterTypes()))
                         .append(")");
                 System.out.println(sb);
             }
         }
-        for (Field field : declaredFields) {
+        for (Field field : fields) {
             int modifier1 = field.getModifiers();
             if(Modifier.isPublic(modifier1)){
                 StringBuilder sb = new StringBuilder();
                 sb.append(Modifier.toString(modifier1))
                         .append(" ")
-                        .append(field.getName().toString());
+                        .append(field.getType().toString())
+                        .append(" ")
+                        .append(field.getName());
                 System.out.println(sb);
             }
         }
@@ -47,8 +48,6 @@ public class PrintMath {
         }
         else if (var.length==1)
             sb.append(var[0].toString());
-        else
-            sb.append("");
         return sb.toString();
     }
 }
