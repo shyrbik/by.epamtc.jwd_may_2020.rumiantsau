@@ -10,21 +10,20 @@ class PrintMath {
         Method[] methods = mathClass.getMethods();
         for (Method method : methods) {
             int modifiers = method.getModifiers();
-            if (Modifier.isPublic(modifiers)) {
-                StringBuilder stringBuilder = new StringBuilder("public ");
-                if (Modifier.isStatic(modifiers)) {
-                    stringBuilder.append("static ");
-                }
-                stringBuilder.append(method.getReturnType().getName()).append(" ").append(method.getName()).append("(");
-                Class<?>[] parameterTypes = method.getParameterTypes();
-                for (int i = 0; i < parameterTypes.length; i++) {
-                    stringBuilder.append(parameterTypes[i]);
-                    if (i != parameterTypes.length - 1)
-                        stringBuilder.append(",");
-                }
-                stringBuilder.append(")");
-                System.out.println(stringBuilder);
+            StringBuilder stringBuilder = new StringBuilder("public ");
+            if (Modifier.isStatic(modifiers)) {
+                stringBuilder.append("static ");
             }
+            stringBuilder.append(method.getReturnType().getName()).append(" ").append(method.getName()).append("(");
+            Class<?>[] parameterTypes = method.getParameterTypes();
+            for (int i = 0; i < parameterTypes.length; i++) {
+                stringBuilder.append(parameterTypes[i]);
+                if (i != parameterTypes.length - 1)
+                    stringBuilder.append(",");
+            }
+            stringBuilder.append(")");
+            System.out.println(stringBuilder);
+
         }
         Field[] fields = mathClass.getFields();
         for (Field field : fields) {
