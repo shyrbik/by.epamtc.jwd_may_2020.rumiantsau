@@ -26,14 +26,13 @@ class PrintMath {
     private static void printAllPublicFieldsAndMethodsOfMath() {
         Class<Math> cls = Math.class;
         StringBuilder sb = new StringBuilder("");
-        printFieldsOfMath(cls, sb);
-        printMethodsOfMath(cls, sb);
-
+        collectFieldsOfMath(cls, sb);
+        collectMethodsOfMath(cls, sb);
         System.out.println(sb);
 
     }
 
-    private static void printFieldsOfMath(Class<Math> cls, StringBuilder sb) {
+    private static void collectFieldsOfMath(Class<Math> cls, StringBuilder sb) {
         Field[] field = cls.getDeclaredFields();
         for (Field f : field) {
             int mod = f.getModifiers();
@@ -45,7 +44,7 @@ class PrintMath {
 
     }
 
-    private static void printMethodsOfMath(Class<Math> cls, StringBuilder sb) {
+    private static void collectMethodsOfMath(Class<Math> cls, StringBuilder sb) {
         Method[] methods = cls.getDeclaredMethods();
         for (Method m : methods) {
             int mod = m.getModifiers();
