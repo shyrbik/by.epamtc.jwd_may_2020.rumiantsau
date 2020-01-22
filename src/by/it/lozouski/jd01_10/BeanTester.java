@@ -4,16 +4,17 @@ import java.lang.reflect.Method;
 
 class BeanTester {
     public static void main(String[] args) throws Exception {
-        Class<?> testingBean = Bean.class; //Get structure of the class Bean
-        Object objBean = testingBean.newInstance(); //This operation return object Bean
-        Method[] declaredMethodsBean = testingBean.getDeclaredMethods(); //Get structure of the methods(Class Bean)
+        Class<?> testingBean = Bean.class; //Get structure of the class Bean.
+        Object objBean = testingBean.newInstance(); //This operation return object of the class Bean.
+        Method[] declaredMethodsBean = testingBean.getDeclaredMethods(); //Get structure of the declared methods(Class Bean).
         for (Method elem : declaredMethodsBean) {
-            if (elem.getAnnotation(Param.class) != null) {
+            if (elem.isAnnotationPresent(Param.class)) { // If annotation exists...
+                Param annotationBean = elem.getAnnotation(Param.class); //Get annotation.
                 elem.setAccessible(true); // If method is private, then you get access.
                 //Call the method, and assign the result to a variable:
-                double resultTest = (double) elem.invoke(objBean, elem.getAnnotation(Param.class).a(), elem.getAnnotation(Param.class).b());
+                double resultTest = (double) elem.invoke(objBean, annotationBean.a(), annotationBean.b());
                 System.out.println(elem.getName() + " " + resultTest);//sout...
-                elem.setAccessible(false);//Deny access
+                elem.setAccessible(false);//Deny access.
             }
         }
     }
