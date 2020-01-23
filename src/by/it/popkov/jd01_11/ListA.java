@@ -1,13 +1,18 @@
 package by.it.popkov.jd01_11;
 
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.List;
-import java.util.ListIterator;
+import java.util.*;
 
-class ListA <T> implements List <T> {
+class ListA<T> implements List<T> {
+    private T[] elements = (T[]) new Object[]{};
+    private int size = 0;
+
     @Override
     public boolean add(T t) {
+        if (size >= elements.length) {
+            elements = Arrays.copyOf(elements, elements.length * 3 / 2 + 1);
+            elements[size] = t;
+            size++;
+        }
         return false;
     }
 
@@ -18,11 +23,19 @@ class ListA <T> implements List <T> {
 
     @Override
     public T get(int index) {
-        return null;
+        return elements[index];
     }
+
     @Override
     public String toString() {
-        return "ListA{}";
+        StringBuilder sb = new StringBuilder("[");
+        String comma = "";
+        for (int i = 0; i < size; i++) {
+            sb.append(comma).append(elements[i]);
+            comma = ",";
+        }
+        sb.append("]");
+        return sb.toString();
     }
     ///----------------------------------Fictive------------------------
 
