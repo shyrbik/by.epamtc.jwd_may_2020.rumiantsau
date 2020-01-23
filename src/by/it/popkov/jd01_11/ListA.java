@@ -5,7 +5,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
 
-public class ListA <T> implements List <T> {
+class ListA <T> implements List <T> {
     @Override
     public boolean add(T t) {
         return false;
