@@ -12,6 +12,9 @@ class ListA<T> implements List<T> {
             elements = Arrays.copyOf(elements, elements.length * 3 / 2 + 1);
             elements[size] = t;
             size++;
+        } else {
+            elements[size] = t;
+            size++;
         }
         return false;
     }
@@ -32,7 +35,7 @@ class ListA<T> implements List<T> {
         String comma = "";
         for (int i = 0; i < size; i++) {
             sb.append(comma).append(elements[i]);
-            comma = ",";
+            comma = ", ";
         }
         sb.append("]");
         return sb.toString();
