@@ -10,6 +10,8 @@ class ConsoleRunner {
         while (true) {
             String expression = scanner.next();
             if (expression.equals("end")) break;
+            if (expression.equals("printvar")) Var.printvar();
+            if (expression.equals("sortvar")) Var.sortvar();
             printer.print(parser.calc(expression));
         }
     }
