@@ -2,7 +2,7 @@ package by.it.popkov.jd01_11;
 
 import java.util.*;
 
-class ListA<T> implements List<T> {
+class ListB<T> implements List<T> {
     private T[] elements = (T[]) new Object[]{};
     private int size = 0;
 
@@ -43,6 +43,21 @@ class ListA<T> implements List<T> {
         }
         sb.append("]");
         return sb.toString();
+    }
+
+    @Override
+    public T set(int index, T element) {
+        return null;
+    }
+
+    @Override
+    public void add(int index, T element) {
+
+    }
+
+    @Override
+    public boolean addAll(Collection<? extends T> c) {
+        return false;
     }
     ///----------------------------------Fictive------------------------
 
@@ -87,11 +102,6 @@ class ListA<T> implements List<T> {
     }
 
     @Override
-    public boolean addAll(Collection<? extends T> c) {
-        return false;
-    }
-
-    @Override
     public boolean addAll(int index, Collection<? extends T> c) {
         return false;
     }
@@ -108,16 +118,6 @@ class ListA<T> implements List<T> {
 
     @Override
     public void clear() {
-
-    }
-
-    @Override
-    public T set(int index, T element) {
-        return null;
-    }
-
-    @Override
-    public void add(int index, T element) {
 
     }
 
