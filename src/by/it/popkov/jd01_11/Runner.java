@@ -11,23 +11,16 @@ public class Runner {
         arrList.add("Ksenia");
         arrList.add("Lena");
         arrList.add("Tania");
+        arrList.add("Masha");
+        arrList.add("Ania");
+        arrList.remove(1);
         System.out.println(arrList);
         listA.add("Ksenia");
         listA.add("Lena");
         listA.add("Tania");
-        listA.add("Ksenia");
-        listA.add("Lena");
-        listA.add("Tania");
-        listA.add("Ksenia");
-        listA.add("Lena");
-        listA.add("Tania");
-        listA.add("Ksenia");
-        listA.add("Lena");
-        listA.add("Tania");
-        listA.add("Ksenia");
-        listA.add("Lena");
-        listA.add("Tania");
-
+        arrList.add("Masha");
+        arrList.add("Ania");
+        arrList.remove(1);
         System.out.println(listA);
 
     }

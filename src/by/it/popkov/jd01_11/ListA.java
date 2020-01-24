@@ -21,7 +21,11 @@ class ListA<T> implements List<T> {
 
     @Override
     public T remove(int index) {
-        return null;
+        T reElement = elements[index];
+        System.arraycopy(elements, index + 1, elements, index, size - index - 1);
+        elements[size] = null;
+        size--;
+        return reElement;
     }
 
     @Override
