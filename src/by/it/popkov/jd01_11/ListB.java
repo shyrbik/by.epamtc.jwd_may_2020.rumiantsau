@@ -63,6 +63,9 @@ class ListB<T> implements List<T> {
 
     @Override
     public boolean addAll(Collection<? extends T> c) {
+        for (T t : c) {
+            this.add(t);
+        }
         return false;
     }
     ///----------------------------------Fictive------------------------
