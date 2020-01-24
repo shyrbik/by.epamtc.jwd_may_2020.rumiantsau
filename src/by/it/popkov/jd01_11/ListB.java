@@ -47,11 +47,23 @@ class ListB<T> implements List<T> {
 
     @Override
     public T set(int index, T element) {
-        return null;
+        T old = elements[index];
+        elements[index] = element;
+        return old;
     }
 
     @Override
     public void add(int index, T element) {
+        if (size >= elements.length) {
+            elements = Arrays.copyOf(elements, elements.length * 3 / 2 + 1);
+            System.arraycopy(elements, index, elements, index+1, size-index);
+            elements[index] = element;
+            size++;
+        } else {
+            System.arraycopy(elements, index, elements, index+1, size-index);
+            elements[index] = element;
+            size++;
+        }
 
     }
 
