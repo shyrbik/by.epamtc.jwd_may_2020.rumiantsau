@@ -8,7 +8,7 @@ public class Runner {
     public static void main(String[] args) {
         List<String> arrList = new ArrayList<>();
         List<String> listA = new ListA<>();
-        ArrayList<String> objects = new ArrayList<>();
+        List<String> objects = new ArrayList<>();
         objects.add("KseniaA");
         objects.add("LenaA");
         objects.add("TaniaA");
