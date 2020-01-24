@@ -2,12 +2,12 @@ package by.it.popkov.jd01_11;
 
 import java.util.*;
 
-class ListA<T> implements List<T> {
-    private T[] elements = (T[]) new Object[]{};
+class ListA<E> implements List<E> {
+    private E[] elements = (E[]) new Object[]{};
     private int size = 0;
 
     @Override
-    public boolean add(T t) {
+    public boolean add(E t) {
         if (size >= elements.length) {
             elements = Arrays.copyOf(elements, elements.length * 3 / 2 + 1);
             elements[size] = t;
@@ -20,8 +20,8 @@ class ListA<T> implements List<T> {
     }
 
     @Override
-    public T remove(int index) {
-        T reElement = elements[index];
+    public E remove(int index) {
+        E reElement = elements[index];
         System.arraycopy(elements, index + 1, elements, index, size - index - 1);
         elements[size] = null;
         size--;
@@ -29,7 +29,7 @@ class ListA<T> implements List<T> {
     }
 
     @Override
-    public T get(int index) {
+    public E get(int index) {
         return elements[index];
     }
 
@@ -62,7 +62,7 @@ class ListA<T> implements List<T> {
     }
 
     @Override
-    public Iterator<T> iterator() {
+    public Iterator<E> iterator() {
         return null;
     }
 
@@ -87,12 +87,12 @@ class ListA<T> implements List<T> {
     }
 
     @Override
-    public boolean addAll(Collection<? extends T> c) {
+    public boolean addAll(Collection<? extends E> c) {
         return false;
     }
 
     @Override
-    public boolean addAll(int index, Collection<? extends T> c) {
+    public boolean addAll(int index, Collection<? extends E> c) {
         return false;
     }
 
@@ -112,12 +112,12 @@ class ListA<T> implements List<T> {
     }
 
     @Override
-    public T set(int index, T element) {
+    public E set(int index, E element) {
         return null;
     }
 
     @Override
-    public void add(int index, T element) {
+    public void add(int index, E element) {
 
     }
 
@@ -132,17 +132,17 @@ class ListA<T> implements List<T> {
     }
 
     @Override
-    public ListIterator<T> listIterator() {
+    public ListIterator<E> listIterator() {
         return null;
     }
 
     @Override
-    public ListIterator<T> listIterator(int index) {
+    public ListIterator<E> listIterator(int index) {
         return null;
     }
 
     @Override
-    public List<T> subList(int fromIndex, int toIndex) {
+    public List<E> subList(int fromIndex, int toIndex) {
         return null;
     }
 }

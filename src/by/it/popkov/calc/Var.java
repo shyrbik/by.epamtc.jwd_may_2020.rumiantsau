@@ -36,7 +36,8 @@ abstract class Var implements Operation {
         if (strVar.matches(Patterns.SCALAR)) return new Scalar(strVar);
         else if (strVar.matches(Patterns.VECTOR)) return new Vector(strVar);
         else if (strVar.matches(Patterns.MATRIX)) return new Matrix(strVar);
-        else return valueMap.get(strVar);
+        else if (strVar.matches(Patterns.LITTER)) return valueMap.get(strVar);
+        else return null;
     }
 
     static void save(String value, Var value1) {
