@@ -10,12 +10,9 @@ class ListB<T> implements List<T> {
     public boolean add(T t) {
         if (size >= elements.length) {
             elements = Arrays.copyOf(elements, elements.length * 3 / 2 + 1);
-            elements[size] = t;
-            size++;
-        } else {
-            elements[size] = t;
-            size++;
         }
+        elements[size] = t;
+        size++;
         return false;
     }
 
@@ -56,14 +53,11 @@ class ListB<T> implements List<T> {
     public void add(int index, T element) {
         if (size >= elements.length) {
             elements = Arrays.copyOf(elements, elements.length * 3 / 2 + 1);
-            System.arraycopy(elements, index, elements, index+1, size-index);
-            elements[index] = element;
-            size++;
-        } else {
-            System.arraycopy(elements, index, elements, index+1, size-index);
-            elements[index] = element;
-            size++;
         }
+        System.arraycopy(elements, index, elements, index + 1, size - index);
+        elements[index] = element;
+        size++;
+
 
     }
 
