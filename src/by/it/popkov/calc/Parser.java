@@ -10,7 +10,7 @@ class Parser {
         Matcher m = Pattern.compile(Patterns.MATH_SIGN).matcher(expression);
         if (m.find()) {
             String sing = m.group();
-            String[] values = expression.split("[-+/*]");
+            String[] values = expression.split(Patterns.MATH_SIGN);
             String first = values[0];
             String second = values[1];
             if (Var.newVar(first) != null && Var.newVar(second) != null) {
