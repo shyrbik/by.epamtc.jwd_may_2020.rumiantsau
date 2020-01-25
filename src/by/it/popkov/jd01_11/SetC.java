@@ -21,16 +21,16 @@ class SetC<T> implements Set<T> {
         return false;
     }
 
-    private int check(T t) {
+    private int check(Object o) {
         for (int i = 0; i < size; i++) {
-            if (elements[i].equals(t)) return i;
+            if (elements[i].equals(o)) return i;
         }
         return -1;
     }
 
     @Override
     public boolean remove(Object o) {
-        int index = check((T) o);
+        int index = check(o);
         if (index >= 0) {
             System.arraycopy(elements, index + 1, elements, index, size - index - 1);
             elements[size] = null;

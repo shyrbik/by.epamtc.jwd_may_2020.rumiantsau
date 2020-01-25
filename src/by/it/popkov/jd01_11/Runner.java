@@ -25,7 +25,7 @@ public class Runner {
         mySet.add("Tania");
         mySet.add("Masha");
         mySet.add("Ania");
-        mySet.remove("Gena");
+        mySet.remove("Masha");
         System.out.println(mySet);
     }
 }
