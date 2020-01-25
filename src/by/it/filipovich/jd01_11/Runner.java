@@ -5,23 +5,23 @@ import java.util.List;
 
 public class Runner {
     public static void main(String[] args) {
-        List<String> myList = new ListA<>();
+        List<String> listA = new ListA<>();
         List<String> array = new ArrayList<>();
+        List<String> listB = new ArrayList<>();
 
-        myList.add("One");
-        myList.add("Two");
-        myList.add("Three");
-        myList.add("Four");
-        myList.add("Five");
 
-        array.add("One");
-        array.add("Two");
-        array.add("Three");
-        array.add("Four");
-        array.add("Five");
+        listA.add("One");listA.add("Two");listA.add("Three");listA.add("Four");listA.add("Five");
 
-        myList.remove(1);
+        listB.add("One");listB.add("Two");listB.add("Three");listB.add("Four");listB.add("Five");
 
-        System.out.println(myList);
+        array.add("One");array.add("Two");array.add("Three");array.add("Four");array.add("Five");
+
+        array.addAll(listA);
+
+        listB.remove(1);
+        listB.add("Zero");
+        listB.addAll(listA);
+
+        System.out.println(array);
     }
 }
