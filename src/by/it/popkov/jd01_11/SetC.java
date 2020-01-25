@@ -1,12 +1,30 @@
 package by.it.popkov.jd01_11;
 
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.Set;
 
-class SetC <T> implements Set<T> {
+class SetC<T> implements Set<T> {
+    private T[] elements = (T[]) new Object[]{};
+    private int size = 0;
+
     @Override
     public boolean add(T t) {
+        if (!check(t)) {
+            if (size >= elements.length) {
+                elements = Arrays.copyOf(elements, elements.length * 3 / 2 + 1);
+            }
+            elements[size] = t;
+            size+=1;
+        }
+        return false;
+    }
+
+    private boolean check(T t) {
+        for (int i = 0; i < size; i++) {
+            if (elements[i].equals(t)) return true;
+        }
         return false;
     }
 
@@ -39,6 +57,7 @@ class SetC <T> implements Set<T> {
     public boolean containsAll(Collection<?> c) {
         return false;
     }
+
     @Override
     public boolean removeAll(Collection<?> c) {
         return false;
@@ -46,7 +65,14 @@ class SetC <T> implements Set<T> {
 
     @Override
     public String toString() {
-        return "SetC{}";
+        StringBuilder sb = new StringBuilder("[");
+        String comma = "";
+        for (int i = 0; i < size; i++) {
+            sb.append(comma).append(elements[i]);
+            comma = ", ";
+        }
+        sb.append("]");
+        return sb.toString();
     }
 
     ///----------------------------------Fictive------------------------
