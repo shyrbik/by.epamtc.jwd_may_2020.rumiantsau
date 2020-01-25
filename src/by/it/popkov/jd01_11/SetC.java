@@ -11,25 +11,32 @@ class SetC<T> implements Set<T> {
 
     @Override
     public boolean add(T t) {
-        if (!check(t)) {
+        if (check(t) < 0) {
             if (size >= elements.length) {
                 elements = Arrays.copyOf(elements, elements.length * 3 / 2 + 1);
             }
             elements[size] = t;
-            size+=1;
+            size += 1;
         }
         return false;
     }
 
-    private boolean check(T t) {
+    private int check(T t) {
         for (int i = 0; i < size; i++) {
-            if (elements[i].equals(t)) return true;
+            if (elements[i].equals(t)) return i;
         }
-        return false;
+        return -1;
     }
 
     @Override
     public boolean remove(Object o) {
+        int index = check((T) o);
+        if (index >= 0) {
+            System.arraycopy(elements, index + 1, elements, index, size - index - 1);
+            elements[size] = null;
+            size--;
+            return true;
+        }
         return false;
     }
 
