@@ -75,7 +75,7 @@ class SetC<T> implements Set<T> {
     @Override
     public boolean removeAll(Collection<?> c) {
         for (Object o : c) {
-            remove(o);
+            if (check(o) >= 0) remove(o);
         }
         return false;
     }

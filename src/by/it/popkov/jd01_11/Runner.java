@@ -31,11 +31,10 @@ public class Runner {
         System.out.println(objects.isEmpty());
         objects.remove("Kseniatest1");
         System.out.println(objects.containsAll(test));
-
-
-
-
-
+        System.out.println(objects.containsAll(test));
+        objects.removeAll(test);
+        System.out.println(objects);
+        
 
         mySet.add("Ksenia");
         mySet.add("Ksenia");
@@ -53,6 +52,8 @@ public class Runner {
         System.out.println(mySet.isEmpty());
         mySet.remove("Kseniatest1");
         System.out.println(mySet.containsAll(test));
+        mySet.removeAll(test);
+        System.out.println(mySet);
 
     }
 }
