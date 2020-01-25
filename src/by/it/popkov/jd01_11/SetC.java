@@ -29,6 +29,7 @@ class SetC<T> implements Set<T> {
             }
             elements[size] = t;
             size++;
+            return true;
         }
         return false;
     }

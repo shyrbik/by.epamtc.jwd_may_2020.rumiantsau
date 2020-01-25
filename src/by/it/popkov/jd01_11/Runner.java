@@ -7,8 +7,8 @@ public class Runner {
         Set<String> objects = new HashSet<>();
         Set<String> mySet = new SetC<>();
         Set<String> test = new HashSet<>();
-        test.add(null);
-        test.add(null);
+//        test.add(null);
+//        test.add(null);
         test.add("Lenatest");
         test.add("Taniatest1");
         test.add("Taniatest2");
@@ -31,29 +31,36 @@ public class Runner {
         System.out.println(objects.isEmpty());
         objects.remove("Kseniatest1");
         System.out.println(objects.containsAll(test));
-        objects.removeAll(test);
+//        objects.removeAll(test);
         System.out.println(objects);
 
+        String[] strings = objects.toArray(new String[0]);
+        for (Object hash : strings) {
+            System.out.println(hash);
+            System.out.println(Integer.toOctalString(hash.hashCode()));
+        }
 
-        mySet.add("Ksenia");
-        mySet.add("Ksenia");
-        mySet.add("Lena");
-        mySet.add("Tania");
-        mySet.add("Tania");
-        mySet.add("Masha");
-        mySet.add("Ania");
-        mySet.remove("Masha");
 
-        mySet.addAll(test);
-        System.out.println(mySet);
-        System.out.println(mySet.contains("Gena"));
-        System.out.println(mySet.contains("Lena"));
-        System.out.println(mySet.size());
-        System.out.println(mySet.isEmpty());
-        mySet.remove("Kseniatest1");
-        System.out.println(mySet.containsAll(test));
-        mySet.removeAll(test);
-        System.out.println(mySet);
+//        mySet.add(
+//        "Ksenia");
+//        mySet.add("Ksenia");
+//        mySet.add("Lena");
+//        mySet.add("Tania");
+//        mySet.add("Tania");
+//        mySet.add("Masha");
+//        mySet.add("Ania");
+//        mySet.remove("Masha");
+//
+//        mySet.addAll(test);
+//        System.out.println(mySet);
+//        System.out.println(mySet.contains("Gena"));
+//        System.out.println(mySet.contains("Lena"));
+//        System.out.println(mySet.size());
+//        System.out.println(mySet.isEmpty());
+//        mySet.remove("Kseniatest1");
+//        System.out.println(mySet.containsAll(test));
+//        mySet.removeAll(test);
+//        System.out.println(mySet);
 
     }
 }
