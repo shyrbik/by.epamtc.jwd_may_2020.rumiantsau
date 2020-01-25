@@ -8,9 +8,11 @@ import java.util.Set;
 class SetC<T> implements Set<T> {
     private T[] elements = (T[]) new Object[]{};
     private int size = 0;
+    private boolean nullCheck = false;
 
     private int check(Object o) {
         for (int i = 0; i < size; i++) {
+            if (elements[i] == null) continue;
             if (elements[i].equals(o)) return i;
         }
         return -1; ///False
@@ -18,12 +20,15 @@ class SetC<T> implements Set<T> {
 
     @Override
     public boolean add(T t) {
+        if (nullCheck == true && t == null) return false;
+        if (t == null) nullCheck = true;
+
         if (check(t) < 0) {
             if (size >= elements.length) {
                 elements = Arrays.copyOf(elements, elements.length * 3 / 2 + 1);
             }
             elements[size] = t;
-            size += 1;
+            size++;
         }
         return false;
     }

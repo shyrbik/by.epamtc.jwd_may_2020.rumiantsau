@@ -7,8 +7,8 @@ public class Runner {
         Set<String> objects = new HashSet<>();
         Set<String> mySet = new SetC<>();
         Set<String> test = new HashSet<>();
-        test.add("Kseniatest1");
-        test.add("Kseniatest2");
+        test.add(null);
+        test.add(null);
         test.add("Lenatest");
         test.add("Taniatest1");
         test.add("Taniatest2");
@@ -31,10 +31,9 @@ public class Runner {
         System.out.println(objects.isEmpty());
         objects.remove("Kseniatest1");
         System.out.println(objects.containsAll(test));
-        System.out.println(objects.containsAll(test));
         objects.removeAll(test);
         System.out.println(objects);
-        
+
 
         mySet.add("Ksenia");
         mySet.add("Ksenia");
@@ -44,6 +43,7 @@ public class Runner {
         mySet.add("Masha");
         mySet.add("Ania");
         mySet.remove("Masha");
+
         mySet.addAll(test);
         System.out.println(mySet);
         System.out.println(mySet.contains("Gena"));
