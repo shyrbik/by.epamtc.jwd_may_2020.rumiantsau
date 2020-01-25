@@ -38,7 +38,7 @@ class Var implements Operation {
      */
     @Override
     public Var add(Var other) {
-        System.out.println("The operation \"addition\" " + this + " + " + other + " can not be performed.");
+        System.out.println("The operation \"addition\" " + other + " + " + this + " can not be performed.");
         return null;
     }
 
@@ -50,7 +50,7 @@ class Var implements Operation {
      */
     @Override
     public Var add(Scalar other) {
-        System.out.println("The operation \"addition\" " + this + " + " + other + " can not be performed.");
+        System.out.println("The operation \"addition\" " + other + " + " + this + " can not be performed.");
         return null;
     }
 
@@ -62,7 +62,7 @@ class Var implements Operation {
      */
     @Override
     public Var add(Vector other) {
-        System.out.println("The operation \"addition\" " + this + " + " + other + " can not be performed.");
+        System.out.println("The operation \"addition\" " + other + " + " + this + " can not be performed.");
         return null;
     }
 
@@ -74,7 +74,7 @@ class Var implements Operation {
      */
     @Override
     public Var add(Matrix other) {
-        System.out.println("The operation \"addition\" " + this + " + " + other + " can not be performed.");
+        System.out.println("The operation \"addition\" " + other + " + " + this + " can not be performed.");
         return null;
     }
 
@@ -87,7 +87,7 @@ class Var implements Operation {
      */
     @Override
     public Var sub(Var other) {
-        System.out.println("The operation \"subtraction\" " + this + " - " + other + " can not be performed.");
+        System.out.println("The operation \"subtraction\" " + other + " - " + this + " can not be performed.");
         return null;
     }
 
@@ -99,7 +99,7 @@ class Var implements Operation {
      */
     @Override
     public Var sub(Scalar other) {
-        System.out.println("The operation \"subtraction\" " + this + " - " + other + " can not be performed.");
+        System.out.println("The operation \"subtraction\" " + other + " - " + this + " can not be performed.");
         return null;
     }
 
@@ -111,7 +111,7 @@ class Var implements Operation {
      */
     @Override
     public Var sub(Vector other) {
-        System.out.println("The operation \"subtraction\" " + this + " - " + other + " can not be performed.");
+        System.out.println("The operation \"subtraction\" " + other + " - " + this + " can not be performed.");
         return null;
     }
 
@@ -123,7 +123,7 @@ class Var implements Operation {
      */
     @Override
     public Var sub(Matrix other) {
-        System.out.println("The operation \"subtraction\" " + this + " - " + other + " can not be performed.");
+        System.out.println("The operation \"subtraction\" " + other + " - " + this + " can not be performed.");
         return null;
     }
 
@@ -136,7 +136,7 @@ class Var implements Operation {
      */
     @Override
     public Var mul(Var other) {
-        System.out.println("The operation \"multiplication\" " + this + " * " + other + " can not be performed.");
+        System.out.println("The operation \"multiplication\" " + other + " * " + this + " can not be performed.");
         return null;
     }
 
@@ -148,7 +148,7 @@ class Var implements Operation {
      */
     @Override
     public Var mul(Scalar other) {
-        System.out.println("The operation \"multiplication\" " + this + " * " + other + " can not be performed.");
+        System.out.println("The operation \"multiplication\" " + other + " * " + this + " can not be performed.");
         return null;
     }
 
@@ -160,7 +160,7 @@ class Var implements Operation {
      */
     @Override
     public Var mul(Vector other) {
-        System.out.println("The operation \"multiplication\" " + this + " * " + other + " can not be performed.");
+        System.out.println("The operation \"multiplication\" " + other + " * " + this + " can not be performed.");
         return null;
     }
 
@@ -172,7 +172,7 @@ class Var implements Operation {
      */
     @Override
     public Var mul(Matrix other) {
-        System.out.println("The operation \"multiplication\" " + this + " * " + other + " can not be performed.");
+        System.out.println("The operation \"multiplication\" " + other + " * " + this + " can not be performed.");
         return null;
     }
 
@@ -185,7 +185,7 @@ class Var implements Operation {
      */
     @Override
     public Var div(Var other) {
-        System.out.println("The operation \"division\" " + this + " / " + other + " can not be performed.");
+        System.out.println("The operation \"division\" " + other + " / " + this + " can not be performed.");
         return null;
     }
 
@@ -197,7 +197,7 @@ class Var implements Operation {
      */
     @Override
     public Var div(Scalar other) {
-        System.out.println("The operation \"division\" " + this + " / " + other + " can not be performed.");
+        System.out.println("The operation \"division\" " + other + " / " + this + " can not be performed.");
         return null;
     }
 
@@ -209,7 +209,7 @@ class Var implements Operation {
      */
     @Override
     public Var div(Vector other) {
-        System.out.println("The operation \"division\" " + this + " / " + other + " can not be performed.");
+        System.out.println("The operation \"division\" " + other + " / " + this + " can not be performed.");
         return null;
     }
 
@@ -221,7 +221,7 @@ class Var implements Operation {
      */
     @Override
     public Var div(Matrix other) {
-        System.out.println("The operation \"division\" " + this + " / " + other + " can not be performed.");
+        System.out.println("The operation \"division\" " + other + " / " + this + " can not be performed.");
         return null;
     }
 
