@@ -20,8 +20,8 @@ class ListB<T> implements List<T> {
     public T remove(int index) {
         T reElement = elements[index];
         System.arraycopy(elements, index + 1, elements, index, size - index - 1);
-        elements[size] = null;
         size--;
+        elements[size] = null;
         return reElement;
     }
 

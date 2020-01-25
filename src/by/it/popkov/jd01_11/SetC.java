@@ -9,6 +9,13 @@ class SetC<T> implements Set<T> {
     private T[] elements = (T[]) new Object[]{};
     private int size = 0;
 
+    private int check(Object o) {
+        for (int i = 0; i < size; i++) {
+            if (elements[i].equals(o)) return i;
+        }
+        return -1; ///False
+    }
+
     @Override
     public boolean add(T t) {
         if (check(t) < 0) {
@@ -21,20 +28,13 @@ class SetC<T> implements Set<T> {
         return false;
     }
 
-    private int check(Object o) {
-        for (int i = 0; i < size; i++) {
-            if (elements[i].equals(o)) return i;
-        }
-        return -1;
-    }
-
     @Override
     public boolean remove(Object o) {
         int index = check(o);
         if (index >= 0) {
             System.arraycopy(elements, index + 1, elements, index, size - index - 1);
-            elements[size] = null;
             size--;
+            elements[size] = null;
             return true;
         }
         return false;
@@ -42,31 +42,41 @@ class SetC<T> implements Set<T> {
 
     @Override
     public boolean contains(Object o) {
-        return false;
+        return check(o) >= 0;
     }
 
     @Override
     public int size() {
-        return 0;
+        return size;
     }
 
     @Override
     public boolean isEmpty() {
-        return false;
+        return size <= 0;
     }
 
     @Override
     public boolean addAll(Collection<? extends T> c) {
+        for (T t : c) {
+            add(t);
+        }
         return false;
     }
 
+
     @Override
     public boolean containsAll(Collection<?> c) {
-        return false;
+        for (Object o : c) {
+            if (check(o) < 0) return false;
+        }
+        return true;
     }
 
     @Override
     public boolean removeAll(Collection<?> c) {
+        for (Object o : c) {
+            remove(o);
+        }
         return false;
     }
 
