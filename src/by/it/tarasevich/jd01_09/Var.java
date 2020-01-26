@@ -5,6 +5,7 @@ import by.it.filipovich.jd01_08.Matrix;
 abstract class Var implements Operation {
 
     static Var createVar(String operand){
+
         operand = operand.trim().replace("\\s+", "");
         if(operand.matches(Patterns.SCALAR))
             return new Scalar(operand);
