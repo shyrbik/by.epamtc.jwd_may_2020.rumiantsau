@@ -4,19 +4,8 @@ package by.it.popkov.jd01_11;
 import java.util.*;
 
 class SetC<T> implements Set<T> {
-    private T[] elements = (T[]) new Object[]{};
-    private int size = 0;
-    private boolean nullCheck = false;
     private Map<T, Object> map = new HashMap<>();
     private final static Object OBJECT = new Object();
-
-    private int check(Object o) {
-        for (int i = 0; i < size; i++) {
-            if (elements[i] == null) continue;
-            if (elements[i].equals(o)) return i;
-        }
-        return -1; ///False
-    }
 
     @Override
     public boolean add(T t) {
@@ -83,10 +72,11 @@ class SetC<T> implements Set<T> {
 
     @Override
     public String toString() {
+        Object[] keys = map.keySet().toArray(new Object[0]);
         StringBuilder sb = new StringBuilder("[");
         String comma = "";
-        for (int i = 0; i < size; i++) {
-            sb.append(comma).append(elements[i]);
+        for (int i = 0; i < keys.length; i++) {
+            sb.append(comma).append(keys[i]);
             comma = ", ";
         }
         sb.append("]");
