@@ -37,7 +37,7 @@ class TaskC3 {
         int a;
         System.out.println("Введите вес человека");
         a=sc.nextInt();
-        System.out.println(a);
+
 
     }
 

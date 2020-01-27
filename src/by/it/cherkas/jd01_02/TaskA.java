@@ -16,28 +16,28 @@ public class TaskA {
         private static void step1(int[] mas){
             int min=mas[0];
             int max=mas[0];
-            for (int element : mas) {
-                if (min > element) min = element;
-                if (max < element) max = element;
+            for (int i=0; i<mas.length; i++) {
+                if (min > mas[i]) min = mas[i];
+                if (max < mas[i]) max = mas[i];
             }
             System.out.println(min+" "+ max);
     }
         private static void step2(int[] mas){
                 double avg=0;
-            for (int element : mas) {
-                avg=avg+element;
+            for (int i=0; i<mas.length; i++) {
+                avg=avg+mas[i];
             }
                 avg=avg/mas.length;
-            for (int element : mas) {
-                if (element<avg)
-                System.out.print(element+" ");
+            for (int i=0; i<mas.length; i++) {
+                if (mas[i]<avg)
+                System.out.print(mas[i]+" ");
             }
 
         }
         private static void step3(int[] mas){
             int min=mas[0];
-            for (int element : mas) {
-                if (min > element) min = element;
+            for (int i=0; i<mas.length; i++) {
+                if (min > mas[i]) min = mas[i];
             }
             for (int i = mas.length-1; i >=0 ; i--) {
                 if (mas[i]==min)

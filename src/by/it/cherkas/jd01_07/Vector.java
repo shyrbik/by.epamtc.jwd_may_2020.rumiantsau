@@ -16,7 +16,7 @@ package by.it.cherkas.jd01_07;
                 }
 
                 Vector(String strVector){
-                         String[] vectorString=strVector.substring(0, strVector.length()-1).split(", ");
+                         String[] vectorString=strVector.trim().substring(0, strVector.length()-1).split(", ");
                        this.value=new double[vectorString.length];
                         for (int i = 0; i <vectorString.length ; i++) {
                         this.value[i]=Double.parseDouble(vectorString[i]);

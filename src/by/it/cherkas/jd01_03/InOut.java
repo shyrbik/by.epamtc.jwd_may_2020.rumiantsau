@@ -2,7 +2,7 @@ package by.it.cherkas.jd01_03;
 
 
 
-public class InOut {
+public class            InOut {
 
     static double[ ] getArray(String line){
         String[] strArr=line.split("");

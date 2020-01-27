@@ -15,38 +15,33 @@ public class TaskB {
                 for (double x = 1; x <= 6; x++) {
                     y = y - cos(x);
                     System.out.printf("при a=%6.2f f=%g\n", a, y);
-
                 }
-
-
-                {
-                    double α = 0;
-                    double β = 0;
-                    for (double x = -6; x < 2; x += 0.5) {
-                        x = (x / 2) * 2;
-                        if (x / 2 > -2 && x / 2 <= -1) {
-                            β = sin(pow(x, 2));
-                        }
-                        System.out.printf("при x=%6.2f β=%g\n", x, β);
-                        if (-1 < x / 2 && x / 2 < 0.2) {
-                            β = cos(pow(x, 2));
-                        }
-                        System.out.printf("при x=%6.2f β=%g\n", x, β);
-                        if (x / 2 == 0.2) {
-                            β = 1 / (tan(pow(x, 2)));
-                        }
-                        System.out.printf("при x=%6.2f β=%g\n", x, β);
-                    }
-                    α = log(β + 2.74);
-                    System.out.println(Math.abs(α));
-
-                }
-
-
             }
         }
+
+        for (double x = -5.5; x < 2; x += 0.5) {
+            if (x / 2 > -2 && x / 2 <= -1) {
+                double b=sin(pow(x, 2));
+                double a = log(b+2.74);
+                System.out.printf("При x/2=%4.2f a=%-8.6e%n", x/2,a);
+            }
+            else if (x/2>-1 && x/2<0.2){
+                double b=cos(pow(x,2));
+                double a=log(b+2.74);
+                System.out.printf("При x/2=%4.2f a=%-8.6e%n", x/2,a);
+            }
+            else if (x/2==0.2){
+                double b=1/(tan(pow(x,2)));
+                double a=log(b+2.74);
+                System.out.printf("При x/2=%4.2f a=%-8.6e%n", x/2,a);
+                }
+            else if (x/2<=-2 || x/2>0.2){
+                System.out.printf("При x/2=%4.2f вычисления не определены ", x/2);
+                System.out.println();
+            }
+            }
+
+
+        }
     }
-}
-
-
 

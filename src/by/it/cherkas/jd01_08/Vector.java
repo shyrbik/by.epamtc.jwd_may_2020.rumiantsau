@@ -21,6 +21,9 @@ class Vector extends Var {
                 for (int i = 0; i <vectorString.length ; i++) {
                 this.value[i]=Double.parseDouble(vectorString[i]);
                 }
+
+
+
         }
 
 
