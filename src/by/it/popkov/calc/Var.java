@@ -2,6 +2,7 @@ package by.it.popkov.calc;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.TreeMap;
 import java.util.TreeSet;
 
 abstract class Var implements Operation {
@@ -44,16 +45,18 @@ abstract class Var implements Operation {
         valueMap.put(value, value1);
     }
     static void printvar (){
-        String[] keys = valueMap.keySet().toArray(new String[0]);
-        for (String key : keys) {
-            System.out.println(key + "="+ valueMap.get(key));
-        }
+        System.out.println(valueMap);
+//        String[] keys = valueMap.keySet().toArray(new String[0]);
+//        for (String key : keys) {
+//            System.out.println(key + "="+ valueMap.get(key));
+//        }
     }
     static void sortvar(){
-        TreeSet<String> objects = new TreeSet<>(valueMap.keySet());
-        String[] sortedKeys = objects.toArray(new String[0]);
-        for (String sortedKey : sortedKeys) {
-            System.out.println(sortedKey + "="+ valueMap.get(sortedKey));
-        }
+        System.out.println(new TreeMap<>(valueMap));
+//        TreeSet<String> objects = new TreeSet<>(valueMap.keySet());
+//        String[] sortedKeys = objects.toArray(new String[0]);
+//        for (String sortedKey : sortedKeys) {
+//            System.out.println(sortedKey + "="+ valueMap.get(sortedKey));
+        //}
     }
 }
