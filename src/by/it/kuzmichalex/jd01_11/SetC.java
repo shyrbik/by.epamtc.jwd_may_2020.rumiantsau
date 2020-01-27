@@ -41,8 +41,11 @@ public class SetC<T> implements Set<T> {
             return false;
         }
         for (int i = 0; i < listSize; i++) {
-            if (listValue[i]!= null){
-                if (listValue[i].equals((T) o)){ containIndex=i; return true;}
+            if (listValue[i] != null) {
+                if (listValue[i].equals((T) o)) {
+                    containIndex = i;
+                    return true;
+                }
             }
         }
         return false;
@@ -81,17 +84,45 @@ public class SetC<T> implements Set<T> {
 
     }
 
+    @Override
+    public boolean containsAll(Collection<?> c) {
+        System.out.println("Contains ALL " + c);
+        Object[] arr = c.toArray();
+        for (int i = 0; i < arr.length; i++) {
+            if(!this.contains(arr[i]))return false;
+        }
+        return true;
+    }
+
+    @Override
+    public boolean removeAll(Collection<?> c) {
+        System.out.println("REMOVE ALL " + c);
+        boolean bDeleted=false;
+        Object[] arr = c.toArray();
+        for (int i = 0; i < arr.length; i++) {
+            if(this.remove(arr[i]))bDeleted=true;
+        }
+        return bDeleted;
+    }
 
     @Override
     public boolean remove(Object o) {
-        if(!contains(o))return false;
+        if (!contains(o)) return false;
         System.arraycopy(listValue, containIndex + 1, listValue, containIndex, listValue.length - containIndex - 1);
         listValue[--listSize] = null;
         return true;
     }
 
+    @Override
+    public void clear() {
+        for (int i = 0; i <listSize ; i++) {
+            listValue[i]=null;
+        }
+        listSize=0;
+    }
 
     /////////////////////////////////////////////////////////
+
     //// STUBS
     /////////////////////////////////////////////////////////
 
@@ -102,24 +133,7 @@ public class SetC<T> implements Set<T> {
     }
 
     @Override
-    public void clear() {
-
-    }
-
-    @Override
-    public boolean removeAll(Collection<?> c) {
-        System.out.println("REMOVE ALL " + c);
-        return false;
-    }
-
-    @Override
     public boolean retainAll(Collection<?> c) {
-        return false;
-    }
-
-    @Override
-    public boolean containsAll(Collection<?> c) {
-        System.out.println("Contains ALL " + c);
         return false;
     }
 }
