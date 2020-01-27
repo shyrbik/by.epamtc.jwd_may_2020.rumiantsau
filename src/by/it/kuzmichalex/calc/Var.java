@@ -1,9 +1,14 @@
 package by.it.kuzmichalex.calc;
 
-/**
- * Base class for task 7
- */
+import java.util.*;
+
 abstract class Var implements Operation {
+    /*
+     * array for mapping
+     * Key - Var name
+     * Value - Var value
+     * */
+    private static Map<String, Var> mapVars=new HashMap<>();
 
     /**
      * override Object.toString method
@@ -12,7 +17,6 @@ abstract class Var implements Operation {
     public String toString() {
         return ("abstract class Var");
     }
-
     /**
      * Create Var from expression
      * 1.12 Scalar
@@ -20,19 +24,55 @@ abstract class Var implements Operation {
      * {{1.23, 4.56},{7.89, 10.1112}} matrix
      *
      * @param strExperession - Строковое выражение с переменной типа Scalar Vector или Matrix
+     *                       Имена quit, exit, end, printvar, sortvar не разрешаются!
      * @return Var
      */
     static Var createVar(String strExperession) {
+
         if (strExperession.matches(Patterns.SCALAR))
             return new Scalar(strExperession);
         else if (strExperession.matches(Patterns.VECTOR))
             return new Vector(strExperession);
         else if (strExperession.matches(Patterns.MATRIX))
             return new Matrix(strExperession);
-        else
-            return null; //
+        else    //No need to create. Var returns from HashMap mapVars
+            return mapVars.get(strExperession);
     }
 
+    /**
+     * convert all Vars to String
+     * @return String like VarName=Value\n
+     * */
+    static String printVars(){
+        StringBuilder retValue = new StringBuilder();
+        if(mapVars.isEmpty())return("No Vars defined");
+        Set<Map.Entry<String, Var>> entries = mapVars.entrySet();
+        Iterator<Map.Entry<String, Var>> iterator = entries.iterator();
+        while(iterator.hasNext()) {
+            Map.Entry<String, Var> varMapValue = iterator.next();
+            retValue.append(varMapValue.getKey()).append("=");
+            retValue.append(varMapValue.getValue().toString());
+            retValue.append('\n');
+        }
+        return retValue.toString();
+    }
+
+    /**
+     * convert all Vars to String witch sorting by key
+     * @return String like VarName=Value\n
+     * */
+    static String sortVars(){
+        StringBuilder retValue = new StringBuilder();
+        if(mapVars.isEmpty())return("No Vars defined");
+        TreeMap<String, Var> sortedVars = new TreeMap<String, Var>(mapVars);
+        Set<Map.Entry<String, Var>> entries = sortedVars.entrySet();
+        Iterator<Map.Entry<String, Var>> iterator = entries.iterator();
+        while(iterator.hasNext()){
+            Map.Entry<String, Var> nextSorted = iterator.next();
+            retValue.append(nextSorted.getKey()).append("=").append(nextSorted.getValue().toString()).append('\n');
+        }
+        return retValue.toString();
+    }
 
     /////////// Methods for add operation
     @Override
@@ -120,5 +160,14 @@ abstract class Var implements Operation {
     public Var div(Matrix leftOperand) {
         System.out.println("Var.div Matrix " + leftOperand + " / " + this + " Не существует");
         return null;
+    }
+
+    /**
+     * save Var and value into HashMap mapVars
+     * @param key - var name. A, B, counter, superPuperVar etc
+     * @Value Var-type value
+     * */
+    static void save(String key, Var value) {
+        mapVars.put(key,value);
     }
 }

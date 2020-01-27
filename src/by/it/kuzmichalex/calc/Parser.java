@@ -6,12 +6,18 @@ import java.util.regex.Pattern;
 public class Parser {
     Var calc(String expression) {
         expression = expression.replace("\\s+", "");
+
         Matcher matcher = Pattern.compile(Patterns.OPERATION).matcher(expression);
         if (matcher.find()) {
             String operation = matcher.group();
             String[] partsOfExpression = expression.split(Patterns.OPERATION, 2);
-            Var leftVar = Var.createVar(partsOfExpression[0]);
             Var rightVar = Var.createVar(partsOfExpression[1]);
+            if (operation.equals("=")){
+                Var.save(partsOfExpression[0],rightVar);
+                return rightVar;
+            }
+
+            Var leftVar = Var.createVar(partsOfExpression[0]);
             if (leftVar != null && rightVar != null) {
                 switch (operation) {
                     case "+":
