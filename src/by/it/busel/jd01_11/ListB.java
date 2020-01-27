@@ -1,9 +1,10 @@
 package by.it.busel.jd01_11;
 
-import org.omg.PortableInterceptor.SYSTEM_EXCEPTION;
-
 import java.util.*;
 
+/*
+TaskB
+ */
 public class ListB<T> implements List<T> {
     private T[] elements = (T[]) new Object[]{};
     private int size = 0;
@@ -44,12 +45,6 @@ public class ListB<T> implements List<T> {
             return elementToBeReplaced;
         }
         return null;
-//        if (index <= size - 1) {
-//            T elementToBeReplaced = elements[index];
-//            elements[index] = element;
-//            return elementToBeReplaced;
-//        }
-//        return null;
     }
 
     @Override
@@ -94,10 +89,6 @@ public class ListB<T> implements List<T> {
         }
         textVisualRepresentationOfElements.append("]");
         return textVisualRepresentationOfElements.toString();
-//        return "ListB{" +
-//                "elements=" + Arrays.toString(elements) +
-//                ", size=" + size +
-//                '}';
     }
 
     @Override

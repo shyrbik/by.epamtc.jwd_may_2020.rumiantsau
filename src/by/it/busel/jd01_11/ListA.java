@@ -29,7 +29,6 @@ public class ListA<T> implements List<T> {
         return null;
     }
 
-
     @Override
     public T get(int index) {
         if (index <= size - 1) {
@@ -48,10 +47,6 @@ public class ListA<T> implements List<T> {
         }
         textToBePrinted.append("]");
         return textToBePrinted.toString();
-//        "ListA{" +
-//                "elements=" + Arrays.toString(elements) +
-//                ", size=" + size +
-//                '}';
     }
 
     @Override
@@ -116,7 +111,6 @@ public class ListA<T> implements List<T> {
 
     @Override
     public void clear() {
-
     }
 
     @Override
@@ -126,7 +120,6 @@ public class ListA<T> implements List<T> {
 
     @Override
     public void add(int index, T element) {
-
     }
 
     @Override
