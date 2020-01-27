@@ -1,8 +1,6 @@
-package by.it.drozd.jd01_07;
+package by.it.drozd.jd01_08;
 
-import java.util.Arrays;
-
-class Matrix extends Var{
+class Matrix extends Var {
     private double[][] value;
 
     Matrix(double[][] value){
@@ -11,7 +9,6 @@ class Matrix extends Var{
     Matrix(Matrix matrix){
         this.value=matrix.value;
     }
-
     @Override
     public String toString() {
         StringBuilder sb=new StringBuilder("{");

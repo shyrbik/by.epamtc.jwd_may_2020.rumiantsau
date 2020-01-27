@@ -1,4 +1,4 @@
-package by.it.drozd.jd01_07;
+package by.it.drozd.jd01_08;
 
 
 import java.util.Arrays;
@@ -13,12 +13,14 @@ class Vector extends Var{
     this.value=vector.value;
     }
     Vector(String strVector){
-
         String nums = strVector.substring(1, strVector.length() - 1);
         this.value = Arrays.stream(nums.split(",")).mapToDouble(Double::parseDouble).toArray();
         }
 
-
+    @Override
+    public Var add(Var other) {
+        return super.add(other);
+    }
 
     @Override
     public String toString() {
