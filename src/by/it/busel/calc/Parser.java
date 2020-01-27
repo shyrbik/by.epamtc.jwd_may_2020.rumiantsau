@@ -4,6 +4,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 class Parser {
+
     /**
      * a method, which calculates some mathematical operations
      * on the basis of the argument "String varExpression",
@@ -20,14 +21,24 @@ class Parser {
     Var calc(String varExpression) {
         Pattern pattern = Pattern.compile(Patterns.OPERATION);
         String[] operand = pattern.split(varExpression);
-        Var operand1 = Var.createVar(operand[0].trim());
-        Var operand2 = Var.createVar(operand[1].trim());
-        if (operand1 == null || operand2 == null) {
-            return null;
-        }
+//        Var operand1 = Var.createVar(operand[0].trim());
+//        Var operand2 = Var.createVar(operand[1].trim());
+//        if (operand1 == null || operand2 == null) {
+//            return null;
+//        }
         Matcher matcher = pattern.matcher(varExpression);
         if (matcher.find()) {
-            switch (matcher.group()) {
+            String operator = matcher.group();
+            Var operand2 = Var.createVar(operand[1].trim());
+            if (operator.equals("=")) {
+                Storage.putMapElement(operand[0].toUpperCase(), operand2);
+                return operand2;
+            }
+            Var operand1 = Var.createVar(operand[0].trim());
+            if (operand1 == null || operand2 == null) {
+                return null;
+            }
+            switch (operator) {
                 case "+":
                     return operand1.add(operand2);
                 case "-":
@@ -36,6 +47,9 @@ class Parser {
                     return operand1.mul(operand2);
                 case "/":
                     return operand1.div(operand2);
+//                case "=":
+//                    Storage.putMapElement(operand[0].toUpperCase(), operand2);
+//                    return operand2;
                 default:
                     System.out.println("The mathematical operator has not been found.\nCheck the expression You inputted. Then re-enter your expression, please!");
             }

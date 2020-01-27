@@ -47,7 +47,7 @@ class Vector extends Var {
      * @param strVector a String object that contains a vector expression
      */
     Vector(String strVector) {
-        Pattern pattern = Pattern.compile("[0-9]+");
+        Pattern pattern = Pattern.compile(Patterns.SCALAR);
         Matcher matcher = pattern.matcher(strVector);
         int counter = counterOfValueLength(matcher);
         if (counter > 0) {

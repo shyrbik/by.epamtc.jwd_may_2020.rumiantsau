@@ -47,12 +47,12 @@ class Matrix extends Var {
      * @param strMatrix a String object that contains a matrix expression
      */
     Matrix(String strMatrix) {
-        Pattern patternToRows = Pattern.compile("[{][0-9, ]+[}]");
+        Pattern patternToRows = Pattern.compile(Patterns.VECTOR);
         Matcher matcherToRows = patternToRows.matcher(strMatrix);
         int numberOfRows = counterOfElementsOfAnArray(matcherToRows);
         String[] strArrayRows = concstructorArrayRows(matcherToRows, numberOfRows);
 
-        Pattern patternRowsToElements = Pattern.compile("[0-9]+");
+        Pattern patternRowsToElements = Pattern.compile(Patterns.SCALAR);
         Matcher matcher = patternRowsToElements.matcher(strArrayRows[0]);
         int numberOfColumns = counterOfElementsOfAnArray(matcher);
         if (numberOfRows > 0 && numberOfColumns > 0) {
@@ -86,6 +86,8 @@ class Matrix extends Var {
         strToString.append("}");
         return strToString.toString();
     }
+
+
 
     /**
      * an overridden from a base class "Var" method that determines a type of a class from its argument
