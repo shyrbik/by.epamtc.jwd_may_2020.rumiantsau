@@ -1,6 +1,5 @@
 package by.it.kuzmichalex.jd01_11;
 
-import java.lang.reflect.Method;
 import java.util.*;
 
 public class SetC<T> implements Set<T> {
@@ -15,7 +14,7 @@ public class SetC<T> implements Set<T> {
             returnString.append(listValue[i]);
             if (i < (listSize) - 1) returnString.append(", ");
         }
-        returnString.append("]=");
+        returnString.append("]");
         return returnString.toString();
     }
 
@@ -26,7 +25,7 @@ public class SetC<T> implements Set<T> {
 
     @Override
     public boolean isEmpty() {
-        return false;
+        return listSize == 0;
     }
 
     @Override
@@ -56,7 +55,6 @@ public class SetC<T> implements Set<T> {
         return toArray(listValue);
     }
 
-
     @Override
     public <T> T[] toArray(T[] a) {
         return null;
@@ -64,8 +62,6 @@ public class SetC<T> implements Set<T> {
 
     @Override
     public boolean add(T newElement) {
-        System.out.println("ADD" + newElement);
-
         if (this.contains(newElement)) return false;
         if (listSize >= listValue.length) {
             listValue = Arrays.copyOf(listValue, ((listValue.length * 3) / 2) + 1);
@@ -81,26 +77,23 @@ public class SetC<T> implements Set<T> {
             this.add((T) arr[i]);
         }
         return true;
-
     }
 
     @Override
     public boolean containsAll(Collection<?> c) {
-        System.out.println("Contains ALL " + c);
         Object[] arr = c.toArray();
         for (int i = 0; i < arr.length; i++) {
-            if(!this.contains(arr[i]))return false;
+            if (!this.contains(arr[i])) return false;
         }
         return true;
     }
 
     @Override
     public boolean removeAll(Collection<?> c) {
-        System.out.println("REMOVE ALL " + c);
-        boolean bDeleted=false;
+        boolean bDeleted = false;
         Object[] arr = c.toArray();
         for (int i = 0; i < arr.length; i++) {
-            if(this.remove(arr[i]))bDeleted=true;
+            if (this.remove(arr[i])) bDeleted = true;
         }
         return bDeleted;
     }
@@ -115,20 +108,18 @@ public class SetC<T> implements Set<T> {
 
     @Override
     public void clear() {
-        for (int i = 0; i <listSize ; i++) {
-            listValue[i]=null;
+        for (int i = 0; i < listSize; i++) {
+            listValue[i] = null;
         }
-        listSize=0;
+        listSize = 0;
     }
 
     /////////////////////////////////////////////////////////
-
     //// STUBS
     /////////////////////////////////////////////////////////
 
     @Override
     public Iterator<T> iterator() {
-        System.out.println("stub iterator");
         return null;
     }
 
