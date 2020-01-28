@@ -8,7 +8,7 @@ import java.util.Random;
 public class TaskA1 {
     private List<Integer> marks = new ArrayList<>();
 
-    void clearBad(List<Integer> grades) {
+    private void clearBad(List<Integer> grades) {
         Iterator<Integer> iterator = grades.iterator();
         while (iterator.hasNext()) {
             if (iterator.next() <= 3) iterator.remove();

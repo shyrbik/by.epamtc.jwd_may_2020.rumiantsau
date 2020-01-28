@@ -5,14 +5,14 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.TreeSet;
 
-public class TaskA2 {
-    static Set getCross(Set<Integer> a, Set<Integer> b) {
+class TaskA2 {
+    private static Set getCross(Set<Integer> a, Set<Integer> b) {
         HashSet<Integer> outPut = new HashSet<>(a);
         outPut.retainAll(b);
         return outPut;
     }
 
-    static Set getUnion(Set<Integer> a, Set<Integer> b) {
+    private static Set getUnion(Set<Integer> a, Set<Integer> b) {
         HashSet<Integer> outPut = new HashSet<>(a);
         outPut.addAll(b);
         return outPut;
