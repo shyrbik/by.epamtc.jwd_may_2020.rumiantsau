@@ -6,8 +6,9 @@ import java.lang.reflect.Modifier;
 public class PrintString {
     public static void main(String[] args) {
 
-        Class<String> mathClass = String.class;
-        Method[] methods = mathClass.getMethods();
+        Class<String> sClass = String.class;
+     //   Method[] methods = sClass.getMethods();
+        Method[] methods = sClass.getDeclaredMethods();
         for (Method method : methods) {
             int modifiers = method.getModifiers();
             StringBuilder str = new StringBuilder("");
