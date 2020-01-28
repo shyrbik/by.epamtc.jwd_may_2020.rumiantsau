@@ -129,11 +129,9 @@ public abstract class Var implements Operation {
         }
     }
     static void sortvar() {
-        Set<String> strings = vars.keySet();
-        Object[] objects = strings.toArray();
-        Arrays.sort(objects);
-        for (Object object : objects) {
-            System.out.println(object+"="+vars.get(object));
+        TreeMap<String, Var> varTreeMap = new TreeMap<>(vars);
+        for (Map.Entry<String, Var> entry : varTreeMap.entrySet()) {
+            System.out.println(entry.getKey()+"="+entry.getValue());
         }
     }
 }
