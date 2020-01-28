@@ -11,6 +11,7 @@ public class PrintMath {
         Method[] methods = mathClass.getMethods();
         for (Method method : methods) {
             int modifiers = method.getModifiers();
+
             if (Modifier.isPublic(modifiers)) {
                 StringBuilder str = new StringBuilder("public");
                 if (Modifier.isStatic(modifiers))
