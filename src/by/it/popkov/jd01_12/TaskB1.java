@@ -1,4 +1,4 @@
-package by.it.akhmelev.jd01_12;
+package by.it.popkov.jd01_12;
 
 import java.util.HashMap;
 import java.util.Scanner;
