@@ -4,28 +4,25 @@ import java.util.*;
 
 class TaskB3 {
     static String process(ArrayList<String> peoples) {
-        int count = 1;
-        while (peoples.size() > 1) {
-            Iterator<String> iterator = peoples.iterator();
-            while (iterator.hasNext()) {
-                iterator.next();
-                if (count++ % 2 == 0) {
-                    iterator.remove();
-                }
-            }
-        }
-        return peoples.get(0);
+        return TaskB2.process(peoples);
+    }
+
+    static String processI(LinkedList<String> peoples) {
+        return TaskB2.process(peoples);
     }
 
     static String process(LinkedList<String> peoples) {
+        String cash;
         while (peoples.size()>1){
-            peoples.removeLast();
+            cash=peoples.pollFirst();
+            peoples.removeFirst();
+            peoples.addLast(cash);
         }
         return peoples.getFirst();
     }
 
     public static void main(String[] args) {
-        String[] array = new String[4096];
+        String[] array = new String[40960];
         for (int i = 0; i < array.length; i++) {
             array[i] = "" + (i + 1);
         }
@@ -34,10 +31,13 @@ class TaskB3 {
         LinkedList<String> linkedList = new LinkedList<>(list);
         long startA=System.nanoTime();
         String a=process(arrayList);
-        long finishAAndStartB=System.nanoTime();
-        String b=process(linkedList);
-        long finishB=System.nanoTime();
-        System.out.println(a+" "+((finishAAndStartB-startA)/1000));
-        System.out.println(b+" "+((finishB-finishAAndStartB)/1000));
+        long finishA=System.nanoTime();
+//        String b=processI(linkedList);
+//        long finishB=System.nanoTime();
+        String c=process(linkedList);
+        long finishC=System.nanoTime();
+        System.out.println(a+" "+((finishA-startA)/1000));
+//        System.out.println(b+" "+((finishB-finishA)/1000));
+        System.out.println(c+" "+((finishC-finishA)/1000));
     }
 }

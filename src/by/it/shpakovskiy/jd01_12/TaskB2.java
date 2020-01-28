@@ -32,10 +32,19 @@ class TaskB2 {
     }
 
     public static void main(String[] args) {
-        List<String> list = Arrays.asList("Fedya", "Kolya", "Volodya", "Manya", "Valya", "Matroskin", "Kesha", "Vasya", "Sharik", "Galya");
+        String[] array = new String[10000];
+        for (int i = 0; i < array.length; i++) {
+            array[i] = "" + (i + 1);
+        }
+        List<String> list = Arrays.asList(array);
         ArrayList<String> arrayList = new ArrayList<>(list);
         LinkedList<String> linkedList = new LinkedList<>(list);
-        System.out.println(process(arrayList));
-        System.out.println(process(linkedList));
+        long startA=System.nanoTime();
+        String a=process(arrayList);
+        long finishAAndStartB=System.nanoTime();
+        String b=process(linkedList);
+        long finishB=System.nanoTime();
+        System.out.println(a+" "+((finishAAndStartB-startA)/1000));
+        System.out.println(b+" "+((finishB-finishAAndStartB)/1000));
     }
 }
