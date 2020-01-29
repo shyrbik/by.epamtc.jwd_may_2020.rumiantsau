@@ -60,10 +60,10 @@ public class TaskC3 {
                 }
             }
         }
-        if (!stack.isEmpty()){
-            bExpressionOk=false;
+        if (!stack.isEmpty()) {
+            bExpressionOk = false;
             //System.out.println("Не хватает закрывающих скобок: " + stack);
-            }
+        }
         System.out.println(bExpressionOk);
     }
 }
