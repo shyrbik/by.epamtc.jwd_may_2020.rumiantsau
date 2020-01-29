@@ -40,5 +40,6 @@ public class TaskB2 {
 
     public static void main(String[] args) {
         System.out.println(process(new ArrayList<>(Arrays.asList("1", "2", "3", "4", "5", "6", "7", "8", "9"))));
+        System.out.println(process(new LinkedList<>(Arrays.asList("1", "2", "3", "4", "5", "6", "7", "8", "9"))));
     }
 }
