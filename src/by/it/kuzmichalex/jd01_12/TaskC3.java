@@ -6,7 +6,7 @@ import java.util.regex.Pattern;
 
 public class TaskC3 {
     /**
-     * Определение, открывающая скобка или открывающая или нет
+     * Определение, открывающая скобка или нет
      *
      * @param bracket -какая-то скобка
      * @return true, если открывает
