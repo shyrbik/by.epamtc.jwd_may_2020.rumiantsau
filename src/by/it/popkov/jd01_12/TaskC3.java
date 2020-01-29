@@ -5,7 +5,7 @@ import java.util.Map;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
+//????? Идёт проверка только на соответствие количетства окрывающих скобок к закрывающим. Нужно ли проверять что то ещё?
 class TaskC3 {
     public static void main(String[] args) {
         Map<String, Integer> map = new HashMap<>();

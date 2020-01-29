@@ -1,7 +1,7 @@
 package by.it.popkov.jd01_12;
 
 import java.util.*;
-
+//?????????????????Добавить привидение к отдному типу, как если бы 2.0, 2L, 2 были бы одним и тем же
 class TaskC2 {
     private static Set getCross(Set<? extends Number>... many) {
         Set<Number> outPut = new HashSet<>(many[0]);
