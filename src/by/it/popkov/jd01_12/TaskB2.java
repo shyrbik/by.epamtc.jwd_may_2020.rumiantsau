@@ -5,7 +5,7 @@ import java.util.Arrays;
 import java.util.Iterator;
 import java.util.LinkedList;
 
-public class TaskB2 {
+class TaskB2 {
     static String process(ArrayList<String> peoples) {
         ArrayList<String> copy = new ArrayList<>(peoples);
         boolean a = false;

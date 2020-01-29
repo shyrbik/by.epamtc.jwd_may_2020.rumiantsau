@@ -3,7 +3,7 @@ package by.it.popkov.jd01_12;
 import java.util.HashMap;
 import java.util.Scanner;
 
-public class TaskB1 {
+class TaskB1 {
     public static void main(String[] args) {
         HashMap<String, Integer> wordNumber = new HashMap<>();
         Scanner scanner = new Scanner(System.in);

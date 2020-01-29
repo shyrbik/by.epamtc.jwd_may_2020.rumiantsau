@@ -2,7 +2,7 @@ package by.it.popkov.jd01_12;
 
 import java.util.*;
 
-public class TaskC2 {
+class TaskC2 {
     private static Set getCross(Set<? extends Number>... many) {
         Set<Number> outPut = new HashSet<>(many[0]);
         for (Set<? extends Number> numbers : many) {

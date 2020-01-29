@@ -5,7 +5,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 
-public class TaskA1 {
+class TaskA1 {
     private List<Integer> marks = new ArrayList<>();
 
     private void clearBad(List<Integer> grades) {
