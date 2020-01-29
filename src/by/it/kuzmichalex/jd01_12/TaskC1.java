@@ -18,10 +18,11 @@ public class TaskC1 {
         for (Map.Entry<Integer, String> integerStringEntry : map.entrySet()) {
             System.out.println(integerStringEntry.getValue() + " : " + integerStringEntry.getKey());
         }
-        //Сжатие списка по наименованиям.
+        //remove duplicates
         Set<String> uniqueNames = new HashSet<>();
         Set<Map.Entry<Integer, String>> entrySet = map.entrySet();
-        entrySet.removeIf(next -> !uniqueNames.add(next.getValue()));
+        entrySet.removeIf(next -> !uniqueNames.add(next.getValue()));   //Крики благодарности в адрес Idea!
+
         System.out.println("Compressed by name:");
         for (Map.Entry<Integer, String> integerStringEntry : map.entrySet()) {
             System.out.println(integerStringEntry.getValue() + " : " + integerStringEntry.getKey());
