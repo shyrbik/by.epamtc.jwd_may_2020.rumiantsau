@@ -9,11 +9,6 @@ import java.util.List;
  * Считалка
  * */
 
-
-
-
-
-
 public class TaskB2 {
 
     /**
