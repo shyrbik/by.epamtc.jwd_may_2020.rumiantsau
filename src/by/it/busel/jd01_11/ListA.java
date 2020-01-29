@@ -1,52 +1,63 @@
-package by.it.akhmelev.jd01_11;
+package by.it.busel.jd01_11;
 
 import java.util.*;
 
+/*
+TaskA
+ */
 public class ListA<T> implements List<T> {
-
     private T[] elements = (T[]) new Object[]{};
     private int size = 0;
 
     @Override
     public boolean add(T element) {
         if (size >= elements.length) {
-            elements = Arrays.copyOf(elements, (elements.length * 3 / 2) + 1);
+            elements = Arrays.copyOf(elements, elements.length * 3 / 2 + 1);
         }
         elements[size++] = element;
-        return false;
+        return true;
     }
 
     @Override
     public T remove(int index) {
-        T element = elements[index];
-        System.arraycopy(elements, index + 1, elements, index, size - index - 1);
-        elements[--size] = null;
-        return element;
+        if (index <= size - 1) {
+            T elementToBeRemoved = elements[index];
+            System.arraycopy(elements, index + 1, elements, index, size - index - 1);
+            elements[size--] = null;
+            return elementToBeRemoved;
+        }
+        return null;
     }
 
     @Override
     public T get(int index) {
-        return elements[index];
+        if (index <= size - 1) {
+            return elements[index];
+        }
+        return null;
     }
 
     @Override
     public String toString() {
-        StringBuilder text = new StringBuilder("[");
+        StringBuilder textToBePrinted = new StringBuilder("[");
         String delimiter = "";
         for (int i = 0; i < size; i++) {
-            text.append(delimiter).append(elements[i]);
+            textToBePrinted.append(delimiter).append(elements[i]);
             delimiter = ", ";
         }
-        text.append("]");
-        return text.toString();
+        textToBePrinted.append("]");
+        return textToBePrinted.toString();
     }
 
     @Override
     public int size() {
         return size;
     }
-    ///----------- stubs -------------------------------
 
+    @Override
+    public boolean remove(Object o) {
+        return false;
+    }
 
     @Override
     public boolean isEmpty() {
@@ -71,11 +82,6 @@ public class ListA<T> implements List<T> {
     @Override
     public <T1> T1[] toArray(T1[] a) {
         return null;
-    }
-
-    @Override
-    public boolean remove(Object o) {
-        return false;
     }
 
     @Override
@@ -105,7 +111,6 @@ public class ListA<T> implements List<T> {
 
     @Override
     public void clear() {
-
     }
 
     @Override
@@ -115,7 +120,6 @@ public class ListA<T> implements List<T> {
 
     @Override
     public void add(int index, T element) {
-
     }
 
     @Override

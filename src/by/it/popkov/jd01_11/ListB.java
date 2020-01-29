@@ -1,27 +1,28 @@
-package by.it.akhmelev.jd01_11;
+package by.it.popkov.jd01_11;
 
 import java.util.*;
 
-public class ListA<T> implements List<T> {
-
+class ListB<T> implements List<T> {
     private T[] elements = (T[]) new Object[]{};
     private int size = 0;
 
     @Override
-    public boolean add(T element) {
+    public boolean add(T t) {
         if (size >= elements.length) {
-            elements = Arrays.copyOf(elements, (elements.length * 3 / 2) + 1);
+            elements = Arrays.copyOf(elements, elements.length * 3 / 2 + 1);
         }
-        elements[size++] = element;
+        elements[size] = t;
+        size++;
         return false;
     }
 
     @Override
     public T remove(int index) {
-        T element = elements[index];
+        T reElement = elements[index];
         System.arraycopy(elements, index + 1, elements, index, size - index - 1);
-        elements[--size] = null;
-        return element;
+        size--;
+        elements[size] = null;
+        return reElement;
     }
 
     @Override
@@ -31,22 +32,48 @@ public class ListA<T> implements List<T> {
 
     @Override
     public String toString() {
-        StringBuilder text = new StringBuilder("[");
-        String delimiter = "";
+        StringBuilder sb = new StringBuilder("[");
+        String comma = "";
         for (int i = 0; i < size; i++) {
-            text.append(delimiter).append(elements[i]);
-            delimiter = ", ";
+            sb.append(comma).append(elements[i]);
+            comma = ", ";
         }
-        text.append("]");
-        return text.toString();
+        sb.append("]");
+        return sb.toString();
     }
 
     @Override
-    public int size() {
-        return size;
+    public T set(int index, T element) {
+        T old = elements[index];
+        elements[index] = element;
+        return old;
     }
-    ///----------- stubs -------------------------------
 
+    @Override
+    public void add(int index, T element) {
+        if (size >= elements.length) {
+            elements = Arrays.copyOf(elements, elements.length * 3 / 2 + 1);
+        }
+        System.arraycopy(elements, index, elements, index + 1, size - index);
+        elements[index] = element;
+        size++;
+
+
+    }
+
+    @Override
+    public boolean addAll(Collection<? extends T> c) {
+        for (T t : c) {
+            this.add(t);
+        }
+        return false;
+    }
+    ///----------------------------------Fictive------------------------
+
+    @Override
+    public int size() {
+        return 0;
+    }
 
     @Override
     public boolean isEmpty() {
@@ -84,11 +111,6 @@ public class ListA<T> implements List<T> {
     }
 
     @Override
-    public boolean addAll(Collection<? extends T> c) {
-        return false;
-    }
-
-    @Override
     public boolean addAll(int index, Collection<? extends T> c) {
         return false;
     }
@@ -105,16 +127,6 @@ public class ListA<T> implements List<T> {
 
     @Override
     public void clear() {
-
-    }
-
-    @Override
-    public T set(int index, T element) {
-        return null;
-    }
-
-    @Override
-    public void add(int index, T element) {
 
     }
 

@@ -1,27 +1,27 @@
-package by.it.akhmelev.jd01_11;
+package by.it.lozouski.jd01_11;
 
 import java.util.*;
 
-public class ListA<T> implements List<T> {
+class ListA<T> implements List<T> {
 
     private T[] elements = (T[]) new Object[]{};
     private int size = 0;
 
     @Override
-    public boolean add(T element) {
+    public boolean add(T addElement) {
         if (size >= elements.length) {
-            elements = Arrays.copyOf(elements, (elements.length * 3 / 2) + 1);
+            elements = Arrays.copyOf(elements, elements.length * 3 / 2 + 1);
         }
-        elements[size++] = element;
+        elements[size++] = addElement;
         return false;
     }
 
     @Override
     public T remove(int index) {
-        T element = elements[index];
+        T removeElement = elements[index];
         System.arraycopy(elements, index + 1, elements, index, size - index - 1);
-        elements[--size] = null;
-        return element;
+        elements[--size]=null;
+        return removeElement;
     }
 
     @Override
@@ -31,22 +31,21 @@ public class ListA<T> implements List<T> {
 
     @Override
     public String toString() {
-        StringBuilder text = new StringBuilder("[");
-        String delimiter = "";
+        StringBuilder printObj = new StringBuilder("[");
+        String joiner = "";
         for (int i = 0; i < size; i++) {
-            text.append(delimiter).append(elements[i]);
-            delimiter = ", ";
+            printObj.append(joiner).append(elements[i]);
+            joiner = ", ";
         }
-        text.append("]");
-        return text.toString();
+        printObj.append("]");
+        return printObj.toString();
     }
 
+    ///////////--STABS--/////////////
     @Override
     public int size() {
-        return size;
+        return 0;
     }
-    ///----------- stubs -------------------------------
-
 
     @Override
     public boolean isEmpty() {

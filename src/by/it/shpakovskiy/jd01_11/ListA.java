@@ -1,18 +1,27 @@
-package by.it.akhmelev.jd01_11;
+package by.it.shpakovskiy.jd01_11;
 
 import java.util.*;
 
-public class ListA<T> implements List<T> {
-
+class ListA<T> implements List<T> {
     private T[] elements = (T[]) new Object[]{};
     private int size = 0;
 
     @Override
-    public boolean add(T element) {
-        if (size >= elements.length) {
-            elements = Arrays.copyOf(elements, (elements.length * 3 / 2) + 1);
+    public boolean add(T t) {
+        if (size == elements.length) {
+            elements = Arrays.copyOf(elements, elements.length * 3 / 2 + 1);
         }
-        elements[size++] = element;
+        elements[size++] = t;
+        return true;
+    }
+
+    @Override
+    public boolean remove(Object o) {
+        int index = indexOf(o);
+        if (index > -1) {
+            remove(index);
+            return true;
+        }
         return false;
     }
 
@@ -22,6 +31,24 @@ public class ListA<T> implements List<T> {
         System.arraycopy(elements, index + 1, elements, index, size - index - 1);
         elements[--size] = null;
         return element;
+    }
+
+    @Override
+    public int indexOf(Object o) {
+        if (o == null) {
+            for (int i = 0; i < size; i++) {
+                if (elements[i] == null) {
+                    return i;
+                }
+            }
+        } else {
+            for (int i = 0; i < size; i++) {
+                if (o.equals(elements[i])) {
+                    return i;
+                }
+            }
+        }
+        return -1;
     }
 
     @Override
@@ -45,8 +72,6 @@ public class ListA<T> implements List<T> {
     public int size() {
         return size;
     }
-    ///----------- stubs -------------------------------
-
 
     @Override
     public boolean isEmpty() {
@@ -65,41 +90,36 @@ public class ListA<T> implements List<T> {
 
     @Override
     public Object[] toArray() {
-        return new Object[0];
+        return Arrays.copyOf(elements, size);
     }
 
     @Override
-    public <T1> T1[] toArray(T1[] a) {
+    public <T1> T1[] toArray(T1[] t1s) {
         return null;
     }
 
     @Override
-    public boolean remove(Object o) {
+    public boolean containsAll(Collection<?> collection) {
         return false;
     }
 
     @Override
-    public boolean containsAll(Collection<?> c) {
+    public boolean addAll(Collection<? extends T> collection) {
         return false;
     }
 
     @Override
-    public boolean addAll(Collection<? extends T> c) {
+    public boolean addAll(int i, Collection<? extends T> collection) {
         return false;
     }
 
     @Override
-    public boolean addAll(int index, Collection<? extends T> c) {
+    public boolean removeAll(Collection<?> collection) {
         return false;
     }
 
     @Override
-    public boolean removeAll(Collection<?> c) {
-        return false;
-    }
-
-    @Override
-    public boolean retainAll(Collection<?> c) {
+    public boolean retainAll(Collection<?> collection) {
         return false;
     }
 
@@ -109,18 +129,18 @@ public class ListA<T> implements List<T> {
     }
 
     @Override
-    public T set(int index, T element) {
+    public T set(int i, T element) {
+        if (i <= size) {
+            T oldElement = elements[i];
+            elements[i] = element;
+            return oldElement;
+        }
         return null;
     }
 
     @Override
-    public void add(int index, T element) {
+    public void add(int i, T t) {
 
-    }
-
-    @Override
-    public int indexOf(Object o) {
-        return 0;
     }
 
     @Override
@@ -134,12 +154,12 @@ public class ListA<T> implements List<T> {
     }
 
     @Override
-    public ListIterator<T> listIterator(int index) {
+    public ListIterator<T> listIterator(int i) {
         return null;
     }
 
     @Override
-    public List<T> subList(int fromIndex, int toIndex) {
+    public List<T> subList(int i, int i1) {
         return null;
     }
 }

@@ -1,52 +1,60 @@
-package by.it.akhmelev.jd01_11;
+package by.it.kuzmichalex.jd01_11;
 
 import java.util.*;
 
 public class ListA<T> implements List<T> {
 
-    private T[] elements = (T[]) new Object[]{};
-    private int size = 0;
+    private int listSize = 0;
+    private T[] listValue = (T[]) new Object[]{};
 
     @Override
-    public boolean add(T element) {
-        if (size >= elements.length) {
-            elements = Arrays.copyOf(elements, (elements.length * 3 / 2) + 1);
+    public String toString() {
+        StringBuilder returnString = new StringBuilder("[");
+        for (int i = 0; i < listSize; i++) {
+            returnString.append(listValue[i]);
+            if (i < (listSize) - 1) returnString.append(", ");
         }
-        elements[size++] = element;
-        return false;
+        returnString.append("]");
+        return returnString.toString();
+    }
+
+    @Override
+    public boolean add(T newElement) {
+        if (listSize >= listValue.length) {
+            listValue = Arrays.copyOf(listValue, ((listValue.length * 3) / 2) + 1);
+        }
+        listValue[listSize++] = newElement;
+        return true;
     }
 
     @Override
     public T remove(int index) {
-        T element = elements[index];
-        System.arraycopy(elements, index + 1, elements, index, size - index - 1);
-        elements[--size] = null;
-        return element;
+        T retValue;
+        if (index < 0) return null;
+        if (index >= listSize) return null;
+        retValue = listValue[index];
+        System.arraycopy(listValue, index + 1, listValue, index, listValue.length - index - 1);
+        listValue[--listSize] = null;
+        return retValue;
     }
 
     @Override
     public T get(int index) {
-        return elements[index];
+        if (index < 0) return null;
+        if (index >=listSize) return null;
+        return listValue[index];
     }
+    //-----Stub's
 
     @Override
-    public String toString() {
-        StringBuilder text = new StringBuilder("[");
-        String delimiter = "";
-        for (int i = 0; i < size; i++) {
-            text.append(delimiter).append(elements[i]);
-            delimiter = ", ";
-        }
-        text.append("]");
-        return text.toString();
+    public boolean remove(Object o) {
+        return false;
     }
 
     @Override
     public int size() {
-        return size;
+        return 0;
     }
-    ///----------- stubs -------------------------------
-
 
     @Override
     public boolean isEmpty() {
@@ -71,11 +79,6 @@ public class ListA<T> implements List<T> {
     @Override
     public <T1> T1[] toArray(T1[] a) {
         return null;
-    }
-
-    @Override
-    public boolean remove(Object o) {
-        return false;
     }
 
     @Override

@@ -1,4 +1,4 @@
-package by.it.akhmelev.jd01_11;
+package by.it.rumiantcau.jd01_11;
 
 import java.util.*;
 
@@ -9,11 +9,14 @@ public class ListA<T> implements List<T> {
 
     @Override
     public boolean add(T element) {
+        // Проводим проверку, если количество мест, выделенных под объекты больше фактического выделенного места под
+        // массив, то мы расширяем его по формуле старая_длинна*1,5 +1
         if (size >= elements.length) {
-            elements = Arrays.copyOf(elements, (elements.length * 3 / 2) + 1);
+            elements = Arrays.copyOf(elements, elements.length * 3 / 2 + 1);
         }
+
         elements[size++] = element;
-        return false;
+        return true;
     }
 
     @Override

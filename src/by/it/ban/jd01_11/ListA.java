@@ -1,4 +1,4 @@
-package by.it.akhmelev.jd01_11;
+package by.it.ban.jd01_11;
 
 import java.util.*;
 
@@ -10,10 +10,10 @@ public class ListA<T> implements List<T> {
     @Override
     public boolean add(T element) {
         if (size >= elements.length) {
-            elements = Arrays.copyOf(elements, (elements.length * 3 / 2) + 1);
+            elements = Arrays.copyOf(elements, elements.length * 3 / 2 + 1);
         }
         elements[size++] = element;
-        return false;
+        return true;
     }
 
     @Override

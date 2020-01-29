@@ -1,8 +1,8 @@
-package by.it.akhmelev.jd01_11;
+package by.it.ban.jd01_11;
 
 import java.util.*;
 
-public class ListA<T> implements List<T> {
+public class ListB<T> implements List<T> {
 
     private T[] elements = (T[]) new Object[]{};
     private int size = 0;
@@ -10,10 +10,10 @@ public class ListA<T> implements List<T> {
     @Override
     public boolean add(T element) {
         if (size >= elements.length) {
-            elements = Arrays.copyOf(elements, (elements.length * 3 / 2) + 1);
+            elements = Arrays.copyOf(elements, elements.length * 3 / 2 + 1);
         }
         elements[size++] = element;
-        return false;
+        return true;
     }
 
     @Override
@@ -45,16 +45,53 @@ public class ListA<T> implements List<T> {
     public int size() {
         return size;
     }
+    @Override
+    public T set(int index, T element) {
+        T oldElement = elements[index];
+        elements[index]=element;
+
+        return oldElement;
+    }
+
+    @Override
+    public void add(int index, T element) {
+        if (size >= elements.length) {
+            elements = Arrays.copyOf(elements, elements.length * 3 / 2 + 1);
+        }
+        System.arraycopy(elements, index , elements, index+1, size - index);
+        elements[index]=element;
+        size++;
+    }
+
+    @Override
+    public boolean addAll(Collection<? extends T> c) {
+        for (T t : c) {
+            if (size >= elements.length) {
+                elements = Arrays.copyOf(elements, elements.length * 3 / 2 + 1);
+            }
+            elements[size++] = t;
+        }
+
+        return true;
+    }
+
+    @Override
+    public boolean contains(Object o) {
+        if (size<=0 || o==null) return false;
+        int i;
+        for(i = 0; i < size; ++i) {
+            if (o.equals(this.get(i))) {
+                break;
+            }
+        }
+        return (i >= 0 && i<size);
+    }
+
     ///----------- stubs -------------------------------
 
 
     @Override
     public boolean isEmpty() {
-        return false;
-    }
-
-    @Override
-    public boolean contains(Object o) {
         return false;
     }
 
@@ -84,11 +121,6 @@ public class ListA<T> implements List<T> {
     }
 
     @Override
-    public boolean addAll(Collection<? extends T> c) {
-        return false;
-    }
-
-    @Override
     public boolean addAll(int index, Collection<? extends T> c) {
         return false;
     }
@@ -105,16 +137,6 @@ public class ListA<T> implements List<T> {
 
     @Override
     public void clear() {
-
-    }
-
-    @Override
-    public T set(int index, T element) {
-        return null;
-    }
-
-    @Override
-    public void add(int index, T element) {
 
     }
 
