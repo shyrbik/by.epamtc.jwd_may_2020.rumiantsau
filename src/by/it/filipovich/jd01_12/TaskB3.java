@@ -3,8 +3,8 @@ package by.it.filipovich.jd01_12;
 import java.util.*;
 
 public class TaskB3 {
-    private List<String> names1 = new ArrayList<>();
-    private List<String> names2 = new LinkedList<>();
+    private ArrayList<String> names1 = new ArrayList<>();
+    private LinkedList<String> names2 = new LinkedList<>();
     private int number;
 
     public TaskB3(int number){
@@ -54,7 +54,7 @@ public class TaskB3 {
         LinkedList<String> copyOfPeoples = new LinkedList<>(peoples);
         boolean marker = false;
         while(copyOfPeoples.size()>1){
-            ListIterator<String> iterator = copyOfPeoples.listIterator();
+            Iterator<String> iterator = copyOfPeoples.iterator();
             while (iterator.hasNext()){
                 iterator.next();
 

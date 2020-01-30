@@ -3,31 +3,40 @@ package by.it.filipovich.jd01_12;
 import java.util.*;
 
 public class TaskB1 {
-    private Map<String, Integer> map = new HashMap<>();
+    private static Map<String, Integer> map = new HashMap<>();
 
     public static void main(String[] args) {
-        TaskB1 taskB1 = new TaskB1();
+
         String[] words = new String[]{};
         Scanner scanner = new Scanner(System.in);
-        String text;
-        while (!(text = scanner.nextLine()).equals("end")){
-            words = text.replaceAll("[^а-яА-ЯёЁ]+", " ")
-                    .replaceAll(" {2,}", " ")
-                    .split(" ");
+        StringBuilder sb = new StringBuilder();
+        while (true){
+            String str = scanner.nextLine();
+            if(str.equals("end"))
+                break;
+            sb.append(" ").append(str);
         }
-        System.out.println(taskB1.toString(words));
-        taskB1.map.put(words[1],1);
-        System.out.println(taskB1.map);
+        words = sb.toString().trim().replaceAll("[^a-zA-Z']+", " ")
+                .replaceAll(" {2,}", " ")
+                .split(" ");
+
         for (String word : words) {
-            for (Map.Entry<String, Integer> entry : taskB1.map.entrySet()) {
-                Iterator<Map.Entry<String, Integer>> iter = taskB1.map.entrySet().iterator();
-                if(!(word.equals(entry.getKey()))) {
-                    iter.next().setValue(1);
-                } else
-                    taskB1.map.put(word, taskB1.map.get(word)+1);
-            }
+            if(map.get(word) == null)
+            map.put(word,1);
+            else
+                map.put(word,map.get(word)+1);
+
+//            for (Map.Entry<String, Integer> entry : map.entrySet()) {
+//                Iterator<Map.Entry<String, Integer>> iter = map.entrySet().iterator();
+//                while (iter.hasNext()) {
+//                    if (!(word.equals(entry.getKey()))) {
+//                        map.put(word, 1);
+//                    } else
+//                        map.put(word, map.get(word) + 1);
+//                }
+//            }
         }
-        System.out.println(taskB1.map);
+        System.out.println(map.entrySet());
     }
 
     @Override
@@ -42,7 +51,7 @@ public class TaskB1 {
         for (int i = 0; i < arr.length-1; i++) {
             sb.append(arr[i]).append(",");
         }
-        sb.append(arr[arr.length-1]).append("}");
+        sb.append(arr[arr.length-1]).append("]");
         return sb.toString();
     }
 }
