@@ -4,7 +4,7 @@ import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class TaskB1 {
+class TaskB1 {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         Map<String, Integer> map = new HashMap<String, Integer>();

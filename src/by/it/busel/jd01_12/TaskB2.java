@@ -2,7 +2,7 @@ package by.it.busel.jd01_12;
 
 import java.util.*;
 
-public class TaskB2 {
+class TaskB2 {
     public static void main(String[] args) {
         Random random = new Random();
         List<String> list = randomStringsAsList(random.nextInt(100) + 10);
