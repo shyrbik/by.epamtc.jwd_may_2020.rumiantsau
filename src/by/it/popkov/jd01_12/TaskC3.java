@@ -7,41 +7,7 @@ import java.util.regex.Pattern;
 class TaskC3 {
 
 
-    private static boolean check(String row) { //Будем ходить итераторам пока не удалим все пары или false
-        List<String> linkedList = new ArrayList<>();
-        Pattern p = Pattern.compile("[\\[\\](){}]");
-        Matcher m = p.matcher(row);
-        while (m.find()) {
-            linkedList.add(m.group());
-        }
-        for (int i = 0; i < linkedList.size(); ) {
-            String first = linkedList.get(i);
-            if (first.equals("}") || first.equals(")") || first.equals("]")) return false; //Стразу нет
-            for (String second : linkedList) {
-
-                if (first.equals("{") && second.equals("}")) {
-                    linkedList.remove(i);
-                    linkedList.remove(second);
-                    i--;
-                    break;
-                } else if (first.equals("(") && second.equals(")")) {
-                    linkedList.remove(i);
-                    linkedList.remove(second);
-                    i--;
-                    break;
-                } else if (first.equals("[") && second.equals("]")) {
-                    linkedList.remove(i);
-                    linkedList.remove(second);
-                    i--;
-                    break;
-                }
-            }
-            i++;
-        }
-        return linkedList.size() <= 0;
-    }
-
-    static boolean check2(String row) {
+    static boolean check(String row) {
         Deque<String> deque = new LinkedList<>();
         Pattern p = Pattern.compile("[\\[\\](){}]");
         Matcher m = p.matcher(row);
@@ -85,11 +51,11 @@ class TaskC3 {
         }
         return true;
     }
+
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         String row = scanner.nextLine();
-        if (check(row) && check2(row)) System.out.println("true");
-        else System.out.println("false");
+        check(row);
 
 
 
@@ -113,4 +79,37 @@ class TaskC3 {
 
 
     }
+//    private static boolean check(String row) { //Будем ходить итераторам пока не удалим все пары или false
+//        List<String> linkedList = new ArrayList<>();
+//        Pattern p = Pattern.compile("[\\[\\](){}]");
+//        Matcher m = p.matcher(row);
+//        while (m.find()) {
+//            linkedList.add(m.group());
+//        }
+//        for (int i = 0; i < linkedList.size(); ) {
+//            String first = linkedList.get(i);
+//            if (first.equals("}") || first.equals(")") || first.equals("]")) return false; //Стразу нет
+//            for (String second : linkedList) {
+//
+//                if (first.equals("{") && second.equals("}")) {
+//                    linkedList.remove(i);
+//                    linkedList.remove(second);
+//                    i--;
+//                    break;
+//                } else if (first.equals("(") && second.equals(")")) {
+//                    linkedList.remove(i);
+//                    linkedList.remove(second);
+//                    i--;
+//                    break;
+//                } else if (first.equals("[") && second.equals("]")) {
+//                    linkedList.remove(i);
+//                    linkedList.remove(second);
+//                    i--;
+//                    break;
+//                }
+//            }
+//            i++;
+//        }
+//        return linkedList.size() <= 0;
+//    }
 }
