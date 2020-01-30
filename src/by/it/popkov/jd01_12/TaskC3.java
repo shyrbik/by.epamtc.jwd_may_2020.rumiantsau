@@ -86,9 +86,8 @@ class TaskC3 {
         return true;
     }
     public static void main(String[] args) {
-//        Scanner scanner = new Scanner(System.in);
-//        String row = scanner.nextLine();
-        String row = "[(){}]()";
+        Scanner scanner = new Scanner(System.in);
+        String row = scanner.nextLine();
         if (check(row) && check2(row)) System.out.println("true");
         else System.out.println("false");
 
