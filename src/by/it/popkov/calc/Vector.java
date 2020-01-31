@@ -42,7 +42,7 @@ class Vector extends Var {
     }
 
     @Override
-    public Var add(Var other) {
+    public Var add(Var other) throws CalcException {
         if (other instanceof Vector) {
             double[] out = new double[this.value.length];
             for (int i = 0; i < out.length; i++) {
@@ -60,7 +60,7 @@ class Vector extends Var {
     }
 
     @Override
-    public Var sub(Var other) {
+    public Var sub(Var other) throws CalcException {
         if (other instanceof Vector) {
             double[] out = new double[this.value.length];
             for (int i = 0; i < out.length; i++) {
@@ -78,7 +78,7 @@ class Vector extends Var {
     }
 
     @Override
-    public Var mul(Var other) {
+    public Var mul(Var other) throws CalcException {
         if (other instanceof Scalar) {
             double[] out = new double[this.value.length];
             for (int i = 0; i < out.length; i++) {

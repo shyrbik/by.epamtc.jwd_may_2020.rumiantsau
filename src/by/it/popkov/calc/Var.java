@@ -10,27 +10,25 @@ abstract class Var implements Operation {
     private static Map<String, Var> valueMap = new HashMap<>();
 
     @Override
-    public Var add(Var other) {
-        System.out.println(this + " + " + other + " impossible");
-        return null;
+    public Var add(Var other) throws CalcException {
+        throw new CalcException(this + " + " + other + " impossible");
+
     }
 
     @Override
-    public Var sub(Var other) {
-        System.out.println(this + " - " + other + " impossible");
-        return null;
+    public Var sub(Var other) throws CalcException {
+        throw new CalcException(this + " - " + other + " impossible");
+
     }
 
     @Override
-    public Var mul(Var other) {
-        System.out.println(this + " * " + other + " impossible");
-        return null;
+    public Var mul(Var other) throws CalcException {
+        throw new CalcException(this + " * " + other + " impossible");
     }
 
     @Override
     public Var div(Var other) throws CalcException {
-        System.out.println(this + " / " + other + " impossible");
-        return null;
+        throw new CalcException(this + " / " + other + " impossible");
     }
 
     static Var newVar(String strVar) {
@@ -44,14 +42,16 @@ abstract class Var implements Operation {
     static void save(String value, Var value1) {
         valueMap.put(value, value1);
     }
-    static void printvar (){
+
+    static void printvar() {
         System.out.println(valueMap);
 //        String[] keys = valueMap.keySet().toArray(new String[0]);
 //        for (String key : keys) {
 //            System.out.println(key + "="+ valueMap.get(key));
 //        }
     }
-    static void sortvar(){
+
+    static void sortvar() {
         System.out.println(new TreeMap<>(valueMap));
 //        TreeSet<String> objects = new TreeSet<>(valueMap.keySet());
 //        String[] sortedKeys = objects.toArray(new String[0]);
