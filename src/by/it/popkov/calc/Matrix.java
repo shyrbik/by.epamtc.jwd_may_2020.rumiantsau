@@ -89,6 +89,9 @@ class Matrix extends Var {
             }
             return new Matrix(outPut);
         } else if (other instanceof Matrix) {
+            if (((Matrix) other).value.length != this.value.length || ((Matrix) other).value[0].length != this.value[0].length) {
+                throw new CalcException("Некоректрый формат матрич");
+            }
             double[][] outPut = new double[this.value.length][this.value[0].length];
             for (int i = 0; i < this.value.length; i++) {
                 for (int j = 0; j < this.value[0].length; j++) {
@@ -143,6 +146,9 @@ class Matrix extends Var {
             }
             return new Matrix(outPut);
         } else if (other instanceof Vector) {
+            if (((Vector) other).getValue().length != this.value.length && ((Vector) other).getValue().length != this.value[0].length) {
+                throw new CalcException("Некоректрый формат матрич");
+            }
             double[] vector = ((Vector) other).getValue();
             double[] outPut = new double[this.value.length];
             for (int i = 0; i < this.value.length; i++) {
@@ -167,7 +173,9 @@ class Matrix extends Var {
     public Var div(Var other) throws CalcException {
         if (other instanceof Scalar) {
             if (((Scalar) other).getValue() == 0) {
-                System.out.println("Error");
+                if (((Scalar) other).getValue() == 0) {
+                    throw new CalcException("Деление на 0");
+                }
             }
             double[][] outPut = new double[this.value.length][this.value[0].length];
             for (int i = 0; i < this.value.length; i++) {

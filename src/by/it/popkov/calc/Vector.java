@@ -102,7 +102,7 @@ class Vector extends Var {
     public Var div(Var other) throws CalcException {
         if (other instanceof Scalar) {
             if (((Scalar) other).getValue() == 0) {
-                System.out.println("Error");
+                throw new CalcException("Деление на 0");
             }
             double[] out = new double[this.value.length];
             for (int i = 0; i < out.length; i++) {
