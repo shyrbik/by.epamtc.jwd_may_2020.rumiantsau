@@ -25,8 +25,8 @@ class TaskC3 {
                         if (deque.getFirst().equals("}")) deque.removeFirst();
                         else return false;
                     }
-
                     break;
+
                 case "[":
                     if (deque.getLast().equals("]")) {
                         deque.removeFirst();
@@ -37,6 +37,7 @@ class TaskC3 {
                         else return false;
                     }
                     break;
+
                 case "(":
                     if (deque.getLast().equals(")")) {
                         deque.removeFirst();
@@ -47,6 +48,9 @@ class TaskC3 {
                         else return false;
                     }
                     break;
+
+                default:
+                    return false;
             }
         }
         return true;
@@ -55,8 +59,7 @@ class TaskC3 {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         String row = scanner.nextLine();
-        check(row);
-
+        System.out.println(check(row));
 
 
 //        Map<String, Integer> map = new HashMap<>();
