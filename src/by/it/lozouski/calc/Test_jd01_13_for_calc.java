@@ -1,4 +1,4 @@
-package by.it.lozouski.jd01_13;
+package by.it.lozouski.calc;
 
 
 import org.junit.Test;
