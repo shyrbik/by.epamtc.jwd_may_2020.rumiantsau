@@ -6,7 +6,6 @@ import java.util.regex.Pattern;
 class Parser {
 
     Var calc(String expression) throws CalcException {
-        if (expression.length()>3) throw new CalcException("Неправильный ввод");
         Matcher m = Pattern.compile(Patterns.MATH_SIGN).matcher(expression);
         if (m.find()) {
             String sing = m.group();
@@ -31,6 +30,6 @@ class Parser {
                 }
             }
         }
-        return null;
+        throw new CalcException("Нет знака");
     }
 }

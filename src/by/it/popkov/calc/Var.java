@@ -31,12 +31,12 @@ abstract class Var implements Operation {
         throw new CalcException(this + " / " + other + " impossible");
     }
 
-    static Var newVar(String strVar) {
+    static Var newVar(String strVar) throws CalcException {
         if (strVar.matches(Patterns.SCALAR)) return new Scalar(strVar);
         else if (strVar.matches(Patterns.VECTOR)) return new Vector(strVar);
         else if (strVar.matches(Patterns.MATRIX)) return new Matrix(strVar);
         else if (strVar.matches(Patterns.LITTER)) return valueMap.get(strVar);
-        else return null;
+        else throw new CalcException("Неправильный ввод");
     }
 
     static void save(String value, Var value1) {

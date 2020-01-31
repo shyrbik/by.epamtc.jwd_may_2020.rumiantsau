@@ -44,6 +44,7 @@ class Vector extends Var {
     @Override
     public Var add(Var other) throws CalcException {
         if (other instanceof Vector) {
+            if (((Vector) other).value.length != this.value.length) throw new CalcException("Разная длина векторов");
             double[] out = new double[this.value.length];
             for (int i = 0; i < out.length; i++) {
                 out[i] = this.value[i] + ((Vector) other).value[i];
@@ -62,6 +63,7 @@ class Vector extends Var {
     @Override
     public Var sub(Var other) throws CalcException {
         if (other instanceof Vector) {
+            if (((Vector) other).value.length != this.value.length) throw new CalcException("Разная длина векторов");
             double[] out = new double[this.value.length];
             for (int i = 0; i < out.length; i++) {
                 out[i] = this.value[i] - ((Vector) other).value[i];
@@ -86,6 +88,7 @@ class Vector extends Var {
             }
             return new Vector(out);
         } else if (other instanceof Vector) {
+            if (((Vector) other).value.length != this.value.length) throw new CalcException("Разная длина векторов");
             double out = 0;
             for (int i = 0; i < this.value.length; i++) {
                 out += this.value[i] * ((Vector) other).value[i];

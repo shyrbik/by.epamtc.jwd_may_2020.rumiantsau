@@ -112,6 +112,10 @@ class Matrix extends Var {
             }
             return new Matrix(outPut);
         } else if (other instanceof Matrix) {
+            if (((Matrix) other).value.length != this.value.length || ((Matrix) other).value[0].length != this.value[0].length) {
+                throw new CalcException("Некоректрый формат матрич");
+            }
+
             double[][] outPut = new double[this.value.length][this.value[0].length];
             for (int i = 0; i < this.value.length; i++) {
                 for (int j = 0; j < this.value[0].length; j++) {
@@ -126,6 +130,9 @@ class Matrix extends Var {
     @Override
     public Var mul(Var other) throws CalcException {
         if (other instanceof Matrix) {
+            if (((Matrix) other).value.length != this.value.length || ((Matrix) other).value[0].length != this.value[0].length) {
+                throw new CalcException("Некоректрый формат матрич");
+            }
             double[][] outPut = new double[this.value.length][((Matrix) other).value[0].length];
             for (int i = 0; i < this.value.length; i++) {
                 for (int j = 0; j < ((Matrix) other).value[0].length; j++) {
