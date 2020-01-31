@@ -12,6 +12,6 @@ class UseFull {
                 rowNum = stackTraceElement.getLineNumber();
             }
         }
-        System.out.printf(" name: %s\nclass: %s\n line: %d", name, className, rowNum);
+        System.out.printf(" name: %s\nclass: %s\n line: %d\n", name, className, rowNum);
     }
 }
