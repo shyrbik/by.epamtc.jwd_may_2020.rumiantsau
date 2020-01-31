@@ -30,10 +30,6 @@ public class TaskC1 {
         for (Map.Entry<String, BigInteger> entry : containerModified.entrySet()) {
             System.out.println(entry.getKey() + "=" + entry.getValue());
         }
-
-
 //        sort(list, (o1, o2) -> o1.getKey().compareTo(o2.getKey()));
-
-
     }
 }
