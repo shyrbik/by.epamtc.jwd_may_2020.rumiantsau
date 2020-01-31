@@ -17,7 +17,7 @@ public class TaskB2 {
             taskB2.names1.add("Human"+(i+1));
             taskB2.names2.add("Human"+(i+1));
         }
-        System.out.println(taskB2.names1);
+
         System.out.println(process((ArrayList<String>) taskB2.names1));
         System.out.println(process((LinkedList<String>) taskB2.names2));
 
@@ -48,7 +48,6 @@ public class TaskB2 {
     static String process(LinkedList<String> peoples){
             LinkedList<String> copyOfPeoples = new LinkedList<>(peoples);
             boolean marker = false;
-        //Iterator<String> iterator = copyOfPeoples.iterator();
         while(copyOfPeoples.size()>1){
             ListIterator<String> iterator = copyOfPeoples.listIterator();
             while (iterator.hasNext()){
