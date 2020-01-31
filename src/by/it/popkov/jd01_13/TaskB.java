@@ -19,7 +19,7 @@ class TaskB {
                 }
                 System.out.println("Num=" + num + " sqrt of sum=" + sqrt);
 
-            } catch (RuntimeException e) {
+            } catch (NumberFormatException | NullPointerException | ArithmeticException e) {
                 UseFull.printException(e, TaskB.class.getName());
             }
         }
