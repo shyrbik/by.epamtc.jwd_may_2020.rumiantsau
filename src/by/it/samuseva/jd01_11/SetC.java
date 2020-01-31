@@ -1,35 +1,61 @@
 package by.it.samuseva.jd01_11;
 
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.Set;
+import java.util.*;
 
 public class SetC<T> implements Set<T> {
     private int size = 0;
     private T[] elements = (T[]) new Object[]{};
     @Override
     public boolean add(T element) {
-        if (size==elements.length) elements = Arrays.copyOf(elements, elements.length*3/2+1);
-        if (size==0) elements[size++] = element;
-        else {
-            int end = size;
-            int count = 0;
-            for (int i = 0; i < end; i++) {
-                if (elements[i].equals(element)) count++;
+        if (!this.contains(element)) {
+            if (size >= elements.length) {
+                elements = Arrays.copyOf(elements, elements.length * 3 / 2 + 1);
             }
-            if (count==0) elements[size++] = element;
+            elements[size++] = element;
+            return true;
         }
         return false;
     }
 
     @Override
-    public boolean remove(Object object) {
+    public boolean remove(Object o) {
+        if (size > 0) {
+            if (o != null) {
+                for (int i = 0; i < size; i++) {
+                    if (elements[i] != null) {
+                        if (elements[i].equals(o)) {
+                            System.arraycopy(elements, i + 1, elements, i, size - i - 1);
+                            elements[--size] = null;
+                        }
+                    }
+                }
+            } else {
+                for (int i = 0; i < size; i++) {
+                    if (elements[i] == null) {
+                        System.arraycopy(elements, i + 1, elements, i, size - i - 1);
+                        elements[--size] = null;
+                    }
+                }
+            }
+
+        }
         return false;
     }
 
     @Override
     public boolean contains(Object o) {
+        if (o != null) {
+            for (int i = 0; i < size; i++) {
+                if (elements[i] != null){
+                    if (o.equals(elements[i])) return true;
+                }
+            }
+        }
+        else {
+            for (int i = 0; i < size; i++) {
+                if (elements[i] == null) return true;
+            }
+        }
         return false;
     }
 
@@ -40,21 +66,34 @@ public class SetC<T> implements Set<T> {
 
     @Override
     public boolean isEmpty() {
+        if (size==0) return true;
         return false;
     }
 
     @Override
     public boolean addAll(Collection<? extends T> collection) {
-        return false;
+       for (T coll : collection) {
+            add(coll);
+       }
+       return true;
     }
 
     @Override
     public boolean containsAll(Collection<?> collection) {
+        int count = 0;
+        for (Object o : collection) {
+            if (contains(o)) count++;
+        }
+        if (count==collection.size()) return true;
+
         return false;
     }
     @Override
     public boolean removeAll(Collection<?> collection) {
-        return false;
+        for (Object o : collection) {
+            if (contains(o)) remove(o);
+        }
+        return true;
     }
 
     @Override
@@ -68,6 +107,14 @@ public class SetC<T> implements Set<T> {
         sb.append("]");
         return sb.toString();
     }
+    @Override
+    public void clear() {
+        for (int i = 0; i < size; i++) {
+            elements[i] = null;
+        }
+        size = 0;
+    }
+
     //-----------------------------------------------------------------------------------------------------
 
     @Override
@@ -88,10 +135,5 @@ public class SetC<T> implements Set<T> {
     @Override
     public boolean retainAll(Collection<?> collection) {
         return false;
-    }
-
-    @Override
-    public void clear() {
-
     }
 }

@@ -33,8 +33,7 @@ public class ListB<T> implements List<T> {
         for (int i = 0; i < col.length; i++) {
             elements[size++] = col[i];
         }
-
-        return false;
+        return true;
     }
 
     @Override

@@ -12,7 +12,7 @@ public class ListA<T> implements List<T> {
         }
         elements[size] = element;
         size++;
-        return false;
+        return true;
     }
 
     @Override

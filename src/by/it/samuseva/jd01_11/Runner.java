@@ -8,23 +8,46 @@ import java.util.Set;
 public class Runner {
     public static void main(String[] args) {
         Set list1 = new HashSet<>();
-        list1.add("Apple");
+        list1.add(7);
+        list1.add(2);
+        list1.add(3);
+        list1.add(5);
+        list1.add(4);
+        list1.add(6);
+        list1.add(1);
+        Set list = new HashSet();
+        list.add("3");
+        list.add("0");
+        list.add("9");
+       /* list1.add("Apple");
         list1.add("Orange");
         list1.add("Banana");
         list1.add("Pear");
         list1.add("Grape");
         list1.add("Lemon");
-        list1.add("Figs");
+        list1.add("Figs");*/
+        System.out.println(list1);
+        list1.addAll(list);
         System.out.println(list1);
 
+
         Set myList = new SetC();
-        myList.add("Apple");
-       // myList.add("Orange");
+        myList.add(7);
+        myList.add(2);
+        myList.add(3);
+        myList.add(5);
+        myList.add(4);
+        myList.add(6);
+        myList.add(1);
+      /*  myList.add("Apple");
+        myList.add("Orange");
         myList.add("Banana");
         myList.add("Pear");
         myList.add("Grape");
         myList.add("Lemon");
-        myList.add("Figs");
+        myList.add("Figs");*/
+        System.out.println(myList);
+        myList.addAll(list);
         System.out.println(myList);
 
        /* List list = new ArrayList();
