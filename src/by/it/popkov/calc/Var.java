@@ -28,7 +28,7 @@ abstract class Var implements Operation {
     }
 
     @Override
-    public Var div(Var other) {
+    public Var div(Var other) throws CalcException {
         System.out.println(this + " / " + other + " impossible");
         return null;
     }
