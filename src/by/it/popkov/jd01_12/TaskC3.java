@@ -4,6 +4,8 @@ import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+//Подходит для простых случаев. На ()[()]{()()[]} выдаёт false, хотя должно true
+
 class TaskC3 {
     static boolean check(String row) {
         List<String> list = new LinkedList<>();
