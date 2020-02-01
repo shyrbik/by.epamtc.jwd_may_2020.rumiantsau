@@ -21,12 +21,12 @@ class Scalar extends Var {
     }
 
     @Override
-    public Var add(Var other) {
+    public Var add(Var other) throws CalcException {
         return other.add(this);
     }
 
     @Override
-    Var add(Scalar otherScalar) {
+    Var add(Scalar otherScalar) throws CalcException{
         double sum = otherScalar.value + this.value;
         return new Scalar(sum);
     }
@@ -89,13 +89,16 @@ class Scalar extends Var {
     }
 
     @Override
-    public Var div(Var other) {
+    public Var div(Var other) throws CalcException {
         return other.div(this);
     }
 
     @Override
-    Var div(Scalar otherScalar) {
+    Var div(Scalar otherScalar) throws CalcException {
         double div = otherScalar.value / this.value;
+        if (Double.isInfinite(div)){
+            throw new CalcException("Division by ZERO is impossible");
+        }
         return new Scalar(div);
     }
 

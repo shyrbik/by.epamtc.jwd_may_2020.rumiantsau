@@ -8,27 +8,24 @@ abstract class Var implements Operation {
     private static Map<String, Var> varsMap = new HashMap<>();
 
     @Override
-    public Var add(Var other) {
-        return null;
+    public Var add(Var other) throws CalcException {
+        throw new CalcException();
     }
 
-    Var add(Scalar otherScalar) {
-        System.out.println("Operation addition " + otherScalar + " + " + this + " isn't possible.");
-        return null;
+    Var add(Scalar otherScalar) throws CalcException {
+        throw new CalcException("Operation addition " + otherScalar + " + " + this + " isn't possible.");
     }
 
-    Var add(Vector otherVector) {
-        System.out.println("Operation addition " + otherVector + " + " + this + " isn't possible.");
-        return null;
+    Var add(Vector otherVector) throws CalcException {
+        throw new CalcException("Operation addition " + otherVector + " + " + this + " isn't possible.");
     }
 
-    Var add(Matrix otherMatrix) {
-        System.out.println("Operation addition " + otherMatrix + " + " + this + " isn't possible.");
-        return null;
+    Var add(Matrix otherMatrix) throws CalcException {
+        throw new CalcException("Operation addition " + otherMatrix + " + " + this + " isn't possible.");
     }
 
     @Override
-    public Var sub(Var other) {
+    public Var sub(Var other) throws CalcException {
         return null;
     }
 
@@ -37,12 +34,12 @@ abstract class Var implements Operation {
         return null;
     }
 
-    Var sub(Vector otherVector) {
+    Var sub(Vector otherVector) throws CalcException {
         System.out.println("Operation addition " + otherVector + " - " + this + " isn't possible.");
         return null;
     }
 
-    Var sub(Matrix otherMatrix) {
+    Var sub(Matrix otherMatrix) throws CalcException {
         System.out.println("Operation addition " + otherMatrix + " - " + this + " isn't possible.");
         return null;
     }
@@ -68,28 +65,29 @@ abstract class Var implements Operation {
     }
 
     @Override
-    public Var div(Var other) {
-        return null;
+    public Var div(Var other) throws CalcException {
+        throw new CalcException();
     }
 
-    Var div(Scalar otherScalar) {
-        System.out.println("Operation division " + otherScalar + " / " + this + " isn't possible.");
-        return null;
+    Var div(Scalar otherScalar) throws CalcException {
+        throw new CalcException("Operation division " + otherScalar + " / " + this + " isn't possible.");
     }
 
-    Var div(Vector otherVector) {
-        System.out.println("Operation division " + otherVector + " / " + this + " isn't possible.");
-        return null;
+    Var div(Vector otherVector) throws CalcException{
+        throw new CalcException("Operation division " + otherVector + " / " + this + " isn't possible.");
     }
 
 
-    static Var createVar(String operand) {
-        operand = operand.trim().replace("\\s+", "");
-        if (operand.matches(Patterns.SCALAR)) return new Scalar(operand);
-        else if (operand.matches(Patterns.VECTOR)) return new Vector(operand);
-        else if (operand.matches(Patterns.MATRIX)) return new Matrix(operand);
-        else return varsMap.get(operand);
-        //TODO Добавить генерацию ошибки.(Lozouski)
+    static Var createVar(String operand) throws CalcException {
+        try {
+            operand = operand.trim().replace("\\s+", "");
+            if (operand.matches(Patterns.SCALAR)) return new Scalar(operand);
+            else if (operand.matches(Patterns.VECTOR)) return new Vector(operand);
+            else if (operand.matches(Patterns.MATRIX)) return new Matrix(operand);
+            else return varsMap.get(operand);
+        } catch (RuntimeException e) {
+            throw new CalcException("ERROR: " + operand);
+        }
     }
 
     static void saveVar(String key, Var value) {

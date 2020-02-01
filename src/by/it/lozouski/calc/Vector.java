@@ -28,7 +28,7 @@ class Vector extends Var {
     }
 
     @Override
-    public Var add(Var other) {
+    public Var add(Var other) throws CalcException {
         return other.add(this);
     }
 
@@ -51,7 +51,7 @@ class Vector extends Var {
     }
 
     @Override
-    public Var sub(Var other) {
+    public Var sub(Var other) throws CalcException {
         return other.sub(this);
     }
 
@@ -65,7 +65,7 @@ class Vector extends Var {
     }
 
     @Override
-    Var sub(Vector otherVector) {
+    Var sub(Vector otherVector) throws CalcException {
         return otherVector.add(this.mul(new Scalar(-1)));
     }
 
@@ -104,7 +104,7 @@ class Vector extends Var {
     }
 
     @Override
-    public Var div(Var other) {
+    public Var div(Var other)throws CalcException {
         return other.div(this);
     }
 

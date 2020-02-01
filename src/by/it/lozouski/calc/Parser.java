@@ -4,7 +4,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 class Parser {
-    Var calculate(String expression) {
+    Var calculate(String expression) throws CalcException{
         expression = expression.replace("\\s+", "");
         Matcher matcher = Pattern.compile(Patterns.OPERATION).matcher(expression);
 

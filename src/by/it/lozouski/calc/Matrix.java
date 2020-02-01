@@ -35,7 +35,7 @@ class Matrix extends Var {
     }
 
     @Override
-    public Var add(Var other) {
+    public Var add(Var other) throws CalcException {
         return other.add(this);
     }
 
@@ -62,12 +62,12 @@ class Matrix extends Var {
     }
 
     @Override
-    public Var sub(Var other) {
+    public Var sub(Var other) throws CalcException {
         return other.sub(this);
     }
 
     @Override
-    Var sub(Matrix otherMatrix) {
+    Var sub(Matrix otherMatrix) throws CalcException {
         return otherMatrix.add(this.mul(new Scalar(-1)));
     }
 
