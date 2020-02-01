@@ -7,8 +7,9 @@ public class TaskC {
     static double[] ints = new double[0];
     static int size = 0;
     static int errorCounter = 0;
+    static String s;
 
-    public static void readData(String s) throws InterruptedException {
+    public static void readData() throws InterruptedException {
         ints = Arrays.copyOf(ints, ints.length + 1);
         try {
             ints[size] = Double.parseDouble(s);
@@ -27,7 +28,8 @@ public class TaskC {
     public static void main(String[] args) throws InterruptedException {
         Scanner scanner = new Scanner(System.in);
         while (true) {
-            readData(scanner.nextLine());
+            s = scanner.next();
+            readData();
         }
 
     }
