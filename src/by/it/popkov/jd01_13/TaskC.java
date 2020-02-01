@@ -7,12 +7,12 @@ public class TaskC {
     static double[] ints = new double[0];
     static int size = 0;
     static int errorCounter = 0;
-    static String s;
+    static String textScan;
 
     public static void readData() throws InterruptedException {
         ints = Arrays.copyOf(ints, ints.length + 1);
         try {
-            ints[size] = Double.parseDouble(s);
+            ints[size] = Double.parseDouble(textScan);
             size++;
         } catch (NumberFormatException e) {
             errorCounter++;
@@ -28,7 +28,7 @@ public class TaskC {
     public static void main(String[] args) throws InterruptedException {
         Scanner scanner = new Scanner(System.in);
         while (true) {
-            s = scanner.next();
+            textScan = scanner.next();
             readData();
         }
 
