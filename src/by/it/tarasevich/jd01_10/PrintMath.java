@@ -18,8 +18,11 @@ public class PrintMath {
                     str.append(" static");
                 str.append(" ").append(method.getReturnType()).append(" ").append(method.getName()).append("(");
                 Class<?>[] params = method.getParameterTypes();
+                String delimiter="";
                 for (Class<?> paramType : params) {
+                    str.append(delimiter);
                     str.append(paramType.getName());
+                    delimiter=",";
                 }
                 str.append(")");
                 System.out.println(str);
