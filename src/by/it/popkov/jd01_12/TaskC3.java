@@ -21,8 +21,8 @@ class TaskC3 {
             } else if (((list.get(list.size() - 2)).equals("{") && list.get(list.size() - 1).equals("}"))
                     || ((list.get(list.size() - 2)).equals("(") && list.get(list.size() - 1).equals(")"))
                     || ((list.get(list.size() - 2)).equals("[") && list.get(list.size() - 1).equals("]"))) {
-                list.remove(list.size() - 1);
                 list.remove(list.size() - 2);
+                list.remove(list.size() - 1);
             } else if ((list.get(0).equals("{") && list.get(list.size() - 1).equals("}"))
                     || (list.get(0).equals("(") && list.get(list.size() - 1).equals(")"))
                     || (list.get(0).equals("[") && list.get(list.size() - 1).equals("]"))) {
@@ -36,8 +36,8 @@ class TaskC3 {
     }
 
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        String row = scanner.nextLine();
-        System.out.println(check(row));
+//        Scanner scanner = new Scanner(System.in);
+//        String row = scanner.nextLine();
+        System.out.println(check("()[()]{()()[]}"));
     }
 }
