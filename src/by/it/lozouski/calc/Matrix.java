@@ -68,11 +68,15 @@ class Matrix extends Var {
 
     @Override
     Var sub(Matrix otherMatrix) throws CalcException {
-        return otherMatrix.add(this.mul(new Scalar(-1)));
+        try {
+            return otherMatrix.add(this.mul(new Scalar(-1)));
+        }catch (Exception e){
+            throw new CalcException("Operation Matrix-Matrix impossible");
+        }
     }
 
     @Override
-    public Var mul(Var other) {
+    public Var mul(Var other) throws CalcException {
         return other.mul(this);
     }
 
@@ -88,7 +92,8 @@ class Matrix extends Var {
     }
 
     @Override
-    Var mul(Matrix otherMatrix) {
+    Var mul(Matrix otherMatrix) throws CalcException{
+        try{
         double[][] result = new double[otherMatrix.value.length][this.value[0].length];
         for (int i = 0; i < otherMatrix.value.length; i++) {
             for (int j = 0; j < this.value[0].length; j++) {
@@ -98,6 +103,9 @@ class Matrix extends Var {
             }
         }
         return new Matrix(result);
+        }catch (Exception e){
+            throw new CalcException("NO");
+        }
     }
 
     @Override

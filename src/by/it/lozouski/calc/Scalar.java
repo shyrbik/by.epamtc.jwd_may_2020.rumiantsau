@@ -26,13 +26,13 @@ class Scalar extends Var {
     }
 
     @Override
-    Var add(Scalar otherScalar) throws CalcException{
+    Var add(Scalar otherScalar){
         double sum = otherScalar.value + this.value;
         return new Scalar(sum);
     }
 
     @Override
-    Var add(Vector otherVector) {
+    Var add(Vector otherVector){
         return otherVector.add(this);
     }
 
@@ -42,7 +42,7 @@ class Scalar extends Var {
     }
 
     @Override
-    public Var sub(Var other) {
+    public Var sub(Var other) throws CalcException {
         return other.sub(this);
     }
 
@@ -53,7 +53,7 @@ class Scalar extends Var {
     }
 
     @Override
-    Var sub(Vector otherVector) {
+    Var sub(Vector otherVector){
         return otherVector.add(new Scalar(this.value * -1.0));
     }
 
@@ -69,17 +69,17 @@ class Scalar extends Var {
     }
 
     @Override
-    public Var mul(Var other) {
+    public Var mul(Var other) throws CalcException {
         return other.mul(this);
     }
 
     @Override
-    Var mul(Scalar otherScalar) {
+    Var mul(Scalar otherScalar){
         return new Scalar(otherScalar.value * this.value);
     }
 
     @Override
-    Var mul(Vector otherVector) {
+    Var mul(Vector otherVector){
         return otherVector.mul(this);
     }
 

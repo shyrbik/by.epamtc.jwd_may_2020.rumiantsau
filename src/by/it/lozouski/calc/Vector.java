@@ -33,7 +33,7 @@ class Vector extends Var {
     }
 
     @Override
-    Var add(Scalar otherScalar) {
+    Var add(Scalar otherScalar){
         double[] sum = new double[this.value.length];
         for (int i = 0; i < this.value.length; i++) {
             sum[i] = this.value[i] + otherScalar.getValue();
@@ -42,12 +42,16 @@ class Vector extends Var {
     }
 
     @Override
-    Var add(Vector otherVector) {
-        double[] sum = new double[this.value.length];
-        for (int i = 0; i < this.value.length; i++) {
-            sum[i] = this.value[i] + otherVector.value[i];
+    Var add(Vector otherVector) throws CalcException{
+        try {
+            double[] sum = new double[this.value.length];
+            for (int i = 0; i < this.value.length; i++) {
+                sum[i] = this.value[i] + otherVector.value[i];
+            }
+            return new Vector(sum);
+        }catch (Exception e){
+            throw new CalcException("Operation multiplication " + otherVector + " * " + this + " isn't possible.");
         }
-        return new Vector(sum);
     }
 
     @Override
@@ -70,7 +74,7 @@ class Vector extends Var {
     }
 
     @Override
-    public Var mul(Var other) {
+    public Var mul(Var other) throws CalcException {
         return other.mul(this);
     }
 
@@ -84,12 +88,16 @@ class Vector extends Var {
     }
 
     @Override
-    Var mul(Vector otherVector) {
-        double scalarMultipleVectors = 0;
-        for (int i = 0; i < this.value.length; i++) {
-            scalarMultipleVectors = scalarMultipleVectors + this.value[i] * otherVector.value[i];
+    Var mul(Vector otherVector) throws CalcException {
+        try {
+            double scalarMultipleVectors = 0;
+            for (int i = 0; i < this.value.length; i++) {
+                scalarMultipleVectors = scalarMultipleVectors + this.value[i] * otherVector.value[i];
+            }
+            return new Scalar(scalarMultipleVectors);
+        }catch (Exception e){
+            throw new CalcException("Operation multiplication " + otherVector + " * " + this + " isn't possible.");
         }
-        return new Scalar(scalarMultipleVectors);
     }
 
     @Override

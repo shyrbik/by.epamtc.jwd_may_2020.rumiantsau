@@ -26,42 +26,36 @@ abstract class Var implements Operation {
 
     @Override
     public Var sub(Var other) throws CalcException {
-        return null;
+        throw new CalcException();
     }
 
-    Var sub(Scalar otherScalar) {
-        System.out.println("Operation addition " + otherScalar + " - " + this + " isn't possible.");
-        return null;
+    Var sub(Scalar otherScalar) throws CalcException{
+        throw new CalcException("Operation addition " + otherScalar + " - " + this + " isn't possible.");
     }
 
     Var sub(Vector otherVector) throws CalcException {
-        System.out.println("Operation addition " + otherVector + " - " + this + " isn't possible.");
-        return null;
+        throw new CalcException("Operation addition " + otherVector + " - " + this + " isn't possible.");
     }
 
     Var sub(Matrix otherMatrix) throws CalcException {
-        System.out.println("Operation addition " + otherMatrix + " - " + this + " isn't possible.");
-        return null;
+        throw new CalcException("Operation addition " + otherMatrix + " - " + this + " isn't possible.");
     }
 
     @Override
-    public Var mul(Var other) {
-        return null;
+    public Var mul(Var other) throws CalcException {
+        throw new CalcException();
     }
 
-    Var mul(Scalar otherScalar) {
-        System.out.println("Operation multiplication " + otherScalar + " * " + this + " isn't possible.");
-        return null;
+    Var mul(Scalar otherScalar) throws CalcException {
+        throw new CalcException("Operation multiplication " + otherScalar + " * " + this + " isn't possible.");
     }
 
-    Var mul(Vector otherVector) {
-        System.out.println("Operation multiplication " + otherVector + " * " + this + " isn't possible.");
-        return null;
+    Var mul(Vector otherVector) throws CalcException {
+        throw new CalcException("Operation multiplication " + otherVector + " * " + this + " isn't possible.");
     }
 
-    Var mul(Matrix otherMatrix) {
-        System.out.println("Operation multiplication " + otherMatrix + " * " + this + " isn't possible.");
-        return null;
+    Var mul(Matrix otherMatrix) throws CalcException {
+        throw new CalcException("Operation multiplication " + otherMatrix + " * " + this + " isn't possible.");
     }
 
     @Override

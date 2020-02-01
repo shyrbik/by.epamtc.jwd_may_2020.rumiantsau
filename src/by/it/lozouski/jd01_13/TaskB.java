@@ -9,8 +9,8 @@ class TaskB {
         double sum = 0;
         while (true) {
             try {
-                String tempString = sc1.next();
-                if (tempString.equals("end")) break;
+                String tempString = sc1.next().toUpperCase();
+                if (tempString.equals("END")) break;
                 double num = Double.parseDouble(tempString);
                 sum += num;
                 double resultSqrt = Math.sqrt(sum);
