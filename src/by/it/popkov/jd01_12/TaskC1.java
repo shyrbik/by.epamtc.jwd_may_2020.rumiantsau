@@ -17,11 +17,13 @@ class TaskC1 {
             while (mapC1.containsKey(code)) code = random.nextInt();
             mapC1.put(code, row);
         }
+        //Меняем местами значения и ключи, что бы удалить дубликаты
         Set<Map.Entry<Integer, String>> entries = mapC1.entrySet();
         for (Map.Entry<Integer, String> entry : entries) {
             sort.put(entry.getValue(), entry.getKey());
         }
         mapC1.clear();
+        //Возвражаем назад
         Set<Map.Entry<String, Integer>> entries2 = sort.entrySet();
         for (Map.Entry<String, Integer> entry : entries2) {
             mapC1.put(entry.getValue(), entry.getKey());
