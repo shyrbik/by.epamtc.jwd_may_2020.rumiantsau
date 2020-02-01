@@ -36,8 +36,8 @@ class TaskC3 {
     }
 
     public static void main(String[] args) {
-//        Scanner scanner = new Scanner(System.in);
-//        String row = scanner.nextLine();
-        System.out.println(check("()[()]{()()[]}"));
+        Scanner scanner = new Scanner(System.in);
+        String row = scanner.nextLine();
+        System.out.println(check(row));
     }
 }
