@@ -1,6 +1,5 @@
 package by.it.kuzmichalex.calc;
 
-import sun.dc.pr.PRError;
 
 import java.util.*;
 
@@ -39,7 +38,7 @@ abstract class Var implements Operation {
             return new Matrix(strExperession);
         else {    //No need to create. Var returns from HashMap mapVars
             Var returnVar = mapVars.get(strExperession);
-            if(returnVar==null)throw new CalcException("Variable " + strExperession + " not exists");
+            if(returnVar==null)throw new CalcException("Expression " + strExperession + " is a little wrong");
             return returnVar;
             //return mapVars.get(strExperession);
         }
@@ -189,7 +188,8 @@ abstract class Var implements Operation {
      * @param key - var name. A, B, counter, superPuperVar etc
      * @Value Var-type value
      * */
-    static void save(String key, Var value) {
-        mapVars.put(key,value);
+    static void save(String key, Var value) throws CalcException {
+        //throw new CalcException("Name  " + Key " is not allowed");
+       mapVars.put(key,value);
     }
 }
