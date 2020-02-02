@@ -1,11 +1,11 @@
 package by.it.kuzmichalex.calc;
 
 public interface Operation {
-    Var add(Var rightOperand);
+    Var add(Var rightOperand) throws CalcException;
 
-    Var sub(Var rightOperand);
+    Var sub(Var rightOperand) throws CalcException;
 
-    Var mul(Var rightOperand);
+    Var mul(Var rightOperand) throws CalcException;
 
-    Var div(Var rightOperand);
+    Var div(Var rightOperand) throws CalcException;
 }

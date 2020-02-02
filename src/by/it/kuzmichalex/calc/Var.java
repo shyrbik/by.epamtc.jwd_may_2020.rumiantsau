@@ -1,5 +1,7 @@
 package by.it.kuzmichalex.calc;
 
+import sun.dc.pr.PRError;
+
 import java.util.*;
 
 abstract class Var implements Operation {
@@ -27,7 +29,7 @@ abstract class Var implements Operation {
      *                       Имена quit, exit, end, printvar, sortvar не разрешаются!
      * @return Var
      */
-    static Var createVar(String strExperession) {
+    static Var createVar(String strExperession) throws CalcException {
 
         if (strExperession.matches(Patterns.SCALAR))
             return new Scalar(strExperession);
@@ -35,8 +37,12 @@ abstract class Var implements Operation {
             return new Vector(strExperession);
         else if (strExperession.matches(Patterns.MATRIX))
             return new Matrix(strExperession);
-        else    //No need to create. Var returns from HashMap mapVars
-            return mapVars.get(strExperession);
+        else {    //No need to create. Var returns from HashMap mapVars
+            Var returnVar = mapVars.get(strExperession);
+            if(returnVar==null)throw new CalcException("Variable " + strExperession + " not exists");
+            return returnVar;
+            //return mapVars.get(strExperession);
+        }
     }
 
     /**
@@ -76,90 +82,106 @@ abstract class Var implements Operation {
 
     /////////// Methods for add operation
     @Override
-    public Var add(Var rightOperand) {
+    public Var add(Var rightOperand) throws CalcException {
         //System.out.println("Var.add var" + rightOperand);
         return null;
     }
 
-    public Var add(Scalar leftOperand) {
-        System.out.println("Var.add Scalar " + leftOperand + " + " + this + " Не существует");
-        return null;
+    public Var add(Scalar leftOperand) throws CalcException {
+        throw new CalcException("Operation " +  leftOperand + " + " + this + " inpossible");
+        //System.out.println("Var.add Scalar " + leftOperand + " + " + this + " Не существует");
+        //return null;
     }
 
-    public Var add(Vector leftOperand) {
-        System.out.println("Var.add Vector " + leftOperand + " + " + this + " Не существует");
-        return null;
+    public Var add(Vector leftOperand) throws CalcException {
+        throw new CalcException("Operation " + leftOperand + " + " + this + " impossible");
+        //System.out.println("Var.add Vector " + leftOperand + " + " + this + " Не существует");
+        //return null;
     }
 
-    public Var add(Matrix leftOperand) {
-        System.out.println("Var.add Matrix " + leftOperand + " + " + this + " Не существует");
-        return null;
+    public Var add(Matrix leftOperand) throws CalcException {
+        throw new CalcException("Operation " + leftOperand + " + " + this + " impossible");
+        //System.out.println("Var.add Matrix " + leftOperand + " + " + this + " Не существует");
+        //return null;
     }
 
     /////////// Methods for sub operation
     @Override
-    public Var sub(Var rightOperand) {
+    public Var sub(Var rightOperand) throws CalcException {
+        //throw new CalcException("Operation " + leftOperand + " + " + this + " impossible");
         //System.out.println("Var.add var" + rightOperand);
         return null;
     }
 
-    public Var sub(Scalar leftOperand) {
-        System.out.println("Var.add Scalar " + leftOperand + " - " + this + " Не существует");
-        return null;
+    public Var sub(Scalar leftOperand) throws CalcException {
+        throw new CalcException("Operation " + leftOperand + " - " + this + " impossible");
+        //System.out.println("Var.add Scalar " + leftOperand + " - " + this + " Не существует");
+        //return null;
     }
 
-    public Var sub(Vector leftOperand) {
-        System.out.println("Var.add Vector " + leftOperand + " - " + this + " Не существует");
-        return null;
+    public Var sub(Vector leftOperand) throws CalcException {
+        throw new CalcException("Operation " + leftOperand + " - " + this + " impossible");
+        //System.out.println("Var.add Vector " + leftOperand + " - " + this + " Не существует");
+        //return null;
     }
 
-    public Var sub(Matrix leftOperand) {
-        System.out.println("Var.add Matrix " + leftOperand + " - " + this + " Не существует");
-        return null;
+    public Var sub(Matrix leftOperand) throws CalcException {
+        throw new CalcException("Operation " + leftOperand + " - " + this + " impossible");
+        //System.out.println("Var.add Matrix " + leftOperand + " - " + this + " Не существует");
+        //return null;
     }
 
     /////////// Methods for mul operation
     @Override
-    public Var mul(Var rightOperand) {
+    public Var mul(Var rightOperand) throws CalcException {
         //System.out.println("Var.mul var" + rightOperand);
         return null;
     }
 
-    public Var mul(Scalar leftOperand) {
-        System.out.println("Var.mul Scalar " + leftOperand + " * " + this + " Не существует");
-        return null;
+    public Var mul(Scalar leftOperand) throws CalcException {
+        throw new CalcException("Operation " + leftOperand + " * " + this + " impossible");
+        //System.out.println("Var.mul Scalar " + leftOperand + " * " + this + " Не существует");
+        //return null;
     }
 
-    public Var mul(Vector leftOperand) {
-        System.out.println("Var.mul Vector " + leftOperand + " * " + this + " Не существует");
-        return null;
+    public Var mul(Vector leftOperand) throws CalcException {
+        throw new CalcException("Operation " + leftOperand + " * " + this + " impossible");
+        //System.out.println("Var.mul Vector " + leftOperand + " * " + this + " Не существует");
+        //return null;
     }
 
-    public Var mul(Matrix leftOperand) {
-        System.out.println("Var.mul Matrix " + leftOperand + " * " + this + " Не существует");
-        return null;
+    public Var mul(Matrix leftOperand) throws CalcException {
+        throw new CalcException("Operation " + leftOperand + " * " + this + " impossible");
+        //System.out.println("Var.mul Matrix " + leftOperand + " * " + this + " Не существует");
+        //return null;
     }
 
     /////////// Methods for div operation
     @Override
-    public Var div(Var rightOperand) {
+    public Var div(Var rightOperand) throws CalcException {
         System.out.println("Var.div var" + rightOperand);
         return null;
     }
 
-    public Var div(Scalar leftOperand) {
-        System.out.println("Var.div Scalar " + leftOperand + " / " + this + " Не существует");
-        return null;
+    public Var div(Scalar leftOperand) throws CalcException {
+        throw new CalcException("Operation " + leftOperand + " / " + this + " impossible");
+/*        System.out.println("Var.div Scalar " + leftOperand + " / " + this + " Не существует");
+        return null;*/
     }
 
-    public Var div(Vector leftOperand) {
+    public Var div(Vector leftOperand) throws CalcException {
+        throw new CalcException("Operation " + leftOperand + " / " + this + " impossible");
+        /*
         System.out.println("Var.div Vector " + leftOperand + " / " + this + " Не существует");
         return null;
+*/
     }
 
-    public Var div(Matrix leftOperand) {
+    public Var div(Matrix leftOperand) throws CalcException {
+        throw new CalcException("Operation " + leftOperand + " / " + this + " impossible");
+/*
         System.out.println("Var.div Matrix " + leftOperand + " / " + this + " Не существует");
-        return null;
+        return null;*/
     }
 
     /**

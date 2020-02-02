@@ -32,7 +32,7 @@ class Scalar extends Var {
 
     //////////////////////// Сложения со скаляром
     @Override
-    public Var add(Var rightOperand) {
+    public Var add(Var rightOperand) throws CalcException {
         //System.out.println("Scalar.add var " + rightOperand);
         return rightOperand.add(this);
     }
@@ -58,7 +58,7 @@ class Scalar extends Var {
 
     //////////////////////// Отнимание скаляра
     @Override
-    public Var sub(Var rightOperand) {
+    public Var sub(Var rightOperand) throws CalcException {
         //System.out.println("Scalar.sub var " + rightOperand);
         return rightOperand.sub(this);
     }
@@ -72,7 +72,7 @@ class Scalar extends Var {
 
     //Vector-Scalar
     @Override
-    public Var sub(Vector leftOperand) {
+    public Var sub(Vector leftOperand) throws CalcException {
         Var minusScalar = new Scalar(this.value * -1.0);
         return leftOperand.add(minusScalar);
     }
@@ -93,7 +93,7 @@ class Scalar extends Var {
 
     //////////////////////// Умножения на скаляр
     @Override
-    public Var mul(Var rightOperand) {
+    public Var mul(Var rightOperand) throws CalcException {
         //System.out.println("Scalar.sub var " + rightOperand);
         return rightOperand.mul(this);
     }
@@ -118,27 +118,29 @@ class Scalar extends Var {
 
     //////////////////////// деления на скаляр
     @Override
-    public Var div(Var rightOperand) {
+    public Var div(Var rightOperand) throws CalcException {
         //System.out.println("Scalar.div var " + rightOperand);
         return rightOperand.div(this);
     }
 
     //Scalar/Scalar
     @Override
-    public Var div(Scalar leftOperand) {
+    public Var div(Scalar leftOperand) throws CalcException {
         if (this.value == 0) {
-            System.out.println("Деление на ноль detected");
-            return null;
+            //System.out.println("Деление на ноль detected");
+            // return null;
+            throw new CalcException("Division by ZERO no allowed");
         }
         return new Scalar(leftOperand.value / this.value);
     }
 
     //Vector/Scalar
     @Override
-    public Var div(Vector leftOperand) {
+    public Var div(Vector leftOperand) throws CalcException {
         if (this.value == 0) {
-            System.out.println("Деление на ноль detected");
-            return null;
+            throw new CalcException("Division by ZERO no allowed");
+           // System.out.println("Деление на ноль detected");
+            //return null;
         }
         Var hyperScalar = new Scalar(1.0 / this.value);
         return leftOperand.mul(hyperScalar);
@@ -146,10 +148,13 @@ class Scalar extends Var {
 
     //Matrix/Scalar
     @Override
-    public Var div(Matrix leftOperand) {
+    public Var div(Matrix leftOperand) throws CalcException {
         if (this.value == 0) {
+            throw new CalcException("Division by ZERO no allowed");
+            /*
             System.out.println("Деление на ноль detected");
             return null;
+*/
         }
         Var hyperScalar = new Scalar(1.0 / this.value);
         return leftOperand.mul(hyperScalar);
