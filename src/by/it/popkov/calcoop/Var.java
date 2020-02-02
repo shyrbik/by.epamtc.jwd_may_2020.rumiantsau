@@ -26,11 +26,7 @@ abstract class Var implements Operation {
         throw new CalcException(this + " - " + other + " impossible");
     }
 
-    public Var preSub(Scalar other) throws CalcException {
-        throw new CalcException(other + " - " + this + " impossible");
-    }
-
-    public Var preSub(Vector other) throws CalcException {
+    public Var preSub(Var other) throws CalcException {
         throw new CalcException(other + " - " + this + " impossible");
     }
 
@@ -56,7 +52,7 @@ abstract class Var implements Operation {
         throw new CalcException(this + " / " + other + " impossible");
     }
 
-    public Var preDiv(Scalar other) throws CalcException {
+    public Var preDiv(Var other) throws CalcException {
         throw new CalcException(other + " / " + this + " impossible");
     }
 

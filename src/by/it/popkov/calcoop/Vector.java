@@ -73,7 +73,7 @@ class Vector extends Var {
     }
 
     @Override
-    public Var preSub(Vector other) throws CalcException {
+    public Var preSub(Var other) throws CalcException {
         return other.sub(this);
     }
 
