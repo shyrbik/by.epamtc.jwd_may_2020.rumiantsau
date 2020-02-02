@@ -41,6 +41,15 @@ abstract class Var implements Operation {
         throw new CalcException(this + " / " + other + " impossible");
     }
 
+    public Var preDiv(Scalar other) throws CalcException {
+        throw new CalcException(this + " / " + other + " impossible");
+    }
+
+    public Var div(Scalar other) throws CalcException {
+        throw new CalcException(this + " / " + other + " impossible");
+    }
+
+
     static Var newVar(String strVar) throws CalcException {
         if (strVar.matches(Patterns.SCALAR)) return new Scalar(strVar);
         else if (strVar.matches(Patterns.VECTOR)) return new Vector(strVar);

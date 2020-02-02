@@ -48,19 +48,25 @@ class Scalar extends Var {
     public Var mul(Var other) throws CalcException {
         return other.mul(this);
     }
+
     @Override
     public Var mul(Scalar other) throws CalcException {
-        return new Scalar(this.value*other.value);
+        return new Scalar(this.value * other.value);
     }
 
     @Override
     public Var div(Var other) throws CalcException {
-        if (other instanceof Scalar) {
-            if (((Scalar) other).value == 0) {
-                throw new CalcException("Деление на 0");
-            }
-            return new Scalar(this.value / ((Scalar) other).value);
-        }
-        return super.div(other);
+        return other.preDiv(this);
+    }
+
+    @Override
+    public Var preDiv(Scalar other) throws CalcException {
+        return other.div(this);
+    }
+
+    @Override
+    public Var div(Scalar other) throws CalcException {
+        if (other.value == 0) throw new CalcException("Деление на 0");
+        return new Scalar(this.value / other.value);
     }
 }
