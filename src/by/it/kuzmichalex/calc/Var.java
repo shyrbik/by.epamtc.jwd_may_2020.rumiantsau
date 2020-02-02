@@ -9,7 +9,7 @@ abstract class Var implements Operation {
      * Key - Var name
      * Value - Var value
      * */
-    private static Map<String, Var> mapVars=new HashMap<>();
+    private static Map<String, Var> mapVars = new HashMap<>();
 
     /**
      * override Object.toString method
@@ -18,6 +18,7 @@ abstract class Var implements Operation {
     public String toString() {
         return ("abstract class Var");
     }
+
     /**
      * Create Var from expression
      * 1.12 Scalar
@@ -36,24 +37,27 @@ abstract class Var implements Operation {
             return new Vector(strExperession);
         else if (strExperession.matches(Patterns.MATRIX))
             return new Matrix(strExperession);
-        else {    //No need to create. Var returns from HashMap mapVars
+        else if (strExperession.matches(Patterns.VARNAME)) {
             Var returnVar = mapVars.get(strExperession);
-            if(returnVar==null)throw new CalcException("Expression " + strExperession + " is a little wrong");
+            if (returnVar == null) throw new CalcException("Undefined variable: " + strExperession);
             return returnVar;
-            //return mapVars.get(strExperession);
+        } else {
+            if (strExperession.length() == 0) throw new CalcException("Empty right part");
+            throw new CalcException("Expression " + strExperession + " contains madness.");
         }
     }
 
     /**
      * convert all Vars to String
+     *
      * @return String like VarName=Value\n
-     * */
-    static String printVars(){
+     */
+    static String printVars() {
         StringBuilder retValue = new StringBuilder();
-        if(mapVars.isEmpty())return("No Vars defined");
+        if (mapVars.isEmpty()) return ("No Vars defined");
         Set<Map.Entry<String, Var>> entries = mapVars.entrySet();
         Iterator<Map.Entry<String, Var>> iterator = entries.iterator();
-        while(iterator.hasNext()) {
+        while (iterator.hasNext()) {
             Map.Entry<String, Var> varMapValue = iterator.next();
             retValue.append(varMapValue.getKey()).append("=");
             retValue.append(varMapValue.getValue().toString());
@@ -64,15 +68,16 @@ abstract class Var implements Operation {
 
     /**
      * convert all Vars to String witch sorting by key
+     *
      * @return String like VarName=Value\n
-     * */
-    static String sortVars(){
+     */
+    static String sortVars() {
         StringBuilder retValue = new StringBuilder();
-        if(mapVars.isEmpty())return("No Vars defined");
+        if (mapVars.isEmpty()) return ("No Vars defined");
         TreeMap<String, Var> sortedVars = new TreeMap<String, Var>(mapVars);
         Set<Map.Entry<String, Var>> entries = sortedVars.entrySet();
         Iterator<Map.Entry<String, Var>> iterator = entries.iterator();
-        while(iterator.hasNext()){
+        while (iterator.hasNext()) {
             Map.Entry<String, Var> nextSorted = iterator.next();
             retValue.append(nextSorted.getKey()).append("=").append(nextSorted.getValue().toString()).append('\n');
         }
@@ -87,7 +92,7 @@ abstract class Var implements Operation {
     }
 
     public Var add(Scalar leftOperand) throws CalcException {
-        throw new CalcException("Operation " +  leftOperand + " + " + this + " inpossible");
+        throw new CalcException("Operation " + leftOperand + " + " + this + " inpossible");
         //System.out.println("Var.add Scalar " + leftOperand + " + " + this + " Не существует");
         //return null;
     }
@@ -107,9 +112,9 @@ abstract class Var implements Operation {
     /////////// Methods for sub operation
     @Override
     public Var sub(Var rightOperand) throws CalcException {
-        //throw new CalcException("Operation " + leftOperand + " + " + this + " impossible");
+        throw new CalcException("Operation " + this + " - " + rightOperand + " impossible");
         //System.out.println("Var.add var" + rightOperand);
-        return null;
+        //return null;
     }
 
     public Var sub(Scalar leftOperand) throws CalcException {
@@ -185,11 +190,14 @@ abstract class Var implements Operation {
 
     /**
      * save Var and value into HashMap mapVars
+     *
      * @param key - var name. A, B, counter, superPuperVar etc
      * @Value Var-type value
-     * */
+     */
     static void save(String key, Var value) throws CalcException {
-        //throw new CalcException("Name  " + Key " is not allowed");
-       mapVars.put(key,value);
+        if(!key.matches(Patterns.VARNAME))throw new CalcException("Wrong variable name: " + key);
+        if (KeyWords.isKeyWord(key))
+            throw new CalcException("Wrong variable name. Please don't use keywords: " + KeyWords.ALLKEYWORDS);
+        mapVars.put(key, value);
     }
 }

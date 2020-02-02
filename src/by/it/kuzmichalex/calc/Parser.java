@@ -28,10 +28,11 @@ public class Parser {
                         return leftVar.mul(rightVar);
                     case "/":
                         return leftVar.div(rightVar);
+                    default: throw new CalcException("Unknown operation: "+ operation);
                 }
             }
         }
-        return null;
+        throw new CalcException("Operation expected");
     }
 
 }
