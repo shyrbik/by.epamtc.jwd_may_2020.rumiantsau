@@ -1,7 +1,6 @@
 package by.it.ban.jd01_13;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -10,8 +9,7 @@ public class TaskC {
     private static List<Double> list;
 
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        scan=scanner;
+        scan= new Scanner(System.in);
         list = new ArrayList<>();
         readData();
     }
@@ -27,7 +25,7 @@ public class TaskC {
                 try {
                     Thread.sleep(100);
                 }
-                catch (InterruptedException e1) { }
+                catch (InterruptedException ignored) { }
                 for (int i = list.size() - 1; i >= 0; i--) {
                     System.out.print(delim+ list.get(i));
                     delim=" ";
