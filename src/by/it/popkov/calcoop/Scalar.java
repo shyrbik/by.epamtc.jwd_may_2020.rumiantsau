@@ -24,6 +24,8 @@ class Scalar extends Var {
         return value;
     }
 
+                  /******************** Operation ****************************/
+
     @Override
     public Var add(Var other) throws CalcException {
         return other.add(this);
