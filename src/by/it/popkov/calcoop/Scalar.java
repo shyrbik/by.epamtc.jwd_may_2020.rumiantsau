@@ -29,30 +29,33 @@ class Scalar extends Var {
         return other.add(this);
     }
 
-
+    @Override
     public Var add(Scalar other) throws CalcException {
         return new Scalar(this.value + other.value);
     }
 
     @Override
     public Var sub(Var other) throws CalcException {
-        if (other instanceof Scalar){
-            return new Scalar(this.value - ((Scalar) other).value);
-        }
         return new Scalar(-1).mul(other.sub(this));
     }
 
     @Override
+    public Var sub(Scalar other) throws CalcException {
+        return new Scalar(this.value - other.value);
+    }
+
+    @Override
     public Var mul(Var other) throws CalcException {
-        if (other instanceof Scalar){
-            return new Scalar(this.value * ((Scalar) other).value);
-        }
         return other.mul(this);
+    }
+    @Override
+    public Var mul(Scalar other) throws CalcException {
+        return new Scalar(this.value*other.value);
     }
 
     @Override
     public Var div(Var other) throws CalcException {
-        if (other instanceof Scalar){
+        if (other instanceof Scalar) {
             if (((Scalar) other).value == 0) {
                 throw new CalcException("Деление на 0");
             }

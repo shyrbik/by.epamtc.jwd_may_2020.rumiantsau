@@ -14,10 +14,17 @@ abstract class Var implements Operation {
 
     }
 
+    public Var add(Scalar other) throws CalcException {
+        throw new CalcException(this + " + " + other + " impossible");
+    }
+
     @Override
     public Var sub(Var other) throws CalcException {
         throw new CalcException(this + " - " + other + " impossible");
+    }
 
+    public Var sub(Scalar other) throws CalcException {
+        throw new CalcException(this + " - " + other + " impossible");
     }
 
     @Override
@@ -25,14 +32,13 @@ abstract class Var implements Operation {
         throw new CalcException(this + " * " + other + " impossible");
     }
 
+    public Var mul(Scalar other) throws CalcException {
+        throw new CalcException(this + " * " + other + " impossible");
+    }
+
     @Override
     public Var div(Var other) throws CalcException {
         throw new CalcException(this + " / " + other + " impossible");
-    }
-
-    public Var add(Scalar other) throws CalcException {
-        throw new CalcException(this + " + " + other + " impossible");
-
     }
 
     static Var newVar(String strVar) throws CalcException {
