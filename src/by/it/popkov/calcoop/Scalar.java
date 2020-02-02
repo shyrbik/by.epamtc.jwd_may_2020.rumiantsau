@@ -24,7 +24,7 @@ class Scalar extends Var {
         return value;
     }
 
-                  /******************** Operation ****************************/
+    /******************************** Operations ****************************/
 
     @Override
     public Var add(Var other) throws CalcException {
@@ -38,7 +38,17 @@ class Scalar extends Var {
 
     @Override
     public Var sub(Var other) throws CalcException {
-        return new Scalar(-1).mul(other.sub(this));
+        return other.preSub(this);
+    }
+
+    @Override
+    public Var preSub(Scalar other) throws CalcException {
+        return other.sub(this);
+    }
+
+    @Override
+    public Var preSub(Vector other) throws CalcException {
+        return other.sub(this);
     }
 
     @Override

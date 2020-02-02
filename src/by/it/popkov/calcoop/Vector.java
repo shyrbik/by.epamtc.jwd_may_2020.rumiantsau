@@ -41,43 +41,61 @@ class Vector extends Var {
         return value;
     }
 
+    /************************************ Operations ****************************/
+
     @Override
     public Var add(Var other) throws CalcException {
-        if (other instanceof Vector) {
-            if (((Vector) other).value.length != this.value.length) throw new CalcException("Разная длина векторов");
-            double[] out = new double[this.value.length];
-            for (int i = 0; i < out.length; i++) {
-                out[i] = this.value[i] + ((Vector) other).value[i];
-            }
-            return new Vector(out);
-        } else if (other instanceof Scalar) {
-            double[] out = new double[this.value.length];
-            for (int i = 0; i < out.length; i++) {
-                out[i] = this.value[i] + ((Scalar) other).getValue();
-            }
-            return new Vector(out);
-        }
         return other.add(this);
     }
 
     @Override
-    public Var sub(Var other) throws CalcException {
-        if (other instanceof Vector) {
-            if (((Vector) other).value.length != this.value.length) throw new CalcException("Разная длина векторов");
-            double[] out = new double[this.value.length];
-            for (int i = 0; i < out.length; i++) {
-                out[i] = this.value[i] - ((Vector) other).value[i];
-            }
-            return new Vector(out);
-        } else if (other instanceof Scalar) {
-            double[] out = new double[this.value.length];
-            for (int i = 0; i < out.length; i++) {
-                out[i] = this.value[i] - ((Scalar) other).getValue();
-            }
-            return new Vector(out);
+    public Var add(Vector other) throws CalcException {
+        if (((Vector) other).value.length != this.value.length) throw new CalcException("Разная длина векторов");
+        double[] out = new double[this.value.length];
+        for (int i = 0; i < out.length; i++) {
+            out[i] = this.value[i] + ((Vector) other).value[i];
         }
-        return super.mul(other);
+        return new Vector(out);
     }
+
+    @Override
+    public Var add(Scalar other) {
+        double[] out = new double[this.value.length];
+        for (int i = 0; i < out.length; i++) {
+            out[i] = this.value[i] + other.getValue();
+        }
+        return new Vector(out);
+    }
+
+    @Override
+    public Var sub(Var other) throws CalcException {
+        return other.preSub(this);
+    }
+
+    @Override
+    public Var preSub(Vector other) throws CalcException {
+        return other.sub(this);
+    }
+
+    @Override
+    public Var sub(Vector other) throws CalcException {
+        if (((Vector) other).value.length != this.value.length) throw new CalcException("Разная длина векторов");
+        double[] out = new double[this.value.length];
+        for (int i = 0; i < out.length; i++) {
+            out[i] = this.value[i] - ((Vector) other).value[i];
+        }
+        return new Vector(out);
+    }
+
+    @Override
+    public Var sub(Scalar other) throws CalcException {
+        double[] out = new double[this.value.length];
+        for (int i = 0; i < out.length; i++) {
+            out[i] = this.value[i] - ((Scalar) other).getValue();
+        }
+        return new Vector(out);
+    }
+
 
     @Override
     public Var mul(Var other) throws CalcException {

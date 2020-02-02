@@ -11,10 +11,13 @@ abstract class Var implements Operation {
     @Override
     public Var add(Var other) throws CalcException {
         throw new CalcException(this + " + " + other + " impossible");
-
     }
 
     public Var add(Scalar other) throws CalcException {
+        throw new CalcException(this + " + " + other + " impossible");
+    }
+
+    public Var add(Vector other) throws CalcException {
         throw new CalcException(this + " + " + other + " impossible");
     }
 
@@ -23,7 +26,19 @@ abstract class Var implements Operation {
         throw new CalcException(this + " - " + other + " impossible");
     }
 
+    public Var preSub(Scalar other) throws CalcException {
+        throw new CalcException(other + " - " + this + " impossible");
+    }
+
+    public Var preSub(Vector other) throws CalcException {
+        throw new CalcException(other + " - " + this + " impossible");
+    }
+
     public Var sub(Scalar other) throws CalcException {
+        throw new CalcException(this + " - " + other + " impossible");
+    }
+
+    public Var sub(Vector other) throws CalcException {
         throw new CalcException(this + " - " + other + " impossible");
     }
 
@@ -42,7 +57,7 @@ abstract class Var implements Operation {
     }
 
     public Var preDiv(Scalar other) throws CalcException {
-        throw new CalcException(this + " / " + other + " impossible");
+        throw new CalcException(other + " / " + this + " impossible");
     }
 
     public Var div(Scalar other) throws CalcException {
