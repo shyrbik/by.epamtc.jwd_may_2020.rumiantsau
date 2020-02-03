@@ -45,9 +45,6 @@ class Parser {
                     return operand1.mul(operand2);
                 case "/":
                     return operand1.div(operand2);
-//                case "=":
-//                    Storage.putMapElement(operand[0].toUpperCase(), operand2);
-//                    return operand2;
                 default:
                     throw new CalcException("The mathematical operator has not been found.\nCheck the expression You inputted. Then re-enter your expression, please!");
             }
