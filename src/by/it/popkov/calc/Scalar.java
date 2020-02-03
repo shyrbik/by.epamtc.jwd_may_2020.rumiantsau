@@ -82,6 +82,11 @@ class Scalar extends Var {
     }
 
     @Override
+    Var preMul(Var other) throws CalcException {
+        return other.mul(this);
+    }
+
+    @Override
     public Var div(Var other) throws CalcException {
         return other.preDiv(this);
     }

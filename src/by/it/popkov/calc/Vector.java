@@ -111,6 +111,11 @@ class Vector extends Var {
     }
 
     @Override
+    Var preMul(Var other) throws CalcException {
+        return other.mul(this);
+    }
+
+    @Override
     public Var mul(Vector other) throws CalcException {
         if (other.value.length != this.value.length) throw new CalcException("Разная длина векторов");
         double out = 0;

@@ -145,6 +145,11 @@ class Matrix extends Var {
 
     @Override
     public Var mul(Var other) throws CalcException {
+        return other.preMul(this);
+    }
+
+    @Override
+    Var preMul(Var other) throws CalcException {
         return other.mul(this);
     }
 

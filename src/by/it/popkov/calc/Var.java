@@ -49,19 +49,22 @@ abstract class Var implements Operation {
 
     @Override
     public Var mul(Var other) throws CalcException {
-        throw new CalcException(other + " + " + this + " impossible");
+        throw new CalcException(other + " * " + this + " impossible");
+    }
+    Var preMul(Var other) throws CalcException {
+        throw new CalcException(other + " * " + this + " impossible");
     }
 
     public Var mul(Scalar other) throws CalcException {
-        throw new CalcException(other + " + " + this + " impossible");
+        throw new CalcException(other + " * " + this + " impossible");
     }
 
     public Var mul(Vector other) throws CalcException {
-        throw new CalcException(other + " + " + this + " impossible");
+        throw new CalcException(other + " * " + this + " impossible");
     }
 
     public Var mul(Matrix other) throws CalcException {
-        throw new CalcException(other + " + " + this + " impossible");
+        throw new CalcException(other + " * " + this + " impossible");
     }
 
     @Override
