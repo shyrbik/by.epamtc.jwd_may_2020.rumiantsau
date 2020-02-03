@@ -179,7 +179,7 @@ class Matrix extends Var {
         return new Vector(outPut);
     }
 
-    @Override
+    @Override   //От перемены местами матриц меняеться результат при умножении, поэтому тут есть preMul
     public Var mul(Matrix other) throws CalcException {
         if (other.value.length != this.value.length || other.value[0].length != this.value[0].length) {
             throw new CalcException("Некоректрый формат матрич");
