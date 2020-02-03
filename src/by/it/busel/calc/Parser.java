@@ -21,11 +21,6 @@ class Parser {
     Var calc(String varExpression) throws CalcException {
         Pattern pattern = Pattern.compile(Patterns.OPERATION);
         String[] operand = pattern.split(varExpression);
-//        Var operand1 = Var.createVar(operand[0].trim());
-//        Var operand2 = Var.createVar(operand[1].trim());
-//        if (operand1 == null || operand2 == null) {
-//            return null;
-//        }
         Matcher matcher = pattern.matcher(varExpression);
         if (matcher.find()) {
             String operator = matcher.group();
