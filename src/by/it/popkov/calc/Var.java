@@ -11,19 +11,19 @@ abstract class Var implements Operation {
     
     @Override
     public Var add(Var other) throws CalcException {
-        throw new CalcException(this + " + " + other + " impossible");
+        throw new CalcException(other + " + " + this + " impossible");
     }
 
     public Var add(Scalar other) throws CalcException {
-        throw new CalcException(this + " + " + other + " impossible");
+        throw new CalcException(other + " + " + this + " impossible");
     }
 
     public Var add(Vector other) throws CalcException {
-        throw new CalcException(this + " + " + other + " impossible");
+        throw new CalcException(other + " + " + this + " impossible");
     }
 
     public Var add(Matrix other) throws CalcException {
-        throw new CalcException(this + " + " + other + " impossible");
+        throw new CalcException(other + " + " + this + " impossible");
     }
 
     @Override
@@ -49,19 +49,19 @@ abstract class Var implements Operation {
 
     @Override
     public Var mul(Var other) throws CalcException {
-        throw new CalcException(this + " * " + other + " impossible");
+        throw new CalcException(other + " + " + this + " impossible");
     }
 
     public Var mul(Scalar other) throws CalcException {
-        throw new CalcException(this + " * " + other + " impossible");
+        throw new CalcException(other + " + " + this + " impossible");
     }
 
     public Var mul(Vector other) throws CalcException {
-        throw new CalcException(this + " * " + other + " impossible");
+        throw new CalcException(other + " + " + this + " impossible");
     }
 
     public Var mul(Matrix other) throws CalcException {
-        throw new CalcException(this + " * " + other + " impossible");
+        throw new CalcException(other + " + " + this + " impossible");
     }
 
     @Override
