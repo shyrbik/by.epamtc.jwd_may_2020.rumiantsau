@@ -27,37 +27,37 @@ class Scalar extends Var {
     }
 
     @Override
-    public Var add(Var other) {
+    public Var add(Var other) throws CalcException {
         return other.add(this);
     }
 
     @Override
-    public Var add(Scalar other) {
+    public Var add(Scalar other) throws CalcException{
         return new Scalar(this.value + other.value);
     }
 
     @Override
-    public Var add(Vector other) {
+    public Var add(Vector other) throws CalcException{
         return other.add(this);
     }
 
     @Override
-    public Var add(Matrix other) {
+    public Var add(Matrix other) throws CalcException {
         return other.add(this);
     }
 
     @Override
-    public Var sub(Var other) {
+    public Var sub(Var other) throws CalcException {
         return other.sub(this);
     }
 
     @Override
-    public Var sub(Scalar other) {
+    public Var sub(Scalar other) throws CalcException {
         return new Scalar(other.value - this.value);
     }
 
     @Override
-    public Var sub(Vector other) {
+    public Var sub(Vector other) throws CalcException {
         double[] op1 = Arrays.copyOf(other.getValue(), other.getValue().length);
         for (int i = 0; i < op1.length; i++) {
             op1[i] = op1[i] - value;
@@ -66,7 +66,7 @@ class Scalar extends Var {
     }
 
     @Override
-    public Var sub(Matrix other) {
+    public Var sub(Matrix other) throws CalcException {
         double[][] op1 = Arrays.copyOf(other.getValue(), other.getValue().length);
         for (int i = 0; i < op1.length; i++) {
             op1[i] = Arrays.copyOf(other.getValue()[i], other.getValue()[i].length);
@@ -81,41 +81,40 @@ class Scalar extends Var {
     }
 
     @Override
-    public Var mul(Var other) {
+    public Var mul(Var other) throws CalcException {
         return other.mul(this);
     }
 
     @Override
-    public Var mul(Scalar other) {
+    public Var mul(Scalar other) throws CalcException {
         return new Scalar(this.value * other.value);
     }
 
     @Override
-    public Var mul(Vector other) {
+    public Var mul(Vector other) throws CalcException {
         return other.mul(this);
     }
 
     @Override
-    public Var mul(Matrix other) {
+    public Var mul(Matrix other) throws CalcException {
         return other.mul(this);
     }
 
     @Override
-    public Var div(Var other) {
+    public Var div(Var other) throws CalcException {
         return other.div(this);
     }
 
     @Override
-    public Var div(Scalar other) {
+    public Var div(Scalar other) throws CalcException {
         if (this.value != 0) {
             return new Scalar(other.value / this.value);
         }
-        System.out.println("Division by zero");
-        return super.div(other);
+        throw new CalcException("Division by zero");
     }
 
     @Override
-    public Var div(Vector other) {
+    public Var div(Vector other) throws CalcException {
         if (value != 0) {
             double[] op1 = Arrays.copyOf(other.getValue(), other.getValue().length);
             for (int i = 0; i < op1.length; i++) {
@@ -123,12 +122,11 @@ class Scalar extends Var {
             }
             return new Vector(op1);
         }
-        System.out.println("Division by zero");
-        return super.div(other);
+        throw new CalcException("Division by zero");
     }
 
     @Override
-    public Var div(Matrix other) {
+    public Var div(Matrix other) throws CalcException {
         if (value!=0){
             double[][] op1 = Arrays.copyOf(other.getValue(), other.getValue().length);
             for (int i = 0; i < op1.length; i++) {
@@ -142,7 +140,6 @@ class Scalar extends Var {
             }
             return new Matrix(op1);
         }
-        System.out.println("Division by zero");
-        return super.div(other);
+        throw new CalcException("Division by zero");
     }
 }

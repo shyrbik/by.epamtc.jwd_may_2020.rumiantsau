@@ -1,8 +1,5 @@
 package by.it.ban.calc;
 
-
-
-
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -10,7 +7,7 @@ import static by.it.ban.calc.Var.*;
 
 class Parser {
 
-    Var calc(String expression) {
+    Var calc(String expression) throws CalcException {
         expression = expression.replace("\\s+", "");
         if (expression.equals("printvar")){
             printvar();
