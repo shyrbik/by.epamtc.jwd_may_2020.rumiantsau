@@ -71,7 +71,7 @@ class Scalar extends Var {
      * @return a result of addition
      */
     @Override
-    public Var add(Var other) {
+    public Var add(Var other) throws CalcException {
         return other.add(this);
     }
 
@@ -128,7 +128,7 @@ class Scalar extends Var {
      * @return a result of subtraction
      */
     @Override
-    public Var sub(Var other) {
+    public Var sub(Var other) throws CalcException {
         return other.sub(this);
     }
 
@@ -185,7 +185,7 @@ class Scalar extends Var {
      * @return a result of multiplication
      */
     @Override
-    public Var mul(Var other) {
+    public Var mul(Var other) throws CalcException {
         return other.mul(this);
     }
 
@@ -243,7 +243,7 @@ class Scalar extends Var {
      * @return a result of division
      */
     @Override
-    public Var div(Var other) {
+    public Var div(Var other) throws CalcException {
         return other.div(this);
     }
 
@@ -253,7 +253,7 @@ class Scalar extends Var {
      * @param other a scalar expression that is a dividend, where "this" scalar is a divisor;
      * @return a result of division, i.e. a new scalar expression
      */
-    public Var div(Scalar other) {
+    public Var div(Scalar other) throws CalcException {
         if (this.value != 0) {
             double div = other.value / this.value;
             return new Scalar(div);
@@ -268,7 +268,7 @@ class Scalar extends Var {
      * @param other a vector expression that is a dividend, where "this" scalar is a divisor;
      * @return a result of division, i.e. a new vector expression
      */
-    public Var div(Vector other) {
+    public Var div(Vector other) throws CalcException {
         double filler = this.value;
         if (filler != 0) {
             double[] result = other.getValue();
@@ -287,7 +287,7 @@ class Scalar extends Var {
      * @param other a matrix expression that is a dividend, where this scalar is a divisor;
      * @return a result of division, i.e. a new matrix expression
      */
-    public Var div(Matrix other) {
+    public Var div(Matrix other) throws CalcException {
         double filler = this.value;
         double[][] matrix = other.getValue();
         if (filler != 0) {
