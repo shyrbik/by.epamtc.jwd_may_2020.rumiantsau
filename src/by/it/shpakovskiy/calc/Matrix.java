@@ -55,7 +55,7 @@ class Matrix extends Var {
     }
 
     @Override
-    public Var add(Var other) {
+    public Var add(Var other) throws CalcException {
         return other.add(this);
     }
 
@@ -74,7 +74,7 @@ class Matrix extends Var {
     }
 
     @Override
-    public Var add(Matrix other) {
+    public Var add(Matrix other) throws CalcException {
         if (value.length == other.value.length && value[0].length == other.value[0].length) {
             double[][] result = new double[value.length][value[0].length];
             for (int i = 0; i < value.length; i++) {
@@ -89,7 +89,7 @@ class Matrix extends Var {
     }
 
     @Override
-    public Var sub(Var other) {
+    public Var sub(Var other) throws CalcException {
         return other.sub(this);
     }
 
@@ -108,7 +108,7 @@ class Matrix extends Var {
     }
 
     @Override
-    public Var sub(Matrix other) {
+    public Var sub(Matrix other) throws CalcException {
         if (value.length == other.value.length && value[0].length == other.value[0].length) {
             double[][] result = new double[value.length][value[0].length];
             for (int i = 0; i < value.length; i++) {
@@ -122,7 +122,7 @@ class Matrix extends Var {
     }
 
     @Override
-    public Var mul(Var other) {
+    public Var mul(Var other) throws CalcException {
         return other.mul(this);
     }
 
@@ -141,7 +141,7 @@ class Matrix extends Var {
     }
 
     @Override
-    public Var mul(Matrix other) {
+    public Var mul(Matrix other) throws CalcException {
         if (value.length == other.value[0].length) {
             double[][] result = new double[value.length][value[0].length];
             for (int i = 0; i < other.value.length; i++) {
@@ -157,7 +157,7 @@ class Matrix extends Var {
     }
 
     @Override
-    public Var div(Var other) {
+    public Var div(Var other) throws CalcException {
         return other.div(this);
     }
 }

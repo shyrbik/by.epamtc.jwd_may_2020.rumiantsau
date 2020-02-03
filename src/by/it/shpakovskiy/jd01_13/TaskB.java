@@ -15,14 +15,19 @@ class TaskB {
                 double number = Double.parseDouble(line);
                 System.out.println("You entered: " + number);
                 result += number;
-                System.out.println("Result: " + Math.sqrt(result));
-            } catch (NumberFormatException e) {
-                System.err.println("name: " + e.getClass().getName());
+                System.out.println("Sum: " + result);
+                double sqrt = Math.sqrt(result);
+                if (Double.isNaN(sqrt)){
+                    throw new ArithmeticException();
+                }
+                System.out.println("Square root: " + sqrt);
+            } catch (NumberFormatException | ArithmeticException e) {
+                System.out.println("name: " + e.getClass().getName());
                 StackTraceElement[] stackTrace = e.getStackTrace();
                 for (StackTraceElement stackTraceElement : stackTrace) {
                     if (TaskB.class.getName().equals(stackTraceElement.getClassName())) {
-                        System.err.println("class: " + stackTraceElement.getClassName());
-                        System.err.println("line: " + stackTraceElement.getLineNumber());
+                        System.out.println("class: " + stackTraceElement.getClassName());
+                        System.out.println("line: " + stackTraceElement.getLineNumber());
                     }
                 }
             }
