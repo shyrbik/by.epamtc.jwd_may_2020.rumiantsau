@@ -29,8 +29,8 @@ class Parser {
         Matcher matcher = pattern.matcher(varExpression);
         if (matcher.find()) {
             String operator = matcher.group();
-            if (operand.length == 0) {
-                throw new CalcException("You've entered only a mathematical operator!");
+            if (operand.length <= 1) {
+                throw new CalcException("You've entered only a mathematical operator! or only one operand");
             }
             Var operand2 = Var.createVar(operand[1].trim());
             if (operator.equals("=")) {
@@ -39,7 +39,7 @@ class Parser {
             }
             Var operand1 = Var.createVar(operand[0].trim());
             if (operand1 == null || operand2 == null) {
-                return null;
+                throw new CalcException("You've entered only one operand!");
             }
             switch (operator) {
                 case "+":
