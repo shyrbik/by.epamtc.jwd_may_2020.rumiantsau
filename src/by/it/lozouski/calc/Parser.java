@@ -28,10 +28,10 @@ class Parser {
                         return operandFirst.mul(operandSecond);
                     case "/":
                         return operandFirst.div(operandSecond);
+                    default: throw new CalcException("Unknown operation: "+ operation);
                 }
             }
         }
-        return null; //TODO Добавить генерацию ошибки.(Lozouski)
-
+        throw new CalcException("Input is expected. Please, try again.");
     }
 }

@@ -104,7 +104,7 @@ class Matrix extends Var {
         }
         return new Matrix(result);
         }catch (Exception e){
-            throw new CalcException("NO");
+            throw new CalcException("Operation isn't possible.");
         }
     }
 

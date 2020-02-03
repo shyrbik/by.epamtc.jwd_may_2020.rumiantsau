@@ -29,7 +29,7 @@ abstract class Var implements Operation {
         throw new CalcException();
     }
 
-    Var sub(Scalar otherScalar) throws CalcException{
+    Var sub(Scalar otherScalar) throws CalcException {
         throw new CalcException("Operation addition " + otherScalar + " - " + this + " isn't possible.");
     }
 
@@ -67,24 +67,26 @@ abstract class Var implements Operation {
         throw new CalcException("Operation division " + otherScalar + " / " + this + " isn't possible.");
     }
 
-    Var div(Vector otherVector) throws CalcException{
+    Var div(Vector otherVector) throws CalcException {
         throw new CalcException("Operation division " + otherVector + " / " + this + " isn't possible.");
     }
 
 
     static Var createVar(String operand) throws CalcException {
-        try {
-            operand = operand.trim().replace("\\s+", "");
-            if (operand.matches(Patterns.SCALAR)) return new Scalar(operand);
-            else if (operand.matches(Patterns.VECTOR)) return new Vector(operand);
-            else if (operand.matches(Patterns.MATRIX)) return new Matrix(operand);
-            else return varsMap.get(operand);
-        } catch (RuntimeException e) {
-            throw new CalcException("ERROR: " + operand);
-        }
+        operand = operand.trim().replace("\\s+", "");
+        if (operand.matches(Patterns.SCALAR)) return new Scalar(operand);
+        else if (operand.matches(Patterns.VECTOR)) return new Vector(operand);
+        else if (operand.matches(Patterns.MATRIX)) return new Matrix(operand);
+        else if (operand.matches(Patterns.VARNAME)) {
+            if (varsMap.get(operand) == null) throw new CalcException("Undefined variable:" + '"' + operand + '"'+". Please create this variable ");
+            return varsMap.get(operand);
+        } else throw new CalcException("Incorrect input. Please try again.");
     }
 
-    static void saveVar(String key, Var value) {
+    static void saveVar(String key, Var value) throws CalcException {
+        if (!key.matches(Patterns.VARNAME)) {
+            throw new CalcException("Wrong variable name.");
+        }
         varsMap.put(key, value);
     }
 }

@@ -103,10 +103,11 @@ class Scalar extends Var {
     }
 
     @Override
-    Var div(Vector otherVector) {
+    Var div(Vector otherVector) throws CalcException{
         double[] div = new double[otherVector.getValue().length];
         for (int i = 0; i < otherVector.getValue().length; i++) {
             div[i] = otherVector.getValue()[i] / this.value;
+            if (Double.isInfinite(div[i])) throw new CalcException("Division by ZERO isn't possible");
         }
         return new Vector(div);
     }
