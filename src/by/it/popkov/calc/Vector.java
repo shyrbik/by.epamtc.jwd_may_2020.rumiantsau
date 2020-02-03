@@ -121,6 +121,11 @@ class Vector extends Var {
     }
 
     @Override
+    public Var mul(Matrix other) throws CalcException {
+        return other.mul(this);
+    }
+
+    @Override
     public Var div(Var other) throws CalcException {
         return other.preDiv(this);
     }
