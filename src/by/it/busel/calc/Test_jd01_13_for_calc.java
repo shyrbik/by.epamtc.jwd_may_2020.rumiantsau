@@ -1,4 +1,4 @@
-package by.it.busel.jd01_13;
+package by.it.busel.calc;
 
 
 import org.junit.Test;
