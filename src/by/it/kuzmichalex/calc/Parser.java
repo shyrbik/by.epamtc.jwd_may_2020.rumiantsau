@@ -4,7 +4,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Parser {
-    Var calc(String expression) {
+    Var calc(String expression) throws CalcException {
         expression = expression.replace("\\s+", "");
 
         Matcher matcher = Pattern.compile(Patterns.OPERATION).matcher(expression);
@@ -28,10 +28,11 @@ public class Parser {
                         return leftVar.mul(rightVar);
                     case "/":
                         return leftVar.div(rightVar);
+                    default: throw new CalcException("Unknown operation: "+ operation);
                 }
             }
         }
-        return null;
+        throw new CalcException("Operation expected");
     }
 
 }
