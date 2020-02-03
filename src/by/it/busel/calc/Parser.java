@@ -31,7 +31,7 @@ class Parser {
             String operator = matcher.group();
             Var operand2 = Var.createVar(operand[1].trim());
             if (operator.equals("=")) {
-                Storage.putMapElement(operand[0].toUpperCase(), operand2);
+                Storage.putMapElement(operand[0], operand2);
                 return operand2;
             }
             Var operand1 = Var.createVar(operand[0].trim());
