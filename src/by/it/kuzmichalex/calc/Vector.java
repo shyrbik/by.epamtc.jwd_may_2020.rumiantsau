@@ -50,7 +50,7 @@ class Vector extends Var {
 
     /////////////////////////////// add
     @Override
-    public Var add(Var rightOperand) {
+    public Var add(Var rightOperand) throws CalcException {
         return rightOperand.add(this);
     }
 
@@ -66,10 +66,11 @@ class Vector extends Var {
 
     //Vector+Vectior
     @Override
-    public Var add(Vector leftOperand) {
+    public Var add(Vector leftOperand) throws CalcException {
         if (this.value.length != leftOperand.value.length) {
-            System.out.println("Операция " + leftOperand + " + " + this + " невозможна: несовпадают размерности.");
-            return null;
+            throw new CalcException("Operation " + leftOperand + " + " + this + "impossible: dimensions do not match");
+            //System.out.println("Операция " + leftOperand + " + " + this + " невозможна: несовпадают размерности.");
+            //return null;
         }
         double[] returnVector = new double[leftOperand.value.length];
         for (int i = 0; i < leftOperand.value.length; i++) {
@@ -80,7 +81,7 @@ class Vector extends Var {
 
     /////////////////////////////// Вычитания вектора
     @Override
-    public Var sub(Var rightOperand) {
+    public Var sub(Var rightOperand) throws CalcException {
         return rightOperand.sub(this);
     }
 
@@ -88,7 +89,7 @@ class Vector extends Var {
 
     //Vector-Vector
     @Override
-    public Var sub(Vector leftOperand) {
+    public Var sub(Vector leftOperand) throws CalcException {
         Var minusScalar = new Scalar(-1);
         Var minusVector = this.mul(minusScalar);
         return leftOperand.add(minusVector);
@@ -98,7 +99,7 @@ class Vector extends Var {
 
     ////////////////////////////// Умножения на вектор
     @Override
-    public Var mul(Var rightOperand) {
+    public Var mul(Var rightOperand) throws CalcException {
         return rightOperand.mul(this);
     }
 
@@ -146,7 +147,7 @@ class Vector extends Var {
 
     //Делений на вектор не существует
     @Override
-    public Var div(Var rightOperand) {
+    public Var div(Var rightOperand) throws CalcException {
         return rightOperand.div(this);
     }
 }
