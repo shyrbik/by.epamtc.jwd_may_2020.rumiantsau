@@ -18,7 +18,7 @@ class Parser {
      * @return a result of a mathematical operation,
      * i.e. a Scalar / Vector / Matrix expression
      */
-    Var calc(String varExpression) {
+    Var calc(String varExpression) throws CalcException {
         Pattern pattern = Pattern.compile(Patterns.OPERATION);
         String[] operand = pattern.split(varExpression);
 //        Var operand1 = Var.createVar(operand[0].trim());
