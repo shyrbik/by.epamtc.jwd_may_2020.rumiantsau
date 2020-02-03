@@ -54,6 +54,6 @@ class Parser {
                     throw new CalcException("The mathematical operator has not been found.\nCheck the expression You inputted. Then re-enter your expression, please!");
             }
         }
-        return null;
+        throw new CalcException("The mathematical operator has not been found.\nCheck the expression You inputted. Then re-enter your expression, please!");
     }
 }
