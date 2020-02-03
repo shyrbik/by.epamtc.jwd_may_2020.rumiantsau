@@ -59,10 +59,10 @@ class Vector extends Var {
 
     @Override
     public Var add(Vector other) throws CalcException {
-        if (((Vector) other).value.length != this.value.length) throw new CalcException("Разная длина векторов");
+        if (other.value.length != this.value.length) throw new CalcException("Разная длина векторов");
         double[] out = new double[this.value.length];
         for (int i = 0; i < out.length; i++) {
-            out[i] = this.value[i] + ((Vector) other).value[i];
+            out[i] = this.value[i] + other.value[i];
         }
         return new Vector(out);
     }
@@ -81,17 +81,17 @@ class Vector extends Var {
     public Var sub(Scalar other) throws CalcException {
         double[] out = new double[this.value.length];
         for (int i = 0; i < out.length; i++) {
-            out[i] = this.value[i] - ((Scalar) other).getValue();
+            out[i] = this.value[i] - other.getValue();
         }
         return new Vector(out);
     }
 
     @Override
     public Var sub(Vector other) throws CalcException {
-        if (((Vector) other).value.length != this.value.length) throw new CalcException("Разная длина векторов");
+        if (other.value.length != this.value.length) throw new CalcException("Разная длина векторов");
         double[] out = new double[this.value.length];
         for (int i = 0; i < out.length; i++) {
-            out[i] = this.value[i] - ((Vector) other).value[i];
+            out[i] = this.value[i] - other.value[i];
         }
         return new Vector(out);
     }
@@ -105,17 +105,17 @@ class Vector extends Var {
     public Var mul(Scalar other) throws CalcException {
         double[] out = new double[this.value.length];
         for (int i = 0; i < out.length; i++) {
-            out[i] = this.value[i] * ((Scalar) other).getValue();
+            out[i] = this.value[i] * other.getValue();
         }
         return new Vector(out);
     }
 
     @Override
     public Var mul(Vector other) throws CalcException {
-        if (((Vector) other).value.length != this.value.length) throw new CalcException("Разная длина векторов");
+        if (other.value.length != this.value.length) throw new CalcException("Разная длина векторов");
         double out = 0;
         for (int i = 0; i < this.value.length; i++) {
-            out += this.value[i] * ((Vector) other).value[i];
+            out += this.value[i] * other.value[i];
         }
         return new Scalar(out);
     }
@@ -127,12 +127,12 @@ class Vector extends Var {
 
     @Override
     public Var div(Scalar other) throws CalcException {
-        if (((Scalar) other).getValue() == 0) {
+        if (other.getValue() == 0) {
             throw new CalcException("Деление на 0");
         }
         double[] out = new double[this.value.length];
         for (int i = 0; i < out.length; i++) {
-            out[i] = this.value[i] / ((Scalar) other).getValue();
+            out[i] = this.value[i] / other.getValue();
         }
         return new Vector(out);
     }
