@@ -9,15 +9,19 @@ class ConsoleRunner {
         Printer printer = new Printer();
         Storage storage = new Storage();
         while (true) {
-            String varExpression = scanner.next();
+            String varExpression = scanner.nextLine();
             ConsoleCommands.call(varExpression);
             if (!varExpression.equals("end") && !varExpression.equals("конец")) {
-                Var result = parser.calc(varExpression.trim());
-                printer.print(result);
+                try {
+                    Var result = parser.calc(varExpression.trim());
+                    printer.print(result);
+                } catch (CalcException e) {
+                    System.out.println(e.getMessage());
+                }
             } else {
                 break;
             }
         }
-
+        storage.clear();
     }
 }
