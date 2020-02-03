@@ -11,7 +11,7 @@ class Var implements Operation {
      * @param operand a String-object containing a Var expression
      * @return a Var expression
      */
-    static Var createVar(String operand) {
+    static Var createVar(String operand) throws CalcException {
         if (operand.matches(Patterns.SCALAR)) {
             return new Scalar(operand);
         } else if (operand.matches(Patterns.VECTOR)) {
@@ -21,8 +21,8 @@ class Var implements Operation {
         } else if (Storage.containsKey(operand)) {
             return Storage.getVar(operand);
         } else {
-            System.out.println("A wrong format of input expression!\nCheck the expression You inputted. Then re-enter your expression, please!");
-            return null;
+            throw new CalcException("A wrong format of input expression or (an) unsaved Var-expression(s)!\nCheck the expression You inputted. Then re-enter your expression, please!");
+//            return null;
         }
 
     }
