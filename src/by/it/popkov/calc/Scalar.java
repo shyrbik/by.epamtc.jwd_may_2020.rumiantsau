@@ -28,6 +28,11 @@ class Scalar extends Var {
 
     @Override
     public Var add(Var other) throws CalcException {
+        return other.preAdd(this);
+    }
+
+    @Override
+    Var preAdd(Var other) throws CalcException {
         return other.add(this);
     }
 
@@ -63,6 +68,11 @@ class Scalar extends Var {
 
     @Override
     public Var mul(Var other) throws CalcException {
+        return other.preMul(this);
+    }
+
+    @Override
+    Var preMul(Var other) throws CalcException {
         return other.mul(this);
     }
 
@@ -78,11 +88,6 @@ class Scalar extends Var {
 
     @Override
     public Var mul(Matrix other) throws CalcException {
-        return other.mul(this);
-    }
-
-    @Override
-    Var preMul(Var other) throws CalcException {
         return other.mul(this);
     }
 

@@ -45,6 +45,10 @@ class Vector extends Var {
 
     @Override
     public Var add(Var other) throws CalcException {
+        return other.preAdd(this);
+    }
+    @Override
+    Var preAdd(Var other) throws CalcException {
         return other.add(this);
     }
 
@@ -98,6 +102,11 @@ class Vector extends Var {
 
     @Override
     public Var mul(Var other) throws CalcException {
+        return other.preMul(this);
+    }
+
+    @Override
+    Var preMul(Var other) throws CalcException {
         return other.mul(this);
     }
 
@@ -108,11 +117,6 @@ class Vector extends Var {
             out[i] = this.value[i] * other.getValue();
         }
         return new Vector(out);
-    }
-
-    @Override
-    Var preMul(Var other) throws CalcException {
-        return other.mul(this);
     }
 
     @Override

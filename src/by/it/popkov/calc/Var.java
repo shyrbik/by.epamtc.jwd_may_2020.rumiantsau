@@ -14,6 +14,10 @@ abstract class Var implements Operation {
         throw new CalcException(other + " + " + this + " impossible");
     }
 
+    Var preAdd(Var other) throws CalcException {
+        throw new CalcException(other + " + " + this + " impossible");
+    }
+
     public Var add(Scalar other) throws CalcException {
         throw new CalcException(other + " + " + this + " impossible");
     }

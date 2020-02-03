@@ -80,6 +80,10 @@ class Matrix extends Var {
 
     @Override
     public Var add(Var other) throws CalcException {
+        return other.preAdd(this);
+    }
+    @Override
+    Var preAdd(Var other) throws CalcException {
         return other.add(this);
     }
 
