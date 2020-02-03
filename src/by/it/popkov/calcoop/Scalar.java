@@ -35,6 +35,7 @@ class Scalar extends Var {
     public Var add(Scalar other) throws CalcException {
         return new Scalar(this.value + other.value);
     }
+
     @Override
     public Var add(Vector other) throws CalcException {
         return other.add(this);
@@ -63,6 +64,11 @@ class Scalar extends Var {
     @Override
     public Var mul(Scalar other) throws CalcException {
         return new Scalar(this.value * other.value);
+    }
+
+    @Override
+    public Var mul(Vector other) throws CalcException {
+        return other.mul(this);
     }
 
     @Override

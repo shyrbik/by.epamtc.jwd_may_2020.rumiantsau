@@ -47,6 +47,10 @@ abstract class Var implements Operation {
         throw new CalcException(this + " * " + other + " impossible");
     }
 
+    public Var mul(Vector other) throws CalcException {
+        throw new CalcException(this + " * " + other + " impossible");
+    }
+
     @Override
     public Var div(Var other) throws CalcException {
         throw new CalcException(this + " / " + other + " impossible");
