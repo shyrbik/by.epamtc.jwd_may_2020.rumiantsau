@@ -88,7 +88,7 @@ class Matrix extends Var {
         double[][] outPut = new double[this.value.length][this.value[0].length];
         for (int i = 0; i < this.value.length; i++) {
             for (int j = 0; j < this.value[0].length; j++) {
-                outPut[i][j] = this.value[i][j] + ((Scalar) other).getValue();
+                outPut[i][j] = this.value[i][j] + other.getValue();
             }
         }
         return new Matrix(outPut);
@@ -96,13 +96,13 @@ class Matrix extends Var {
 
     @Override
     public Var add(Matrix other) throws CalcException {
-        if (((Matrix) other).value.length != this.value.length || ((Matrix) other).value[0].length != this.value[0].length) {
+        if (other.value.length != this.value.length || other.value[0].length != this.value[0].length) {
             throw new CalcException("Некоректрый формат матрич");
         }
         double[][] outPut = new double[this.value.length][this.value[0].length];
         for (int i = 0; i < this.value.length; i++) {
             for (int j = 0; j < this.value[0].length; j++) {
-                outPut[i][j] = this.value[i][j] + ((Matrix) other).value[i][j];
+                outPut[i][j] = this.value[i][j] + other.value[i][j];
             }
         }
         return new Matrix(outPut);
@@ -122,7 +122,7 @@ class Matrix extends Var {
         double[][] outPut = new double[this.value.length][this.value[0].length];
         for (int i = 0; i < this.value.length; i++) {
             for (int j = 0; j < this.value[0].length; j++) {
-                outPut[i][j] = this.value[i][j] - ((Scalar) other).getValue();
+                outPut[i][j] = this.value[i][j] - other.getValue();
             }
         }
         return new Matrix(outPut);
@@ -130,14 +130,14 @@ class Matrix extends Var {
 
     @Override
     public Var sub(Matrix other) throws CalcException {
-        if (((Matrix) other).value.length != this.value.length || ((Matrix) other).value[0].length != this.value[0].length) {
+        if (other.value.length != this.value.length || other.value[0].length != this.value[0].length) {
             throw new CalcException("Некоректрый формат матрич");
         }
 
         double[][] outPut = new double[this.value.length][this.value[0].length];
         for (int i = 0; i < this.value.length; i++) {
             for (int j = 0; j < this.value[0].length; j++) {
-                outPut[i][j] = this.value[i][j] - ((Matrix) other).value[i][j];
+                outPut[i][j] = this.value[i][j] - other.value[i][j];
             }
         }
         return new Matrix(outPut);
@@ -153,7 +153,7 @@ class Matrix extends Var {
         double[][] outPut = new double[this.value.length][this.value[0].length];
         for (int i = 0; i < this.value.length; i++) {
             for (int j = 0; j < this.value[0].length; j++) {
-                outPut[i][j] = this.value[i][j] * ((Scalar) other).getValue();
+                outPut[i][j] = this.value[i][j] * other.getValue();
             }
         }
         return new Matrix(outPut);
@@ -161,10 +161,10 @@ class Matrix extends Var {
 
     @Override
     public Var mul(Vector other) throws CalcException {
-        if (((Vector) other).getValue().length != this.value.length && ((Vector) other).getValue().length != this.value[0].length) {
+        if (other.getValue().length != this.value.length && other.getValue().length != this.value[0].length) {
             throw new CalcException("Некоректрый формат матрич");
         }
-        double[] vector = ((Vector) other).getValue();
+        double[] vector = other.getValue();
         double[] outPut = new double[this.value.length];
         for (int i = 0; i < this.value.length; i++) {
             for (int j = 0; j < vector.length; j++) {
@@ -176,14 +176,14 @@ class Matrix extends Var {
 
     @Override
     public Var mul(Matrix other) throws CalcException {
-        if (((Matrix) other).value.length != this.value.length || ((Matrix) other).value[0].length != this.value[0].length) {
+        if (other.value.length != this.value.length || other.value[0].length != this.value[0].length) {
             throw new CalcException("Некоректрый формат матрич");
         }
-        double[][] outPut = new double[this.value.length][((Matrix) other).value[0].length];
+        double[][] outPut = new double[this.value.length][other.value[0].length];
         for (int i = 0; i < this.value.length; i++) {
-            for (int j = 0; j < ((Matrix) other).value[0].length; j++) {
-                for (int y = 0; y < ((Matrix) other).value.length; y++) {
-                    outPut[i][j] = outPut[i][j] + this.value[i][y] * ((Matrix) other).value[y][j];
+            for (int j = 0; j < other.value[0].length; j++) {
+                for (int y = 0; y < other.value.length; y++) {
+                    outPut[i][j] = outPut[i][j] + this.value[i][y] * other.value[y][j];
                 }
             }
         }
@@ -197,14 +197,14 @@ class Matrix extends Var {
 
     @Override
     public Var div(Scalar other) throws CalcException {
-        if (((Scalar) other).getValue() == 0) {
+        if (other.getValue() == 0) {
             throw new CalcException("Деление на 0");
         }
 
         double[][] outPut = new double[this.value.length][this.value[0].length];
         for (int i = 0; i < this.value.length; i++) {
             for (int j = 0; j < this.value[0].length; j++) {
-                outPut[i][j] = this.value[i][j] / ((Scalar) other).getValue();
+                outPut[i][j] = this.value[i][j] / other.getValue();
             }
         }
         return new Matrix(outPut);
