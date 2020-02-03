@@ -4,16 +4,16 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 class Parser {
-    Var calculate(String expression) throws CalcException{
+    Var calculate(String expression) throws CalcException {
         expression = expression.replace("\\s+", "");
         Matcher matcher = Pattern.compile(Patterns.OPERATION).matcher(expression);
 
-        if (matcher.find()){
+        if (matcher.find()) {
             String operation = matcher.group();
-            String[] operands = expression.split(Patterns.OPERATION,2);
+            String[] operands = expression.split(Patterns.OPERATION, 2);
             Var operandSecond = Var.createVar(operands[1]);
-            if (operation.equals("=")){
-                Var.saveVar(operands[0],operandSecond);
+            if (operation.equals("=")) {
+                Var.saveVar(operands[0], operandSecond);
                 return operandSecond;
             }
 
@@ -28,10 +28,9 @@ class Parser {
                         return operandFirst.mul(operandSecond);
                     case "/":
                         return operandFirst.div(operandSecond);
-                    default: throw new CalcException("Unknown operation: "+ operation);
                 }
             }
         }
-        throw new CalcException("Input is expected. Please, try again.");
+        throw new CalcException("Incorrect variable creation, please try again.");
     }
 }
