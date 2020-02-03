@@ -9,6 +9,7 @@ class TaskC3 {
         Scanner sc1 = new Scanner(System.in);
         HashMap<Character, Character> mapC3 = new HashMap<>(); //создал хешмап Char для хранения скобок
         Stack<Character> stack = new Stack<>(); //создал стек Char для хранения открывающих скобок
+        ///??????вопрос?????? Класс стек не использовать? из-за чего?
 
         while (true){
             String inputLine = sc1.next(); //ввод строки, программу завершать по end
