@@ -131,7 +131,18 @@ class Vector extends Var {
 
     @Override
     public Var mul(Matrix other) throws CalcException {
-        return other.mul(this);
+        double[][] otherValue = other.getValue();
+        if (this.value.length != otherValue.length && this.value.length != otherValue[0].length) {
+            throw new CalcException("Некоректрый формат матрич");
+        }
+        double[] vector = this.value;
+        double[] outPut = new double[this.value.length];
+        for (int i = 0; i < this.value.length; i++) {
+            for (int j = 0; j < vector.length; j++) {
+                outPut[i] = outPut[i] + otherValue[i][j] * vector[j];
+            }
+        }
+        return new Vector(outPut);
     }
 
     @Override
