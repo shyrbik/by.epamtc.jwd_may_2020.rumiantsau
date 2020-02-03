@@ -32,4 +32,16 @@ class Storage {
         }
         System.out.print(text.toString());
     }
+
+    static Var getVar(String key) {
+        return map.get(key);
+    }
+
+    static boolean containsKey(String key) {
+        return map.containsKey(key);
+    }
+
+    void clear() {
+        map.clear();
+    }
 }

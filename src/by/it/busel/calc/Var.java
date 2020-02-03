@@ -18,6 +18,8 @@ class Var implements Operation {
             return new Vector(operand);
         } else if (operand.matches(Patterns.MATRIX)) {
             return new Matrix(operand);
+        } else if (Storage.containsKey(operand)) {
+            return Storage.getVar(operand);
         } else {
             System.out.println("A wrong format of input expression!\nCheck the expression You inputted. Then re-enter your expression, please!");
             return null;
