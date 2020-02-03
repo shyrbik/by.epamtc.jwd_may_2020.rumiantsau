@@ -51,7 +51,7 @@ class Parser {
 //                    Storage.putMapElement(operand[0].toUpperCase(), operand2);
 //                    return operand2;
                 default:
-                    System.out.println("The mathematical operator has not been found.\nCheck the expression You inputted. Then re-enter your expression, please!");
+                    throw new CalcException("The mathematical operator has not been found.\nCheck the expression You inputted. Then re-enter your expression, please!");
             }
         }
         return null;
