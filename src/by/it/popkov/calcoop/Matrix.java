@@ -113,7 +113,7 @@ class Matrix extends Var {
     }
 
     @Override
-    public Var preSub(Var other) throws CalcException {
+    Var preSub(Var other) throws CalcException {
         return other.sub(this);
     }
 

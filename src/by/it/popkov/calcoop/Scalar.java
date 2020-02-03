@@ -51,7 +51,7 @@ class Scalar extends Var {
     }
 
     @Override
-    public Var preSub(Var other) throws CalcException {
+    Var preSub(Var other) throws CalcException {
         return other.sub(this);
     }
 
@@ -81,7 +81,7 @@ class Scalar extends Var {
     }
 
     @Override
-    public Var preDiv(Var other) throws CalcException {
+    Var preDiv(Var other) throws CalcException {
         return other.div(this);
     }
 
