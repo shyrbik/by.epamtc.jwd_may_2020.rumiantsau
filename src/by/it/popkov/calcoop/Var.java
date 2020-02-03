@@ -7,7 +7,7 @@ import java.util.TreeMap;
 abstract class Var implements Operation {
 
     private static Map<String, Var> valueMap = new HashMap<>();
-
+///Превести всё к other + this
     @Override
     public Var add(Var other) throws CalcException {
         throw new CalcException(this + " + " + other + " impossible");
@@ -18,6 +18,10 @@ abstract class Var implements Operation {
     }
 
     public Var add(Vector other) throws CalcException {
+        throw new CalcException(this + " + " + other + " impossible");
+    }
+
+    public Var add(Matrix other) throws CalcException {
         throw new CalcException(this + " + " + other + " impossible");
     }
 

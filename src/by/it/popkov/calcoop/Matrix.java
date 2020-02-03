@@ -80,27 +80,32 @@ class Matrix extends Var {
 
     @Override
     public Var add(Var other) throws CalcException {
-        if (other instanceof Scalar) {
-            double[][] outPut = new double[this.value.length][this.value[0].length];
-            for (int i = 0; i < this.value.length; i++) {
-                for (int j = 0; j < this.value[0].length; j++) {
-                    outPut[i][j] = this.value[i][j] + ((Scalar) other).getValue();
-                }
+        return other.add(this);
+    }
+
+    @Override
+    public Var add(Scalar other) throws CalcException {
+        double[][] outPut = new double[this.value.length][this.value[0].length];
+        for (int i = 0; i < this.value.length; i++) {
+            for (int j = 0; j < this.value[0].length; j++) {
+                outPut[i][j] = this.value[i][j] + ((Scalar) other).getValue();
             }
-            return new Matrix(outPut);
-        } else if (other instanceof Matrix) {
-            if (((Matrix) other).value.length != this.value.length || ((Matrix) other).value[0].length != this.value[0].length) {
-                throw new CalcException("Некоректрый формат матрич");
-            }
-            double[][] outPut = new double[this.value.length][this.value[0].length];
-            for (int i = 0; i < this.value.length; i++) {
-                for (int j = 0; j < this.value[0].length; j++) {
-                    outPut[i][j] = this.value[i][j] + ((Matrix) other).value[i][j];
-                }
-            }
-            return new Matrix(outPut);
         }
-        return super.add(other);
+        return new Matrix(outPut);
+    }
+
+    @Override
+    public Var add(Matrix other) throws CalcException {
+        if (((Matrix) other).value.length != this.value.length || ((Matrix) other).value[0].length != this.value[0].length) {
+            throw new CalcException("Некоректрый формат матрич");
+        }
+        double[][] outPut = new double[this.value.length][this.value[0].length];
+        for (int i = 0; i < this.value.length; i++) {
+            for (int j = 0; j < this.value[0].length; j++) {
+                outPut[i][j] = this.value[i][j] + ((Matrix) other).value[i][j];
+            }
+        }
+        return new Matrix(outPut);
     }
 
 

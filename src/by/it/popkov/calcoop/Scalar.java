@@ -40,6 +40,10 @@ class Scalar extends Var {
     public Var add(Vector other) throws CalcException {
         return other.add(this);
     }
+    @Override
+    public Var add(Matrix other) throws CalcException {
+        return other.add(this);
+    }
 
     @Override
     public Var sub(Var other) throws CalcException {
