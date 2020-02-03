@@ -29,6 +29,9 @@ class Parser {
         Matcher matcher = pattern.matcher(varExpression);
         if (matcher.find()) {
             String operator = matcher.group();
+            if (operand.length == 0) {
+                throw new CalcException("You've entered only a mathematical operator!");
+            }
             Var operand2 = Var.createVar(operand[1].trim());
             if (operator.equals("=")) {
                 Storage.putMapElement(operand[0], operand2);
