@@ -260,7 +260,6 @@ class Scalar extends Var {
         } else {
             throw new CalcException("Division by zero.");
         }
-//        return super.div(other);
     }
 
     /**
@@ -281,7 +280,6 @@ class Scalar extends Var {
         } else {
             throw new CalcException("Division by zero");
         }
-//        return super.div(other);
     }
 
     /**
@@ -305,7 +303,6 @@ class Scalar extends Var {
         } else {
             throw new CalcException("Division by zero.");
         }
-//        return super.div(other);
     }
 
 
