@@ -1,4 +1,4 @@
-package by.it.popkov.calcoop;
+package by.it.popkov.calc_old;
 
 interface Operation {
     Var add(Var other) throws CalcException;

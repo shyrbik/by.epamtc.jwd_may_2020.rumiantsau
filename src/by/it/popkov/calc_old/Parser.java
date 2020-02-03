@@ -1,4 +1,4 @@
-package by.it.popkov.calcoop;
+package by.it.popkov.calc_old;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -13,7 +13,7 @@ class Parser {
             String first = values[0];
             String second = values[1];
             if (sing.equals("=")){
-                Var.save(values[0], Var.newVar(second));
+                Var.save(values[0],Var.newVar(second));
                 return Var.newVar(second);
             }
             if (Var.newVar(first) != null && Var.newVar(second) != null) {

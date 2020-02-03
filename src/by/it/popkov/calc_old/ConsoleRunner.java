@@ -1,10 +1,9 @@
-package by.it.popkov.calcoop;
+package by.it.popkov.calc_old;
 
 import java.util.Scanner;
 
 class ConsoleRunner {
     public static void main(String[] args) {
-
         Scanner scanner = new Scanner(System.in);
         Printer printer = new Printer();
         Parser parser = new Parser();

@@ -13,7 +13,7 @@ class Parser {
             String first = values[0];
             String second = values[1];
             if (sing.equals("=")){
-                Var.save(values[0],Var.newVar(second));
+                Var.save(values[0], Var.newVar(second));
                 return Var.newVar(second);
             }
             if (Var.newVar(first) != null && Var.newVar(second) != null) {

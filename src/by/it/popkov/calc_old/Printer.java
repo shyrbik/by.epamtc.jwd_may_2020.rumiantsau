@@ -1,4 +1,4 @@
-package by.it.popkov.calcoop;
+package by.it.popkov.calc_old;
 
 class Printer  {
     public void print (Var calc) throws CalcException {

@@ -3,22 +3,48 @@ package by.it.popkov.calc;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.TreeMap;
-import java.util.TreeSet;
 
 abstract class Var implements Operation {
 
     private static Map<String, Var> valueMap = new HashMap<>();
 
+    
     @Override
     public Var add(Var other) throws CalcException {
         throw new CalcException(this + " + " + other + " impossible");
+    }
 
+    public Var add(Scalar other) throws CalcException {
+        throw new CalcException(this + " + " + other + " impossible");
+    }
+
+    public Var add(Vector other) throws CalcException {
+        throw new CalcException(this + " + " + other + " impossible");
+    }
+
+    public Var add(Matrix other) throws CalcException {
+        throw new CalcException(this + " + " + other + " impossible");
     }
 
     @Override
     public Var sub(Var other) throws CalcException {
         throw new CalcException(this + " - " + other + " impossible");
+    }
 
+    Var preSub(Var other) throws CalcException {
+        throw new CalcException(other + " - " + this + " impossible");
+    }
+
+    public Var sub(Scalar other) throws CalcException {
+        throw new CalcException(this + " - " + other + " impossible");
+    }
+
+    public Var sub(Vector other) throws CalcException {
+        throw new CalcException(this + " - " + other + " impossible");
+    }
+
+    public Var sub(Matrix other) throws CalcException {
+        throw new CalcException(this + " - " + other + " impossible");
     }
 
     @Override
@@ -26,10 +52,31 @@ abstract class Var implements Operation {
         throw new CalcException(this + " * " + other + " impossible");
     }
 
+    public Var mul(Scalar other) throws CalcException {
+        throw new CalcException(this + " * " + other + " impossible");
+    }
+
+    public Var mul(Vector other) throws CalcException {
+        throw new CalcException(this + " * " + other + " impossible");
+    }
+
+    public Var mul(Matrix other) throws CalcException {
+        throw new CalcException(this + " * " + other + " impossible");
+    }
+
     @Override
     public Var div(Var other) throws CalcException {
         throw new CalcException(this + " / " + other + " impossible");
     }
+
+    Var preDiv(Var other) throws CalcException {
+        throw new CalcException(other + " / " + this + " impossible");
+    }
+
+    public Var div(Scalar other) throws CalcException {
+        throw new CalcException(this + " / " + other + " impossible");
+    }
+
 
     static Var newVar(String strVar) throws CalcException {
         if (strVar.matches(Patterns.SCALAR)) return new Scalar(strVar);

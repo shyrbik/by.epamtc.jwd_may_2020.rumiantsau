@@ -1,4 +1,4 @@
-package by.it.popkov.calcoop;
+package by.it.popkov.calc_old;
 
 public class CalcException extends Exception {
     public CalcException() {

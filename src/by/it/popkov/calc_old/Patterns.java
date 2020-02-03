@@ -1,4 +1,4 @@
-package by.it.popkov.calcoop;
+package by.it.popkov.calc_old;
 
 class Patterns {
     static final String MATH_SIGN = "[-+/*=]";
