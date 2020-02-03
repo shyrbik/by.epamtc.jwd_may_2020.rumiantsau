@@ -148,6 +148,8 @@ class Matrix extends Var {
         return other.preMul(this);
     }
 
+    /**Очень важно помнить, что здесь не работает «правило перестановки мест слагаемых» так как почти всегда MN ≠ NM.
+     *  Поэтому, производя операцию умножения матриц их ни в коем случае нельзя менять местами.**/
     @Override
     Var preMul(Var other) throws CalcException {
         return other.mul(this);
@@ -179,7 +181,7 @@ class Matrix extends Var {
         return new Vector(outPut);
     }
 
-    @Override   //От перемены местами матриц меняеться результат при умножении, поэтому тут есть preMul
+    @Override
     public Var mul(Matrix other) throws CalcException {
         if (other.value.length != this.value.length || other.value[0].length != this.value[0].length) {
             throw new CalcException("Некоректрый формат матрич");
