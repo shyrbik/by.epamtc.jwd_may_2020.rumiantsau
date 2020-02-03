@@ -223,7 +223,7 @@ class Matrix extends Var {
             double[][] result = new double[other.value.length][this.value[0].length];
             for (int i = 0; i < result.length; i++) {
                 for (int j = 0; j < result[0].length; j++) {
-                    for (int k = 0; k < this.value[0].length; k++) {
+                    for (int k = 0; k < other.value[0].length; k++) {
                         result[i][j] = result[i][j] + other.value[i][k] * this.value[k][j];
                     }
                 }
