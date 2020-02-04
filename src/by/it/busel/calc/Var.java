@@ -11,16 +11,18 @@ class Var implements Operation {
      * @param operand a String-object containing a Var expression
      * @return a Var expression
      */
-    static Var createVar(String operand) {
+    static Var createVar(String operand) throws CalcException {
         if (operand.matches(Patterns.SCALAR)) {
             return new Scalar(operand);
         } else if (operand.matches(Patterns.VECTOR)) {
             return new Vector(operand);
         } else if (operand.matches(Patterns.MATRIX)) {
             return new Matrix(operand);
+        } else if (Storage.containsKey(operand)) {
+            return Storage.getVar(operand);
         } else {
-            System.out.println("A wrong format of input expression!\nCheck the expression You inputted. Then re-enter your expression, please!");
-            return null;
+            throw new CalcException("A wrong format of input expression or (an) unsaved Var-expression(s)!\nCheck the expression You inputted. Then re-enter your expression, please!");
+//            return null;
         }
 
     }
@@ -37,9 +39,8 @@ class Var implements Operation {
      * @return a result of addition
      */
     @Override
-    public Var add(Var other) {
-        System.out.println("The operation \"addition\" " + other + " + " + this + " can not be performed.");
-        return null;
+    public Var add(Var other) throws CalcException {
+        throw new CalcException("The operation \"addition\" " + other + " + " + this + " can not be performed.");
     }
 
     /**
@@ -49,9 +50,8 @@ class Var implements Operation {
      * @return a result of addition
      */
     @Override
-    public Var add(Scalar other) {
-        System.out.println("The operation \"addition\" " + other + " + " + this + " can not be performed.");
-        return null;
+    public Var add(Scalar other) throws CalcException {
+        throw new CalcException("The operation \"addition\" " + other + " + " + this + " can not be performed.");
     }
 
     /**
@@ -61,9 +61,8 @@ class Var implements Operation {
      * @return a result of addition
      */
     @Override
-    public Var add(Vector other) {
-        System.out.println("The operation \"addition\" " + other + " + " + this + " can not be performed.");
-        return null;
+    public Var add(Vector other) throws CalcException {
+        throw new CalcException("The operation \"addition\" " + other + " + " + this + " can not be performed.");
     }
 
     /**
@@ -73,9 +72,8 @@ class Var implements Operation {
      * @return a result of addition
      */
     @Override
-    public Var add(Matrix other) {
-        System.out.println("The operation \"addition\" " + other + " + " + this + " can not be performed.");
-        return null;
+    public Var add(Matrix other) throws CalcException {
+        throw new CalcException("The operation \"addition\" " + other + " + " + this + " can not be performed.");
     }
 
 
@@ -86,9 +84,8 @@ class Var implements Operation {
      * @return a result of subtraction
      */
     @Override
-    public Var sub(Var other) {
-        System.out.println("The operation \"subtraction\" " + other + " - " + this + " can not be performed.");
-        return null;
+    public Var sub(Var other) throws CalcException {
+        throw new CalcException("The operation \"subtraction\" " + other + " - " + this + " can not be performed.");
     }
 
     /**
@@ -98,9 +95,8 @@ class Var implements Operation {
      * @return a result of subtraction
      */
     @Override
-    public Var sub(Scalar other) {
-        System.out.println("The operation \"subtraction\" " + other + " - " + this + " can not be performed.");
-        return null;
+    public Var sub(Scalar other) throws CalcException {
+        throw new CalcException("The operation \"subtraction\" " + other + " - " + this + " can not be performed.");
     }
 
     /**
@@ -110,9 +106,8 @@ class Var implements Operation {
      * @return a result of subtraction
      */
     @Override
-    public Var sub(Vector other) {
-        System.out.println("The operation \"subtraction\" " + other + " - " + this + " can not be performed.");
-        return null;
+    public Var sub(Vector other) throws CalcException {
+        throw new CalcException("The operation \"subtraction\" " + other + " - " + this + " can not be performed.");
     }
 
     /**
@@ -122,9 +117,8 @@ class Var implements Operation {
      * @return a result of subtraction
      */
     @Override
-    public Var sub(Matrix other) {
-        System.out.println("The operation \"subtraction\" " + other + " - " + this + " can not be performed.");
-        return null;
+    public Var sub(Matrix other) throws CalcException {
+        throw new CalcException("The operation \"subtraction\" " + other + " - " + this + " can not be performed.");
     }
 
 
@@ -135,9 +129,8 @@ class Var implements Operation {
      * @return a result of a multiplication
      */
     @Override
-    public Var mul(Var other) {
-        System.out.println("The operation \"multiplication\" " + other + " * " + this + " can not be performed.");
-        return null;
+    public Var mul(Var other) throws CalcException {
+        throw new CalcException("The operation \"multiplication\" " + other + " * " + this + " can not be performed.");
     }
 
     /**
@@ -147,9 +140,8 @@ class Var implements Operation {
      * @return a result of a multiplication
      */
     @Override
-    public Var mul(Scalar other) {
-        System.out.println("The operation \"multiplication\" " + other + " * " + this + " can not be performed.");
-        return null;
+    public Var mul(Scalar other) throws CalcException {
+        throw new CalcException("The operation \"multiplication\" " + other + " * " + this + " can not be performed.");
     }
 
     /**
@@ -159,9 +151,8 @@ class Var implements Operation {
      * @return a result of a multiplication
      */
     @Override
-    public Var mul(Vector other) {
-        System.out.println("The operation \"multiplication\" " + other + " * " + this + " can not be performed.");
-        return null;
+    public Var mul(Vector other) throws CalcException {
+        throw new CalcException("The operation \"multiplication\" " + other + " * " + this + " can not be performed.");
     }
 
     /**
@@ -171,9 +162,8 @@ class Var implements Operation {
      * @return a result of a multiplication
      */
     @Override
-    public Var mul(Matrix other) {
-        System.out.println("The operation \"multiplication\" " + other + " * " + this + " can not be performed.");
-        return null;
+    public Var mul(Matrix other) throws CalcException {
+        throw new CalcException("The operation \"multiplication\" " + other + " * " + this + " can not be performed.");
     }
 
 
@@ -184,9 +174,8 @@ class Var implements Operation {
      * @return a result of division
      */
     @Override
-    public Var div(Var other) {
-        System.out.println("The operation \"division\" " + other + " / " + this + " can not be performed.");
-        return null;
+    public Var div(Var other) throws CalcException {
+        throw new CalcException("The operation \"division\" " + other + " / " + this + " can not be performed.");
     }
 
     /**
@@ -196,9 +185,8 @@ class Var implements Operation {
      * @return a result of division
      */
     @Override
-    public Var div(Scalar other) {
-        System.out.println("The operation \"division\" " + other + " / " + this + " can not be performed.");
-        return null;
+    public Var div(Scalar other) throws CalcException {
+        throw new CalcException("The operation \"division\" " + other + " / " + this + " can not be performed.");
     }
 
     /**
@@ -208,9 +196,8 @@ class Var implements Operation {
      * @return a result of division
      */
     @Override
-    public Var div(Vector other) {
-        System.out.println("The operation \"division\" " + other + " / " + this + " can not be performed.");
-        return null;
+    public Var div(Vector other) throws CalcException {
+        throw new CalcException("The operation \"division\" " + other + " / " + this + " can not be performed.");
     }
 
     /**
@@ -220,9 +207,8 @@ class Var implements Operation {
      * @return a result of division
      */
     @Override
-    public Var div(Matrix other) {
-        System.out.println("The operation \"division\" " + other + " / " + this + " can not be performed.");
-        return null;
+    public Var div(Matrix other) throws CalcException {
+        throw new CalcException("The operation \"division\" " + other + " / " + this + " can not be performed.");
     }
 
 }

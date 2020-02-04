@@ -13,102 +13,86 @@ public abstract class Var implements Operation {
     }
 
     @Override
-    public Var add(Var other) {
-        System.out.println("Operation " + this + "+" + other + " impossible");
-        return null;
+    public Var add(Var other) throws CalcException {
+        throw new CalcException("Operation " + this + "+" + other + " impossible");
     }
 
     @Override
-    public Var sub(Var other) {
-        System.out.println("Operation " + this + "-" + other + " impossible");
-        return null;
+    public Var sub(Var other) throws CalcException {
+        throw new CalcException("Operation " + this + "-" + other + " impossible");
     }
 
     @Override
-    public Var mul(Var other) {
-        System.out.println("Operation " + this + "*" + other + " impossible");
-        return null;
+    public Var mul(Var other) throws CalcException {
+        throw new CalcException("Operation " + this + "*" + other + " impossible");
     }
 
     @Override
-    public Var div(Var other) {
-        System.out.println("Operation " + this + "/" + other + " impossible");
-        return null;
+    public Var div(Var other) throws CalcException {
+        throw new CalcException("Operation " + this + "/" + other + " impossible");
     }
 
     @Override
-    public Var add(Scalar other) {
-        System.out.println("Operation " + this + "+" + other + " impossible");
-        return null;
+    public Var add(Scalar other) throws CalcException {
+        throw new CalcException("Operation " + this + "+" + other + " impossible");
     }
 
     @Override
-    public Var sub(Scalar other) {
-        System.out.println("Operation " + this + "-" + other + " impossible");
-        return null;
+    public Var sub(Scalar other) throws CalcException {
+        throw new CalcException("Operation " + this + "-" + other + " impossible");
     }
 
     @Override
-    public Var mul(Scalar other) {
-        System.out.println("Operation " + this + "*" + other + " impossible");
-        return null;
+    public Var mul(Scalar other) throws CalcException {
+        throw new CalcException("Operation " + this + "*" + other + " impossible");
     }
 
     @Override
-    public Var div(Scalar other) {
-        System.out.println("Operation " + this + "/" + other + " impossible");
-        return null;
+    public Var div(Scalar other) throws CalcException {
+        throw new CalcException("Operation " + this + "/" + other + " impossible");
     }
 
     @Override
-    public Var add(Vector other) {
-        System.out.println("Operation " + this + "+" + other + " impossible");
-        return null;
+    public Var add(Vector other) throws CalcException {
+        throw new CalcException("Operation " + this + "+" + other + " impossible");
     }
 
     @Override
-    public Var sub(Vector other) {
-        System.out.println("Operation " + this + "-" + other + " impossible");
-        return null;
+    public Var sub(Vector other) throws CalcException {
+        throw new CalcException("Operation " + this + "-" + other + " impossible");
     }
 
     @Override
-    public Var mul(Vector other) {
-        System.out.println("Operation " + this + "*" + other + " impossible");
-        return null;
+    public Var mul(Vector other) throws CalcException {
+        throw new CalcException("Operation " + this + "*" + other + " impossible");
     }
 
     @Override
-    public Var div(Vector other) {
-        System.out.println("Operation " + this + "/" + other + " impossible");
-        return null;
+    public Var div(Vector other) throws CalcException {
+        throw new CalcException("Operation " + this + "/" + other + " impossible");
     }
 
     @Override
-    public Var add(Matrix other) {
-        System.out.println("Operation " + this + "+" + other + " impossible");
-        return null;
+    public Var add(Matrix other) throws CalcException {
+        throw new CalcException("Operation " + this + "+" + other + " impossible");
     }
 
     @Override
-    public Var sub(Matrix other) {
-        System.out.println("Operation " + this + "-" + other + " impossible");
-        return null;
+    public Var sub(Matrix other) throws CalcException {
+        throw new CalcException("Operation " + this + "-" + other + " impossible");
     }
 
     @Override
-    public Var mul(Matrix other) {
-        System.out.println("Operation " + this + "*" + other + " impossible");
-        return null;
+    public Var mul(Matrix other) throws CalcException {
+        throw new CalcException("Operation " + this + "*" + other + " impossible");
     }
 
     @Override
-    public Var div(Matrix other) {
-        System.out.println("Operation " + this + "/" + other + " impossible");
-        return null;
+    public Var div(Matrix other) throws CalcException {
+        throw new CalcException("Operation " + this + "/" + other + " impossible");
     }
 
-     static Var createVar(String strVar) {
+     static Var createVar(String strVar) throws CalcException {
         if (strVar.matches(Patterns.SCALAR))
             return new Scalar(strVar);
         else if (strVar.matches(Patterns.VECTOR))
@@ -116,8 +100,14 @@ public abstract class Var implements Operation {
         else if (strVar.matches(Patterns.MATRIX))
             return new Matrix(strVar);
         else
-            return vars.get(strVar);
-        //TODO generate error here
+        {
+            Var var = vars.get(strVar);
+            if (var != null) {
+                return var;
+            } else {
+                throw new CalcException("Unknown expression: "+strVar);
+            }
+        }
     }
     static void save(String key, Var value) {
         vars.put(key,value);
@@ -129,11 +119,9 @@ public abstract class Var implements Operation {
         }
     }
     static void sortvar() {
-        Set<String> strings = vars.keySet();
-        Object[] objects = strings.toArray();
-        Arrays.sort(objects);
-        for (Object object : objects) {
-            System.out.println(object+"="+vars.get(object));
+        TreeMap<String, Var> varTreeMap = new TreeMap<>(vars);
+        for (Map.Entry<String, Var> entry : varTreeMap.entrySet()) {
+            System.out.println(entry.getKey()+"="+entry.getValue());
         }
     }
 }
