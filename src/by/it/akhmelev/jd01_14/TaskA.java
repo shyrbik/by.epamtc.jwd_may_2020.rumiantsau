@@ -4,9 +4,10 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
+
 public class TaskA {
     public static void main(String[] args) {
-        String fileName = getPath("dataTaskA.bin", TaskA.class);
+        String fileName = Helper.getPath("dataTaskA.bin", TaskA.class);
         writeInt(fileName);
 
         List<Integer> list = new ArrayList<>();
@@ -14,7 +15,7 @@ public class TaskA {
 
         printListToConsole(list);
 
-        String resultTxt = getPath("ResultTaskA.txt", TaskA.class);
+        String resultTxt = Helper.getPath("ResultTaskA.txt", TaskA.class);
         //printListToFile
         printListToFile(list, resultTxt);
     }
@@ -67,11 +68,4 @@ public class TaskA {
         }
     }
 
-    private static String getPath(String fileName, Class<TaskA> taskAClass) {
-        String root = System.getProperty("user.dir");
-        String strPackage = taskAClass.getName().replace(taskAClass.getSimpleName(), "");
-        String path = root + File.separator + "src" + File.separator + strPackage.replace(".", File.separator);
-        fileName = path + fileName;
-        return fileName;
-    }
 }
