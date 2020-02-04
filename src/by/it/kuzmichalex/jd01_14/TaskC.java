@@ -14,7 +14,7 @@ public class TaskC {
     public static void main(String[] args) {
         File startDir = new File(System.getProperty("user.dir") + File.separator + "src" + File.separator + "by" + File.separator + "it" + File.separator + "kuzmichalex");
         listDirAndFiles(startDir);
-
+        saveAndPrintList(FHelper.getFileName("resultTaskC.txt", TaskA.class));
     }
 
     private static void listDirAndFiles(File startDir) {
@@ -26,7 +26,6 @@ public class TaskC {
                 listDirAndFiles(subDir);
             }
         }
-        saveAndPrintList(FHelper.getFileName("resultTaskC.txt", TaskA.class));
     }
 
     private static void saveAndPrintList(String sFileName) {
