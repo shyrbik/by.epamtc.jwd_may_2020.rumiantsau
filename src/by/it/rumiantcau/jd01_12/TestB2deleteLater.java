@@ -3,36 +3,33 @@ package by.it.rumiantcau.jd01_12;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.LinkedList;
+import java.util.*;
 
-public class TaskB2 {
+public class TestB2deleteLater {
     public static void main(String[] args) throws IOException {
         BufferedReader input = new BufferedReader(new InputStreamReader(System.in));
         int n = Integer.parseInt(input.readLine());
-        ArrayList<String> peopleAS = new ArrayList<String>();
-        LinkedList<String> peopleLL = new LinkedList<>();
+       /* String[] names = new String[n];
         for (int i = 0; i < n; i++) {
-            String name = input.readLine();
-            peopleAS.add(name);
-            peopleLL.add(name);
+            names[i] = input.readLine();
+        }*/
+        String[] names = new String[]{"n1", "n2", "n3"};
+        ArrayList<String> peopleAS = new ArrayList<>(Arrays.asList(names));
+        LinkedList<String> peopleLS = new LinkedList<>(Arrays.asList(names));
 
-        }
-      System.out.println(process(peopleAS));
-      System.out.println(process(peopleLL));
-
-     }
-
+        System.out.println(process(peopleAS));
+        System.out.println(process(peopleLS));
+    }
 
     static String process(ArrayList<String> peoples){
         int i = 1;
+        Iterator<String> iterator = peoples.iterator();
         while (peoples.size() != 1){
-            Iterator<String> iterator = peoples.iterator();
             while(iterator.hasNext()){
                 iterator.next();
                 if ((i % 2) == 0) {
                     iterator.remove();
+                    i = 1;
                 }
                 i++;
             }
@@ -44,12 +41,13 @@ public class TaskB2 {
 
     static String process(LinkedList<String> peoples){
         int i = 1;
+        Iterator<String> iterator = peoples.iterator();
         while (peoples.size() != 1){
-            Iterator<String> iterator = peoples.iterator();
             while(iterator.hasNext()){
                 iterator.next();
                 if ((i % 2) == 0) {
                     iterator.remove();
+                    i = 1;
                 }
                 i++;
             }
