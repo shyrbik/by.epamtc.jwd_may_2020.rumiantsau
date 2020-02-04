@@ -38,7 +38,7 @@ public class TaskA {
     private static void printListToConsole(List<Integer> listIntFromFile) {
         double sumAllItems = 0.0;
         for (int value : listIntFromFile) {
-            sumAllItems += (double) value;
+            sumAllItems += value;
             System.out.print(value + " ");
         }
         System.out.println("\navg=" + sumAllItems / listIntFromFile.size());

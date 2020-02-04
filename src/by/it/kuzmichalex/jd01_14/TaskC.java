@@ -5,7 +5,6 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 public class TaskC {
@@ -19,6 +18,7 @@ public class TaskC {
 
     private static void listDirAndFiles(File startDir) {
         File[] files = startDir.listFiles();
+        assert files != null;
         for (File file : files) {
             listFiles.add((file.isDirectory() ? "dir:" : "file:") + file.getName());
             if (file.isDirectory()) {
