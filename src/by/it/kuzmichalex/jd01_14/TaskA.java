@@ -16,7 +16,7 @@ public class TaskA {
 
         printListToConsole(listIntFromFile);
 
-        sFileName = FHelper.getFileName("ResultTaskA.txt", TaskA.class);
+        sFileName = FHelper.getFileName("resultTaskA.txt", TaskA.class);
         printListToFile(listIntFromFile, sFileName);
 
     }
