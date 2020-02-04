@@ -5,8 +5,7 @@ import java.util.regex.Pattern;
 
 class Parser {
 
-    Var calc(String expression) {
-
+    Var calc(String expression) throws CalcException {
         Matcher m = Pattern.compile(Patterns.MATH_SIGN).matcher(expression);
         if (m.find()) {
             String sing = m.group();
@@ -14,7 +13,7 @@ class Parser {
             String first = values[0];
             String second = values[1];
             if (sing.equals("=")){
-                Var.save(values[0],Var.newVar(second));
+                Var.save(values[0], Var.newVar(second));
                 return Var.newVar(second);
             }
             if (Var.newVar(first) != null && Var.newVar(second) != null) {
@@ -31,6 +30,6 @@ class Parser {
                 }
             }
         }
-        return null;
+        throw new CalcException("Нет знака");
     }
 }

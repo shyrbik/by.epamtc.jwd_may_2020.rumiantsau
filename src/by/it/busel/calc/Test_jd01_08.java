@@ -403,15 +403,14 @@ public class Test_jd01_08 {
         return null;
     }
 
-    private Object invoke(Method method, Object o, Object... value) {
+    private Object invoke(Method method, Object o, Object... value) throws Exception {
         try {
             method.setAccessible(true);
             return method.invoke(o, value);
         } catch (Exception e) {
             System.out.println(e.toString());
-            fail("\nERROR:Не удалось вызвать метод " + method.getName() + "\n");
+            throw new Exception("\nERROR:Не удалось вызвать метод " + method.getName() + "\n");
         }
-        return null;
     }
 
 
