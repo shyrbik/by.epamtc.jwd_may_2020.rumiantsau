@@ -44,12 +44,12 @@ class Vector extends Var {
     }
 
     @Override
-    public Var add(Var other) {
+    public Var add(Var other) throws CalcException {
         return other.add(this);
     }
 
     @Override
-    public Var add(Scalar other) {
+    public Var add(Scalar other) throws CalcException {
         double[] op1 = Arrays.copyOf(value, value.length);
         for (int i = 0; i < op1.length; i++) {
             op1[i] += other.getValue();
@@ -58,7 +58,7 @@ class Vector extends Var {
     }
 
     @Override
-    public Var add(Vector other) {
+    public Var add(Vector other) throws CalcException {
         if (this.value.length == other.value.length) {
             double[] op1 = Arrays.copyOf(value, value.length);
             for (int i = 0; i < op1.length; i++) {
@@ -70,12 +70,12 @@ class Vector extends Var {
     }
 
     @Override
-    public Var sub(Var other) {
+    public Var sub(Var other) throws CalcException {
         return other.sub(this);
     }
 
     @Override
-    public Var sub(Scalar other) {
+    public Var sub(Scalar other) throws CalcException {
         double[] op1 = Arrays.copyOf(value, value.length);
         for (int i = 0; i < op1.length; i++) {
             op1[i] = other.getValue() - op1[i];
@@ -84,7 +84,7 @@ class Vector extends Var {
     }
 
     @Override
-    public Var sub(Vector other) {
+    public Var sub(Vector other) throws CalcException {
         if (this.value.length == other.value.length) {
             double[] op1 = Arrays.copyOf(other.value, other.value.length);
             for (int i = 0; i < op1.length; i++) {
@@ -96,12 +96,12 @@ class Vector extends Var {
     }
 
     @Override
-    public Var mul(Var other) {
+    public Var mul(Var other) throws CalcException {
         return other.mul(this);
     }
 
     @Override
-    public Var mul(Scalar other) {
+    public Var mul(Scalar other) throws CalcException {
         double[] op1 = Arrays.copyOf(value, value.length);
         for (int i = 0; i < op1.length; i++) {
             op1[i] *= other.getValue();
@@ -110,7 +110,7 @@ class Vector extends Var {
     }
 
     @Override
-    public Var mul(Vector other) {
+    public Var mul(Vector other) throws CalcException {
         if (this.value.length == other.value.length) {
             double res = 0;
             for (int i = 0; i < value.length; i++) {
@@ -122,7 +122,7 @@ class Vector extends Var {
     }
 
     @Override
-    public Var mul(Matrix other) {
+    public Var mul(Matrix other) throws CalcException {
         if (other.getValue()[0].length == value.length) {
             double[] op1 = new double[value.length];
             for (int i = 0; i < op1.length; i++) {
@@ -136,7 +136,7 @@ class Vector extends Var {
     }
 
     @Override
-    public Var div(Var other) {
+    public Var div(Var other) throws CalcException {
         return other.div(this);
     }
 

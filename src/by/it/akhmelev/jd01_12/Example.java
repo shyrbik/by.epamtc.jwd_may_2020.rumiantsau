@@ -1,8 +1,6 @@
 package by.it.akhmelev.jd01_12;
 
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
+import java.util.*;
 
 public class Example {
 
@@ -14,10 +12,12 @@ public class Example {
         map.put("2", 11);
         map.put("3", 111);
         map.put("5", 11111);
+        Set<? super Integer> set=new HashSet<>();
+        map.values().removeIf(v-> !set.add(v));
         for (Iterator<Map.Entry<String, Integer>> iterator = map.entrySet().iterator(); iterator.hasNext(); ) {
             Map.Entry<String, Integer> entry = iterator.next();
             if (entry.getKey().equals("2"))
-                map.remove(entry.getKey());
+                map.remove(entry.getKey()); //error
             else
                 System.out.println(entry.getKey() + "=" + entry.getValue());
         }
