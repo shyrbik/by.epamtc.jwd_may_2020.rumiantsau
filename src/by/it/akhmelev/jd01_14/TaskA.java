@@ -16,7 +16,6 @@ public class TaskA {
         printListToConsole(list);
 
         String resultTxt = Helper.getPath("ResultTaskA.txt", TaskA.class);
-        //printListToFile
         printListToFile(list, resultTxt);
     }
 
