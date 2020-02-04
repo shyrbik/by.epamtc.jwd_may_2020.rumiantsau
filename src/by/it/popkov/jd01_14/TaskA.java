@@ -8,18 +8,31 @@ import java.util.Random;
 class TaskA {
     public static void main(String[] args) {
         String f = Support.fileFullName(TaskA.class, "dataTaskA.bin");
-        writeFile(f);
+        outPutToFile(f);
         List<Integer> integerList = fileToList(f);
         printList(integerList);
-        printAvg(integerList);
+        System.out.println("avg=" + avg(integerList));
+        writeToFile(integerList, Support.fileFullName(TaskA.class, "resultTaskA.txt"));
     }
 
-    private static void printAvg(List<Integer> integerList) {
+    private static void writeToFile(List<Integer> integerList, String fileFullName) {
+        try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(fileFullName))) {
+            for (Integer integer : integerList) {
+                bufferedWriter.append(String.valueOf(integer)).append(" ");
+            }
+            bufferedWriter.newLine();
+            bufferedWriter.append("avg=").append(String.valueOf(avg(integerList)));
+        } catch (IOException e) {
+            System.out.println("Error bufferedWriter");
+        }
+    }
+
+    private static double avg(List<Integer> integerList) {
         double sum = 0;
         for (Integer integer : integerList) {
             sum = sum + integer;
         }
-        System.out.println("avg=" + sum / integerList.size());
+        return sum / integerList.size();
     }
 
     static void printList(List<Integer> list) {
@@ -42,7 +55,7 @@ class TaskA {
         return list;
     }
 
-    static void writeFile(String f) {
+    static void outPutToFile(String f) {
         try (DataOutputStream dos = new DataOutputStream(new BufferedOutputStream(new FileOutputStream(f)))) {
             for (int i = 0; i < 20; i++) {
                 Random random = new Random();
