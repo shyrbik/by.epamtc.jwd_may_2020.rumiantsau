@@ -20,9 +20,32 @@ public class TaskA {
         printListToFile(list, resultTxt);
     }
 
+    private static void writeInt(String fileName) {
+        try (
+                DataOutputStream dos = new DataOutputStream(
+                        new BufferedOutputStream(
+                                new FileOutputStream(fileName)
+                        )
+                )
+        ) {
+            //  dos.writeInt('Я'+'Ё'*256*256+'D'*256*256*256);
+            for (int i = 0; i < 20; i++) {
+                int value = (int) (Math.random() * 100);
+                dos.writeInt(value);
+            }
+        } catch (IOException e) {
+            System.out.println("Ниасилил");
+        }
+    }
+
     private static void printListToFile(List<Integer> list, String resultTxt) {
         try (PrintWriter writer = new PrintWriter(resultTxt)){
-            printListToConsole(list);
+            double sum=0;
+            for (Integer i : list) {
+                writer.print(i + " ");
+                sum+=i;
+            }
+            writer.println("\navg="+sum/list.size());
 
         } catch (FileNotFoundException e) {
             System.out.println("Ниасилил");
@@ -44,24 +67,6 @@ public class TaskA {
         ) {
             while (dis.available() > 0) {
                 list.add(dis.readInt());
-            }
-        } catch (IOException e) {
-            System.out.println("Ниасилил");
-        }
-    }
-
-    private static void writeInt(String fileName) {
-        try (
-                DataOutputStream dos = new DataOutputStream(
-                        new BufferedOutputStream(
-                                new FileOutputStream(fileName)
-                        )
-                )
-        ) {
-            //  dos.writeInt('Я'+'Ё'*256*256+'D'*256*256*256);
-            for (int i = 0; i < 20; i++) {
-                int value = (int) (Math.random() * 100);
-                dos.writeInt(value);
             }
         } catch (IOException e) {
             System.out.println("Ниасилил");
