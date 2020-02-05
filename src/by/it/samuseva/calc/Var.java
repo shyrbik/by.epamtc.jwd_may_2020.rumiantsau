@@ -22,11 +22,22 @@ abstract class Var implements Operation {
     }
 
     @Override
-    public Var add(Var other) {
-        System.out.println("Операция сожения " + this + "+" + other + "невозможна");
+    public Var add(Var right) {
+        System.out.println("Операция сожения " + this + "+" + right + "невозможна");
         return null;
     }
+    public Var add(Scalar left) {
+        System.out.println("Операция сожения " + this + "+" + left + "невозможна");
+        return null;
+    }
+    public Var add(Vector left) {
+        System.out.println("Операция сожения " + this + "+" + left + "невозможна");
+        return null;
 
+    }public Var add(Matrix left) {
+        System.out.println("Операция сожения " + this + "+" + left + "невозможна");
+        return null;
+    }
     @Override
     public Var sub(Var other) {
         System.out.println("Операция сожения " + this + "-" + other + "невозможна");

@@ -9,7 +9,7 @@ public class TaskA {
         String fileName = Helper.getDirectory("dataTaskA.bin", TaskA.class);
         writeInt(fileName);
 
-        List<Integer> list = new ArrayList<Integer>();
+        List<Integer> list = new ArrayList<>();
         readListInteger(fileName, list);
         printListToConsol(list);
 
@@ -43,7 +43,7 @@ public class TaskA {
     private static void readListInteger(String fileName, List<Integer> list) {
         try (DataInputStream input = new DataInputStream(
                 new BufferedInputStream(
-                        new FileInputStream(fileName)));
+                        new FileInputStream(fileName)))
         )
         {
             while (input.available()>0){

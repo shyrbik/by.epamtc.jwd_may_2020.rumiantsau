@@ -13,15 +13,34 @@ class Scalar extends Var {
         this.value = Double.parseDouble(str);
     }
 
+//////////   methods for add operation
     @Override
-    public Var add(Var other) {
-        if (other instanceof Scalar){
+    public Var add(Var right) {
+       /* if (other instanceof Scalar){
            double sum = this.value + ((Scalar) other).value;
            return new Scalar(sum);
         }
-        else return other.add(this);
+        else*/ return right.add(this);
     }
 
+    @Override
+    public Var add(Scalar left) {
+        double sum = this.value + ((Scalar) left).value;
+        return new Scalar(sum);
+
+    }
+
+    @Override
+    public Var add(Vector left) {
+        return left.add(this);
+    }
+
+    @Override
+    public Var add(Matrix left) {
+        return left.add(this);
+    }
+
+    //////////   methods for sub operation
     @Override
     public Var sub(Var other) {
         if (other instanceof Scalar){
@@ -30,7 +49,7 @@ class Scalar extends Var {
         }
         else return other.sub(this);
     }
-
+//////////   methods for mul operation
     @Override
     public Var mul(Var other) {
         if (other instanceof Scalar){
@@ -40,6 +59,8 @@ class Scalar extends Var {
         else return other.mul(this);
     }
 
+
+//////////   methods for div operation
     @Override
     public Var div(Var other) {
         if (other instanceof Scalar){
