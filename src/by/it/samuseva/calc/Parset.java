@@ -4,7 +4,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 class Parset {
-    Var calc (String expression){
+    Var calc (String expression) throws CalcException{
         expression = expression.replace("\\s+", "");
         Pattern pat = Pattern.compile(Patterns.OPERATION);
         Matcher mat = pat.matcher(expression);
@@ -13,6 +13,9 @@ class Parset {
             String[] operands = expression.split(Patterns.OPERATION, 2);
             Var operandOne = Var.createVar(operands[0]);
             Var operandTwo = Var.createVar(operands[1]);
+            if (expression.contains("=")){
+                return  Var.saveVar(operands[0], operandTwo);
+            }
             if ((operandOne != null ) || (operandTwo != null)){
                 switch (operation){
                     case "+": return operandOne.add(operandTwo);

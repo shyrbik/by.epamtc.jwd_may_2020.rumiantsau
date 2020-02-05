@@ -15,7 +15,7 @@ class Scalar extends Var {
 
 //////////   methods for add operation
     @Override
-    public Var add(Var right) {
+    public Var add(Var right) throws CalcException{
        /* if (other instanceof Scalar){
            double sum = this.value + ((Scalar) other).value;
            return new Scalar(sum);
@@ -31,18 +31,18 @@ class Scalar extends Var {
     }
 
     @Override
-    public Var add(Vector left) {
+    public Var add(Vector left) throws CalcException{
         return left.add(this);
     }
 
     @Override
-    public Var add(Matrix left) {
+    public Var add(Matrix left) throws CalcException{
         return left.add(this);
     }
 
-    //////////   methods for sub operation
+//////////   methods for sub operation
     @Override
-    public Var sub(Var other) {
+    public Var sub(Var other) throws CalcException{
         if (other instanceof Scalar){
             double sub = this.value - ((Scalar) other).value;
             return new Scalar(sub);
@@ -51,7 +51,7 @@ class Scalar extends Var {
     }
 //////////   methods for mul operation
     @Override
-    public Var mul(Var other) {
+    public Var mul(Var other) throws CalcException{
         if (other instanceof Scalar){
             double mul = this.value * ((Scalar) other).value;
             return new Scalar(mul);
@@ -62,9 +62,9 @@ class Scalar extends Var {
 
 //////////   methods for div operation
     @Override
-    public Var div(Var other) {
+    public Var div(Var other) throws CalcException{
         if (other instanceof Scalar){
-            if (((Scalar) other).value==0) System.out.println("Делить на ноль нельзя!");
+            if (((Scalar) other).value==0) throw new CalcException("Делить на ноль нельзя!");
             double div = this.value / ((Scalar) other).value;
             return new Scalar(div);
         }

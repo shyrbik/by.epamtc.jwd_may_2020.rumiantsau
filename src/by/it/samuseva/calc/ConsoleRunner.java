@@ -12,7 +12,12 @@ public class ConsoleRunner {
             if (line.equals("end")){
                 break;
             }
-            printer.print(parset.calc(line));
+            try {
+                printer.print(parset.calc(line));
+            } catch (CalcException e) {
+                System.out.println(e.getMessage());
+            }
         }
+      //  Var.sortvar();
     }
 }

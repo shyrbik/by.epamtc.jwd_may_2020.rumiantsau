@@ -60,7 +60,7 @@ public class TaskC {
             if (point(element.getName())==-1) {
                 System.out.println("dir:" + element.getName());
                 File[] files1 = element.listFiles();
-                for (File file : files1 != null ? files1 : new File[0]) {
+                for (File file : files1 != null ? files1 : new File[0] ) {
                     System.out.println("  file:" + file.getName());
                 }
 
