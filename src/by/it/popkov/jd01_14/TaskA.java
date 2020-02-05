@@ -45,7 +45,6 @@ class TaskA {
     static List<Integer> fileToList(String f) {
         List<Integer> list = new ArrayList<>();
         try (DataInputStream dataInputStream = new DataInputStream(new BufferedInputStream(new FileInputStream(f)))) {
-            int i = 0;
             while (dataInputStream.available() > 0) {
                 list.add(dataInputStream.readInt());
             }
