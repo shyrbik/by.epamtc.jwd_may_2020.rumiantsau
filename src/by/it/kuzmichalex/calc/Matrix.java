@@ -70,7 +70,7 @@ class Matrix extends Var {
 
     //////////////////////Сложения с матрицей
     @Override
-    public Var add(Var rightOperand) {
+    public Var add(Var rightOperand) throws CalcException {
         return rightOperand.add(this);
     }
 
@@ -89,14 +89,14 @@ class Matrix extends Var {
     //Vector + Matrix не существует
     //Matrix + Matrix
     @Override
-    public Var add(Matrix leftOperand) {
+    public Var add(Matrix leftOperand) throws CalcException {
         if (this.value.length != leftOperand.value.length) {
-            System.out.println("Сложение матриц невозможно: количества строк не совпадают");
-            return null;
+            throw new CalcException("Matrix addition is not possible: the number of rows does not match");
+            // System.out.println("Сложение матриц невозможно: количества строк не совпадают");
         }
         if (this.value[0].length != leftOperand.value[0].length) {
-            System.out.println("Сложение матриц невозможно: количества столбцов не совпадают");
-            return null;
+            throw new CalcException("Matrix addition is not possible: the number of rows does not match");
+            //System.out.println("Сложение матриц невозможно: количества столбцов не совпадают");
         }
         double[][] returnMatrix = new double[this.value.length][this.value[0].length];
         for (int y = 0; y < this.value.length; y++) {
@@ -109,7 +109,7 @@ class Matrix extends Var {
 
     //Умножения на матрицу
     @Override
-    public Var mul(Var rightOperand) {
+    public Var mul(Var rightOperand) throws CalcException {
         return rightOperand.mul(this);
     }
 
@@ -149,7 +149,7 @@ class Matrix extends Var {
 
     //Вычитание матрицы
     @Override
-    public Var sub(Var rightOperand) {
+    public Var sub(Var rightOperand) throws CalcException {
         return rightOperand.sub(this);
     }
 
@@ -159,7 +159,7 @@ class Matrix extends Var {
 
     //Matrix - Matrix
     @Override
-    public Var sub(Matrix leftOperand) {
+    public Var sub(Matrix leftOperand) throws CalcException {
         Var minusScalar = new Scalar(-1.0);
         Var minusMatrix = this.mul(minusScalar);
         return leftOperand.add(minusMatrix);
@@ -167,7 +167,7 @@ class Matrix extends Var {
 
     //Деления на матрицу. не существуют
     @Override
-    public Var div(Var rightOperand) {
+    public Var div(Var rightOperand) throws CalcException {
         return rightOperand.div(this);
     }
 }

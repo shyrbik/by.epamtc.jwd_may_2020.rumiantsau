@@ -18,25 +18,23 @@ class Parser {
      * @return a result of a mathematical operation,
      * i.e. a Scalar / Vector / Matrix expression
      */
-    Var calc(String varExpression) {
+    Var calc(String varExpression) throws CalcException {
         Pattern pattern = Pattern.compile(Patterns.OPERATION);
         String[] operand = pattern.split(varExpression);
-//        Var operand1 = Var.createVar(operand[0].trim());
-//        Var operand2 = Var.createVar(operand[1].trim());
-//        if (operand1 == null || operand2 == null) {
-//            return null;
-//        }
         Matcher matcher = pattern.matcher(varExpression);
         if (matcher.find()) {
             String operator = matcher.group();
+            if (operand.length <= 1) {
+                throw new CalcException("You've entered only a mathematical operator! or only one operand");
+            }
             Var operand2 = Var.createVar(operand[1].trim());
             if (operator.equals("=")) {
-                Storage.putMapElement(operand[0].toUpperCase(), operand2);
+                Storage.putMapElement(operand[0], operand2);
                 return operand2;
             }
             Var operand1 = Var.createVar(operand[0].trim());
             if (operand1 == null || operand2 == null) {
-                return null;
+                throw new CalcException("You've entered only one operand!");
             }
             switch (operator) {
                 case "+":
@@ -47,13 +45,10 @@ class Parser {
                     return operand1.mul(operand2);
                 case "/":
                     return operand1.div(operand2);
-//                case "=":
-//                    Storage.putMapElement(operand[0].toUpperCase(), operand2);
-//                    return operand2;
                 default:
-                    System.out.println("The mathematical operator has not been found.\nCheck the expression You inputted. Then re-enter your expression, please!");
+                    throw new CalcException("The mathematical operator has not been found.\nCheck the expression You inputted. Then re-enter your expression, please!");
             }
         }
-        return null;
+        throw new CalcException("The mathematical operator has not been found.\nCheck the expression You inputted. Then re-enter your expression, please!");
     }
 }

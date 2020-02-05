@@ -88,7 +88,6 @@ class Matrix extends Var {
     }
 
 
-
     /**
      * an overridden from a base class "Var" method that determines a type of a class from its argument
      * and depending on the type performs a mathematical operation of "addition"
@@ -98,7 +97,7 @@ class Matrix extends Var {
      */
 
     @Override
-    public Var add(Var other) {
+    public Var add(Var other) throws CalcException {
         return other.add(this);
     }
 
@@ -119,7 +118,7 @@ class Matrix extends Var {
      * @param other a matrix expression, to which "this" matrix is added
      * @return a result of addition, i.e. a new matrix expression
      */
-    public Var add(Matrix other) {
+    public Var add(Matrix other) throws CalcException {
         if (this.value.length == other.value.length &&
                 this.value[0].length == other.value[0].length) {
             double[][] result = new double[this.value.length][this.value[0].length];
@@ -136,7 +135,7 @@ class Matrix extends Var {
     /*
     a stab-method
      */
-    public Var add(Vector other) {
+    public Var add(Vector other) throws CalcException {
         return super.add(other);
     }
 
@@ -148,7 +147,7 @@ class Matrix extends Var {
      * @return a result of subtraction
      */
     @Override
-    public Var sub(Var other) {
+    public Var sub(Var other) throws CalcException {
         return other.sub(this);
     }
 
@@ -159,7 +158,7 @@ class Matrix extends Var {
      * @param other a scalar expression that is a minuend, where "this" matrix is a deduction;;
      * @return a result of subtraction, i.e. a vector expression
      */
-    public Var sub(Scalar other) {
+    public Var sub(Scalar other) throws CalcException {
         return new Scalar(-1).mul(this).add(other);
     }
 
@@ -169,7 +168,7 @@ class Matrix extends Var {
      * @param other a matrix expression that is a minuend, where this matrix is a deduction;
      * @return a result of subtraction, i.e. a new matrix expression
      */
-    public Var sub(Matrix other) {
+    public Var sub(Matrix other) throws CalcException {
         if (this.value.length == other.value.length &&
                 this.value[0].length == other.value[0].length) {
             double[][] result = new double[this.value.length][this.value[0].length];
@@ -186,7 +185,7 @@ class Matrix extends Var {
     /*
     a stab-method
      */
-    public Var sub(Vector other) {
+    public Var sub(Vector other) throws CalcException {
         return super.sub(other);
     }
 
@@ -198,7 +197,7 @@ class Matrix extends Var {
      * @return a result of multiplication
      */
     @Override
-    public Var mul(Var other) {
+    public Var mul(Var other) throws CalcException {
         return other.mul(this);
     }
 
@@ -219,12 +218,12 @@ class Matrix extends Var {
      * @param other a matrix expression that is a multiplicand, where this matrix is a multiplier
      * @return a result of multiplication, i.e. a new matrix expression
      */
-    public Var mul(Matrix other) {
+    public Var mul(Matrix other) throws CalcException {
         if (other.value[0].length == this.value.length) {
             double[][] result = new double[other.value.length][this.value[0].length];
             for (int i = 0; i < result.length; i++) {
                 for (int j = 0; j < result[0].length; j++) {
-                    for (int k = 0; k < this.value[0].length; k++) {
+                    for (int k = 0; k < other.value[0].length; k++) {
                         result[i][j] = result[i][j] + other.value[i][k] * this.value[k][j];
                     }
                 }
@@ -237,7 +236,7 @@ class Matrix extends Var {
     /*
     a stab-method
      */
-    public Var mul(Vector other) {
+    public Var mul(Vector other) throws CalcException {
         return super.mul(other);
     }
 
@@ -249,28 +248,28 @@ class Matrix extends Var {
      * @return a result of division
      */
     @Override
-    public Var div(Var other) {
+    public Var div(Var other) throws CalcException {
         return other.div(this);
     }
 
     /*
     a stab-method
      */
-    public Var div(Scalar other) {
+    public Var div(Scalar other) throws CalcException {
         return super.div(other);
     }
 
     /*
     a stab-method
      */
-    public Var div(Vector other) {
+    public Var div(Vector other) throws CalcException {
         return super.div(other);
     }
 
     /*
     a stab-method
      */
-    public Var div(Matrix other) {
+    public Var div(Matrix other) throws CalcException {
         return super.div(other);
     }
 
