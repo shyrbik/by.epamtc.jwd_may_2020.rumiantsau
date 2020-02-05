@@ -5,7 +5,7 @@ import java.util.Scanner;
 
 class TaskB {
     public static void main(String[] args) {
-        String result = textFileAnalysis(new File(Support.fileFullName(TaskB.class, "text.txt")));
+        String result = textFileAnalysis(Support.fileFullName(TaskB.class, "text.txt"));
         System.out.println(result);
         textToFile(result, Support.fileFullName(TaskB.class, "resultTaskB.txt"));
     }
@@ -18,7 +18,8 @@ class TaskB {
         }
     }
 
-    static String textFileAnalysis(File file) {
+    static String textFileAnalysis(String fileFullName) {
+        File file = new File(fileFullName);
         int wordCounter = 0;
         int markCounter = 0;
         try (Scanner scanner = new Scanner(file)) {
@@ -28,8 +29,7 @@ class TaskB {
                 else if (next.matches("[А-Яа-яЁё]+\\p{Punct}{1,3}([А-Яа-яЁё]+)?")) {
                     wordCounter++;
                     markCounter++;
-                }
-                else if (next.matches("\\p{Punct}")) markCounter++;
+                } else if (next.matches("\\p{Punct}")) markCounter++;
 
             }
         } catch (FileNotFoundException e) {
