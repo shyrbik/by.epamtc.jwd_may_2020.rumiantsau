@@ -3,26 +3,26 @@ package by.it.borodachev.jd01_14;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
+import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 public class TaskB {
     public static void main(String[] args) throws FileNotFoundException {
         String fileName = Helper.getPath("TaskB.txt", TaskB.class);
         File inStream = new File(fileName);
-        int marks;
-        int words;
+        int marks=0;
+        int words=0;
         try (Scanner scanner = new Scanner(inStream)) {
             scanner.useDelimiter("[^a-zA-zа-яёА-ЯЁ \\r\\n]{1,}");
-            String strSome;
             marks = 0;
             words = 0;
-            while ((strSome = scanner.next()) != null) {
+           while (scanner.hasNext()) {
+               String strSome = scanner.next();
                 marks++;
-                String[] wordArr = strSome.trim().split(" ");
+                String[] wordArr = strSome.replace("\r\n", " ").trim().split(" ");
                 words += wordArr.length;
             }
         }
-
         printConsoleAndFile(Helper.getPath(
                     "ResultTaskB.txt", TaskB.class),
                     "words=" + words + ",punctuation marks=" + marks);
