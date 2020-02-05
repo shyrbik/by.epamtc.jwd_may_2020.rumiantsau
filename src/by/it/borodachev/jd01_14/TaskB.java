@@ -3,7 +3,6 @@ package by.it.borodachev.jd01_14;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
-import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 public class TaskB {
