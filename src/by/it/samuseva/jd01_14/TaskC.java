@@ -25,7 +25,7 @@ public class TaskC {
     private static void writerDirToFile(String resultFile, PrintWriter pw) {
         File myDir = new File(resultFile);
         File[] allDir = myDir.listFiles();
-        for (File dir : allDir) {
+        for (File dir : allDir != null ? allDir : new File[0]) {
             pw.print("dir:" + dir.getName() + "\n");
             writerNameFileToFile(dir, pw);
         }
@@ -33,11 +33,11 @@ public class TaskC {
 
     private static void writerNameFileToFile(File dir, PrintWriter pw) {
         File[] files = dir.listFiles();
-        for (File element : files) {
+        for (File element : files != null ? files : new File[0]) {
             if (point(element.getName())==-1) {
                 pw.print("dir:" + element.getName() + "\n");
                 File[] files1 = element.listFiles();
-                for (File file : files1) {
+                for (File file : files1 != null ? files1 : new File[0]) {
                     pw.print("  file:" + file.getName() + "\n");
                 }
 
@@ -49,18 +49,18 @@ public class TaskC {
     private static void printNameDirToConsole(String pathDir) {
         File myDir = new File(pathDir);
         File[] allDir = myDir.listFiles();
-        for (File dir : allDir) {
+        for (File dir : allDir != null ? allDir : new File[0]) {
             System.out.println("dir:" + dir.getName());
             printNameFileToConsole(dir);
         }
     }
     private static void printNameFileToConsole(File dir) {
         File[] files = dir.listFiles();
-        for (File element : files) {
+        for (File element : files != null ? files : new File[0]) {
             if (point(element.getName())==-1) {
                 System.out.println("dir:" + element.getName());
                 File[] files1 = element.listFiles();
-                for (File file : files1) {
+                for (File file : files1 != null ? files1 : new File[0]) {
                     System.out.println("  file:" + file.getName());
                 }
 
