@@ -13,7 +13,7 @@ class TaskA {
         read(fileName,list);
         printToConsole(list);
 
-        String resultTaskA = Helper.getPath("ResultTaskA.txt", TaskA.class);
+        String resultTaskA = Helper.getPath("resultTaskA.txt", TaskA.class);
         printToFile(resultTaskA,list);
 
     }
