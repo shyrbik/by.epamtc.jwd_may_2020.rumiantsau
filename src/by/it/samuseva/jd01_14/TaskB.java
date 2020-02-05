@@ -9,10 +9,10 @@ public class TaskB {
     private static StringBuilder text = new StringBuilder();
 
     public static void main(String[] args) {
-        String fileName = Helper.getDirectory("text.txt", TaskB.class);
+        String fileName = Helper.getPath("text.txt", TaskB.class);
         readInFileToStringBuilder(fileName);
         System.out.println("words=" + getWords()+ ", punctuation marks=" + getPunctuationMarks());
-        String resultFile = Helper.getDirectory("resultTaskB.txt", TaskB.class);
+        String resultFile = Helper.getPath("resultTaskB.txt", TaskB.class);
         writerToFile(resultFile);
     }
 

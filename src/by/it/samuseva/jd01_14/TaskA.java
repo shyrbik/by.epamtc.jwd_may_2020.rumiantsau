@@ -6,14 +6,14 @@ import java.util.List;
 
 public class TaskA {
     public static void main(String[] args) {
-        String fileName = Helper.getDirectory("dataTaskA.bin", TaskA.class);
+        String fileName = Helper.getPath("dataTaskA.bin", TaskA.class);
         writeInt(fileName);
 
         List<Integer> list = new ArrayList<>();
         readListInteger(fileName, list);
         printListToConsol(list);
 
-        String resultFile = Helper.getDirectory("resultTaskA.txt", TaskA.class);
+        String resultFile = Helper.getPath("resultTaskA.txt", TaskA.class);
         writerListToFile(list, resultFile);
 
     }
