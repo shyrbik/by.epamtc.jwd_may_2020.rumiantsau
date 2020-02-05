@@ -36,6 +36,7 @@ public class TaskC {
                       for (int i = mas.length - 1; i >= 0; i--) {
                           System.out.print(" " + mas[i]);
                       }
+                      System.out.println();
                       return;
                   }
                   else   {
