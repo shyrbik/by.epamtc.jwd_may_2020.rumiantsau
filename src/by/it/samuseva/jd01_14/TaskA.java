@@ -7,6 +7,18 @@ import java.util.List;
 public class TaskA {
     public static void main(String[] args) {
         String fileName = Helper.getDirectory("dataTaskA.bin", TaskA.class);
+        writeInt(fileName);
+
+        List<Integer> list = new ArrayList<Integer>();
+        readListInteger(fileName, list);
+        printListToConsol(list);
+
+        String resultFile = Helper.getDirectory("resultTaskA.txt", TaskA.class);
+        readListToFile(list, resultFile);
+
+    }
+
+    private static void writeInt(String fileName) {
         DataOutputStream dos = null;
         try {
             dos = new DataOutputStream(new BufferedOutputStream(new FileOutputStream(fileName)));
@@ -26,28 +38,47 @@ public class TaskA {
                 }
             }
         }
+    }
+
+    private static void readListInteger(String fileName, List<Integer> list) {
         try (DataInputStream input = new DataInputStream(
                 new BufferedInputStream(
                         new FileInputStream(fileName)));
-             PrintWriter pw = new PrintWriter(
-                     new FileWriter(Helper.getDirectory("resultTaskA.txt", TaskA.class)))
         )
         {
-            double sum = 0;
-            List<Integer> list = new ArrayList<Integer>();
             while (input.available()>0){
                 list.add(input.readInt());
             }
-            for (Integer element : list) {
-                System.out.print(element + " ");
-                pw.print(element);
-                sum +=element;
-            }
-            System.out.println("\nagv="+ sum/list.size());
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
 
+    private static void printListToConsol(List<Integer> list) {
+        double sum = 0;
+        for (Integer element : list) {
+            System.out.print(element + " ");
+
+            sum +=element;
+        }
+        System.out.println("\navg="+ sum/list.size());
+    }
+
+    private static void readListToFile(List<Integer> list, String resultFile) {
+        try (PrintWriter pw = new PrintWriter(resultFile))
+        {
+            double sum = 0;
+            for (Integer element : list) {
+                pw.print(element + " ");
+                sum +=element;
+            }
+            pw.print("\navg="+ sum/list.size());
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 }
+
+
