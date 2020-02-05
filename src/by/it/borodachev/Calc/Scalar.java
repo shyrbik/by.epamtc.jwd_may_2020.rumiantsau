@@ -8,8 +8,14 @@ public class Scalar extends Var {
      }
      public Scalar(Scalar Sc)
      {this.value = Sc.getValue();}
-    public Scalar(String var)  {
-        this.value= Double.valueOf(var);
+    public Scalar(String var) throws CalcException {
+         try {
+             this.value= Double.valueOf(var);
+         }
+         catch (NullPointerException |NumberFormatException e){
+             throw new CalcException("ошибка преобразования строки в число");
+         }
+
     }
     @Override
     public String toString() {
@@ -47,10 +53,10 @@ public class Scalar extends Var {
         if (newValue instanceof Scalar) {
             //Деление на 0 запрещено
             if (((Scalar) newValue).value==0) {
-                System.out.println("Omg!! Division by zero");
+                throw new CalcException("Division by zero");
             }
             return new Scalar(this.value / ((Scalar) newValue).value);
         }
-        return newValue.mul(new Scalar(1.0).div(this));
+        return super.div(newValue);
     }
 }

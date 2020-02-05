@@ -9,12 +9,12 @@ public class Vector extends Var {
       private int valueLength;
       public int length() { return valueLength;}
       public double getValue(int i) throws CalcException {
-        if (i<0) throw new CalcException("Неверный индекс");
-        if (i>=value.length) throw new CalcException("Неверный индекс");
+        if (i<0) throw new CalcException("Значение индекса меньше 0");
+        if (i>=value.length) throw new CalcException("Значение индекса больше размерности вектора");
         return this.value [i];
     }
     public Vector (double... args) throws CalcException {
-        if (args.length == 0) throw new CalcException("Длина массива =0");
+        if (args.length == 0) throw new CalcException("Длина Вектора =0");
         valueLength=args.length;
         value=new double [valueLength];
         for (int i = 0; (i < valueLength); i++) {
@@ -22,7 +22,7 @@ public class Vector extends Var {
         }
     }
     public Vector (Vector vc) throws CalcException {
-        if (vc.length() == 0) throw new CalcException("Длина массива =0");
+        if (vc.length() == 0) throw new CalcException("Длина Вектора =0");
         valueLength=vc.length();
         value=new double [valueLength];
         for (int i = 0; (i < valueLength); i++) {
@@ -37,9 +37,9 @@ public class Vector extends Var {
         if (m.find()) {
             valStr = m.group().split(",");}
            else {
-               throw new CalcException("Длина массива =0");
+               throw new CalcException("Длина Вектора =0");
            }
-        if (valStr.length == 0) throw new CalcException("Длина массива =0");
+        if (valStr.length == 0) throw new CalcException("Длина Вектора =0");
         valueLength=valStr.length;
         value=new double [valueLength];
         for (int i = 0; (i < valueLength); i++) {
@@ -137,7 +137,7 @@ public class Vector extends Var {
         if (newValue instanceof Scalar) {
             Scalar tmpScalar = (Scalar) newValue;
             if (tmpScalar.getValue() == 0) {
-                System.out.println("Omg!! Division by zero");
+                throw new CalcException("Division by zero");
             } else {
                 double[] tmpArr = Arrays.copyOf(value, value.length);
                 for (int i = 0; i < tmpArr.length; i++) {

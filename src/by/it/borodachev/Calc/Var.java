@@ -15,26 +15,22 @@ public abstract class Var implements Operation {
 
      @Override
      public Var add(Var newValue) throws CalcException {
-          System.out.println("Operation " + this + "+" + newValue + " impossible");
-          return null;
+          throw new CalcException("Operation " + this + "+" + newValue + " impossible");
      }
 
      @Override
      public Var sub(Var newValue) throws CalcException {
-          System.out.println("Operation " + this + "+" + newValue + " impossible");
-          return null;
+          throw new CalcException("Operation " + this + "-" + newValue + " impossible");
      }
 
      @Override
      public Var mul(Var newValue) throws CalcException {
-          System.out.println("Operation " + this + "+" + newValue + " impossible");
-          return null;
+          throw new CalcException("Operation " + this + "*" + newValue + " impossible");
      }
 
      @Override
      public Var div(Var newValue) throws CalcException{
-          System.out.println("Operation " + this + "+" + newValue + " impossible");
-          return null;
+          throw new CalcException("Operation " + this + "/" + newValue + " impossible");
      }
      static Var createVar(String strVar) throws CalcException {
           if (strVar.matches(Patterns.SCALAR))
@@ -44,7 +40,7 @@ public abstract class Var implements Operation {
           else if (strVar.matches(Patterns.MATRIX))
                return new Matrix(strVar);
           else
-               return field.get(strVar);
+               throw new CalcException("Не возможно определить тип переменной :"+strVar);
           //TODO generate error here
      }
      static void save(String key, Var value) {
