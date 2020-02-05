@@ -83,7 +83,7 @@ class Vector extends Var {
      * @return a result of addition
      */
     @Override
-    public Var add(Var other) {
+    public Var add(Var other) throws CalcException {
         return other.add(this);
     }
 
@@ -104,7 +104,7 @@ class Vector extends Var {
      * @param other a vector expression, which is to be added to "this" vector expression
      * @return a result of addition, i.e. a new vector expression
      */
-    public Var add(Vector other) {
+    public Var add(Vector other) throws CalcException {
         if (this.value.length == other.value.length) {
             double[] result = new double[this.value.length];
             for (int i = 0; i < value.length; i++) {
@@ -120,7 +120,7 @@ class Vector extends Var {
      * @param other an instance of Var-class or its subclasses, which is to be added
      * @return a redirect to an information statement
      */
-    public Var add(Matrix other) {
+    public Var add(Matrix other) throws CalcException {
         return super.add(other);
     }
 
@@ -132,7 +132,7 @@ class Vector extends Var {
      * @return a result of subtraction
      */
     @Override
-    public Var sub(Var other) {
+    public Var sub(Var other) throws CalcException {
         return other.sub(this);
     }
 
@@ -143,7 +143,7 @@ class Vector extends Var {
      * @param other a scalar expression that is a minuend, where "this" vector is a deduction
      * @return a result of subtraction, i.e. a vector expression
      */
-    public Var sub(Scalar other) {
+    public Var sub(Scalar other) throws CalcException {
         return new Scalar(-1).mul(this).add(other);
     }
 
@@ -153,7 +153,7 @@ class Vector extends Var {
      * @param other a vector expression that is a minuend, where "this" vector is a deduction
      * @return a result of subtraction, i.e. a new vector expression
      */
-    public Var sub(Vector other) {
+    public Var sub(Vector other) throws CalcException {
         if (this.value.length == other.value.length) {
             double[] result = new double[this.value.length];
             for (int i = 0; i < value.length; i++) {
@@ -169,7 +169,7 @@ class Vector extends Var {
      * @param other an instance of Var-class or its subclasses, which is to be subtracted
      * @return a redirect to a an information statement
      */
-    public Var sub(Matrix other) {
+    public Var sub(Matrix other) throws CalcException {
         return super.sub(other);
     }
 
@@ -181,7 +181,7 @@ class Vector extends Var {
      * @return a result of multiplication
      */
     @Override
-    public Var mul(Var other) {
+    public Var mul(Var other) throws CalcException {
         return other.mul(this);
     }
 
@@ -202,7 +202,7 @@ class Vector extends Var {
      * @param other a vector expression that is a multiplicand, where "this" vector is a multiplier;
      * @return a result of multiplication, i.e. a new scalar expression
      */
-    public Var mul(Vector other) {
+    public Var mul(Vector other) throws CalcException {
         if (this.value.length == other.value.length) {
             double result = 0;
             for (int i = 0; i < this.value.length; i++) {
@@ -220,7 +220,7 @@ class Vector extends Var {
      * @param other a matrix expression that is a multiplicand, where this "vector" is a multiplier
      * @return a result of multiplication, i.e. a new vector expression
      */
-    public Var mul(Matrix other) {
+    public Var mul(Matrix other) throws CalcException {
         double[] vector = this.value;
         double[][] matrix = other.getValue();
         if (matrix[0].length == vector.length) {
@@ -243,28 +243,28 @@ class Vector extends Var {
      * @return a result of division
      */
     @Override
-    public Var div(Var other) {
+    public Var div(Var other) throws CalcException {
         return other.div(this);
     }
 
     /*
     a stab-method
      */
-    public Var div(Scalar other) {
+    public Var div(Scalar other) throws CalcException {
         return super.div(other);
     }
 
     /*
     a stab-method
      */
-    public Var div(Vector other) {
+    public Var div(Vector other) throws CalcException {
         return super.div(other);
     }
 
     /*
     a stab-method
      */
-    public Var div(Matrix other) {
+    public Var div(Matrix other) throws CalcException {
         return super.div(other);
     }
 
