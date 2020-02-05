@@ -8,28 +8,28 @@ public class Vector extends Var {
      private double [] value;
       private int valueLength;
       public int length() { return valueLength;}
-      public double getValue(int i) throws VectorException {
-        if (i<0) throw new VectorException("Неверный индекс");
-        if (i>=value.length) throw new VectorException("Неверный индекс");
+      public double getValue(int i) throws CalcException {
+        if (i<0) throw new CalcException("Неверный индекс");
+        if (i>=value.length) throw new CalcException("Неверный индекс");
         return this.value [i];
     }
-    public Vector (double... args) throws VectorException {
-        if (args.length == 0) throw new VectorException("Длина массива =0");
+    public Vector (double... args) throws CalcException {
+        if (args.length == 0) throw new CalcException("Длина массива =0");
         valueLength=args.length;
         value=new double [valueLength];
         for (int i = 0; (i < valueLength); i++) {
           value[i]=args[i];
         }
     }
-    public Vector (Vector vc) throws VectorException {
-        if (vc.length() == 0) throw new VectorException("Длина массива =0");
+    public Vector (Vector vc) throws CalcException {
+        if (vc.length() == 0) throw new CalcException("Длина массива =0");
         valueLength=vc.length();
         value=new double [valueLength];
         for (int i = 0; (i < valueLength); i++) {
             value[i]=vc.getValue(i);
         }
     }
-    public Vector (String str) throws VectorException {
+    public Vector (String str) throws CalcException {
           str=str.trim();
         String[] valStr;
         Pattern pat= Pattern.compile("[^{}][0-9,/.]+");
@@ -37,9 +37,9 @@ public class Vector extends Var {
         if (m.find()) {
             valStr = m.group().split(",");}
            else {
-               throw new VectorException("Длина массива =0");
+               throw new CalcException("Длина массива =0");
            }
-        if (valStr.length == 0) throw new VectorException("Длина массива =0");
+        if (valStr.length == 0) throw new CalcException("Длина массива =0");
         valueLength=valStr.length;
         value=new double [valueLength];
         for (int i = 0; (i < valueLength); i++) {
@@ -62,7 +62,7 @@ public class Vector extends Var {
     }
 
     @Override
-    public Var add(Var newValue) throws Exception {
+    public Var add(Var newValue) throws CalcException {
         if (newValue instanceof Scalar) {
             Scalar tmpScalar = (Scalar) newValue;
             double[] tmpArr = Arrays.copyOf(value, value.length);
@@ -85,7 +85,7 @@ public class Vector extends Var {
     }
 
     @Override
-    public Var sub(Var newValue) throws Exception {
+    public Var sub(Var newValue) throws CalcException {
         if (newValue instanceof Scalar) {
             Scalar tmpScalar = (Scalar) newValue;
             double[] tmpArr = Arrays.copyOf(value, value.length);
@@ -108,7 +108,7 @@ public class Vector extends Var {
     }
 
     @Override
-    public Var mul(Var newValue) throws Exception {
+    public Var mul(Var newValue) throws CalcException {
         if (newValue instanceof Scalar) {
             Scalar tmpScalar = (Scalar) newValue;
             double[] tmpArr = Arrays.copyOf(value, value.length);
@@ -133,7 +133,7 @@ public class Vector extends Var {
 
 
     @Override
-    public Var div(Var newValue) throws Exception {
+    public Var div(Var newValue) throws CalcException {
         if (newValue instanceof Scalar) {
             Scalar tmpScalar = (Scalar) newValue;
             if (tmpScalar.getValue() == 0) {

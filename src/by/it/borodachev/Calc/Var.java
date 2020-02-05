@@ -14,29 +14,29 @@ public abstract class Var implements Operation {
      }
 
      @Override
-     public Var add(Var newValue) throws Exception {
+     public Var add(Var newValue) throws CalcException {
           System.out.println("Operation " + this + "+" + newValue + " impossible");
           return null;
      }
 
      @Override
-     public Var sub(Var newValue) throws Exception {
+     public Var sub(Var newValue) throws CalcException {
           System.out.println("Operation " + this + "+" + newValue + " impossible");
           return null;
      }
 
      @Override
-     public Var mul(Var newValue) throws Exception {
+     public Var mul(Var newValue) throws CalcException {
           System.out.println("Operation " + this + "+" + newValue + " impossible");
           return null;
      }
 
      @Override
-     public Var div(Var newValue) throws Exception{
+     public Var div(Var newValue) throws CalcException{
           System.out.println("Operation " + this + "+" + newValue + " impossible");
           return null;
      }
-     static Var createVar(String strVar) throws Exception {
+     static Var createVar(String strVar) throws CalcException {
           if (strVar.matches(Patterns.SCALAR))
                return new Scalar(strVar);
           else if (strVar.matches(Patterns.VECTOR))

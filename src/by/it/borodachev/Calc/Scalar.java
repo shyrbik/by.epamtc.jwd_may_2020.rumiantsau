@@ -9,7 +9,7 @@ public class Scalar extends Var {
      public Scalar(Scalar Sc)
      {this.value = Sc.getValue();}
     public Scalar(String var)  {
-        this.value= new Double(var);
+        this.value= Double.valueOf(var);
     }
     @Override
     public String toString() {
@@ -17,7 +17,7 @@ public class Scalar extends Var {
     }
 
     @Override
-    public Var add(Var newValue) throws Exception {
+    public Var add(Var newValue) throws CalcException {
 
         if (newValue instanceof Scalar) {
             return new Scalar(this.value + ((Scalar) newValue).value);
@@ -26,7 +26,7 @@ public class Scalar extends Var {
     }
 
     @Override
-    public Var sub(Var newValue) throws Exception {
+    public Var sub(Var newValue) throws CalcException {
         if (newValue instanceof Scalar) {
             return new Scalar(this.value - ((Scalar) newValue).value);
         }
@@ -35,7 +35,7 @@ public class Scalar extends Var {
     }
 
     @Override
-    public Var mul(Var newValue)  throws Exception {
+    public Var mul(Var newValue)  throws CalcException {
         if (newValue instanceof Scalar) {
             return new Scalar(this.value * ((Scalar) newValue).value);
         }
@@ -43,7 +43,7 @@ public class Scalar extends Var {
     }
 
     @Override
-    public Var div(Var newValue)  throws Exception {
+    public Var div(Var newValue)  throws CalcException {
         if (newValue instanceof Scalar) {
             //Деление на 0 запрещено
             if (((Scalar) newValue).value==0) {

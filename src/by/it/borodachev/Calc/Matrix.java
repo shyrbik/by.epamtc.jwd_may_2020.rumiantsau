@@ -10,13 +10,13 @@ public class Matrix extends Var {
       private int colLength;
       public int rows() { return rowLength;}
       public int cols() { return colLength;}
-      public double getValue(int row,int col) throws MatrixException {
-        if ((row<0)||(col<0)) throw new MatrixException("Неверный индекс");
-        if ((row>=rowLength)||(col>=colLength)) throw new MatrixException("Неверный индекс");
+      public double getValue(int row,int col) throws CalcException {
+        if ((row<0)||(col<0)) throw new CalcException("Неверный индекс");
+        if ((row>=rowLength)||(col>=colLength)) throw new CalcException("Неверный индекс");
         return this.value [row][col];
     }
-    public Matrix(double [][] args) throws MatrixException {
-        if (args.length == 0) throw new MatrixException("Длина массива =0");
+    public Matrix(double [][] args) throws CalcException {
+        if (args.length == 0) throw new CalcException("Длина массива =0");
         rowLength=args.length;
         colLength=args[0].length;
         value=new double [rowLength][colLength];
@@ -26,9 +26,9 @@ public class Matrix extends Var {
             }
         }
     }
-    public Matrix(Matrix vc) throws MatrixException {
-        if (vc.rows() == 0) throw new MatrixException("Длина массива =0");
-        if (vc.cols() == 0) throw new MatrixException("Длина массива =0");
+    public Matrix(Matrix vc) throws CalcException {
+        if (vc.rows() == 0) throw new CalcException("Длина массива =0");
+        if (vc.cols() == 0) throw new CalcException("Длина массива =0");
 
         rowLength=vc.rows();
         colLength=vc.cols();
@@ -39,7 +39,7 @@ public class Matrix extends Var {
             }
         }
     }
-    public Matrix(String str) throws MatrixException {
+    public Matrix(String str) throws CalcException {
         int row=0;
         str=str.trim();
         str=str.replace(" ","");
@@ -87,7 +87,7 @@ public class Matrix extends Var {
     }
 
     @Override
-    public Var add(Var newValue) throws Exception {
+    public Var add(Var newValue) throws CalcException {
         if (newValue instanceof Scalar) {
             Scalar tmpScalar = (Scalar) newValue;
             double[][] tmpArr =Arrays.copyOf(value, value.length);
@@ -103,7 +103,7 @@ public class Matrix extends Var {
         }
         if (newValue instanceof Vector) {
             Vector tmpVector = (Vector) newValue;
-            if (tmpVector.length() !=rowLength)  {throw new Exception("Diff Length"); }
+            if (tmpVector.length() !=rowLength)  {throw new CalcException("Diff Length"); }
             double[][] tmpArr =Arrays.copyOf(value, value.length);
             for (int i = 0; i < tmpArr.length; i++) {
                 tmpArr[i] = Arrays.copyOf(value[i], value[i].length);
@@ -118,7 +118,7 @@ public class Matrix extends Var {
         }
         if (newValue instanceof Matrix) {
             Matrix tmpMatrix = (Matrix) newValue;
-            if ((tmpMatrix.rows() !=rowLength) ||(tmpMatrix.cols()!=colLength))  {throw new Exception("Diff Length"); }
+            if ((tmpMatrix.rows() !=rowLength) ||(tmpMatrix.cols()!=colLength))  {throw new CalcException("Diff Length"); }
              double[][] tmpArr =Arrays.copyOf(value, value.length);
             for (int i = 0; i < tmpArr.length; i++) {
                 tmpArr[i] = Arrays.copyOf(value[i], value[i].length);
@@ -135,7 +135,7 @@ public class Matrix extends Var {
     }
 
     @Override
-    public Var sub(Var newValue) throws Exception {
+    public Var sub(Var newValue) throws CalcException {
         if (newValue instanceof Scalar) {
             Scalar tmpScalar = (Scalar) newValue;
             double[][] tmpArr =Arrays.copyOf(value, value.length);
@@ -151,7 +151,7 @@ public class Matrix extends Var {
         }
         if (newValue instanceof Vector) {
             Vector tmpVector = (Vector) newValue;
-            if (tmpVector.length() !=rowLength)  {throw new Exception("Diff Length"); }
+            if (tmpVector.length() !=rowLength)  {throw new CalcException("Diff Length"); }
             double[][] tmpArr =Arrays.copyOf(value, value.length);
             for (int i = 0; i < tmpArr.length; i++) {
                 tmpArr[i] = Arrays.copyOf(value[i], value[i].length);
@@ -166,7 +166,7 @@ public class Matrix extends Var {
         }
         if (newValue instanceof Matrix) {
             Matrix tmpMatrix = (Matrix) newValue;
-            if ((tmpMatrix.rows() !=rowLength) ||(tmpMatrix.cols()!=colLength))  {throw new Exception("Diff Length"); }
+            if ((tmpMatrix.rows() !=rowLength) ||(tmpMatrix.cols()!=colLength))  {throw new CalcException("Diff Length"); }
             double[][] tmpArr =Arrays.copyOf(value, value.length);
             for (int i = 0; i < tmpArr.length; i++) {
                 tmpArr[i] = Arrays.copyOf(value[i], value[i].length);
@@ -184,7 +184,7 @@ public class Matrix extends Var {
     }
 
     @Override
-    public Var mul(Var newValue) throws Exception {
+    public Var mul(Var newValue) throws CalcException {
         if (newValue instanceof Scalar) {
             Scalar tmpScalar = (Scalar) newValue;
             double[][] tmpArr =Arrays.copyOf(value, value.length);
@@ -200,7 +200,7 @@ public class Matrix extends Var {
         }
         if (newValue instanceof Vector) {
             Vector tmpVector = (Vector) newValue;
-            if (tmpVector.length() !=rowLength)  {throw new Exception("Diff Length"); }
+            if (tmpVector.length() !=rowLength)  {throw new CalcException("Diff Length"); }
             double[] tmpArr =new double[rowLength];
 
             for (int i = 0; i < rowLength; i++) {
@@ -213,7 +213,7 @@ public class Matrix extends Var {
         }
         if (newValue instanceof Matrix) {
             Matrix tmpMatrix = (Matrix) newValue;
-            if ((tmpMatrix.rows() !=rowLength) ||(tmpMatrix.cols()!=colLength))  {throw new Exception("Diff Length"); }
+            if ((tmpMatrix.rows() !=rowLength) ||(tmpMatrix.cols()!=colLength))  {throw new CalcException("Diff Length"); }
             double[][] tmpArr =new double [rowLength][colLength];
 
             for (int i = 0; i < tmpMatrix.rows(); i++) {
@@ -233,7 +233,7 @@ public class Matrix extends Var {
     }
 
     @Override
-    public Var div(Var newValue) throws Exception {
+    public Var div(Var newValue) throws CalcException {
         return super.div(newValue);
     }
 }
