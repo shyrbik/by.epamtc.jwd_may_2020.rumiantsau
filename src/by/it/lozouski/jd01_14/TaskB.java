@@ -8,9 +8,9 @@ class TaskB {
     static String patternForPunctuationMarks = "[,.!?:;-]+";
 
     public static void main(String[] args) {
-        String fileNameText = Helper.getPath("text.txt", TaskB.class);
-        File myTaskFile = new File(fileNameText);
-        String resultTaskBtxt = fileText(myTaskFile);
+        String pathoutputText = Helper.getPath("text.txt", TaskB.class);
+        File myTaskFile = new File(pathoutputText);
+        String resultTaskBtxt = outputText(myTaskFile);
         System.out.println(resultTaskBtxt);
 
         String taskFileName = Helper.getPath("resultTaskB.txt",TaskB.class);
@@ -18,7 +18,7 @@ class TaskB {
 
     }
 
-    static String fileText(File myTaskFile) {
+    static String outputText(File myTaskFile) {
         int countWords = 0;
         int countPunctuationMarks = 0;
         try (Scanner sc1 = new Scanner(myTaskFile)) {
