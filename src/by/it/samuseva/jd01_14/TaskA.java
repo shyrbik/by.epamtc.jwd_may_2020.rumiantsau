@@ -14,7 +14,7 @@ public class TaskA {
         printListToConsol(list);
 
         String resultFile = Helper.getDirectory("resultTaskA.txt", TaskA.class);
-        readListToFile(list, resultFile);
+        writerListToFile(list, resultFile);
 
     }
 
@@ -64,7 +64,7 @@ public class TaskA {
         System.out.println("\navg="+ sum/list.size());
     }
 
-    private static void readListToFile(List<Integer> list, String resultFile) {
+    private static void writerListToFile(List<Integer> list, String resultFile) {
         try (PrintWriter pw = new PrintWriter(resultFile))
         {
             double sum = 0;
