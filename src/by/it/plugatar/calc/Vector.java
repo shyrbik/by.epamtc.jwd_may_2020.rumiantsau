@@ -57,6 +57,9 @@ class Vector extends Var {
             return new Vector(res);
         }
         else if (other instanceof Vector) {
+            //добавить проверку
+            if (((Vector)other).value.length !=this.value.length)
+                    throw new CalcException("ERROR: Неправильная размерность!");
             double[] res = Arrays.copyOf(value, value.length);
             for (int i = 0; i < this.value.length; i++) {
                 res[i] = res[i] + ((Vector)other).value[i];
