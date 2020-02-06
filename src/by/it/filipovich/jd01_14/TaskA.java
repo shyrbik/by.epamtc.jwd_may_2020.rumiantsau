@@ -1,9 +1,6 @@
 package by.it.filipovich.jd01_14;
 
 
-import java.io.*;
-import java.util.ArrayList;
-import java.util.List;
 
 public class TaskA {
 
@@ -13,9 +10,5 @@ public class TaskA {
         String fileNameTwo = Helper.pathToFile("resultTaskA.txt", TaskA.class);
         Helper.insertNumbers(fileNameOne);
         Helper.readAndWrite(fileNameOne,fileNameTwo);
-
     }
-
-
-
 }

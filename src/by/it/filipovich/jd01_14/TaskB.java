@@ -7,14 +7,12 @@ import java.nio.file.Paths;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import java.util.stream.Stream;
 
 public class TaskB {
     public static void main(String[] args) throws IOException {
         StringBuilder sb = new StringBuilder("");
         String fileNameOne = Helper.pathToFile("text.txt", TaskB.class);
         String fileNameTwo = Helper.pathToFile("resultTaskB.txt", TaskB.class);
-
 
         List<String> lines = Files.readAllLines(Paths.get(fileNameOne), StandardCharsets.UTF_8);
         for(String line: lines){
@@ -30,7 +28,6 @@ public class TaskB {
             e.printStackTrace();
         }
     }
-
 
 
     private static int getWords(String s) {
