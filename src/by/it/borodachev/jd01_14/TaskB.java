@@ -21,7 +21,7 @@ public class TaskB {
                 String[] wordArr = strSome.replace("\r\n", " ").trim().split(" ");
                // words += wordArr.length; не учитывает несколько пробелов подрядю Переделаем на более медленный вариант
                 for (String s : wordArr) {
-                   if (s.trim().length() >0) {words++;}
+                   if (s.length() >0) {words++;}
                }
 
             }
