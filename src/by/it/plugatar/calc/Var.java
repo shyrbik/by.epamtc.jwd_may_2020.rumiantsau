@@ -18,48 +18,83 @@ abstract class Var {
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.TreeMap;
 
 public class Var implements Operation {
 
    private static Map<String, Var> vars = new HashMap<>();
+
    static Var saveVar (String name, Var var){
         vars.put(name, var);
         return var;
     }
 
 
-    static Var createVar(String s) {
+    static Var createVar(String s) throws CalcException{
         //s = s.trim();
         s = s.trim().replace("\\s+","");
-        if (s.matches(Patterns.SCALAR)) return new Scalar(s);
-        if (s.matches(Patterns.VECTOR)) return new Vector(s);
-        if (s.matches(Patterns.MATRIX)) return new Matrix(s);
-        if (vars.containsKey(s)) return vars.get(s);//Если содержит, то вернем соответствующий объект
-        System.out.println("Переменная " + s + " не определена");
-        return null;
+        if (s.matches(Patterns.SCALAR))
+            return new Scalar(s);
+        else if (s.matches(Patterns.VECTOR))
+            return new Vector(s);
+        else if (s.matches(Patterns.MATRIX))
+            return new Matrix(s);
+        else if (vars.containsKey(s)) {
+            Var var = vars.get(s);
+            if (var != null) {
+                return var;
+            }
+        }
+        else {
+            System.out.println("Переменная " + s + " не определена");
+            }
+        throw new CalcException("Невозможно создать "+s);//return null
+       // (vars.containsKey(s))
+       // return vars.get(s);//Если содержит, то вернем соответствующий объект
+    }
+
+    static void printvar() {
+        for (Map.Entry<String, Var> stringVarEntry : vars.entrySet()) {
+            System.out.println(stringVarEntry.getKey()+"="+stringVarEntry.getValue());
+        }
+    }
+    static void sortvar() {
+        TreeMap<String, Var> varTreeMap = new TreeMap<>(vars);
+        for (Map.Entry<String, Var> entry : varTreeMap.entrySet()) {
+            System.out.println(entry.getKey()+"="+entry.getValue());
+        }
     }
     @Override
-    public Var add(Var other) {
-        System.out.println("Операция сложения" + this + "+" + other + " невозможна");
-        return null;
+    public String toString() {
+        return "Var{}";
     }
 
     @Override
-    public Var sub(Var other) {
-        System.out.println("Операция вычитания" + this + "+" + other + " невозможна");
-        return null;
+    public Var add(Var other) throws CalcException{
+        //System.out.println("Операция сложения" + this + "+" + other + " невозможна");
+        throw new CalcException("Операция сложения" + this + "+" + other + " невозможна");
+        //return null;
     }
 
     @Override
-    public Var mul(Var other) {
-        System.out.println("Операция умножения" + this + "+" + other + " невозможна");
-        return null;
+    public Var sub(Var other) throws CalcException {
+        //System.out.println("Операция вычитания" + this + "+" + other + " невозможна");
+        //return null;
+        throw new CalcException("Операция вычитания" + this + "+" + other + " невозможна");
     }
 
     @Override
-    public Var div(Var other) {
-        System.out.println("Операция деления" + this + "+" + other + " невозможна");
-        return null;
+    public Var mul(Var other) throws CalcException{
+        //System.out.println("Операция умножения" + this + "+" + other + " невозможна");
+        //return null;
+        throw new CalcException("Операция умножения" + this + "+" + other + " невозможна");
+    }
+
+    @Override
+    public Var div(Var other) throws CalcException{
+        //System.out.println("Операция деления" + this + "+" + other + " невозможна");
+        //return null;
+        throw new CalcException("Операция деления" + this + "+" + other + " невозможна");
     }
 }
 

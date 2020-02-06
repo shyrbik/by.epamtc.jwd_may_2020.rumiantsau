@@ -9,10 +9,10 @@ public class TaskA {
               new HashMap<String, String>(null);
           else Integer.parseInt("привет");
           }
-      catch  ( NullPointerException e ){//      catch  ((|| NumberFormatException e) ){//
+      catch  ( NumberFormatException | NullPointerException e){//      catch  ((|| NumberFormatException e) ){//
             //Class <? extends RuntimeException>
           String name=e.getClass().getName();
-            StackTraceElement[] stackTrace = e.getStackTrace();
+            StackTraceElement[] stackTrace = e.getStackTrace();//getStackTrace - дает массив ошибок
             //String message = e.getMessage();
             for (StackTraceElement element :stackTrace) {
                 String fromStackTraceClassName = element.getClassName();
@@ -20,11 +20,12 @@ public class TaskA {
                 String myClassName=TaskA.class.getName();
                 if (myClassName.equals(fromStackTraceClassName)){
                     //System.out.println(name);
-                    System.out.printf("name :%S\n",
-                    "class :%S\n",
-                     "line :%S\n",
+                    System.out.printf(  " name: %s\n"+
+                                        "class: %s\n"+
+                                        " line: %s\n",
                             name,fromStackTraceClassName,linenumber
                                         );
+                    break;
                 }
 
 

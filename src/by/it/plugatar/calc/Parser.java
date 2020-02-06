@@ -6,18 +6,19 @@ import java.util.regex.Pattern;
 import static by.it.plugatar.calc.Patterns.OPERATION;
 
 class Parser {
-    Var calc(String expression){
+    Var calc(String expression) throws CalcException{
         Pattern cal = Pattern.compile(OPERATION);
         String[] split = expression.trim().split(OPERATION);
-        Var two = Var.createVar(split[1]);
+        Var two = Var.createVar(split[1].trim());
         if (expression.contains("=") ){
             return Var.saveVar(split[0],two);
         }
-        Var one = Var.createVar(split[0]);
+        Var one = Var.createVar(split[0].trim());
 
         if (one == null || two == null){
-            System.out.println("ОПЕРАЦИЯ " + expression + " НЕВОЗМОЖНА");
-            return null;//TODO CREATE ERROR
+            //System.out.println("ОПЕРАЦИЯ " + expression + " НЕВОЗМОЖНА");
+            //return null;//TODO CREATE ERROR
+            throw new CalcException("ERROR:" + expression + " ОПЕРАЦИЯ НЕВОЗМОЖНА");
         }
         Matcher m = cal.matcher(expression);
         if (m.find()){
