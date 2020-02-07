@@ -14,9 +14,8 @@ class TaskA {
     private static void matrixReader(String fileName) {
         File file = new File(fileName);
         StringBuilder sb = new StringBuilder();
-        byte[] bytes = new byte[1000];
         try (RandomAccessFile randomAccessFile = new RandomAccessFile(file, "r")) {
-            int b = 0;
+            int b;
             while ((b = randomAccessFile.read()) >= 0){
                 sb.append((char)b);
             }
