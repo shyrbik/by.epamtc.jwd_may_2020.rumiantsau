@@ -93,8 +93,9 @@ abstract class Var implements Operation {
         else throw new CalcException("Неправильный ввод");
     }
 
-    static void save(String value, Var value1) {
+    static void save(String value, Var value1) throws CalcException {
         valueMap.put(value, value1);
+        CalcFile.writeToFile(valueMap);
     }
 
     static void printvar() {
