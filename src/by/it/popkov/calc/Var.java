@@ -95,7 +95,7 @@ abstract class Var implements Operation {
 
     static void save(String value, Var value1) throws CalcException {
         valueMap.put(value, value1);
-        CalcFile.writeToFile(valueMap);
+        CalcFile.writeValue(valueMap);
     }
 
     static void printvar() {

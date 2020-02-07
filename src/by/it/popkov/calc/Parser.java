@@ -30,6 +30,6 @@ class Parser {
                 }
             }
         }
-        throw new CalcException("Нет знака");
+        throw new CalcException("Ошибка ввода");
     }
 }

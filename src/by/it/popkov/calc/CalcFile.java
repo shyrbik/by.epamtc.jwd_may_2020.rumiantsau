@@ -2,45 +2,42 @@ package by.it.popkov.calc;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileWriter;
+import java.io.IOException;
 import java.io.PrintWriter;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.Map;
 
 class CalcFile {
     static private String fullFileName = fileFullName(Var.class, "vars.txt");
 
-    static void writeToFile(Map<String, Var> valueMap) throws CalcException {
-        try(PrintWriter printWriter = new PrintWriter(fullFileName)) {
+    public static String getFullFileName() {
+        return fullFileName;
+    }
+
+    static void readValue(Parser parser) throws IOException {
+
+        Files.lines(Paths.get(fullFileName))
+                .forEach(o -> {
+                    try {
+                        parser.calc(o);
+                    } catch (CalcException e) {
+                        e.printStackTrace();
+                    }
+                });
+
+
+    }
+
+    static void writeValue(Map<String, Var> valueMap) throws CalcException {
+        try (PrintWriter printWriter = new PrintWriter(fullFileName)) {
             for (Map.Entry<String, Var> entry : valueMap.entrySet()) {
-                printWriter.printf("%s=%s"+"\n", entry.getKey(), entry.getValue().toString());
-                printWriter.println();
+                printWriter.printf("%s=%s\n", entry.getKey(), entry.getValue().toString());
             }
         } catch (FileNotFoundException e) {
             throw new CalcException("ERROR writeToFile");
         }
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
     static String fileFullName(Class<?> taskClass, String fileName) {
