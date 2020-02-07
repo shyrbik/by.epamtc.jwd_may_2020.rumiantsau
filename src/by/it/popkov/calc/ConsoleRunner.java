@@ -1,5 +1,6 @@
 package by.it.popkov.calc;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -26,6 +27,7 @@ class ConsoleRunner {
             else try {
                     printer.print(parser.calc(expression));
                 } catch (CalcException e) {
+                    Log.writeLog(e.getMessage());
                     System.out.println(e.getMessage());
                 }
         }
