@@ -61,9 +61,9 @@ class Matrix extends Var {
             toStr.append("{");
             for (int j = 0; j < value[0].length; j++) {
                 if (j != value[0].length - 1) {
-                    toStr.append(value[i][j]).append(", ");
+                    toStr.append(value[i][j]).append(",");
                 } else if (j == value[0].length - 1 && i != value.length - 1) {
-                    toStr.append(value[i][j]).append("}, ");
+                    toStr.append(value[i][j]).append("},");
                 } else if (j == value[0].length - 1 && i == value.length - 1) {
                     toStr.append(value[i][j]).append("}");
                 }
