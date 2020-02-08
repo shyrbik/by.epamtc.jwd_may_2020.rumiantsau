@@ -43,21 +43,36 @@ class TaskB extends Helper {
     static StringBuilder createStrBuildFromFile(String fileName) {
         StringBuilder outputText = new StringBuilder();
         boolean isComment = false;
+        String start1 = "//";
+        String start2 = "/*";
+        String end2 = "*/";
 
         try (BufferedReader reader = new BufferedReader(new FileReader(fileName), 16384)) {
             String lineString;
             while ((lineString = reader.readLine()) != null) {
                 String trimStr = lineString.trim();
-
-                if (!isComment && trimStr.indexOf("/*") == 0) {
+                if (!isComment && trimStr.indexOf(start2) == 0) {
+                    String emptyStr = lineString.substring(0, lineString.indexOf(start2));
+                    outputText.append(emptyStr).append("\n");
                     isComment = true;
-                } else if (!isComment && trimStr.indexOf("//") != 0) {
+                } else if (!isComment && trimStr.indexOf(start1) == 0) {
+                    String emptyStr = lineString.substring(0, lineString.indexOf(start1));
+                    outputText.append(emptyStr).append("\n");
+                } else if (!isComment && trimStr.indexOf(start1) != 0) {
                     outputText.append(lineString).append("\n");
                 }
-                if (isComment && lineString.contains("*/")) {
+                if (isComment && lineString.contains(end2)) {
                     isComment = false;
                 }
             }
+
+            int startI = outputText.indexOf(start1);
+            int endI = outputText.indexOf("\n", startI);
+            outputText.delete(startI, endI);
+            int startI1 = outputText.indexOf(start2);
+            int endI1 = outputText.indexOf(end2, startI1);
+            outputText.delete(startI1, endI1+2);
+
         } catch (IOException e) {
             e.printStackTrace();
         }
