@@ -29,7 +29,7 @@ class Vector extends Var {
         StringBuilder toStr = new StringBuilder("{");
         for (int i = 0; i < value.length; i++) {
             if (i != value.length - 1) {
-                toStr.append(value[i]).append(",");
+                toStr.append(value[i]).append(", ");
             } else {
                 toStr.append(value[i]).append("}");
             }
