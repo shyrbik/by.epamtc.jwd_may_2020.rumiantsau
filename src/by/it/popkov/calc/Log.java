@@ -1,16 +1,10 @@
 package by.it.popkov.calc;
 
 
-/**
- * ПРОТЕСТИРОВАТЬ ЕЩЁ
- **/
-
-
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -50,25 +44,3 @@ class Log {
     }
 }
 
-
-//    static private final String messageCounterFile = CalcFile.fileFullName(Log.class, "messageCounter.bin");
-//
-//    static private int messageCount = messageCounterReader();
-//
-//    private static int messageCounterReader() {
-//        try (DataInputStream dataInputStream = new DataInputStream(new BufferedInputStream(new FileInputStream(messageCounterFile)))) {
-//            while (dataInputStream.available() > 0) return dataInputStream.readInt();
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//    }
-//
-//    private static int messageCounterWriter(int newNum) {
-//        try {
-//            RandomAccessFile rwd = new RandomAccessFile(messageCounterFile, "rwd");
-//            if (Files.exists(Paths.get(messageCounterFile))) ;
-//        } catch (FileNotFoundException e) {
-//            e.printStackTrace();
-//        }
-//
-//    }
