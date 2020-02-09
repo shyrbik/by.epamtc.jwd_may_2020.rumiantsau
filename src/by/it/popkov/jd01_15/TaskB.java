@@ -1,32 +1,39 @@
 package by.it.popkov.jd01_15;
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.Arrays;
 
 class TaskB {
     //1
     //2
-    int t; /*
-    * 3
-    *
-    * */ int a;
-    /*
+    int t; /*3
+     * 3
+     *
+     * 3*/
+    int a;
+    /*4
      * 4
      *
-     * */ int b;
+     * 4*/ int b;
     /**
-     *
      * 5
-     *
-     * **/   int c;
+     * <p>
+     * 5
+     * <p>
+     * 5
+     **/
+    int c;
 
     public static void main(String[] args) {
         System.out.println(read(Support.fileFullName(TaskB.class, "TaskB.java")).toString());
-
+        try (BufferedWriter bufferedWriter = new BufferedWriter(
+                new FileWriter(Support.fileFullName(TaskB.class, "TaskB.txt")))) {
+            bufferedWriter.append(read(Support.fileFullName(TaskB.class, "TaskB.java")).toString());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private static StringBuilder read(String fileFullName) {
@@ -37,13 +44,17 @@ class TaskB {
                     .map(o -> o.replace("/*", "\n/*"))
                     .map(o -> o.replace("*/", "*/\n"))
                     .map(o -> o.replace("/**", "\n/**"))
-                    .map(o -> o.replace("**/", "**/\n")).toArray();
+                    .map(o -> o.replace("**/", "**/\n"))
+                    .flatMap(o -> Arrays.stream(o.split("\n"))).toArray();
             boolean open = false;
-            boolean close = false;
             for (Object object : objects) {
                 String line = (String) object;
-                if (line.contains("//"))continue;
-                stringBuilder.append(line).append("\n");
+                if (line.contains("//")) continue;
+                if (line.contains("/*")) open = true;
+                if (line.contains("/**")) open = true;
+                if (!open) stringBuilder.append("\n").append(line);
+                if (line.contains("*/")) open = false;
+                if (line.contains("**/")) open = false;
             }
         } catch (IOException e) {
             e.printStackTrace();
