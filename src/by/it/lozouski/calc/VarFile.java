@@ -1,5 +1,7 @@
 package by.it.lozouski.calc;
 
+import by.it.lozouski.jd01_14.Helper;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -8,17 +10,10 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Map;
 
-class VarFile {
+class VarFile extends Helper {
 
-    private static String varFile = getPath("vars.txt", VarFile.class);
+    private static String varFile = Helper.getPath("vars.txt", VarFile.class);
 
-    static String getPath(String fileName, Class<?> aClass) {
-        String root = System.getProperty("user.dir");
-        String strPackage = aClass.getName().replace(aClass.getSimpleName(), "");
-        String path = root + File.separator + "src" + File.separator + strPackage.replace(".", File.separator);
-        fileName = path + fileName;
-        return fileName;
-    }
 
     static void load(Parser parser) throws CalcException {
         try {
