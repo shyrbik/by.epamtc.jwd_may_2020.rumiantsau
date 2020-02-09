@@ -20,21 +20,23 @@ class TaskC {
             String command = scanner.nextLine();
             if (command.equals("end")) break;
             if (command.contains("cd")) cd(command);
-            else if (command.equals("dir")) dir(command);
+            else if (command.equals("dir")) dir();
         }
     }
 
     private static void cd(String command) {
         String shortCommand = command.replace("cd", "");
         if (shortCommand.matches(" ?..")) {
-            file = new File(startFullName.substring(0, 3));
+            file = new File(file.getAbsolutePath().replace(file.getName(), ""));
         } else {
             file = new File(file.getAbsolutePath() + File.separator + shortCommand.trim());
         }
     }
 
-    private static void dir(String command) {
-        for (File files : file.listFiles()) {
+    private static void dir() {
+        File[] files1 = file.listFiles();
+        if (files1 != null)
+        for (File files : files1) {
             try {
                 Path path = Paths.get(files.getAbsolutePath());
                 FileTime modTime = Files.getLastModifiedTime(path);
