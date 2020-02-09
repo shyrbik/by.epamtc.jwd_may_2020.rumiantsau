@@ -18,4 +18,9 @@ public class Helper {
         final File path = new File(packageClassName);
         return path.getParent();
     }
+
+    protected static String getPackage(Class<?> yourClass) {
+        String dir = System.getProperty("user.dir");
+        return dir + File.separator + "src" + File.separator + yourClass.getPackage().getName().replace(".",File.separator);
+    }
 }
