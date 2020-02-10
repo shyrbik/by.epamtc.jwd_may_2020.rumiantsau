@@ -15,7 +15,7 @@ class Log {
     public static void reWriteLog(String newMessage) {
 
         try {
-            List<String> lines = Files.lines(Paths.get(logFullName)).collect(Collectors.toList());
+            List<String> lines = Files.readAllLines(Paths.get(logFullName));
             lines.remove(0);
             lines.add(newMessage);
             Files.write(Paths.get(logFullName), lines);
