@@ -5,7 +5,7 @@ import java.util.*;
 public class TaskB1 {
     public static void main(String[] args) {
         Scanner scanner=new Scanner(System.in);
-        Map<String,Integer> map = new HashMap<>(){
+        Map<String,Integer> map = new HashMap<String, Integer>(){
             @Override
             public Integer put(String key, Integer value) {
                 if(key.equals("isn't")) key="don't";
