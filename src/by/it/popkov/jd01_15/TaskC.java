@@ -25,11 +25,11 @@ class TaskC {
     }
 
     private static void cd(String command) {
-        String shortCommand = command.replace("cd", "");
-        if (shortCommand.matches(" ?..")) {
+        String shortCommand = command.replace("cd", "").trim();
+        if (shortCommand.equals("..")) {
             file = new File(file.getAbsolutePath().replace(file.getName(), ""));
         } else {
-            file = new File(file.getAbsolutePath() + File.separator + shortCommand.trim());
+            file = new File(file.getAbsolutePath() + File.separator + shortCommand);
         }
     }
 
