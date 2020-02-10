@@ -5,19 +5,6 @@ import java.nio.charset.StandardCharsets;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-
-/*
-* Вариант B. В классе TaskB нужно выполнить следующие шаги:
- В файле с текстом TaskB.txt нужно подсчитать общее количество знаков
-препинания и слов
- Вывести результат на консоль в виде одной строки:
-words=123, punctuation marks=15
- Продублировать вывод в консоль в файл resultTaskB.txt
- Вариант C. В классе TaskC нужно выполнить следующие шаги:
- Вывести список всех файлов и каталогов вашего пакета by.it.фамилия в
-формате file:имя_файла или dir:имя_каталога.
- Продублировать вывод в консоль в файл resultTaskC.txt
-* */
 public class TaskB {
     public static void main(String[] args) {
         //считываем текст из файла построчно в стрингбилдер
@@ -57,8 +44,6 @@ public class TaskB {
     }
 
     private static void writeTextFile(String fileNameB, String result) {
-        StringBuilder str = new StringBuilder();
-        String line;
         try (BufferedWriter writer = new BufferedWriter(
                 new OutputStreamWriter(
                         new FileOutputStream(fileNameB), StandardCharsets.UTF_8))){
