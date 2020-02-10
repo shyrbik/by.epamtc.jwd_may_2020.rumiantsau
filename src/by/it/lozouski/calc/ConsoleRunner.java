@@ -21,9 +21,9 @@ class ConsoleRunner {
 
         while (true) {
             inputLine = sc1.nextLine();
-            if (inputLine.equals("end")){
-                Logging.logFileRecord("The program was end."+'\n'
-                                                      +"***************************************************************************");
+            if (inputLine.equals("end")) {
+                Logging.logFileRecord("The program was end." + '\n'
+                        + "***************************************************************************");
                 break;
             }
             try {
