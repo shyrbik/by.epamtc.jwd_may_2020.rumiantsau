@@ -14,9 +14,12 @@ class VarFile extends Helper {
 
     private static String varFile = Helper.getPath("vars.txt", VarFile.class);
 
+    public static String getVarFile() {
+        return varFile;
+    }
 
-    static void load(Parser parser) throws CalcException {
-        try {
+
+    static void load(Parser parser) throws IOException {
             Files.lines(Paths.get(varFile)).forEach(expression -> {
                 try {
                     parser.calculate(expression);
@@ -24,9 +27,6 @@ class VarFile extends Helper {
                     e.printStackTrace();
                 }
             });
-        } catch (IOException e) {
-            save(Var.getVarsMap());
-        }
     }
 
     static void save(Map<String, Var> vars) throws CalcException {
