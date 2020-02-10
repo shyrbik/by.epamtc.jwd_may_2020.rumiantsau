@@ -25,7 +25,7 @@ class Parser {
         if (matcher.find()) {
             String operator = matcher.group();
             if (operand.length <= 1) {
-                throw new CalcException("You've entered only a mathematical operator! or only one operand");
+                throw new CalcException("You've entered only a mathematical operator or only one operand!");
             }
             Var operand2 = Var.createVar(operand[1].trim());
             if (operator.equals("=")) {
