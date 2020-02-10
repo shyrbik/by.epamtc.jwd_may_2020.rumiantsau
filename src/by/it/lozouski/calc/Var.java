@@ -64,7 +64,7 @@ abstract class Var implements Operation {
 
     @Override
     public Var div(Var other) throws CalcException {
-        throw new CalcException();
+        throw new CalcException("Operation division " + this + " / " + other + " isn't possible.");
     }
 
     Var div(Scalar otherScalar) throws CalcException {

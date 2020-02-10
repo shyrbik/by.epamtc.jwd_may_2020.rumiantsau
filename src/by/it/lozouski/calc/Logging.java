@@ -16,7 +16,7 @@ class Logging extends Helper {
     //fields
     private static String logFileTxtPath = Helper.getPath("log.txt", Logging.class);
     private static Path logPath = Paths.get(logFileTxtPath);
-    private static int limitOfLogMessages = 20;
+    private static int limitOfLogMessages = 25;
 
     //methods
     public static void logFileRecord(String currentLogMessage) {
@@ -40,7 +40,8 @@ class Logging extends Helper {
         try {
             List<String> elementsOfLogFile = Files.readAllLines(logPath);
             elementsOfLogFile.remove(0);
-            elementsOfLogFile.add(updateLogMessage);
+            String currentTime = LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss"));
+            elementsOfLogFile.add("Log time: " + currentTime + ". Event: " + updateLogMessage);
             Files.write(logPath, elementsOfLogFile);
         } catch (IOException e) {
             e.printStackTrace();
