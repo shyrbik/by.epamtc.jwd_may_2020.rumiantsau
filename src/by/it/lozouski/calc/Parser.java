@@ -1,13 +1,15 @@
 package by.it.lozouski.calc;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 class Parser {
     Var calculate(String expression) throws CalcException {
+//        Logging.logFileRecord("Log time: " + currentTime + ". Event: " + expression+" is add Var");
         expression = expression.replace("\\s+", "");
         Matcher matcher = Pattern.compile(Patterns.OPERATION).matcher(expression);
-
         if (matcher.find()) {
             String operation = matcher.group();
             String[] operands = expression.split(Patterns.OPERATION, 2);

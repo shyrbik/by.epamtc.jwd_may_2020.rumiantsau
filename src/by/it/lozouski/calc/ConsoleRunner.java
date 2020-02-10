@@ -13,15 +13,19 @@ class ConsoleRunner {
         Printer printer = new Printer();
         try {
             if (Files.exists(Paths.get(VarFile.getVarFile())))
-            VarFile.load(parser);
+                VarFile.load(parser);
         } catch (IOException e) {
             e.printStackTrace();
         }
         while (!(inputLine = sc1.nextLine()).equals("end")) {
             try {
+                Logging.logFileRecord(inputLine);
                 Var result = parser.calculate(inputLine);
+                Logging.logFileRecord(inputLine);
                 printer.print(result);
+                Logging.logFileRecord("Result: " + result.toString());
             } catch (CalcException e) {
+                Logging.logFileRecord(e.getMessage());
                 System.out.println(e.getMessage());
             }
         }
