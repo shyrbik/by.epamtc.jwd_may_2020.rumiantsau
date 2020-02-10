@@ -51,7 +51,7 @@ public class TaskC {
     }
 
     private static Path cdCmdProcess(Path path, String command) {
-        command = command.substring(2, command.length() - 1).trim();
+        command = command.substring(2, command.length()).trim();
         if (command.equals(CD_TO_ROOT)) path = path.getRoot();
         else if (command.equals((CD_TO_PARENT)))
             path = path.getParent();
