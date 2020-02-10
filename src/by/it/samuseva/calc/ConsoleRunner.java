@@ -18,6 +18,6 @@ public class ConsoleRunner {
                 System.out.println(e.getMessage());
             }
         }
-      //  Var.sortvar();
+        Var.sortvar();
     }
 }

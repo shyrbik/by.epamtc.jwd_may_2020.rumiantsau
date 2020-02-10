@@ -43,35 +43,61 @@ abstract class Var implements Operation {
     //////////   methods for add operation
     @Override
     public Var add(Var right) throws CalcException {
-        throw new CalcException("Операция сожения " + this + "+" + right + "невозможна");
+        throw new CalcException("Операция сожения " + this + "+" + right + " невозможна");
     }
     public Var add(Scalar left) throws CalcException {
-        throw new CalcException("Операция сожения " + this + "+" + left + "невозможна");
+        throw new CalcException("Операция сожения " + this + "+" + left + " невозможна");
     }
     public Var add(Vector left) throws CalcException {
-        throw new CalcException("Операция сожения " + this + "+" + left + "невозможна");
+        throw new CalcException("Операция сожения " + this + "+" + left + " невозможна");
 
     }
     public Var add(Matrix left) throws CalcException {
-        throw new CalcException("Операция сожения " + this + "+" + left + "невозможна");
+        throw new CalcException("Операция сожения " + this + "+" + left + " невозможна");
     }
+
     //////////   methods for sub operation
     @Override
-    public Var sub(Var other) throws CalcException {
-        throw new CalcException("Операция сожения " + this + "-" + other + "невозможна");
+    public Var sub(Var right) throws CalcException {
+        throw new CalcException("Операция вычетания " + this + "-" + right + " невозможна");
     }
-    //////////   methods for mul operation
+    public Var sub(Scalar left) throws CalcException {
+        throw new CalcException("Операция вычетания " + this + "-" + left + " невозможна");
+    }
+    public Var sub(Vector left) throws CalcException {
+        throw new CalcException("Операция вычетания " + this + "-" + left + " невозможна");
+    }
+    public Var sub(Matrix left) throws CalcException {
+        throw new CalcException("Операция вычетания " + this + "-" + left + " невозможна");
+    }
 
+    //////////   methods for mul operation
     @Override
-    public Var mul(Var other) throws CalcException {
-        throw new CalcException("Операция сожения " + this + "*" + other + "невозможна");
+    public Var mul(Var right) throws CalcException {
+        throw new CalcException("Операция умножения " + this + "*" + right + " невозможна");
+    }
+    public Var mul(Scalar left) throws CalcException {
+        throw new CalcException("Операция умножения " + this + "*" + left + " невозможна");
+    }
+    public Var mul(Vector left) throws CalcException {
+        throw new CalcException("Операция умножения " + this + "*" + left + " невозможна");
+    }
+    public Var mul(Matrix left) throws CalcException {
+        throw new CalcException("Операция умножения " + this + "*" + left + " невозможна");
     }
 
     //////////   methods for div operation
     @Override
     public Var div(Var other) throws CalcException {
-        throw new CalcException("Операция сожения " + this + "/" + other + "невозможна");
+        throw new CalcException("Операция деления " + this + "/" + other + " невозможна");
     }
-
-
+    public Var div(Scalar left) throws CalcException {
+        throw new CalcException("Операция деления " + this + "/" + left + " невозможна");
+    }
+    public Var div(Vector left) throws CalcException {
+        throw new CalcException("Операция деления " + this + "/" + left + " невозможна");
+    }
+    public Var div(Matrix left) throws CalcException {
+        throw new CalcException("Операция деления " + this + "/" + left + " невозможна");
+    }
 }
