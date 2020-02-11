@@ -1,9 +1,32 @@
 package by.it.popkov.jd02_01;
 
+import java.util.ArrayList;
+import java.util.List;
+
 class TaskA {
     public static void main(String[] args) {
-        Buyer buyer = new Buyer(1);
-        buyer.start();
-        System.out.println("end of main");
+        System.out.println("****** Open shop ******");
+        List<Buyer> buyerList = new ArrayList<>(1777);
+        int counter = 1;
+        for (int i = 0; i < 120; i++) {
+            for (int j = 1; j <= MyRandom.randNumUntil(2); j++) {
+                Buyer buyer = new Buyer(counter++);
+                buyer.start();
+                buyerList.add(buyer);
+            }
+            try {
+                Thread.sleep(1000 / Dispatcher.SPEED_BOOST);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+        for (Buyer buyer : buyerList) {
+            try {
+                buyer.join();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+        System.out.println("****** Close shop ******");
     }
 }
