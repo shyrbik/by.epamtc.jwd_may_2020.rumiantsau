@@ -1,6 +1,5 @@
 package by.it.filipovich.jd01_15;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.nio.file.Files;
