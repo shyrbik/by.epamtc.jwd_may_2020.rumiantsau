@@ -1,6 +1,7 @@
 package by.it.kuzmichalex.calc;
 
 
+import java.io.*;
 import java.util.*;
 
 abstract class Var implements Operation {
@@ -83,6 +84,39 @@ abstract class Var implements Operation {
         }
         return retValue.toString();
     }
+
+    /**
+     *
+     */
+    static void saveVarToFile() {
+        String sFileName = FHelper.getFileName("vars.txt", Var.class);
+        try (PrintWriter pw = new PrintWriter(new FileWriter(sFileName))
+        ) {
+            String sVars = sortVars();
+            pw.print(sVars);
+        } catch (IOException e) {
+            Logger.printAndLog("Error saving vars to file " + sFileName);
+        }
+    }
+
+    static void loadVarsFromFile() {
+        String sFileName = FHelper.getFileName("vars.txt", Var.class);
+        Parser tmpParser = new Parser();
+        try (BufferedReader br = new BufferedReader(new FileReader(sFileName))) {
+            while (true) {
+                String readedString = br.readLine();
+                if(readedString==null)break;
+                Logger.printAndLog("Execute expression from file: " + readedString);
+                tmpParser.calc(readedString);
+            }
+        } catch (IOException e) {
+            Logger.printAndLog("Error reading saved vars from file " + sFileName);
+        } catch (CalcException e) {
+            Logger.printAndLog("Error parsing saved vars " + e.getMessage());
+        }
+
+    }
+
 
     /////////// Methods for add operation
     @Override
@@ -195,9 +229,10 @@ abstract class Var implements Operation {
      * @Value Var-type value
      */
     static void save(String key, Var value) throws CalcException {
-        if(!key.matches(Patterns.VARNAME))throw new CalcException("Wrong variable name: " + key);
+        if (!key.matches(Patterns.VARNAME)) throw new CalcException("Wrong variable name: " + key);
         if (KeyWords.isKeyWord(key))
             throw new CalcException("Wrong variable name. Please don't use keywords: " + KeyWords.ALLKEYWORDS);
         mapVars.put(key, value);
+        saveVarToFile();
     }
 }
