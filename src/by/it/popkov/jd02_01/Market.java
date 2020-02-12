@@ -11,8 +11,8 @@ class Market {
         int counter = 1;
         int letIn = 0;
         for (int t = 0; t < 120; t++) {
-            letIn = Helper.randNumUntil(2);
-            for (int j = 1; j <= letIn; j++) {
+           letIn = Helper.randNumUntil(2);
+           for (int j = 1; j <= letIn; j++) {
                 Buyer buyer = new Buyer(counter++);
                 buyer.start();
                 buyerList.add(buyer);
@@ -42,3 +42,17 @@ class Market {
 //        if (t >= 30 && t < 60) letIn = (40 + (30 - t))/6; //DOWN
 //        if (t >= 60 && t < 90) letIn = ((t - 60)  + 10)/6; //UP
 //        if (t >= 90) letIn = (40 + (90 - t))/6; //DOWN
+
+
+// if (Dispatcher.buyerCounter < t + 10 && t < 30) { //UP
+//        letIn = 6;
+//        }
+//        if (Dispatcher.buyerCounter < t-50 && (t > 60 && t < 90)){
+//        letIn = 6;
+//        } //UP
+//        if (Dispatcher.buyerCounter <= 40 + (30-t)){
+//        letIn = 6;
+//        } //DOWN
+//        if (Dispatcher.buyerCounter <= 40 + (90-t)){
+//        letIn = 6;
+//        }else continue;
