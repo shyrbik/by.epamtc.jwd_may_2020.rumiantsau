@@ -1,7 +1,6 @@
 package by.it.busel.jd02_01;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 class Backet {
     private static Map<String, Double> goodsNomenclature = new HashMap<>();
@@ -13,26 +12,24 @@ class Backet {
         goodsNomenclature.put("Poultry", 12.69);
     }
 
-    private Map<String, Double> personalGoods = new HashMap<>();
 
-    private int numberOfItemNextToBeAddedToPersonalGoods = 1;
+    private Map<String, Double> personalGoods = new HashMap<>();
 
     private Map.Entry<String, Double> lastChosenItem;
 
     Map.Entry<String, Double> chooseAnItemOfGoods() {
-        int counter = 1;
-        for (Map.Entry<String, Double> item : goodsNomenclature.entrySet()) {
-            if (counter++ == numberOfItemNextToBeAddedToPersonalGoods) {
-                lastChosenItem = item;
-                numberOfItemNextToBeAddedToPersonalGoods++;
-                break;
-            }
-        }
+        List<String> keys = new ArrayList<>(goodsNomenclature.keySet());
+        Collections.shuffle(keys);
+        int randomKey = Helper.getRandomIntValue(0, keys.size() - 1);
+        String randomItemName = keys.get(randomKey);
+        Double randomItemPrice = goodsNomenclature.get(randomItemName);
+        lastChosenItem = new AbstractMap.SimpleEntry<>
+                (randomItemName, randomItemPrice);
         return lastChosenItem;
     }
 
     Map.Entry<String, Double> putChosenItem() {
-        personalGoods.put(lastChosenItem.getKey(), lastChosenItem.getValue());
+        personalGoods.merge(lastChosenItem.getKey(), lastChosenItem.getValue(), Double::sum);
         return lastChosenItem;
     }
 }

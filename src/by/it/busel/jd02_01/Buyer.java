@@ -12,7 +12,7 @@ class Buyer extends Thread implements IBuyer, IUseBacket {
     Buyer(int id) {
         if (id % 4 != 0) this.setName("Buyer №" + id);
         else {
-            this.setName("Buyer №" + id + " (a retiree) ");
+            this.setName("Buyer №" + id + " (a retiree)");
             isPensioner = true;
         }
         cognitiveDelay = isPensioner ? 1 : 1.5;
