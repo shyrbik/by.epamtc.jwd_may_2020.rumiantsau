@@ -16,4 +16,9 @@ class Helper {
             e.printStackTrace();
         }
     }
+
+    static void sleep(int from, int to) {
+        int millis = Helper.getRandomIntValue(from, to);
+        sleep(millis);
+    }
 }

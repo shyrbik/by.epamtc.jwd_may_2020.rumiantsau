@@ -4,10 +4,21 @@ import java.util.Map;
 
 class Buyer extends Thread implements IBuyer, IUseBacket {
 
+    static int totalBuyerNumber = 0;
+
+    private boolean isPensioner;
+
+    private int cognitiveDelay = 0;
+
     private Backet personalBacket = new Backet();
 
     Buyer(int id) {
-        super("Buyer №" + id);
+        if (id % 4 != 0) this.setName("Buyer №" + id);
+        else {
+            this.setName("Buyer №" + id + " (a retiree) ");
+            isPensioner = true;
+        }
+        cognitiveDelay = isPensioner ?  10 : 15;
     }
 
     @Override
@@ -34,7 +45,7 @@ class Buyer extends Thread implements IBuyer, IUseBacket {
 
     @Override
     public void chooseGoods() {
-        Helper.sleep(Helper.getRandomIntValue(500, 2000));
+        Helper.sleep(Helper.getRandomIntValue(500, 2000)*cognitiveDelay/10);
         Map.Entry<String, Double> itemInHands = personalBacket.chooseAnItemOfGoods();
         System.out.println(this + " has chosen an item of goods \"" + itemInHands.getKey() + "\", which costs "
                 + itemInHands.getValue() + " BYN.");
