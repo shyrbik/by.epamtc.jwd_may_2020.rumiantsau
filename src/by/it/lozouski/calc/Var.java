@@ -5,6 +5,10 @@ import java.util.Map;
 
 abstract class Var implements Operation {
 
+    public static Map<String, Var> getVarsMap() {
+        return varsMap;
+    }
+
     private static Map<String, Var> varsMap = new HashMap<>();
 
     @Override
@@ -91,5 +95,6 @@ abstract class Var implements Operation {
                                     +"Latin Letter and numbers = your value(Scalar, Vector, Matrix)");
         }
         varsMap.put(key, value);
+        VarFile.save(varsMap);
     }
 }
