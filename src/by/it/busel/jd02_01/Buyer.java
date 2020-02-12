@@ -38,6 +38,7 @@ class Buyer extends Thread implements IBuyer, IUseBacket {
     @Override
     public void enterToMarket() {
         System.out.println(this + " has entered the store.");
+        Dispatcher.incrementNumberOfBuyers();
     }
 
     @Override
@@ -52,6 +53,7 @@ class Buyer extends Thread implements IBuyer, IUseBacket {
     @Override
     public void goOut() {
         System.out.println(this + " has made for the shop-exit and has gone out.");
+        Dispatcher.decrementNumberOfBuyers();
     }
 
     @Override

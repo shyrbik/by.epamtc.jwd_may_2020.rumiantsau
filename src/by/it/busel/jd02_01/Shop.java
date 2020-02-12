@@ -9,7 +9,7 @@ class Shop {
 
     public static void main(String[] args) {
         String mainThreadName = Shop.class.getSimpleName();
-        System.out.println("<<<<< " + mainThreadName + " has opened >>>>>");
+        System.out.println("<<<<< The \"" + mainThreadName + "\" has opened >>>>>");
         int buyerId = 0;
         for (int second = 0; second <= 120; second++) {
             int numberOfBuyersToEnterTheShopInOneSecond = Helper.getRandomIntValue(0, 2);
@@ -20,8 +20,9 @@ class Shop {
             }
             Helper.sleep(1000);
         }
+        System.out.println("===== The dispatcher of the \"" + mainThreadName + "\" has shut the doors =====");
         executeUntilAllSubThreadsFinished();
-        System.out.println("<<<<< " + mainThreadName + " has closed >>>>>");
+        System.out.println("<<<<< The \"" + mainThreadName + "\" has closed >>>>>");
     }
 
     private static void executeUntilAllSubThreadsFinished() {
