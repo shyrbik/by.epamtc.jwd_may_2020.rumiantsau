@@ -6,9 +6,8 @@ class BulbaStore {
     private Map<String, Integer> goods;
     private Set<Buyer> buyers;
     private Set<Basket> baskets;
-    private int k = 0;
-
-    public BulbaStore() {
+    private int k;
+    public BulbaStore(int basketsCount) {
         goods = new HashMap<>();
         buyers = new HashSet<>();
         baskets = new HashSet<>();
@@ -24,24 +23,36 @@ class BulbaStore {
         goods.put("bananas", 35);
         goods.put("apples", 35);
         goods.put("persimmons", 35);
-        for (int i = 0; i < 30; i++) {
+        for (int i = 0; i < basketsCount; i++) {
             baskets.add(new Basket());
             k++;
         }
     }
-
+    //public synchronized Basket getBasket(){
+//        Basket basket=baskets.iterator().next();
+//        baskets.remove(basket);
+//        return basket;
+//    }
     public synchronized Basket getBasket() {
         k--;
         return baskets.iterator().next();
     }
 
+    //public synchronized boolean isBasketsEmpty(){
+//        return baskets.isEmpty();
+//    }
     public synchronized boolean isBasketsEmpty() {
         return k > 0;
     }
 
+    //public synchronized void returnBasket(Basket basket){
+//        baskets.add(basket);
+//    }
     public synchronized void returnBasket() {
         k++;
     }
+
+
 
     public String getSomeGoods() {
         int num = Helper.getRandom(0, goods.size() - 1);

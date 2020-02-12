@@ -7,7 +7,7 @@ class ShopRunner {
 
     public static void main(String[] args) {
         LinkedList<Buyer> buyers = new LinkedList<>();
-        BulbaStore bulbaStore = new BulbaStore();
+        BulbaStore bulbaStore = new BulbaStore(20);
         System.err.println("Hello! BulbaStore opened");
         for (int second = 0; second < 2 * 60; second++) {
             System.out.println("########################## " + second + " ########################## " + bulbaStore.buyersCount());
