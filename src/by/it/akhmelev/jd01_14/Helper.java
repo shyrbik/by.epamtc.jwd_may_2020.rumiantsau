@@ -4,6 +4,7 @@ import java.io.File;
 
 public class Helper {
 
+
     static String getPath(String fileName, Class<?> aClass) {
         String root = System.getProperty("user.dir");
         String strPackage = aClass.getName().replace(aClass.getSimpleName(), "");
