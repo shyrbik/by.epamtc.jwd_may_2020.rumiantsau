@@ -14,7 +14,7 @@ class MarketC {
             if ((time/30)%2==0) // начало минуты
             {count=time%30+10-Dispatcher.countBuyer;}
             else // окончание минуты
-            { count=40+(30-time%30)-Dispatcher.countBuyer;
+            { count=40+(30-time%60)-Dispatcher.countBuyer;
             }
             if (count<0) count=0;
             for (int i = 1; i <= count; i++) {
