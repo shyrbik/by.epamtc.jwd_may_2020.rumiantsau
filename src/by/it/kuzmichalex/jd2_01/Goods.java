@@ -24,7 +24,7 @@ public class Goods {
         mapOfGoods.put("Tortilla",428);
         mapOfGoods.put("Honey",211);
         mapOfGoods.put("Tea",153);
-        mapOfGoods.put("some expensive shit that looks eatable",12228);
+        mapOfGoods.put("some expensive sh..t",12228);
     }
 
   /*  static int getCount(){
