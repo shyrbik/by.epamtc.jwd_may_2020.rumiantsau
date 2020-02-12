@@ -5,11 +5,13 @@ import java.util.List;
 
 class TaskA {
     public static void main(String[] args) {
+        Helper.writeGoodsMap();
+        System.out.println(Helper.goodsMap);
         System.out.println("****** Open shop ******");
         List<Buyer> buyerList = new ArrayList<>(1777);
         int counter = 1;
         for (int i = 0; i < 120; i++) {
-            for (int j = 1; j <= MyRandom.randNumUntil(2); j++) {
+            for (int j = 1; j <= Helper.randNumUntil(2); j++) {
                 Buyer buyer = new Buyer(counter++);
                 buyer.start();
                 buyerList.add(buyer);
