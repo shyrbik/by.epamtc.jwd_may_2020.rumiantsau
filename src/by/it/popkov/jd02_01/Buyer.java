@@ -11,6 +11,16 @@ class Buyer extends Thread implements IBuyer, IUseBacket {
         super("Buyer " + name);
     }
 
+
+    @Override
+    public void run() {
+        enterToMarket();
+        takeBacket();
+        chooseGoods();
+        putGoodsToBacket();
+        goOut();
+    }
+
     @Override
     public void takeBacket() {
         try {
@@ -41,16 +51,6 @@ class Buyer extends Thread implements IBuyer, IUseBacket {
             }
         }
 
-    }
-
-
-    @Override
-    public void run() {
-        enterToMarket();
-        takeBacket();
-        chooseGoods();
-        putGoodsToBacket();
-        goOut();
     }
 
     @Override
