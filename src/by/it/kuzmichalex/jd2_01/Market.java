@@ -6,6 +6,7 @@ import java.util.List;
 public class Market {
     public static void main(String[] args) {
         Goods goods = new Goods();
+        PseudoGraph graph = new PseudoGraph();
         List<Buyer> listBuyers = new ArrayList<>(1000);
 
         System.out.println("============================== MARKET OPENED ==============");
@@ -14,6 +15,7 @@ public class Market {
         for (int nSeconds = 0; nSeconds < 120; nSeconds++) {
             int buyersNeed = Dispatcher.getBuyersNeed(nSeconds);
             int newComers = buyersNeed - Dispatcher.nCountOfBuyers;
+            graph.add(Dispatcher.nCountOfBuyers);
             System.out.println("======= MARKET Works:" + nSeconds + "s. " +
                     ";   Byers:" + Dispatcher.nCountOfBuyers +
                     ";   Buyers need:" + buyersNeed +
@@ -37,8 +39,12 @@ public class Market {
             }
         }
         System.out.println("============================ MARKET точно пуст (join сработал) ================");
+        System.out.println("А сейчас, если не сломается, нарисуем график посещения гастронома==============");
+        System.out.println(graph);
+        System.out.println("Похоже на глюк, но на самом деле это график распределения покупателей по времени. Ну, ладно, гистрограмма");
         System.out.println("============================ Покупателей залипло в диспетчере: " + Dispatcher.nCountOfBuyers);
         System.out.println("Фактор ускорения просмотра TimeHelper.SUPER_SPEED: " + TimeHelper.getSuperSpeed());
         System.out.println("Фактор замедления-пенсионера TimeHelper.SLOW_SPEED: " + TimeHelper.getSlowSpeed());
+
     }
 }
