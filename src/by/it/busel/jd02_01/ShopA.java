@@ -13,8 +13,8 @@ class ShopA {
     private static List<Buyer> subThreads = new ArrayList<>(200);
 
     public static void main(String[] args) {
-        String currentThreadName = ShopA.class.getSimpleName();
-        System.out.println("<<<<< " + currentThreadName + " has opened >>>>>");
+        String mainThreadName = ShopA.class.getSimpleName();
+        System.out.println("<<<<< " + mainThreadName + " has opened >>>>>");
         int buyerId = 0;
         for (int second = 0; second <= 120; second++) {
             int numberOfBuyersToEnterTheShop = Helper.getRandomIntValue(0, 2);
@@ -26,7 +26,7 @@ class ShopA {
             Helper.sleep(1000);
         }
         executeUntilAllSubThreadsFinished();
-        System.out.println("<<<<< " + currentThreadName + " has closed >>>>>");
+        System.out.println("<<<<< " + mainThreadName + " has closed >>>>>");
     }
 
     private static void executeUntilAllSubThreadsFinished() {
