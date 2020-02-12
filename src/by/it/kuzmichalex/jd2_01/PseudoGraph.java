@@ -34,6 +34,7 @@ class PseudoGraph {
         }
 
         for (int y = ySize-1; y>=0 ; y--) {
+            retValue.append(y/10).append(y%10).append(' ');
             for (int x = 0; x <xSize ; x++) {
                 retValue.append(graphBuffer[y][x]);
             }
