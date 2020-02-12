@@ -27,7 +27,9 @@ class PseudoGraph {
             for (int x = 0; x < xSize; x++) {
                 Integer value = graphList.get(x);
                 graphBuffer[y][x]=' ';
-                if(value>y)graphBuffer[y][x]='B';
+                if(value>y)graphBuffer[y][x]='.';
+                if(value==y)graphBuffer[y][x]='*';
+
             }
         }
 

@@ -27,7 +27,7 @@ public class Market {
             }
             TimeHelper.sleep(TimeHelper.getRandom(1000, 1000)); //Запускаем раз в секунду. Нуу примерно.
         }
-        System.out.println("============================= MARKET закрыт на вход ==============");
+        System.out.println("=========================== вход в MARKET закрыт==============================");
         System.out.println("Покупателей внутри осталось примерно: " + Dispatcher.nCountOfBuyers);
 
         //заджойнимся ко всем берлагам.
@@ -41,10 +41,10 @@ public class Market {
         System.out.println("============================ MARKET точно пуст (join сработал) ================");
         System.out.println("А сейчас, если не сломается, нарисуем график посещения гастронома==============");
         System.out.println(graph);
-        System.out.println("Похоже на глюк, но на самом деле это график распределения покупателей по времени. Ну, ладно, гистрограмма");
+        System.out.println("Эти точечки на самом деле гистрограмма распределения покупателей по времени :)");
         System.out.println("============================ Покупателей залипло в диспетчере: " + Dispatcher.nCountOfBuyers);
         System.out.println("Фактор ускорения просмотра TimeHelper.SUPER_SPEED: " + TimeHelper.getSuperSpeed());
-        System.out.println("Фактор замедления-пенсионера TimeHelper.SLOW_SPEED: " + TimeHelper.getSlowSpeed());
+        System.out.println("Фактор замедления пенсионера TimeHelper.SLOW_SPEED: " + TimeHelper.getSlowSpeed());
 
     }
 }
