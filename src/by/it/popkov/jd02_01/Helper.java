@@ -9,13 +9,13 @@ class Helper {
 
     static final Map<String, Integer> goodsMap = new HashMap<>();
     static void writeGoodsMap(){
-        goodsMap.put("bread", 1);
-        goodsMap.put("milk", 2);
-        goodsMap.put("meat", 3);
-        goodsMap.put("cake", 2);
         goodsMap.put("water", 1);
-        goodsMap.put("eggs", 2);
-        goodsMap.put("apples", 1);
+        goodsMap.put("bread", 2);
+        goodsMap.put("apples", 3);
+        goodsMap.put("milk", 4);
+        goodsMap.put("eggs", 5);
+        goodsMap.put("cake", 6);
+        goodsMap.put("meat", 7);
     }
 
     private static Random random = new Random(System.nanoTime());

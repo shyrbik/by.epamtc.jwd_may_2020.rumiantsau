@@ -28,8 +28,8 @@ class Buyer extends Thread implements IBuyer, IUseBacket {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        int goodsCounter = 1;
-        while (goodsCounter <= Helper.randNum(1, 4)) {
+
+        for (int goods = 1; goods <= Helper.randNum(1, 4); goods++) {
             int iteratorCounter = 1;
             int selectedGood = Helper.randNum(1, 7);
             for (Map.Entry<String, Integer> entry : Helper.goodsMap.entrySet()) {
@@ -39,7 +39,6 @@ class Buyer extends Thread implements IBuyer, IUseBacket {
                 }
                 iteratorCounter++;
             }
-            goodsCounter++;
         }
 
     }
