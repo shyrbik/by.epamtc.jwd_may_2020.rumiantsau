@@ -1,8 +1,13 @@
 package by.it.ban.jd02_01;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map.Entry;
+
 class Buyer extends Thread implements IBuyer, IUseBacket {
     boolean pensioner;
     double speed;
+    List<Entry<String,Double>> backet;
 
     public Buyer(int number) {
         super("Покупатель N"+number+" ");
@@ -60,12 +65,19 @@ class Buyer extends Thread implements IBuyer, IUseBacket {
 
     @Override
     public void takeBacket() {
+        this.backet=new ArrayList();
         System.out.println(this+"взял корзину");
     }
 
     @Override
     public void putGoodsToBacket() {
         Helper.sleep((int) (Helper.random(500,2000)*this.speed));
+       /* int goodRandom=Helper.random(1,4);
+        List<Entry> goods = new ArrayList<>(Good.goods.entrySet().toArray());
+
+        for (int i = 0; i < Good.goods.entrySet().size() && i<goodRandom; i++) {
+            this.backet.add(([Helper.random(1,4)]);
+        }*/
         System.out.println(this+"положил выбранный товар в корзину");
     }
 }
