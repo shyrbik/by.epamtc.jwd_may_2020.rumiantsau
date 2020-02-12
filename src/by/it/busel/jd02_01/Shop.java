@@ -1,19 +1,14 @@
 package by.it.busel.jd02_01;
-/*
-Yes, I know that code duplication doesn't conform to Java Code Conventions,
-but for the purposes of examinations of Tasks I creates three classes, which
-are shops equivalents with different "shop logic"
- */
 
 import java.util.ArrayList;
 import java.util.List;
 
-class ShopA {
+class Shop {
 
     private static List<Buyer> subThreads = new ArrayList<>(200);
 
     public static void main(String[] args) {
-        String mainThreadName = ShopA.class.getSimpleName();
+        String mainThreadName = Shop.class.getSimpleName();
         System.out.println("<<<<< " + mainThreadName + " has opened >>>>>");
         int buyerId = 0;
         for (int second = 0; second <= 120; second++) {
