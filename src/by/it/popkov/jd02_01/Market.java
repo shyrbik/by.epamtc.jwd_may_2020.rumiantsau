@@ -6,7 +6,6 @@ import java.util.List;
 class Market {
     public static void main(String[] args) {
         Helper.writeGoodsMap();
-        System.out.println(Helper.goodsMap);
         System.out.println("****** Open shop ******");
         List<Buyer> buyerList = new ArrayList<>(1777);
         int counter = 1;
