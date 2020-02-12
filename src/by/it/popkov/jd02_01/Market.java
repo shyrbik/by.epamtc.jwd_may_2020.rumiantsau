@@ -3,7 +3,7 @@ package by.it.popkov.jd02_01;
 import java.util.ArrayList;
 import java.util.List;
 
-class TaskA {
+class Market {
     public static void main(String[] args) {
         Helper.writeGoodsMap();
         System.out.println(Helper.goodsMap);
