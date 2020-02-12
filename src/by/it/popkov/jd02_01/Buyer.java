@@ -35,7 +35,7 @@ class Buyer extends Thread implements IBuyer, IUseBacket {
             for (Map.Entry<String, Integer> entry : Helper.goodsMap.entrySet()) {
                 if (iteratorCounter == selectedGood) {
                     basket.put(entry.getKey(), entry.getValue());
-                    System.out.println(this + " put " + entry.getKey() + "  cost: " + entry.getValue());
+                    System.out.println(this + " put " + entry.getKey() + " cost: " + entry.getValue());
                 }
                 iteratorCounter++;
             }
