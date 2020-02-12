@@ -1,11 +1,12 @@
 package by.it.popkov.jd02_01;
 
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
 
 class Buyer extends Thread implements IBuyer, IUseBacket {
     private Map<String, Integer> basket = new HashMap<>();
+    private boolean pensioneer = false;
+    private double slow = 1.0;
 
     public Buyer(int name) {
         super("Buyer " + name);
@@ -14,6 +15,7 @@ class Buyer extends Thread implements IBuyer, IUseBacket {
 
     @Override
     public void run() {
+        if (Helper.randNum(1, 4) == 4) makePensioneer();
         enterToMarket();
         takeBacket();
         chooseGoods();
@@ -21,10 +23,16 @@ class Buyer extends Thread implements IBuyer, IUseBacket {
         goOut();
     }
 
+    public void makePensioneer() {
+        pensioneer = true;
+        slow = 1.5;
+        super.setName(this.getName() + " (pensioneer)");
+    }
+
     @Override
     public void takeBacket() {
         try {
-            sleep(Helper.randNum(500, 2000) / Dispatcher.SPEED_BOOST);
+            sleep((long) (Helper.randNum(500, 2000) / Dispatcher.SPEED_BOOST * slow));
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -34,7 +42,7 @@ class Buyer extends Thread implements IBuyer, IUseBacket {
     @Override
     public void putGoodsToBacket() {
         try {
-            sleep(Helper.randNum(500, 2000) / Dispatcher.SPEED_BOOST);
+            sleep((long) (Helper.randNum(500, 2000) / Dispatcher.SPEED_BOOST * slow));
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -66,7 +74,7 @@ class Buyer extends Thread implements IBuyer, IUseBacket {
     @Override
     public void chooseGoods() {
         try {
-            sleep(Helper.randNum(500, 2000) / Dispatcher.SPEED_BOOST);
+            sleep((long) (Helper.randNum(500, 2000) / Dispatcher.SPEED_BOOST * slow));
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
