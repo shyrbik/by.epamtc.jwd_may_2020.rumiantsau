@@ -3,12 +3,9 @@ package by.it.busel.jd02_01;
 import java.util.Map;
 
 class Buyer extends Thread implements IBuyer, IUseBacket {
-
-    static int totalBuyerNumber = 0;
-
     private boolean isPensioner;
 
-    private int cognitiveDelay = 0;
+    private double cognitiveDelay;
 
     private Backet personalBacket = new Backet();
 
@@ -18,7 +15,7 @@ class Buyer extends Thread implements IBuyer, IUseBacket {
             this.setName("Buyer №" + id + " (a retiree) ");
             isPensioner = true;
         }
-        cognitiveDelay = isPensioner ?  10 : 15;
+        cognitiveDelay = isPensioner ? 1 : 1.5;
     }
 
     @Override
@@ -45,7 +42,8 @@ class Buyer extends Thread implements IBuyer, IUseBacket {
 
     @Override
     public void chooseGoods() {
-        Helper.sleep(Helper.getRandomIntValue(500, 2000)*cognitiveDelay/10);
+        int millis = (int) (Helper.getRandomIntValue(500, 2000) * cognitiveDelay);
+        Helper.sleep(millis);
         Map.Entry<String, Double> itemInHands = personalBacket.chooseAnItemOfGoods();
         System.out.println(this + " has chosen an item of goods \"" + itemInHands.getKey() + "\", which costs "
                 + itemInHands.getValue() + " BYN.");
@@ -58,13 +56,15 @@ class Buyer extends Thread implements IBuyer, IUseBacket {
 
     @Override
     public void takeBacket() {
-        Helper.sleep(Helper.getRandomIntValue(500, 2000));
+        int millis = (int) (Helper.getRandomIntValue(500, 2000) * cognitiveDelay);
+        Helper.sleep(millis);
         System.out.println(this + " has taken a backet.");
     }
 
     @Override
     public void putGoodsToBacket() {
-        Helper.sleep(Helper.getRandomIntValue(500, 2000));
+        int millis = (int) (Helper.getRandomIntValue(500, 2000) * cognitiveDelay);
+        Helper.sleep(millis);
         Map.Entry<String, Double> lastInputtedItem = personalBacket.putChosenItem();
         System.out.println(this + " has put a chosen item of goods \"" + lastInputtedItem.getKey() + "\", which costs "
                 + lastInputtedItem.getValue() + " BYN, to the backet.");
