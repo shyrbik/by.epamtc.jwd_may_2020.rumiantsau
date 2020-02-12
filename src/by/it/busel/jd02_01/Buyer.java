@@ -1,6 +1,11 @@
 package by.it.busel.jd02_01;
 
-class Buyer extends Thread implements IBuyer {
+import java.util.Map;
+
+class Buyer extends Thread implements IBuyer, IUseBacket {
+
+    private Backet personalBacket = new Backet();
+
     Buyer(int id) {
         super("Buyer №" + id);
     }
@@ -13,7 +18,12 @@ class Buyer extends Thread implements IBuyer {
     @Override
     public void run() {
         enterToMarket();
-        chooseGoods();
+        takeBacket();
+        int numberOfGoodsNeeded = Helper.getRandomIntValue(1, 4);
+        for (int i = 0; i < numberOfGoodsNeeded; i++) {
+            chooseGoods();
+            putGoodsToBacket();
+        }
         goOut();
     }
 
@@ -24,16 +34,29 @@ class Buyer extends Thread implements IBuyer {
 
     @Override
     public void chooseGoods() {
-        try {
-            sleep(Helper.getRandomIntValue(500, 2000));
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        System.out.println(this + " has chosen an item of goods.");
+        Helper.sleep(Helper.getRandomIntValue(500, 2000));
+        Map.Entry<String, Double> itemInHands = personalBacket.chooseAnItemOfGoods();
+        System.out.println(this + " has chosen an item of goods \"" + itemInHands.getKey() + "\", which costs "
+                + itemInHands.getValue() + " BYN.");
     }
 
     @Override
     public void goOut() {
         System.out.println(this + " has made for the shop-exit and has gone out.");
+    }
+
+    @Override
+    public void takeBacket() {
+        Helper.sleep(Helper.getRandomIntValue(500, 2000));
+        System.out.println(this + " has taken a backet.");
+    }
+
+    @Override
+    public void putGoodsToBacket() {
+        Helper.sleep(Helper.getRandomIntValue(500, 2000));
+        Map.Entry<String, Double> lastInputtedItem = personalBacket.putChosenItem();
+        System.out.println(this + " has put a chosen item of goods \"" + lastInputtedItem.getKey() + "\", which costs "
+                + lastInputtedItem.getValue() + " BYN, to the backet.");
+
     }
 }

@@ -12,8 +12,8 @@ class Shop {
         System.out.println("<<<<< " + mainThreadName + " has opened >>>>>");
         int buyerId = 0;
         for (int second = 0; second <= 120; second++) {
-            int numberOfBuyersToEnterTheShop = Helper.getRandomIntValue(0, 2);
-            for (int i = 0; i < numberOfBuyersToEnterTheShop; i++) {
+            int numberOfBuyersToEnterTheShopInOneSecond = Helper.getRandomIntValue(0, 2);
+            for (int i = 0; i < numberOfBuyersToEnterTheShopInOneSecond; i++) {
                 Buyer buyer = new Buyer(++buyerId);
                 subThreads.add(buyer);
                 buyer.start();
@@ -34,7 +34,3 @@ class Shop {
         }
     }
 }
-
-// Unnecessary code fragments:
-// System.out.println("The current thread \"" + currentThreadName + "\" has started.");
-// System.out.println("The current thread \"" + currentThreadName + "\" has successfully ended.");
