@@ -22,12 +22,8 @@ class Market {
                 buyer.start();
                 buyerList.add(buyer);
             }
-            try {
-                Thread.sleep(1000 / Dispatcher.SPEED_BOOST);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-//            System.out.println("Sec = " + t + "Count = " + Dispatcher.buyerCounter);
+            Helper.delay(1000);
+            //            System.out.println("Sec = " + t + "Count = " + Dispatcher.buyerCounter);
         }
         for (Buyer buyer : buyerList) {
             try {

@@ -6,17 +6,19 @@ import java.util.Map;
 class Buyer extends Thread implements IBuyer, IUseBacket {
     private Map<String, Integer> basket = new HashMap<>();
     private boolean pensioneer = false;
-    private double slow = 1.0;
 
     public Buyer(int name) {
         super("Buyer " + name);
+        if (Helper.randNum(1, 4) == 4){
+            pensioneer = true;
+            super.setName(this.getName() + " (pensioneer)");
+        }
         Dispatcher.buyerCounter++;
     }
 
 
     @Override
     public void run() {
-        if (Helper.randNum(1, 4) == 4) makePensioneer();
         enterToMarket();
         takeBacket();
         chooseGoods();
@@ -24,29 +26,17 @@ class Buyer extends Thread implements IBuyer, IUseBacket {
         goOut();
     }
 
-    public void makePensioneer() {
-        pensioneer = true;
-        slow = 1.5;
-        super.setName(this.getName() + " (pensioneer)");
-    }
-
     @Override
     public void takeBacket() {
-        try {
-            sleep((long) (Helper.randNum(500, 2000) / Dispatcher.SPEED_BOOST * slow));
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        if (!pensioneer) Helper.delay((Helper.randNum(500, 2000)));
+        else Helper.delay((int) (Helper.randNum(500, 2000)*1.5));
         System.out.println(this + " take basket");
     }
 
     @Override
     public void putGoodsToBacket() {
-        try {
-            sleep((long) (Helper.randNum(500, 2000) / Dispatcher.SPEED_BOOST * slow));
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        if (!pensioneer) Helper.delay((Helper.randNum(500, 2000)));
+        else Helper.delay((int) (Helper.randNum(500, 2000)*1.5));
 
         for (int goods = 1; goods <= Helper.randNum(1, 4); goods++) {
             int iteratorCounter = 1;
@@ -74,11 +64,8 @@ class Buyer extends Thread implements IBuyer, IUseBacket {
 
     @Override
     public void chooseGoods() {
-        try {
-            sleep((long) (Helper.randNum(500, 2000) / Dispatcher.SPEED_BOOST * slow));
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        if (!pensioneer) Helper.delay((Helper.randNum(500, 2000)));
+        else Helper.delay((int) (Helper.randNum(500, 2000)*1.5));
         System.out.println(this + " picked goods");
     }
 
