@@ -48,6 +48,6 @@ public class TaskA {
            out2.print("\navg="+sum/count);
        }   catch (IOException e) {
            e.printStackTrace();
-       } 
+       }
     }
 }
