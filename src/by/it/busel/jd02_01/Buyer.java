@@ -15,7 +15,7 @@ class Buyer extends Thread implements IBuyer, IUseBacket {
             this.setName("Buyer №" + id + " (a retiree)");
             isPensioner = true;
         }
-        cognitiveDelay = isPensioner ? 1 : 1.5;
+        cognitiveDelay = !isPensioner ? 1 : 1.5;
     }
 
     @Override
