@@ -5,7 +5,7 @@ class Dispatcher {
 
     private static int counterOfBuyersInside = 0;
 
-    public static synchronized int get() {
+    static synchronized int get() {
         return counterOfBuyersInside;
     }
 
