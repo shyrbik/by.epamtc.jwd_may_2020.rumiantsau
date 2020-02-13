@@ -1,4 +1,4 @@
-package by.it.kuzmichalex.jd02_01;
+package by.it.kuzmichalex.jd02_02;
 
 import java.io.StringWriter;
 import java.util.ArrayList;
@@ -38,7 +38,7 @@ class PseudoGraph {
                 else
                 if(graphList.get(x)>=y)retValue.append("█");
                 else
-                    retValue.append("▄");
+                retValue.append("▄");
             }
             retValue.append("\n");
         }
