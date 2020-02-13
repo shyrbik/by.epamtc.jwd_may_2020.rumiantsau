@@ -5,14 +5,22 @@ import java.util.*;
 class Buyer extends Thread implements IBuyer, IUseBacket {
 
     private Map<String, Integer> backetWithBoughtGoods = new HashMap<>();
-    private int timeChoosing = Help.randomGenerateTime(500, 2000);
+    private boolean pensioner;
+    private double speedPerson;
 
 
-
-    public Buyer(int idBuyer) {
+    public Buyer(int idBuyer, boolean pensioner) {
         super("ID покупателя: " + idBuyer + " ");
+        if (pensioner) {
+            this.pensioner = true;
+            this.speedPerson = 1.5;
+        } else {
+            this.pensioner = false;
+            this.speedPerson = 1.0;
+        }
         Dispetcher.buyerCounter++;
     }
+
 
     @Override
     public void run() {
@@ -25,44 +33,33 @@ class Buyer extends Thread implements IBuyer, IUseBacket {
 
     @Override
     public void enterToMarket() {
-        System.out.println(this + "Вошел в магазин.");
+        if (pensioner) System.out.println(this + "Пенсионер вошел в магазин.");
+        else System.out.println(this + "Вошел в магазин.");
     }
 
     @Override
     public void takeBacket() {
         System.out.println(this + "Взял корзинку для покупок.");
-        try {
-            sleep(timeChoosing/Dispetcher.SPEED_K);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        Help.sleep((int) (Help.randomGenerate(500, 2000) * this.speedPerson));
     }
 
     @Override
     public void chooseGoods() {
         System.out.println(this + "Начал выбирать товары.");
-        try {
-            sleep(timeChoosing/Dispetcher.SPEED_K);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        Help.sleep((int) (Help.randomGenerate(500, 2000) * this.speedPerson));
     }
 
     @Override
     public void putGoodsToBacket() {
-        try {
-            sleep(timeChoosing/Dispetcher.SPEED_K);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        int setOfGoods = Help.randomGenerateTime(1, 4);
+        Help.sleep((int) (Help.randomGenerate(500, 2000) * this.speedPerson));
+        int setOfGoods = Help.randomGenerate(1, 4);
         Object[] keysArray = GoodsInThisMarket.productsForTheBuyer.keySet().toArray();
 
         for (int product = 1; product <= setOfGoods; product++) {
             int randomIndex = new Random().nextInt(keysArray.length);
             Integer value = GoodsInThisMarket.productsForTheBuyer.get(keysArray[randomIndex].toString());
             backetWithBoughtGoods.put((String) keysArray[randomIndex], value);
-            System.out.println(this + "Выбрал товар: " + keysArray[randomIndex] + " Цена: "+ value+"p.");
+            System.out.println(this + "Выбрал товар: " + keysArray[randomIndex] + " Цена: " + value + "p.");
         }
         System.out.println(this + "Закончил выбирать товары.");
 
@@ -76,6 +73,7 @@ class Buyer extends Thread implements IBuyer, IUseBacket {
 
     @Override
     public String toString() {
-        return this.getName();
+        if (pensioner) return this.getName()+"Пенсионер ";
+        else return this.getName();
     }
 }

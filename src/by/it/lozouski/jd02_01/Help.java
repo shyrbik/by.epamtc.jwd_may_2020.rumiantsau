@@ -13,11 +13,11 @@ class Help {
         }
     }
 
-    static int randomGenerateTime(int minTime, int maxTime) {
+    static int randomGenerate(int minTime, int maxTime) {
         return minTime + randomGenerator.nextInt(maxTime - minTime + 1);
     }
 
-    static int randomGenerateTime(int maxTime) {
+    static int randomGenerate(int maxTime) {
         return randomGenerator.nextInt(maxTime + 1);
     }
 
