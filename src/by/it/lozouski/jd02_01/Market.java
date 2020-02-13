@@ -26,6 +26,7 @@ class Market {
                 Buyer currentBuyer;
                 int needCountBuyers = 40 + (30 - sec);
                 if(Dispetcher.buyerCounter > needCountBuyers) {
+                    Help.sleep(1000);
                     continue;
                 }
                 for (int personNum = 1; personNum <= needCountBuyers; personNum++) {
