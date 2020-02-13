@@ -31,8 +31,7 @@ class PseudoGraph {
         if (graphList.size() < 1) return ("graph is null");
 
         for (int y = 2 * (maxValue / 2); y >=0; y-=2) {
-            retValue.append(y/10).append(y%10).append(' ');
-
+            retValue.append(String.format("%3d ",y));
             for (int x = 0; x <graphList.size() ; x++) {
                 if(graphList.get(x)<(y-1))retValue.append(' ');
                 else
@@ -42,6 +41,10 @@ class PseudoGraph {
             }
             retValue.append("\n");
         }
+        retValue.append("    ");
+        for(int x=0; x<graphList.size(); x+=10)retValue.append(String.format("%-10d",x));
+
+
         return retValue.toString();
     }
 }
