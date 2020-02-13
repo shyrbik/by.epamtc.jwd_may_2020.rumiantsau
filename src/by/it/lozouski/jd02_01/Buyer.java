@@ -33,7 +33,7 @@ class Buyer extends Thread implements IBuyer, IUseBacket {
 
     @Override
     public void enterToMarket() {
-        if (pensioner) System.out.println(this + "Пенсионер вошел в магазин.");
+        if (pensioner) System.out.println(this + "вошел в магазин.");
         else System.out.println(this + "Вошел в магазин.");
     }
 
