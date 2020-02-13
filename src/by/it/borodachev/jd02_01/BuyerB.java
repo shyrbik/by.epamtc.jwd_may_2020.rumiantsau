@@ -36,8 +36,8 @@ class BuyerB extends Buyer implements IUseBacket{
 
     @Override
     public void putGoodsToBacket() {
-      String randomGoodName = "good "+Helper.random(0,Dispatcher.goods.size()-1);
-      Double goodPrice = Dispatcher.goods.get(randomGoodName);
+      String randomGoodName = "good "+Helper.random(0,Goods.goods.size()-1);
+      Double goodPrice = Goods.goods.get(randomGoodName);
       good.put(randomGoodName, goodPrice);
       System.out.println(this+"put Goods To Backet "+randomGoodName+" Price "+goodPrice);
     }

@@ -4,7 +4,7 @@ class Buyer extends Thread implements IBuyer{
 
     public Buyer(int number) {
         super("Buyer №"+number+" ");
-        Dispatcher.countBuyer++;
+        Dispatcher.buyerIN();
     }
 
     @Override
@@ -30,7 +30,7 @@ class Buyer extends Thread implements IBuyer{
     @Override
     public void goOut() {
         System.out.println(this+"go from the market");
-        Dispatcher.countBuyer--;
+        Dispatcher.buyerOUT();
     }
 
 
