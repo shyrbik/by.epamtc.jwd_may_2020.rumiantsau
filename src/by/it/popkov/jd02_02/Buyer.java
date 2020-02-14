@@ -32,7 +32,7 @@ class Buyer extends Thread implements IBuyer, IUseBacket {
         BuyerQueue.addToQueue(this);
         synchronized (this){
             try {
-                wait();
+                this.wait();
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }

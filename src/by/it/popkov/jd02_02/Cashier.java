@@ -25,11 +25,7 @@ class Cashier implements Runnable {
                 System.out.println(this + " finished serve " + buyer);
             }
             else {
-                try {
-                    Thread.sleep(1);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
+                Helper.delay(1);
             }
         }
     }

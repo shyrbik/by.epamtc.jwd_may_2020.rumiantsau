@@ -4,13 +4,13 @@ import java.util.ArrayDeque;
 import java.util.Deque;
 
 class BuyerQueue {
-    static private Deque<Buyer> buyerQueue = new ArrayDeque<>();
+    static private ArrayDeque<Buyer> buyerQueue = new ArrayDeque<>();
 
-    public static void addToQueue(Buyer buyer) {
+    public synchronized static void addToQueue(Buyer buyer) {
         buyerQueue.addLast(buyer);
     }
 
-    public static Buyer getFirstBuyer() {
+    public synchronized static Buyer getFirstBuyer() {
         return buyerQueue.pollFirst();
     }
 }

@@ -8,28 +8,29 @@ class Market {
     public static void main(String[] args) {
         Helper.writeGoodsMap();
         System.out.println("****** Open shop ******");
-        List<Buyer> buyerList = new ArrayList<>(1777);
+        List<Thread> manInMarket = new ArrayList<>(6000);
 
         for (int i = 1; i <= 2; i++) {
             Cashier cashier = new Cashier(i);
             Thread thread = new Thread(cashier);
+//            manInMarket.add(thread);
             thread.start();
         }
         int counter = 1;
-        int letIn = 0;
-        for (int t = 0; t < 120; t++) {
-            letIn = Helper.randNumUntil(2);
+        int letIn = 1;
+        for (int t = 0; t < 5000; t++) {
+//            letIn = Helper.randNumUntil(2);
             for (int j = 1; j <= letIn; j++) {
                 Buyer buyer = new Buyer(counter++);
                 buyer.start();
-                buyerList.add(buyer);
+                manInMarket.add(buyer);
             }
             Helper.delay(1000);
             //            System.out.println("Sec = " + t + "Count = " + Dispatcher.buyerCounter);
         }
-        for (Buyer buyer : buyerList) {
+        for (Thread man : manInMarket) {
             try {
-                buyer.join();
+                man.join();
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
