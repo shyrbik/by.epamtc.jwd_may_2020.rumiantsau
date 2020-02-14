@@ -13,7 +13,7 @@ class Buyer extends Thread implements IBuyer, IUseBacket {
             pensioneer = true;
             super.setName(this.getName() + " (pensioneer)");
         }
-        Dispatcher.buyerCounter++;
+        //Dispatcher.buyerCounter++;
     }
 
 
@@ -23,7 +23,21 @@ class Buyer extends Thread implements IBuyer, IUseBacket {
         takeBacket();
         chooseGoods();
         putGoodsToBacket();
+        goToQueue();
         goOut();
+    }
+
+    public void goToQueue() {
+        System.out.println(this + "go to united queue");
+        BuyerQueue.addToQueue(this);
+        synchronized (this){
+            try {
+                wait();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+
     }
 
     @Override
@@ -72,6 +86,6 @@ class Buyer extends Thread implements IBuyer, IUseBacket {
     @Override
     public void goOut() {
         System.out.println(this + " went out from our shop");
-        Dispatcher.buyerCounter--;
+        //Dispatcher.buyerCounter--;
     }
 }

@@ -6,6 +6,7 @@ import java.util.Map;
 import java.util.Random;
 
 class Helper {
+
     static final Map<String, Integer> goodsMap = new HashMap<>();
 
     static void writeGoodsMap() {

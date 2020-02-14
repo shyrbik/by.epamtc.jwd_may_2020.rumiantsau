@@ -4,19 +4,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 class Market {
+
     public static void main(String[] args) {
         Helper.writeGoodsMap();
         System.out.println("****** Open shop ******");
         List<Buyer> buyerList = new ArrayList<>(1777);
+
+        for (int i = 1; i <= 2; i++) {
+            Cashier cashier = new Cashier();
+            Thread thread = new Thread(cashier, "Cashier " + i);
+        }
         int counter = 1;
         int letIn = 0;
         for (int t = 0; t < 120; t++) {
-            if (t == 0) letIn = 10;
-            if (t > 0 && t < 30) letIn = (t + 10) / 6; //UP
-            if (t >= 30 && t < 60) letIn = (40 + (30 - t)) / 6; //DOWN
-            if (t >= 60 && t < 90) letIn = ((t - 60) + 10) / 6; //UP
-            if (t >= 90) letIn = (40 + (90 - t)) / 6; //DOWN
-//           letIn = Helper.randNumUntil(2);
+            letIn = Helper.randNumUntil(2);
             for (int j = 1; j <= letIn; j++) {
                 Buyer buyer = new Buyer(counter++);
                 buyer.start();
@@ -37,20 +38,3 @@ class Market {
     }
 }
 
-
-//if (t == 0) letIn = 10;
-//        if (t > 0 && t < 30) letIn = (t + 10)/6; //UP
-//        if (t >= 30 && t < 60) letIn = (40 + (30 - t))/6; //DOWN
-//        if (t >= 60 && t < 90) letIn = ((t - 60)  + 10)/6; //UP
-//        if (t >= 90) letIn = (40 + (90 - t))/6; //DOWN
-
-
-//if (Dispatcher.buyerCounter < t + 10 && t < 30) { //UP
-////        letIn = 10;
-////        }else if (Dispatcher.buyerCounter < t - 50 && (t > 60 && t < 90)) { //UP
-////        letIn = 10;
-////        }else if (Dispatcher.buyerCounter <= 40 + (30 - t) && (t >= 30 && t <= 60)) { //DOWN
-////        letIn = 10;
-////        }else if (Dispatcher.buyerCounter <= 40 + (90 - t) && (t >= 90)) { //DOWN
-////        letIn = 10;
-////        } else continue;
