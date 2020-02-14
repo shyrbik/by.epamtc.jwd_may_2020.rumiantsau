@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class Goods {
+class Goods {
     static private HashMap<String,Integer> mapOfGoods = new HashMap<>();
     static private List<String> listOfGoods = new ArrayList<>();
     public Goods() {

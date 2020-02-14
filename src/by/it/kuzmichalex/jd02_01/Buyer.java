@@ -1,6 +1,6 @@
 package by.it.kuzmichalex.jd02_01;
 
-public class Buyer extends Thread implements iBuyer, iUseBucket {
+class Buyer extends Thread implements iBuyer, iUseBucket {
     private boolean bUseBucket;
     private boolean bPensioneer;
 
