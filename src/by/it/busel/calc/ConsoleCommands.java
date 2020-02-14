@@ -1,14 +1,16 @@
 package by.it.busel.calc;
 
+//TODO add JavaDoc
 class ConsoleCommands {
-    static final String PRINTVAR = "PRINTVAR";
-    static final String SORTVAR = "SORTVAR";
+    private static final String PRINTVAR = "PRINTVAR";
+    private static final String SORTVAR = "SORTVAR";
 
-    public static void call(String varExpression) {
+    public static boolean call(String varExpression) {
         if (varExpression.toUpperCase().equals(ConsoleCommands.PRINTVAR)) {
             Storage.printvar();
         } else if (varExpression.toUpperCase().equals(ConsoleCommands.SORTVAR)) {
             Storage.sortvar();
-        }
+        } else return false;
+        return true;
     }
 }
