@@ -27,6 +27,6 @@ class Market{
                 System.out.println("OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOPS");
             }
         }
-        System.out.println("Market has closed");
+        System.out.println("Market has closed!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
     }
 }
