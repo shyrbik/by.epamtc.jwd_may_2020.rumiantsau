@@ -5,15 +5,19 @@ import java.util.LinkedList;
 class Basket {
     private LinkedList<String> goods;
 
-    public Basket(){
+    public Basket() {
         goods = new LinkedList<>();
     }
 
-    public void putGoodsToTheBasket(String product){
+    public void putGoodsToTheBasket(String product) {
         goods.add(product);
     }
 
-    public int getSize(){
+    public void clearBasket(){
+        goods.clear();
+    }
+
+    public int getSize() {
         return goods.size();
     }
 }

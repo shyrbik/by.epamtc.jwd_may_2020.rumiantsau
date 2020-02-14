@@ -28,14 +28,13 @@ class Buyer extends Thread implements IBuyer, IUseBasket {
     @Override
     public void takeBasket() {
         System.out.println(this + " waits basket");
-//        while (true){
-//            if (store.isBasketsEmpty()) {
-//                basket = store.getBasket();
-//                break;
-//            }
-//            yield();
-//        }
-        basket = new Basket();
+        while (true) {
+            basket = store.getBasket();
+            if (basket != null) {
+                break;
+            }
+            yield();
+        }
         System.out.println(this + " take basket");
         sleepBuyer(500, 2000);
     }
@@ -53,7 +52,8 @@ class Buyer extends Thread implements IBuyer, IUseBasket {
 
     @Override
     public void goToOut() {
-//        store.returnBasket();
+        basket.clearBasket();
+        store.returnBasket(basket);
         System.out.println(this + " go out. Left: " + store.leave(this));
     }
 

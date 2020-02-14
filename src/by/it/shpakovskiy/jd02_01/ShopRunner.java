@@ -7,13 +7,13 @@ class ShopRunner {
 
     public static void main(String[] args) {
         LinkedList<Buyer> buyers = new LinkedList<>();
-        BulbaStore bulbaStore = new BulbaStore();
-        System.err.println("Hello! BulbaStore opened");
-        for (int second = 0; second < 2 * 60; second++) {
-            System.out.println("########################## " + second + " ########################## " + bulbaStore.buyersCount());
+        BulbaStore store = new BulbaStore(20);//ENTER THE NUMBER OF BASKETS
+        System.out.println("########################## Hello! BulbaStore opened! ##########################");
+        for (int second = 0; second < 120; second++) {
+            System.out.println("************ " + second + " ************ Buyers count: " + store.buyersCount());
             int c = getMaxBuyersCount(second);
-            while (bulbaStore.buyersCount() < c) {
-                buyers.add(new Buyer(++countBuyers, bulbaStore));
+            while (store.buyersCount() < c && store.isBasket()) {
+                buyers.add(new Buyer(++countBuyers, store));
             }
             Helper.sleep(1000);
         }
@@ -24,7 +24,7 @@ class ShopRunner {
                 e.printStackTrace();
             }
         });
-        System.err.println("BulbaStore closed. Buy");
+        System.out.println("########################## BulbaStore closed! Buy ##########################");
     }
 
     private static int getMaxBuyersCount(int second) {

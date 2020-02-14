@@ -5,14 +5,12 @@ import java.util.*;
 class BulbaStore {
     private final Map<String, Integer> goods;
     private Set<Buyer> buyers;
-//    private Set<Basket> baskets;
-//    private static final Object myMonitor = new Object();
-//    private volatile int k;
+    private Set<Basket> baskets;
 
-    public BulbaStore() {
+    public BulbaStore(int basketsCount) {
         goods = new HashMap<>();
         buyers = new HashSet<>();
-//        baskets = new HashSet<>();
+        baskets = new HashSet<>();
         goods.put("meat", 150);
         goods.put("lard", 100);
         goods.put("sausage", 76);
@@ -25,42 +23,27 @@ class BulbaStore {
         goods.put("bananas", 35);
         goods.put("apples", 35);
         goods.put("persimmons", 35);
-//        for (int i = 0; i < basketsCount; i++) {
-//            baskets.add(new Basket());
-//        }
-//        k = basketsCount;
+        for (int i = 0; i < basketsCount; i++) {
+            baskets.add(new Basket());
+        }
     }
 
-    //public synchronized Basket getBasket(){
-//        Basket basket=baskets.iterator().next();
-//        baskets.remove(basket);
-//        return basket;
-//    }
-//    public Basket getBasket() {
-//        synchronized (myMonitor) {
-//            k--;
-//            return baskets.iterator().next();
-//        }
-//    }
+    public synchronized Basket getBasket() {
+        if (isBasket()) {
+            Basket basket = baskets.iterator().next();
+            baskets.remove(basket);
+            return basket;
+        }
+        return null;
+    }
 
-    //public synchronized boolean isBasketsEmpty(){
-//        return baskets.isEmpty();
-//    }
-//    public synchronized boolean isBasketsEmpty() {
-//        synchronized (myMonitor) {
-//            return k > 0;
-//        }
-//    }
+    public synchronized boolean isBasket() {
+        return !baskets.isEmpty();
+    }
 
-    //public synchronized void returnBasket(Basket basket){
-//        baskets.add(basket);
-//    }
-//    public void returnBasket() {
-//        synchronized (myMonitor) {
-//            k++;
-//        }
-//    }
-
+    public synchronized void returnBasket(Basket basket) {
+        baskets.add(basket);
+    }
 
     public String getSomeGoods() {
         int num = Helper.getRandom(0, goods.size() - 1);
