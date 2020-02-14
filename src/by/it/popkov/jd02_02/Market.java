@@ -11,8 +11,9 @@ class Market {
         List<Buyer> buyerList = new ArrayList<>(1777);
 
         for (int i = 1; i <= 2; i++) {
-            Cashier cashier = new Cashier();
-            Thread thread = new Thread(cashier, "Cashier " + i);
+            Cashier cashier = new Cashier(i);
+            Thread thread = new Thread(cashier);
+            thread.start();
         }
         int counter = 1;
         int letIn = 0;
