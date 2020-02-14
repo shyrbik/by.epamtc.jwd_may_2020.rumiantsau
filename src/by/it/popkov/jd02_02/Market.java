@@ -14,7 +14,7 @@ class Market {
             Cashier cashier = new Cashier(i);
             Thread thread = new Thread(cashier);
 //            manInMarket.add(thread);
-            thread.start();
+//            thread.start();
         }
         int counter = 1;
         int letIn = 1;
@@ -28,6 +28,12 @@ class Market {
             Helper.delay(1000);
             //            System.out.println("Sec = " + t + "Count = " + Dispatcher.buyerCounter);
         }
+        try {
+            Thread.sleep(20000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        System.out.println("SIZE queue" + BuyerQueue.buyerQueue.size());
         for (Thread man : manInMarket) {
             try {
                 man.join();
