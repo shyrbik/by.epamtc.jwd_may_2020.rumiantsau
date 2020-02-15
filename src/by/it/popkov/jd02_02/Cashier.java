@@ -19,6 +19,8 @@ class Cashier implements Runnable {
             if (buyer != null) {
                 System.out.println(this + " start serve " + buyer);
                 Helper.delay(Helper.randNum(2000, 5000)); //Time to serve
+                int sum = buyer.getBasket().values().stream().mapToInt(Integer::intValue).sum();
+                System.out.println(this + " print " + buyer + " check: " + buyer.getBasket() + " SUM: " + sum);
                 System.out.println(this + " finished serve " + buyer);
                 synchronized (buyer) { //Finished serve, buyer can continue
                     buyer.notify();

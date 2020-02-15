@@ -4,7 +4,13 @@ import java.util.HashMap;
 import java.util.Map;
 
 class Buyer extends Thread implements IBuyer, IUseBacket {
-    private Map<String, Integer> basket = new HashMap<>();
+
+    private volatile Map<String, Integer> basket = new HashMap<>();
+
+    public Map<String, Integer> getBasket() {
+        return basket;
+    }
+
     private boolean pensioneer = false;
 
     public Buyer(int name) {
@@ -15,7 +21,6 @@ class Buyer extends Thread implements IBuyer, IUseBacket {
         }
         Dispatcher.buyerComeIn();
     }
-
 
     @Override
     public void run() {
