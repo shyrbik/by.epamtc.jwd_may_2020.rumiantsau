@@ -42,7 +42,8 @@ class Buyer extends Thread implements IBuyer, IUseBacket {
 
     @Override
     public void putGoodsToBacket() {
-        for (int goods = 1; goods <= Helper.randNum(1, 4); goods++) {
+        int randNum = Helper.randNum(1, 4);
+        for (int goods = 1; goods <= randNum; goods++) {
             try {
                 sleep((long) (Helper.randNum(500, 2000) / Dispatcher.SPEED_BOOST * slow));
             } catch (InterruptedException e) {
