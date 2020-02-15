@@ -1,7 +1,9 @@
 package by.it.popkov.jd02_02;
-/** class Administrator control number of opened Cashier.
+
+/**
+ * class Administrator control number of opened Cashier.
  * Notify extra Cashier, when queueSize / onlineCashier > 5
- * **/
+ **/
 class Administrator extends Thread {
     @Override
     public void run() {
@@ -15,7 +17,6 @@ class Administrator extends Thread {
                         Cashier.monitor.notify();
                     }
                 }
-
             } else if (queueSize / onlineCashier > 5) {
                 synchronized (Cashier.monitor) {
                     Cashier.monitor.notify();

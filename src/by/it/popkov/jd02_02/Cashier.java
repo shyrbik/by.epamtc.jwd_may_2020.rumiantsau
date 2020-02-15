@@ -33,9 +33,10 @@ class Cashier implements Runnable {
                 synchronized (monitor) {
                     try {
                         onlineCashier--;
+                        System.out.println(this + " stop work");
                         monitor.wait();
-                        System.out.println(this + " restart work");
                         onlineCashier++;
+                        System.out.println(this + " restart work");
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
