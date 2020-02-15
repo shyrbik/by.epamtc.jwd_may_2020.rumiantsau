@@ -19,14 +19,15 @@ class Cashier implements Runnable {
             if (buyer != null) {
                 System.out.println(this + " start serve " + buyer);
                 Helper.delay(Helper.randNum(2, 5)); //Time to serve
-                synchronized (buyer) { //Finished serve, buyer can continue
-                    buyer.notify();
-                }
                 System.out.println(this + " finished serve " + buyer);
+                synchronized (buyer) { //Finished serve, buyer can continue
+                    buyer.notifyAll();
+                }
             }
             else {
                 Helper.delay(1);
             }
         }
+        System.out.println(this + " finish work");
     }
 }

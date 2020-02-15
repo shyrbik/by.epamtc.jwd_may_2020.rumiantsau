@@ -4,7 +4,7 @@ import java.util.ArrayDeque;
 import java.util.Deque;
 
 class BuyerQueue {
-    static ArrayDeque<Buyer> buyerQueue = new ArrayDeque<>();
+    static ArrayDeque<Buyer> buyerQueue = new ArrayDeque<>(150);
 
     public synchronized static void addToQueue(Buyer buyer) {
         buyerQueue.addLast(buyer);
