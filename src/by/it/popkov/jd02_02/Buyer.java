@@ -9,11 +9,11 @@ class Buyer extends Thread implements IBuyer, IUseBacket {
 
     public Buyer(int name) {
         super("Buyer " + name);
-        if (Helper.randNum(1, 4) == 4){
+        if (Helper.randNum(1, 4) == 4) {
             pensioneer = true;
             super.setName(this.getName() + " (pensioneer)");
         }
-        //Dispatcher.buyerCounter++;
+        Dispatcher.buyerComeIn();
     }
 
 
@@ -31,7 +31,7 @@ class Buyer extends Thread implements IBuyer, IUseBacket {
     public void goToQueue() {
         System.out.println(this + " go to united queue");
         BuyerQueue.addToQueue(this);
-        synchronized (this){
+        synchronized (this) {
             try {
                 this.wait();
             } catch (InterruptedException e) {
@@ -44,14 +44,14 @@ class Buyer extends Thread implements IBuyer, IUseBacket {
     @Override
     public void takeBacket() {
         if (!pensioneer) Helper.delay((Helper.randNum(500, 2000)));
-        else Helper.delay((int) (Helper.randNum(500, 2000)*1.5));
+        else Helper.delay((int) (Helper.randNum(500, 2000) * 1.5));
         System.out.println(this + " take basket");
     }
 
     @Override
     public void putGoodsToBacket() {
         if (!pensioneer) Helper.delay((Helper.randNum(500, 2000)));
-        else Helper.delay((int) (Helper.randNum(500, 2000)*1.5));
+        else Helper.delay((int) (Helper.randNum(500, 2000) * 1.5));
 
         for (int goods = 1; goods <= Helper.randNum(1, 4); goods++) {
             int iteratorCounter = 1;
@@ -80,13 +80,13 @@ class Buyer extends Thread implements IBuyer, IUseBacket {
     @Override
     public void chooseGoods() {
         if (!pensioneer) Helper.delay((Helper.randNum(500, 2000)));
-        else Helper.delay((int) (Helper.randNum(500, 2000)*1.5));
+        else Helper.delay((int) (Helper.randNum(500, 2000) * 1.5));
         System.out.println(this + " picked goods");
     }
 
     @Override
     public void goOut() {
         System.out.println(this + " went out from our shop");
-        //Dispatcher.buyerCounter--;
+        Dispatcher.buyerWentOut();
     }
 }

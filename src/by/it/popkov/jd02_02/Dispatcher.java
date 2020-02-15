@@ -10,7 +10,20 @@ class Dispatcher {
     static int dayBuyerNum = 0;
 
 
-    public synchronized static boolean marketIsOpen() {
-        return true; ////TO DO
+    public synchronized static boolean planIsNotCompleted() {
+        return dayBuyerNum < PLAN;
+    }
+
+    public synchronized static boolean marketIsClosed() {
+        return dayBuyerNum == PLAN && buyerOnline == 0;
+    }
+
+    public synchronized static void buyerComeIn() {
+        buyerOnline++;
+        dayBuyerNum++;
+    }
+
+    public synchronized static void buyerWentOut() {
+        buyerOnline--;
     }
 }

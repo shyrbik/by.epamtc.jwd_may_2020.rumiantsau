@@ -17,13 +17,16 @@ class Market {
             thread.start();
         }
         int counter = 1;
-        int letIn = 1;
-        for (int t = 0; t < 5; t++) {
+        int letIn = 0;
+        while (Dispatcher.planIsNotCompleted()){
             letIn = Helper.randNumUntil(2);
             for (int j = 1; j <= letIn; j++) {
-                Buyer buyer = new Buyer(counter++);
-                buyer.start();
-                manInMarket.add(buyer);
+                if (Dispatcher.planIsNotCompleted()){
+                    Buyer buyer = new Buyer(counter++);
+                    buyer.start();
+                    manInMarket.add(buyer);
+                }
+
             }
             Helper.delay(1000);
             //            System.out.println("Sec = " + t + "Count = " + Dispatcher.buyerCounter);

@@ -14,7 +14,7 @@ class Cashier implements Runnable {
 
     @Override
     public void run() {
-        while (Dispatcher.marketIsOpen()) {
+        while (!Dispatcher.marketIsClosed()) {
             Buyer buyer = BuyerQueue.getFirstBuyer(); //Берём баера их очереди
             if (buyer != null) {
                 System.out.println(this + " start serve " + buyer);
