@@ -18,10 +18,10 @@ class Cashier implements Runnable {
             Buyer buyer = BuyerQueue.getFirstBuyer(); //Берём баера их очереди
             if (buyer != null) {
                 System.out.println(this + " start serve " + buyer);
-                Helper.delay(Helper.randNum(2, 5)); //Time to serve
+                Helper.delay(Helper.randNum(2000, 5000)); //Time to serve
                 System.out.println(this + " finished serve " + buyer);
                 synchronized (buyer) { //Finished serve, buyer can continue
-                    buyer.notifyAll();
+                    buyer.notify();
                 }
             }
             else {
