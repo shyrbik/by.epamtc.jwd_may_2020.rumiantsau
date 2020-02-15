@@ -7,10 +7,6 @@ class Buyer extends Thread implements IBuyer, IUseBacket {
 
     private volatile Map<String, Integer> basket = new HashMap<>();
 
-    public Map<String, Integer> getBasket() {
-        return basket;
-    }
-
     private boolean pensioneer = false;
 
     public Buyer(int name) {
@@ -20,6 +16,11 @@ class Buyer extends Thread implements IBuyer, IUseBacket {
             super.setName(this.getName() + " (pensioneer)");
         }
         Dispatcher.buyerComeIn();
+    }
+
+    @Override
+    public Map<String, Integer> getBasket() {
+        return basket;
     }
 
     @Override
