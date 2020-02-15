@@ -43,6 +43,6 @@ class Cashier implements Runnable {
                 }
             }
         }
-        System.out.println(this + " send day report");
+        System.out.println(this + " send day report and go home");
     }
 }
