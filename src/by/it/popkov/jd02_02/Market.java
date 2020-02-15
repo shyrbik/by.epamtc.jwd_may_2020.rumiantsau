@@ -10,7 +10,7 @@ class Market {
         System.out.println("****** Open shop ******");
         List<Thread> manInMarket = new ArrayList<>(6000);
 
-        for (int i = 1; i <= 5; i++) {
+        for (int i = 1; i <= Dispatcher.CASHIER_MAX; i++) {
             Cashier cashier = new Cashier(i);
             Thread thread = new Thread(cashier);
             manInMarket.add(thread);

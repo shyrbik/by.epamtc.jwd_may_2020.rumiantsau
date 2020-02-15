@@ -5,6 +5,8 @@ class Dispatcher {
 
     static final int SPEED_BOOST = 100;
 
+    static final int CASHIER_MAX = 5;
+
     static final int PLAN = 100;
     static int buyerOnline = 0;
     static int dayBuyerNum = 0;

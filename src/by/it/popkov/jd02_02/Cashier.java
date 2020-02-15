@@ -3,7 +3,7 @@ package by.it.popkov.jd02_02;
 class Cashier implements Runnable {
     static final Object monitor = new Object();
 
-    static volatile int onlineCashier = 5; //Work in start of day 5
+    static volatile int onlineCashier = Dispatcher.CASHIER_MAX;
 
     private String name;
 
