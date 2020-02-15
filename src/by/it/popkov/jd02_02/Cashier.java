@@ -1,6 +1,10 @@
 package by.it.popkov.jd02_02;
 
 class Cashier implements Runnable {
+    static final Object monitor = new Object();
+
+    static volatile int onlineCashier = 5; //Work in start of day 5
+
     private String name;
 
     public Cashier(int num) {
@@ -25,11 +29,19 @@ class Cashier implements Runnable {
                 synchronized (buyer) { //Finished serve, buyer can continue
                     buyer.notify();
                 }
-            }
-            else {
-                Helper.delay(1);
+            } else {
+                synchronized (monitor) {
+                    try {
+                        onlineCashier--;
+                        monitor.wait();
+                        System.out.println(this + " restart work");
+                        onlineCashier++;
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
             }
         }
-        System.out.println(this + " finish work");
+        System.out.println(this + " send day report");
     }
 }

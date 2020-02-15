@@ -10,26 +10,28 @@ class Market {
         System.out.println("****** Open shop ******");
         List<Thread> manInMarket = new ArrayList<>(6000);
 
-        for (int i = 1; i <= 2; i++) {
+        for (int i = 1; i <= 5; i++) {
             Cashier cashier = new Cashier(i);
             Thread thread = new Thread(cashier);
             manInMarket.add(thread);
             thread.start();
         }
+
+        Administrator administrator = new Administrator();
+        administrator.start();
+
         int counter = 1;
         int letIn = 0;
-        while (Dispatcher.planIsNotCompleted()){
+        while (Dispatcher.planIsNotCompleted()) {
             letIn = Helper.randNumUntil(2);
             for (int j = 1; j <= letIn; j++) {
-                if (Dispatcher.planIsNotCompleted()){
+                if (Dispatcher.planIsNotCompleted()) {
                     Buyer buyer = new Buyer(counter++);
                     buyer.start();
                     manInMarket.add(buyer);
                 }
-
             }
             Helper.delay(1000);
-            //            System.out.println("Sec = " + t + "Count = " + Dispatcher.buyerCounter);
         }
 
         for (Thread man : manInMarket) {
