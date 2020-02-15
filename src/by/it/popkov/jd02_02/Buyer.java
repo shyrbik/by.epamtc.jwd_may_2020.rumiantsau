@@ -64,12 +64,16 @@ class Buyer extends Thread implements IBuyer, IUseBacket {
             int selectedGood = Helper.randNum(1, 7);
             for (Map.Entry<String, Integer> entry : Helper.goodsMap.entrySet()) {
                 if (iteratorCounter == selectedGood) {
-                    if (basket.containsKey(entry.getKey())){
-                        System.out.println(this + " wants to buy second " + entry.getKey() + " but only one for each");
+                    String entryKey = entry.getKey();
+                    Integer entryValue = entry.getValue();
+                    if (basket.containsKey(entryKey)) {
+                        basket.put(entryKey, basket.get(entryKey) + entryValue);
+                        System.out.println(this + " put more " + entryKey + " cost: " + entryValue);
                         break;
                     }
-                    basket.put(entry.getKey(), entry.getValue());
-                    System.out.println(this + " put " + entry.getKey() + " cost: " + entry.getValue());
+                    basket.put(entryKey, entryValue);
+                    System.out.println(this + " put " + entryKey + " cost: " + entryValue);
+                    break;
                 }
                 iteratorCounter++;
             }
