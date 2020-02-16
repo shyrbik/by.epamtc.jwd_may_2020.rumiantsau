@@ -5,29 +5,35 @@ import java.util.HashMap;
 import java.util.List;
 
 public class Goods {
-    static private HashMap<String,Integer> mapOfGoods = new HashMap<>();
+    static private HashMap<String, Double> mapOfGoods = new HashMap<>();
     static private List<String> listOfGoods = new ArrayList<>();
     public Goods() {
-        mapOfGoods.put("Bread",123);
-        mapOfGoods.put("Butter",215);
-        mapOfGoods.put("Sugar",222);
-        mapOfGoods.put("Juice",321);
-        mapOfGoods.put("Fish",10);
-        mapOfGoods.put("Meat",218);
-        mapOfGoods.put("Potato",225);
-        mapOfGoods.put("Tomato",218);
-        mapOfGoods.put("Pineapple",348);
-        mapOfGoods.put("Sausage",128);
-        mapOfGoods.put("Toast",233);
-        mapOfGoods.put("Blackberry",235);
-        mapOfGoods.put("Apple",133);
-        mapOfGoods.put("Mushroom",325);
-        mapOfGoods.put("Milk",210);
-        mapOfGoods.put("Chocolate",228);
-        mapOfGoods.put("Tortilla",428);
-        mapOfGoods.put("Honey",211);
-        mapOfGoods.put("Tea",153);
-        mapOfGoods.put("some expensive sh..t",12228);
+        mapOfGoods.put("Bread",1.25);
+        mapOfGoods.put("Butter",2.23);
+        mapOfGoods.put("Sugar",5.55);
+        mapOfGoods.put("Juice",0.97);
+        mapOfGoods.put("Fish",5.32);
+        mapOfGoods.put("Meat",4.56);
+        mapOfGoods.put("Potato",1.00);
+        mapOfGoods.put("Tomato",0.57);
+        mapOfGoods.put("Pineapple",1.77);
+        mapOfGoods.put("Sausage",3.12);
+        mapOfGoods.put("Toast",0.37);
+        mapOfGoods.put("Blackberry",7.23);
+        mapOfGoods.put("Apple",0.97);
+        mapOfGoods.put("Mushroom",2.75);
+        mapOfGoods.put("Milk",1.11);
+        mapOfGoods.put("Chocolate",2.33);
+        mapOfGoods.put("Tortilla",1.43);
+        mapOfGoods.put("Honey",7.74);
+        mapOfGoods.put("Tea",1.50);
+        mapOfGoods.put("Coffee",2.30);
+        mapOfGoods.put("Water",0.50);
+        mapOfGoods.put("Chips",0.75);
+        mapOfGoods.put("Pizza",3.35);
+        mapOfGoods.put("Banana",1.5);
+        mapOfGoods.put("Chicken",2.0);
+
         listOfGoods = new ArrayList<String>(mapOfGoods.keySet());
     }
 
@@ -41,4 +47,7 @@ public class Goods {
     }
 
 
+    public static double getPrice(String nameOfGoods) {
+        return mapOfGoods.get(nameOfGoods);
+    }
 }

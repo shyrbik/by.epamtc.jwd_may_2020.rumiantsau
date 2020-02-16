@@ -1,8 +1,14 @@
 package by.it.kuzmichalex.jd02_02;
 
-public class Buyer extends Thread implements iBuyer, iUseBucket {
+import java.util.ArrayList;
+import java.util.List;
+
+class Buyer extends Thread implements iBuyer, iUseBucket {
     private boolean bUseBucket;
     private boolean bPensioneer;
+    private List<String> items = new ArrayList<>();
+    private double totalAmount = 0.0;
+    private int countOfGoods = 0;
 
     /**
      * Конструктор. Присваиваем родительским методом потоку имя Buyer_ + номер
@@ -14,17 +20,20 @@ public class Buyer extends Thread implements iBuyer, iUseBucket {
         bPensioneer = (TimeHelper.getRandom(1, 4) == 4);
     }
 
+    double getTotalAmount() {
+        return totalAmount;
+    }
+
     /**
      * Процесс совершения покупки
      */
     @Override
     public void run() {
-        Dispatcher.nCountOfBuyers++;
         enterToMarket();
         takeBucket();
         chooseGoods();
+        goToQueue();
         goOut();
-        Dispatcher.nCountOfBuyers--;
     }
 
     /**
@@ -32,7 +41,8 @@ public class Buyer extends Thread implements iBuyer, iUseBucket {
      */
     @Override
     public void enterToMarket() {
-        System.out.println(this + "Enter");
+        Dispatcher.enterToMarket();
+        //System.out.println(this + "Enter");
     }
 
     /**
@@ -44,9 +54,24 @@ public class Buyer extends Thread implements iBuyer, iUseBucket {
         if (!bUseBucket) return;
         int nOfGoods = TimeHelper.getRandom(1, 4);
         for (int i = 1; i <= nOfGoods; i++) {
-            System.out.println(this + "choosing (" + i + "/" + nOfGoods + ")...");
-            sleep(500, 2000);
+            //System.out.println(this + "choosing (" + i + "/" + nOfGoods + ")...");
             putGoodsToBucket();
+            sleep(500, 2000);
+        }
+    }
+
+    @Override
+    public void goToQueue() {
+        //System.out.println(this + "go to queue");
+        BuyerQueue.addBuyerToQueue(this);
+        //Будем ждать в очереди, пока не Cashier не устроит Notify
+        //Монитором будет сам Buyer. Чтобы его никто не разбудил, пока он не заснул
+        synchronized (this) {
+            try {
+                this.wait();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -55,7 +80,8 @@ public class Buyer extends Thread implements iBuyer, iUseBucket {
      */
     @Override
     public void goOut() {
-        System.out.println(this + "Leave");
+        Dispatcher.goOut();
+        //System.out.println(this + "Leave" + Dispatcher.getCountBuyersDone());
     }
 
     /**
@@ -65,7 +91,7 @@ public class Buyer extends Thread implements iBuyer, iUseBucket {
     public void takeBucket() {
         bUseBucket = true;
         sleep(0, 0);
-        System.out.println(this + "take Bucket");
+        //System.out.println(this + "take Bucket");
     }
 
     /**
@@ -74,13 +100,17 @@ public class Buyer extends Thread implements iBuyer, iUseBucket {
     @Override
     public void putGoodsToBucket() {
         if (!bUseBucket) return;
-        System.out.println(this + "put " + Goods.getSomeGood() + " to Bucket ");
+        String someGood = Goods.getSomeGood();
+        items.add((someGood));
+        totalAmount += Goods.getPrice(someGood);
+        countOfGoods++;
+        //System.out.println(this + "put " + Goods.getSomeGood() + " to Bucket ");
     }
 
     @Override
     public String toString() {
-        return (bPensioneer ? "Buyer_P   " :
-                "Buyer     ") + this.getName() + "     :";
+        return (bPensioneer ? "Buyer_P " :
+                "Buyer ") + this.getName() + " ";
     }
 
     /**
@@ -95,4 +125,21 @@ public class Buyer extends Thread implements iBuyer, iUseBucket {
         TimeHelper.sleep(nTimeOut);
     }
 
+    boolean isPensioneer() {
+        return bPensioneer;
+    }
+
+    /**
+     * Проучить текст чека. да, от покупателя кассиру.
+     */
+    public String getCheck() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("*** Cheque ").append(this).append("\n");
+        for (int i = 0; i < items.size(); i++) {
+            sb.append(String.format("* %-15s:%7.2f",items.get(i),Goods.getPrice(items.get(i)))).append("\n");
+        }
+        sb.append(String.format("* %-15s:%7.2f","Amount", totalAmount)).append("\n");
+        sb.append("***********************\n");
+        return sb.toString();
+    }
 }
