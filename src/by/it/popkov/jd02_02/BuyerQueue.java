@@ -4,7 +4,9 @@ import java.util.ArrayDeque;
 import java.util.Deque;
 
 class BuyerQueue {
-    static volatile ArrayDeque<Buyer> buyerQueue = new ArrayDeque<>(150);
+    static volatile ArrayDeque<Buyer> buyerQueue = new ArrayDeque<>(96);
+
+    static volatile ArrayDeque<Buyer> pensionerQueue = new ArrayDeque<>(48);
 
     public synchronized static void addToQueue(Buyer buyer) {
         buyerQueue.addLast(buyer);
@@ -15,5 +17,10 @@ class BuyerQueue {
     }
 
     public synchronized static void addToPensionerQueue(Buyer buyer) {
+        pensionerQueue.addLast(buyer);
+    }
+
+    public synchronized static Buyer getFirstPensioner() {
+        return pensionerQueue.pollFirst();
     }
 }
