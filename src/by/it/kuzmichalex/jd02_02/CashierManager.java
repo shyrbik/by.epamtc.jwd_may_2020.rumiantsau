@@ -27,6 +27,7 @@ public class CashierManager {
     /**
      * Управление всем этим колхозом.
      * Осуществляется из очереди при добавлении/доставании Buyer'a
+     *
      * @param reason причина вызова менеджера (любое изменение очереди)
      */
     void doManaging(String reason) {
@@ -48,6 +49,19 @@ public class CashierManager {
     }
 
     /**
+     * Получить количество работающих кассиров.
+     * Работаючщи считается любой не WAITING и не TERMINATED
+     */
+    static int getCountCashiersWorks() {
+        int result = 0;
+        for (Thread listThread : listThreads) {
+            Thread.State state = listThread.getState();
+            if (state != Thread.State.WAITING && state != Thread.State.TERMINATED) result++;
+        }
+        return result;
+    }
+
+    /**
      * Подъём всех кассиров для завершения кассы
      */
     void stopManaging() {
@@ -61,8 +75,9 @@ public class CashierManager {
                 e.printStackTrace();
             }
         }
-        //listThreads.clear();
-        //listCashiers.clear();
+        listThreads.clear();
+        listCashiers.clear();
+        Logger.addToLog(" ", 0);
 
       /*  Iterator<Map.Entry<Cashier, Thread>> iterator = mapCashiers.entrySet().iterator();
         while (iterator.hasNext()) {
@@ -77,8 +92,7 @@ public class CashierManager {
             }
         }*/
         //   mapCashiers.clear();
-        Logger.addToLog(" ", 0);
-        Logger.addToLog(" ", 0);
+        // Logger.addToLog(" ", 0);
         //System.out.println("Manager Done");
     }
 }

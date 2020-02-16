@@ -23,7 +23,9 @@ class Logger {
     //    System.out.println("-------------------------------------------------------------------------------");
         //Заполним 6 колонку данными по очереди
         arrLogs[5]=String.format("in Queue: %3d\nIn Trading hall: %3d",BuyerQueue.getQueueSize(),Dispatcher.getCountBuyersInside());
-        arrLogs[6]=String.format("Total amount: %7.2f",Dispatcher.getMarketTotalAmount());
+        arrLogs[6]=String.format("Total amount: %7.2f\nCashiers working: %2d",
+                    Dispatcher.getMarketTotalAmount(),
+                    CashierManager.getCountCashiersWorks());
 
         int countOfStrings=0;
         String[][] tmp   = new String[MAX_COLUMNS][10];
