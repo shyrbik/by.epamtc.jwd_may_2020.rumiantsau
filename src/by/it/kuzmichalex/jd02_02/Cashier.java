@@ -38,13 +38,13 @@ class Cashier implements Runnable {
                 Logger.addToLog("------------------------\n" + this + "starts serving\n" + buyer + "\n------------------------", cashierNumber);
                 state = "serving...";
                 TimeHelper.sleep(TimeHelper.getRandom(2000, 5000));
-                Dispatcher.addMarketAmount(buyer.getBuyerTotalAmount());
                 Logger.addToLog(buyer.getCheck(), cashierNumber);
+                Dispatcher.addMarketAmount(buyer.getBuyerTotalAmount());
                 state = "";
                 synchronized (buyer) {    //buyer-ы в очереди wait, поэтому делаем им notify
                     buyer.notify();
                 }
-            } else goWait(" himself");
+            } //else goWait(" himself");
         }
         //System.out.println(this + "done");
         Logger.addToLog(this + "finished ", cashierNumber);
