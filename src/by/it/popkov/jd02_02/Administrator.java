@@ -9,7 +9,7 @@ class Administrator extends Thread {
     public void run() {
         while (!Dispatcher.marketIsClosed()) {
             Helper.delay(500);
-            int queueSize = BuyerQueue.buyerQueue.size();
+            int queueSize = BuyerQueue.getBuyerQueueSize() + BuyerQueue.getPensionerQueueSize() ;
             int onlineCashier = Cashier.onlineCashier;
             if (onlineCashier == 0) {
                 if (queueSize > 0) {

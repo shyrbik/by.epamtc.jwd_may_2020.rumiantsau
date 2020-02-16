@@ -19,16 +19,12 @@ class Cashier implements Runnable {
     @Override
     public void run() {
         while (!Dispatcher.marketIsClosed()) {
-            Buyer buyer = BuyerQueue.getFirstBuyer(); //Берём баера их очереди
-            if (buyer != null) {
-                System.out.println(this + " start serve " + buyer);
-                Helper.delay(Helper.randNum(2000, 5000)); //Time to serve
-                System.out.println(this + " print " + buyer + " check: " + buyer.getBasket() + " SUM: "
-                        + buyer.getBasket().values().stream().mapToInt(Integer::intValue).sum());
-                System.out.println(this + " finished serve " + buyer);
-                synchronized (buyer) { //Finished serve, buyer can continue
-                    buyer.notify();
-                }
+            Buyer pensioner = BuyerQueue.getFirstPensioner();
+            Buyer buyer = BuyerQueue.getFirstBuyer();
+            if (pensioner != null) {
+                serve(pensioner);
+            } else if (buyer != null) {
+                serve(buyer);
             } else {
                 synchronized (monitor) {
                     try {
@@ -44,5 +40,16 @@ class Cashier implements Runnable {
             }
         }
         System.out.println(this + " send day report and go home");
+    }
+
+    private void serve(Buyer buyer) {
+        System.out.println(this + " start serve " + buyer);
+        Helper.delay(Helper.randNum(2000, 5000)); //Time to serve
+        System.out.println(this + " print " + buyer + " check: " + buyer.getBasket() + " SUM: "
+                + buyer.getBasket().values().stream().mapToInt(Integer::intValue).sum());
+        System.out.println(this + " finished serve " + buyer);
+        synchronized (buyer) { //Finished serve, buyer can continue
+            buyer.notify();
+        }
     }
 }
