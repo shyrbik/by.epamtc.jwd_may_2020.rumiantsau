@@ -30,13 +30,15 @@ class Cashier implements Runnable {
                     }
                 }
             }
-            Buyer buyer = BuyerQueue.getBuyerFromQueue();     //getBuyerFromQueue синхронизирован, поэтому этот buyer - только этого потока
+            //getBuyerFromQueue синхронизирован монитором очереди. поэтому этот buyer - только этого потока
+            Buyer buyer = BuyerQueue.getBuyerFromQueue();
             if (buyer != null) {
-                totalAmount += buyer.getTotalAmount();
+                totalAmount += buyer.getBuyerTotalAmount();
                 totalBuyers++;
                 Logger.addToLog("------------------------\n" + this + "starts serving\n" + buyer + "\n------------------------", cashierNumber);
                 state = "serving...";
                 TimeHelper.sleep(TimeHelper.getRandom(2000, 5000));
+                Dispatcher.addMarketAmount(buyer.getBuyerTotalAmount());
                 Logger.addToLog(buyer.getCheck(), cashierNumber);
                 state = "";
                 synchronized (buyer) {    //buyer-ы в очереди wait, поэтому делаем им notify
@@ -64,8 +66,7 @@ class Cashier implements Runnable {
     }
 
     public void goNotify() {
-        //System.out.println(this + "resume");
-        Logger.addToLog(this + "RESUME", cashierNumber);
+        Logger.addToLog(this + "RESUME notify();", cashierNumber);
         synchronized (this) {
             isPaused = false;
             this.notify();

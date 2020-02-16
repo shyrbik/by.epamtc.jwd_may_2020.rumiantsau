@@ -5,10 +5,9 @@ import java.util.List;
 
 class Buyer extends Thread implements iBuyer, iUseBucket {
     private boolean bUseBucket;
-    private boolean bPensioneer;
+    private boolean bPensioner;
     private List<String> items = new ArrayList<>();
-    private double totalAmount = 0.0;
-    private int countOfGoods = 0;
+    private double buyerTotalAmount = 0.0;
 
     /**
      * Конструктор. Присваиваем родительским методом потоку имя Buyer_ + номер
@@ -17,11 +16,11 @@ class Buyer extends Thread implements iBuyer, iUseBucket {
      */
     public Buyer(int nBuyer) {
         super(Integer.toString(nBuyer));
-        bPensioneer = (TimeHelper.getRandom(1, 4) == 4);
+        bPensioner = (TimeHelper.getRandom(1, 4) == 4);
     }
 
-    double getTotalAmount() {
-        return totalAmount;
+    double getBuyerTotalAmount() {
+        return buyerTotalAmount;
     }
 
     /**
@@ -54,7 +53,6 @@ class Buyer extends Thread implements iBuyer, iUseBucket {
         if (!bUseBucket) return;
         int nOfGoods = TimeHelper.getRandom(1, 4);
         for (int i = 1; i <= nOfGoods; i++) {
-            //System.out.println(this + "choosing (" + i + "/" + nOfGoods + ")...");
             putGoodsToBucket();
             sleep(500, 2000);
         }
@@ -62,7 +60,6 @@ class Buyer extends Thread implements iBuyer, iUseBucket {
 
     @Override
     public void goToQueue() {
-        //System.out.println(this + "go to queue");
         BuyerQueue.addBuyerToQueue(this);
         //Будем ждать в очереди, пока не Cashier не устроит Notify
         //Монитором будет сам Buyer. Чтобы его никто не разбудил, пока он не заснул
@@ -81,7 +78,6 @@ class Buyer extends Thread implements iBuyer, iUseBucket {
     @Override
     public void goOut() {
         Dispatcher.goOut();
-        //System.out.println(this + "Leave" + Dispatcher.getCountBuyersDone());
     }
 
     /**
@@ -91,7 +87,6 @@ class Buyer extends Thread implements iBuyer, iUseBucket {
     public void takeBucket() {
         bUseBucket = true;
         sleep(0, 0);
-        //System.out.println(this + "take Bucket");
     }
 
     /**
@@ -102,14 +97,12 @@ class Buyer extends Thread implements iBuyer, iUseBucket {
         if (!bUseBucket) return;
         String someGood = Goods.getSomeGood();
         items.add((someGood));
-        totalAmount += Goods.getPrice(someGood);
-        countOfGoods++;
-        //System.out.println(this + "put " + Goods.getSomeGood() + " to Bucket ");
+        buyerTotalAmount += Goods.getPrice(someGood);
     }
 
     @Override
     public String toString() {
-        return (bPensioneer ? "Buyer_P " :
+        return (bPensioner ? "Buyer-P " :
                 "Buyer ") + this.getName() + " ";
     }
 
@@ -117,16 +110,16 @@ class Buyer extends Thread implements iBuyer, iUseBucket {
      * засыпатель
      * Время сна для пенсионеров увеличивается в 1.5 раза.
      */
-    public void sleep(int nMinimum, int nMaximum) {
+     void sleep(int nMinimum, int nMaximum) {
         int nTimeOut = TimeHelper.getRandom(nMinimum, nMaximum);
-        if (bPensioneer) {
+        if (bPensioner) {
             nTimeOut = (int) ((double) nTimeOut * TimeHelper.getSlowSpeed());
         }
         TimeHelper.sleep(nTimeOut);
     }
 
     boolean isPensioneer() {
-        return bPensioneer;
+        return bPensioner;
     }
 
     /**
@@ -135,10 +128,10 @@ class Buyer extends Thread implements iBuyer, iUseBucket {
     public String getCheck() {
         StringBuilder sb = new StringBuilder();
         sb.append("*** Cheque ").append(this).append("\n");
-        for (int i = 0; i < items.size(); i++) {
-            sb.append(String.format("* %-15s:%7.2f",items.get(i),Goods.getPrice(items.get(i)))).append("\n");
+        for (String item : items) {
+            sb.append(String.format("* %-15s:%7.2f", item, Goods.getPrice(item))).append("\n");
         }
-        sb.append(String.format("* %-15s:%7.2f","Amount", totalAmount)).append("\n");
+        sb.append(String.format("* %-15s:%7.2f","Amount", buyerTotalAmount)).append("\n");
         sb.append("***********************\n");
         return sb.toString();
     }

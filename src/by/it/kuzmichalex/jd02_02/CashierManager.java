@@ -1,20 +1,20 @@
 package by.it.kuzmichalex.jd02_02;
 
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
+import java.util.*;
 
 public class CashierManager {
-    private static Map<Cashier, Thread> mapCashiers = new HashMap<>();
+    //private static Map<Cashier, Thread> mapCashiers = new HashMap<>();
+    private static List<Cashier> listCashiers = new ArrayList<>();
+    private static List<Thread> listThreads = new ArrayList<>();
 
     CashierManager() {
-        //System.out.println("Manager comes to work");
         //Менеджер мейкинг дэйли аджайл митинг
-        mapCashiers.clear();
         for (int i = 0; i < Dispatcher.MAX_CASHIERS; i++) {
             Cashier cashier = new Cashier(i);
             Thread thread = new Thread(cashier);
-            mapCashiers.put(cashier, thread);
+            listCashiers.add(cashier);
+            listThreads.add(thread);
+            //mapCashiers.put(cashier, thread);
             thread.start();
         }
     }
@@ -24,24 +24,37 @@ public class CashierManager {
      */
     void doManaging(String reason) {
         int cashiersNeed = (BuyerQueue.getQueueSize() / 5);
-        //System.out.println("managing " + reason + " need cashiers:" + cashiersNeed + "cashiers:" + mapCashiers.size());
-
-        Iterator<Map.Entry<Cashier, Thread>> iterator = mapCashiers.entrySet().iterator();
+        //System.out.println("cashiersNeed " + cashiersNeed);
+        for (int idx = 0; idx < Dispatcher.MAX_CASHIERS; idx++) {
+            if (idx > cashiersNeed) listCashiers.get(idx).goWait("Manager");
+            else {if (listThreads.get(idx).getState() == Thread.State.WAITING) listCashiers.get(idx).goNotify();}
+        }
+       /* Iterator<Map.Entry<Cashier, Thread>> iterator = mapCashiers.entrySet().iterator();
         int idx = 0;
         while (iterator.hasNext()) {
             Map.Entry<Cashier, Thread> next = iterator.next();
             if (idx > cashiersNeed) next.getKey().goWait("Manager");
             else if (next.getValue().getState() == Thread.State.WAITING) next.getKey().goNotify();
             idx++;
-        }
+        }*/
     }
 
     /**
      * Подъём всех кассиров для свеоки кассы
      */
     void stopManaging() {
-        Iterator<Map.Entry<Cashier, Thread>> iterator = mapCashiers.entrySet().iterator();
-        //System.out.println("Manager stopping...");
+        for (int idx = 0; idx < Dispatcher.MAX_CASHIERS; idx++) {
+            //Всех кассиров вернём из курилок, чтобы завершили кассы
+            if (listThreads.get(idx).getState() == Thread.State.WAITING) listCashiers.get(idx).goNotify();
+            //присоединимся ко всем процессам и дождёся их завершения
+            try {
+                listThreads.get(idx).join();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+
+      /*  Iterator<Map.Entry<Cashier, Thread>> iterator = mapCashiers.entrySet().iterator();
         while (iterator.hasNext()) {
             Map.Entry<Cashier, Thread> next = iterator.next();
             if (next.getValue().getState() == Thread.State.WAITING) next.getKey().goNotify();
@@ -52,11 +65,12 @@ public class CashierManager {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-        }
-
-        mapCashiers.clear();
-        Logger.addToLog(" ",0);
-        Logger.addToLog(" ",0);
+        }*/
+        listThreads.clear();
+        listCashiers.clear();
+        //   mapCashiers.clear();
+        Logger.addToLog(" ", 0);
+        Logger.addToLog(" ", 0);
         //System.out.println("Manager Done");
     }
 }

@@ -1,14 +1,19 @@
 package by.it.kuzmichalex.jd02_02;
 
 class Dispatcher {
+    static final int MAX_CASHIERS = 5;
+    static final int PLAN = 100;
+    static final int MIN_BUYERS = 10;
+    static final int MAX_BUYERS = 35;
+
     static final Object monitorBuyers = new Object();
     static volatile int countOfBuyers = 0;
     static volatile int countOfBuyersDone = 0;
 
-    static final int MAX_CASHIERS=5;
-    static final int PLAN=100;
-    static final int MIN_BUYERS = 10;
-    static final int MAX_BUYERS = 35;
+    static final Object monitorTotalAmount = new Object();
+    static volatile double marketTotalAmount = 0.0;
+
+
 
     /**
      * Получить количество требуемых покупателей в зависимости от времени.
@@ -39,9 +44,9 @@ class Dispatcher {
         }
     }
 
-    static boolean isAllBuyersDone(){
-        synchronized (monitorBuyers){
-            return countOfBuyersDone==PLAN;
+    static boolean isAllBuyersDone() {
+        synchronized (monitorBuyers) {
+            return countOfBuyersDone == PLAN;
         }
     }
 
@@ -56,6 +61,16 @@ class Dispatcher {
             countOfBuyers--;
             countOfBuyersDone++;
         }
+    }
+
+    static void addMarketAmount(double amount){
+        synchronized (monitorTotalAmount){
+            marketTotalAmount+=amount;
+        }
+    }
+
+    static double getMarketTotalAmount(){
+        return marketTotalAmount;
     }
 
 }
