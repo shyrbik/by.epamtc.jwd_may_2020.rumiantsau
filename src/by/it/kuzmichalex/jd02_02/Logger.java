@@ -35,7 +35,11 @@ class Logger {
                     tmp[x][y]=splitted[y];
                 }
                 arrLogs[x] = null;  //Зачищаем
-            }//else
+            }else if(x<Dispatcher.MAX_CASHIERS){
+                //В логе кассира X пусто. Значит, занят он обслуживает клиента sleep() или выключен wait()
+                // засунем туда статус процесса. Для интереса.
+                tmp[x][0]= CashierManager.getCashierState(x);
+            }
 
         }
         StringBuilder sb= new StringBuilder();

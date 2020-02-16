@@ -19,6 +19,11 @@ public class CashierManager {
         }
     }
 
+    public static String getCashierState(int x) {
+        if(x>listThreads.size())return " void ";
+        return listThreads.get(x).getState().toString();
+    }
+
     /**
      * Управление всем этим колхозом.
      */
@@ -53,6 +58,8 @@ public class CashierManager {
                 e.printStackTrace();
             }
         }
+        //listThreads.clear();
+        //listCashiers.clear();
 
       /*  Iterator<Map.Entry<Cashier, Thread>> iterator = mapCashiers.entrySet().iterator();
         while (iterator.hasNext()) {
@@ -66,8 +73,6 @@ public class CashierManager {
                 e.printStackTrace();
             }
         }*/
-        listThreads.clear();
-        listCashiers.clear();
         //   mapCashiers.clear();
         Logger.addToLog(" ", 0);
         Logger.addToLog(" ", 0);

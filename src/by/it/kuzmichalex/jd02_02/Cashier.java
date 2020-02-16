@@ -3,7 +3,7 @@ package by.it.kuzmichalex.jd02_02;
 class Cashier implements Runnable {
     private String cashierName;
     private int cashierNumber;
-    private volatile boolean isPaused = true;
+    private volatile boolean isPaused = false;
     private double totalAmount = 0;
     private double totalBuyers = 0;
     volatile String state;
