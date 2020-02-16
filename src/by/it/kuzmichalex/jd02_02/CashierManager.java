@@ -48,7 +48,7 @@ public class CashierManager {
     }
 
     /**
-     * Подъём всех кассиров для свеоки кассы
+     * Подъём всех кассиров для завершения кассы
      */
     void stopManaging() {
         for (int idx = 0; idx < Dispatcher.MAX_CASHIERS; idx++) {
