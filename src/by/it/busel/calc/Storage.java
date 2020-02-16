@@ -103,10 +103,8 @@ class Storage {
         Logger.save(Printer.formLog("sortvar", strOrderedStorage));
     }
 
-    //TODO : add "true" in a constructor of FileWriter and refactor the method in order to write only the last added el
-
     /**
-     * a method that puts to a virtual storage (mapStorage field) and rewrites "mapStorage" in a target file
+     * a method that puts into a virtual storage (mapStorage field) and rewrites "mapStorage" in a target file
      *
      * @param key   a name of a var expression
      * @param value a value of a var expression
