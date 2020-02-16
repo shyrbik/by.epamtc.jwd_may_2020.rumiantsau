@@ -27,6 +27,7 @@ public class CashierManager {
     /**
      * Управление всем этим колхозом.
      * Осуществляется из очереди при добавлении/доставании Buyer'a
+     * @param reason причина вызова менеджера (любое изменение очереди)
      */
     void doManaging(String reason) {
         int cashiersNeed = (BuyerQueue.getQueueSize() / 5);
