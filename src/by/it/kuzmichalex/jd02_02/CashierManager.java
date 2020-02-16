@@ -20,19 +20,21 @@ public class CashierManager {
     }
 
     public static String getCashierState(int x) {
-        if(x>listThreads.size())return " void ";
+        if (x > listThreads.size()) return " void ";
         return listThreads.get(x).getState().toString();
     }
 
     /**
      * Управление всем этим колхозом.
+     * Осуществляется из очереди при добавлении/доставании Buyer'a
      */
     void doManaging(String reason) {
         int cashiersNeed = (BuyerQueue.getQueueSize() / 5);
-        //System.out.println("cashiersNeed " + cashiersNeed);
         for (int idx = 0; idx < Dispatcher.MAX_CASHIERS; idx++) {
             if (idx > cashiersNeed) listCashiers.get(idx).goWait("Manager");
-            else {if (listThreads.get(idx).getState() == Thread.State.WAITING) listCashiers.get(idx).goNotify();}
+            else {
+                if (listThreads.get(idx).getState() == Thread.State.WAITING) listCashiers.get(idx).goNotify();
+            }
         }
        /* Iterator<Map.Entry<Cashier, Thread>> iterator = mapCashiers.entrySet().iterator();
         int idx = 0;
