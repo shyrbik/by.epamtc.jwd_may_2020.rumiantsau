@@ -20,21 +20,23 @@ class Cashier implements Runnable {
     public void run() {
         while (!Dispatcher.marketIsClosed()) {
             Buyer pensioner = BuyerQueue.getFirstPensioner();
-            Buyer buyer = BuyerQueue.getFirstBuyer();
             if (pensioner != null) {
                 serve(pensioner);
-            } else if (buyer != null) {
-                serve(buyer);
             } else {
-                synchronized (monitor) {
-                    try {
-                        onlineCashier--;
-                        System.out.println(this + " is closed");
-                        monitor.wait();
-                        onlineCashier++;
-                        System.out.println(this + " is opened");
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
+                Buyer buyer = BuyerQueue.getFirstBuyer();
+                if (buyer != null) {
+                    serve(buyer);
+                } else {
+                    synchronized (monitor) {
+                        try {
+                            onlineCashier--;
+                            System.out.println(this + " is closed");
+                            monitor.wait();
+                            onlineCashier++;
+                            System.out.println(this + " is opened");
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
                     }
                 }
             }
