@@ -1,7 +1,9 @@
-package by.it.ban.jd02_01;
+package by.it.ban.jd02_02;
 
-import java.util.*;
-import java.util.Map.Entry;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
 
 class Buyer extends Thread implements IBuyer, IUseBacket {
     boolean pensioner;
@@ -10,7 +12,7 @@ class Buyer extends Thread implements IBuyer, IUseBacket {
 
     public Buyer(int number) {
         super("Покупатель N"+number+" ");
-        Dispatcher.countBuyer++;
+        Dispatcher.buyerEnter();;
     }
 
     public Buyer(int number, boolean pensioner) {
@@ -20,18 +22,16 @@ class Buyer extends Thread implements IBuyer, IUseBacket {
             this.speed=1.5;
         else
             this.speed=1.0;
-//        System.out.println("pens="+this.pensioner+" speed="+this.speed);
-        Dispatcher.countBuyer++;
+        Dispatcher.buyerEnter();
     }
 
     @Override
     public void run() {
         enterTheMarket();
         takeBacket();
-        for (int i = 1; i <=Helper.random(4) ; i++) {
-            putGoodsToBacket();
-        }
         chooseGoods();
+        putGoodsToBacket();
+        goToQueue();
         exitTheMarket();
     }
 
@@ -51,9 +51,26 @@ class Buyer extends Thread implements IBuyer, IUseBacket {
     }
 
     @Override
+    public void goToQueue() {
+        System.out.println(this+" стал в очередь");
+        if(this.pensioner)
+            QueuePensioneer.add(this);
+        else
+            QueueBuyer.add(this);
+        Helper.printQueue();
+        synchronized (this){
+            try {
+                this.wait();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    @Override
     public void exitTheMarket() {
         System.out.println(this+"вышел из магазина");
-        Dispatcher.countBuyer--;
+        Dispatcher.buyerLeave();
     }
 
 
