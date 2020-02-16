@@ -41,9 +41,7 @@ class Buyer extends Thread implements IBuyer, IUseBacket {
         } else {
             System.out.println(this + " go to united queue");
             BuyerQueue.addToQueue(this);
-
         }
-
         synchronized (this) {
             try {
                 this.wait();

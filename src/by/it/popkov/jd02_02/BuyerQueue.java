@@ -3,9 +3,9 @@ package by.it.popkov.jd02_02;
 import java.util.ArrayDeque;
 
 class BuyerQueue {
-    private static volatile ArrayDeque<Buyer> buyerQueue = new ArrayDeque<>(96);
+    private static final ArrayDeque<Buyer> buyerQueue = new ArrayDeque<>(96);
 
-    private static volatile ArrayDeque<Buyer> pensionerQueue = new ArrayDeque<>(48);
+    private static final ArrayDeque<Buyer> pensionerQueue = new ArrayDeque<>(48);
 
     public synchronized static void addToQueue(Buyer buyer) {
         buyerQueue.addLast(buyer);

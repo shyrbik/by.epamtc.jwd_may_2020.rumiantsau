@@ -3,7 +3,7 @@ package by.it.popkov.jd02_02;
 class Dispatcher {
 
 
-    static final int SPEED_BOOST = 100;
+    static final int SPEED_BOOST = 10;
 
     static final int CASHIER_MAX = 5;
 
