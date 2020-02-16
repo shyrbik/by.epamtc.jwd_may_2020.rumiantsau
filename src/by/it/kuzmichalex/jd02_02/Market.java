@@ -1,5 +1,6 @@
 package by.it.kuzmichalex.jd02_02;
 
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -7,7 +8,7 @@ public class Market {
     public static void main(String[] args) {
 
         Goods goods = new Goods();
-
+       PseudoGraph graph = new PseudoGraph();
         CashierManager manager = new CashierManager();
         BuyerQueue queue = new BuyerQueue(manager);
         List<Buyer> listBuyers = new ArrayList<>(100);
@@ -27,6 +28,7 @@ public class Market {
                     newComers--;
                 }
             }
+            graph.add(Dispatcher.getCountBuyersInside());
             TimeHelper.sleep(TimeHelper.getRandom(1000, 1000));
             nSeconds++;
         }
@@ -37,6 +39,7 @@ public class Market {
         System.out.println("======MARKET CLOSED======");
         System.out.println("Фактор ускорения просмотра TimeHelper.SUPER_SPEED: " + TimeHelper.getSuperSpeed());
         System.out.println("Фактор замедления пенсионера TimeHelper.SLOW_SPEED: " + TimeHelper.getSlowSpeed());
+        System.out.println(graph);
 
 
     }
