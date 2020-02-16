@@ -13,4 +13,7 @@ class BuyerQueue {
     public synchronized static Buyer getFirstBuyer() {
         return buyerQueue.pollFirst();
     }
+
+    public synchronized static void addToPensionerQueue(Buyer buyer) {
+    }
 }

@@ -35,8 +35,15 @@ class Buyer extends Thread implements IBuyer, IUseBacket {
 
     @Override
     public void goToQueue() {
-        System.out.println(this + " go to united queue");
-        BuyerQueue.addToQueue(this);
+        if (this.pensioneer) {
+            System.out.println(this + " go to pensioner's queue");
+            BuyerQueue.addToPensionerQueue(this);
+        } else {
+            System.out.println(this + " go to united queue");
+            BuyerQueue.addToQueue(this);
+
+        }
+
         synchronized (this) {
             try {
                 this.wait();
