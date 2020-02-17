@@ -5,7 +5,9 @@ import java.util.List;
 
 class Shop {
 
-    private static List<Thread> subThreads = new ArrayList<>(1000);
+    private static List<Thread> buyersThreads = new ArrayList<>(1000);
+
+    private static List<Cashier> cashiersThreads = new ArrayList<>(5);
 
     private static int subThreadId = 0;
 
@@ -31,7 +33,7 @@ class Shop {
     private static void addCashiers(int number) {
         for (int i = 1; i <= number; i++) {
             Cashier cashier = new Cashier(i);
-            subThreads.add(cashier);
+            cashiersThreads.add(cashier);
             cashier.start();
         }
     }
@@ -53,7 +55,7 @@ class Shop {
         for (int i = 0; i < numberOfBuyersToEnter; i++) {
             if (Dispatcher.shopDoorsAreStillOpened()) {
                 Buyer buyer = new Buyer(++subThreadId);
-                subThreads.add(buyer);
+                buyersThreads.add(buyer);
                 buyer.start();
             }
         }

@@ -87,4 +87,20 @@ class Buyer extends Thread implements IBuyer, IUseBacket {
         System.out.println(this + " has made for the shop-exit and has gone out.");
         Dispatcher.buyerLeft();
     }
+
+    void payOff() {
+        StringBuilder sb = new StringBuilder("\n");
+        int index = 0;
+        Double total = 0.0;
+        Map<String, Double> personalGoods = personalBacket.getPersonalGoods();
+        sb.append("Goods of ").append(this).append('\n');
+        sb.append(String.format("%2s %-11s %5s%n", "№№", "item", "price"));
+        for (Map.Entry<String, Double> item : personalGoods.entrySet()) {
+            sb.append(String.format("%2d ", ++index)).append(String.format("%-12s", item.getKey()))
+                    .append(String.format("%-5.2f BYN", item.getValue())).append('\n');
+            total = total + item.getValue();
+        }
+        sb.append(String.format("%14s %-5.2f %s%n", "Total:", total, "BYN"));
+        System.out.println(sb.toString());
+    }
 }
