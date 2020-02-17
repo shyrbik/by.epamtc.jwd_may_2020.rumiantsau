@@ -5,24 +5,33 @@ import java.util.List;
 
 class Shop {
 
-    private static List<Buyer> subThreads = new ArrayList<>(1000);
+    private static List<Thread> subThreads = new ArrayList<>(1000);
 
     private static int subThreadId = 0;
 
     public static void main(String[] args) {
         String mainThreadName = Shop.class.getSimpleName();
         informAboutOpening(mainThreadName);
+        addCashiers(2);
         for (int second = 0; second <= 120; second++) {
             int currentBuyersNumber = Dispatcher.get();
             int numberOfBuyersToEnter = getNumberOfBuyersToEnter(second, currentBuyersNumber);
             System.out.println("Current second: " + second + "; Buyers inside the Shop: " + currentBuyersNumber
-            + "; Buyers to enter: " + numberOfBuyersToEnter);
+                    + "; Buyers to enter: " + numberOfBuyersToEnter);
             startSubThreads(numberOfBuyersToEnter);
             Helper.sleep(1000);
         }
         informAboutDoorsClosure(mainThreadName);
         executeUntilAllSubThreadsFinished();
         informAboutClosureOfStore(mainThreadName);
+    }
+
+    private static void addCashiers(int number) {
+        for (int i = 1; i <= number; i++) {
+            Cashier cashier = new Cashier(i);
+            subThreads.add(cashier);
+            cashier.start();
+        }
     }
 
     private static int getNumberOfBuyersToEnter(int second, int currentBuyersNumber) {
@@ -47,7 +56,7 @@ class Shop {
     }
 
     private static void executeUntilAllSubThreadsFinished() {
-        for (Buyer buyer : subThreads) {
+        for (Thread buyer : subThreads) {
             try {
                 buyer.join();
             } catch (InterruptedException e) {
