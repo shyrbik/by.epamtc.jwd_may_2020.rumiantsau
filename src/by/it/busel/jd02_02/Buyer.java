@@ -16,7 +16,7 @@ class Buyer extends Thread implements IBuyer, IUseBacket {
             isPensioner = true;
         }
         cognitiveDelay = !isPensioner ? 1 : 1.5;
-        Dispatcher.incrementNumberOfBuyers();
+        Dispatcher.buyerEntered();
     }
 
     @Override
@@ -33,6 +33,7 @@ class Buyer extends Thread implements IBuyer, IUseBacket {
             chooseGoods();
             putGoodsToBacket();
         }
+        goToQueue();
         goOut();
     }
 
@@ -84,6 +85,6 @@ class Buyer extends Thread implements IBuyer, IUseBacket {
     @Override
     public void goOut() {
         System.out.println(this + " has made for the shop-exit and has gone out.");
-        Dispatcher.decrementNumberOfBuyers();
+        Dispatcher.buyerLeft();
     }
 }

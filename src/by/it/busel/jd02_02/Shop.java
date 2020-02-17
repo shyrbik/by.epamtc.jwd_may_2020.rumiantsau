@@ -13,14 +13,23 @@ class Shop {
         String mainThreadName = Shop.class.getSimpleName();
         informAboutOpening(mainThreadName);
         addCashiers(2);
-        for (int second = 0; second <= 120; second++) {
-            int currentBuyersNumber = Dispatcher.get();
+        int second = 0;
+        while (Dispatcher.shopDoorsAreStillOpened()) {
+            int currentBuyersNumber = Dispatcher.getBuyersNumberInside();
             int numberOfBuyersToEnter = getNumberOfBuyersToEnter(second, currentBuyersNumber);
-            System.out.println("Current second: " + second + "; Buyers inside the Shop: " + currentBuyersNumber
+            System.out.println("Current second: " + second++ + "; Buyers inside the Shop: " + currentBuyersNumber
                     + "; Buyers to enter: " + numberOfBuyersToEnter);
-            startSubThreads(numberOfBuyersToEnter);
+            letBuyersGetIn(numberOfBuyersToEnter);
             Helper.sleep(1000);
         }
+//        for (int second = 0; second <= 120; second++) {
+//            int currentBuyersNumber = Dispatcher.getBuyersNumberInside();
+//            int numberOfBuyersToEnter = getNumberOfBuyersToEnter(second, currentBuyersNumber);
+//            System.out.println("Current second: " + second + "; Buyers inside the Shop: " + currentBuyersNumber
+//                    + "; Buyers to enter: " + numberOfBuyersToEnter);
+//            startSubThreads(numberOfBuyersToEnter);
+//            Helper.sleep(1000);
+//        }
         informAboutDoorsClosure(mainThreadName);
         executeUntilAllSubThreadsFinished();
         informAboutClosureOfStore(mainThreadName);
@@ -47,11 +56,13 @@ class Shop {
         return numberOfBuyersToEnter;
     }
 
-    private static void startSubThreads(int numberOfBuyersToEnter) {
+    private static void letBuyersGetIn(int numberOfBuyersToEnter) {
         for (int i = 0; i < numberOfBuyersToEnter; i++) {
-            Buyer buyer = new Buyer(++subThreadId);
-            subThreads.add(buyer);
-            buyer.start();
+            if (Dispatcher.shopDoorsAreStillOpened()) {
+                Buyer buyer = new Buyer(++subThreadId);
+                subThreads.add(buyer);
+                buyer.start();
+            }
         }
     }
 
@@ -71,11 +82,11 @@ class Shop {
 
     private static void informAboutDoorsClosure(String mainThreadName) {
         System.out.println("===== The dispatcher of the \"" + mainThreadName + "\" has shut the doors =====");
-        System.out.println("===== A number of Buyers remaining inside the store is " + Dispatcher.get() + " ======");
+        System.out.println("===== A number of Buyers remaining inside the store is " + Dispatcher.getBuyersNumberInside() + " ======");
     }
 
     private static void informAboutClosureOfStore(String mainThreadName) {
         System.out.println("<<<<< The \"" + mainThreadName + "\" has closed >>>>>");
-        System.out.println("===== A number of Buyers remaining inside the store is " + Dispatcher.get() + " ======");
+        System.out.println("===== A number of Buyers remaining inside the store is " + Dispatcher.getBuyersNumberInside() + " ======");
     }
 }

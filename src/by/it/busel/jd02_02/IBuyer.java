@@ -5,7 +5,7 @@ interface IBuyer {
 
     void chooseGoods(); // a Buyer has chosen an item of goods (it has taken him (her) from 500 to 2000 milliseconds
 
-    void goOut(); // a Buyer has made for the shop-exit
-
     void goToQueue(); // a Buyer has made for a queue
+
+    void goOut(); // a Buyer has made for the shop-exit
 }
