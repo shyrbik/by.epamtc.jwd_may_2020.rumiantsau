@@ -70,6 +70,14 @@ class Buyer extends Thread implements IBuyer, IUseBacket {
     @Override
     public void goToQueue() {
         System.out.println(this + " has made for the sole queue in the shop.");
+        SoleQueue.add(this);
+        synchronized (this) {
+            try {
+                this.wait();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     @Override
