@@ -10,6 +10,15 @@ class Backet {
         goodsNomenclature.put("Vegetables", 3.74);
         goodsNomenclature.put("Milk", 1.59);
         goodsNomenclature.put("Poultry", 12.69);
+        goodsNomenclature.put("Fish", 17.99);
+        goodsNomenclature.put("Chocolate", 2.29);
+        goodsNomenclature.put("Protein", 23.99);
+        goodsNomenclature.put("Water", 0.99);
+        goodsNomenclature.put("Juice", 3.75);
+        goodsNomenclature.put("Coffee", 6.79);
+        goodsNomenclature.put("Tea", 3.09);
+        goodsNomenclature.put("Toothpaste", 5.49);
+        goodsNomenclature.put("Pen", 3.00);
     }
 
 
