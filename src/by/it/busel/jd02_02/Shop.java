@@ -10,6 +10,7 @@ class Shop {
     private static int subThreadId = 0;
 
     public static void main(String[] args) {
+        int thCount = Thread.activeCount();
         String mainThreadName = Shop.class.getSimpleName();
         informAboutOpening(mainThreadName);
         addCashiers(2);
@@ -22,16 +23,8 @@ class Shop {
             letBuyersGetIn(numberOfBuyersToEnter);
             Helper.sleep(1000);
         }
-//        for (int second = 0; second <= 120; second++) {
-//            int currentBuyersNumber = Dispatcher.getBuyersNumberInside();
-//            int numberOfBuyersToEnter = getNumberOfBuyersToEnter(second, currentBuyersNumber);
-//            System.out.println("Current second: " + second + "; Buyers inside the Shop: " + currentBuyersNumber
-//                    + "; Buyers to enter: " + numberOfBuyersToEnter);
-//            startSubThreads(numberOfBuyersToEnter);
-//            Helper.sleep(1000);
-//        }
         informAboutDoorsClosure(mainThreadName);
-        executeUntilAllSubThreadsFinished();
+        executeUntilAllSubThreadsFinished(thCount);
         informAboutClosureOfStore(mainThreadName);
     }
 
@@ -66,10 +59,10 @@ class Shop {
         }
     }
 
-    private static void executeUntilAllSubThreadsFinished() {
-        for (Thread buyer : subThreads) {
+    private static void executeUntilAllSubThreadsFinished(int thCount) {
+        while (Thread.activeCount() > thCount) {
             try {
-                buyer.join();
+                Thread.sleep(100);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
