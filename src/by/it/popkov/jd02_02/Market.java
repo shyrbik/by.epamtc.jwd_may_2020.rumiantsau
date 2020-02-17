@@ -8,7 +8,7 @@ class Market {
     private Dispatcher dispatcher = new Dispatcher();
     final Object monitorCashier = new Object();
     private List<Buyer> buyersInMarket = new ArrayList<>(1000);
-    private List<Thread> cashierInMarket = new ArrayList<>(dispatcher.CASHIER_MAX);
+    private List<Thread> cashierInMarket = new ArrayList<>(dispatcher.cashierMax);
 
     public static void main(String[] args) {
         Market market = new Market();
@@ -39,7 +39,7 @@ class Market {
     }
 
     private void letInCashier() {
-        for (int i = 1; i <= dispatcher.CASHIER_MAX; i++) {
+        for (int i = 1; i <= dispatcher.cashierMax; i++) {
             Cashier cashier = new Cashier(i , buyerQueue, monitorCashier, dispatcher);
             Thread thread = new Thread(cashier);
             cashierInMarket.add(thread);

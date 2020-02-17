@@ -4,22 +4,22 @@ class Dispatcher {
 
 
     final static int SPEED_BOOST = 100;
-    final int CASHIER_MAX = 5;
-    final int PLAN = 100;
+    final int cashierMax = 5;
+    final int plan = 100;
 
     private int buyerOnline = 0;
     private int dayBuyerNum = 0;
 
 
     private final Object onlineCashierMonitor = new Object();
-    private int onlineCashier = CASHIER_MAX;
+    private int onlineCashier = cashierMax;
 
     public synchronized boolean planIsNotCompleted() {
-        return dayBuyerNum < PLAN;
+        return dayBuyerNum < plan;
     }
 
     public synchronized boolean marketIsClosed() {
-        return dayBuyerNum == PLAN && buyerOnline == 0;
+        return dayBuyerNum == plan && buyerOnline == 0;
     }
 
     public synchronized void buyerComeIn() {
