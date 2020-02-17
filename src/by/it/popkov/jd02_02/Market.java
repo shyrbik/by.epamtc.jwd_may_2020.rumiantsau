@@ -22,9 +22,18 @@ class Market {
         administrator.start();
 
         int counter = 1;
-        int letIn = 0;
+        int letIn = 1;
+        int sec = 1;
         while (Dispatcher.planIsNotCompleted()) {
-            letIn = Helper.randNumUntil(2);
+            if (Dispatcher.buyerOnline < sec % 60 && sec % 60 <= 30) {   //UP
+            } else if (Dispatcher.buyerOnline <= 40 + (30 - sec % 60) && sec % 60 > 30) { //DOWN
+            } else {
+                Helper.delay(1000);
+//                System.out.println("SEC = " + sec + " buyerOnline = " + Dispatcher.buyerOnline);
+                sec++;
+                continue;
+            }
+            letIn = Helper.randNumUntil(4);
             for (int j = 1; j <= letIn; j++) {
                 if (Dispatcher.planIsNotCompleted()) {
                     Buyer buyer = new Buyer(counter++);
@@ -33,6 +42,8 @@ class Market {
                 }
             }
             Helper.delay(1000);
+//            System.out.println("SEC = " + sec + " buyerOnline = " + Dispatcher.buyerOnline);
+            sec++;
         }
 
         for (Buyer buyer : buyersInMarket) {
