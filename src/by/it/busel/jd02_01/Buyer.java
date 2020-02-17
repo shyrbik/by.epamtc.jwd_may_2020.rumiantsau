@@ -43,6 +43,7 @@ class Buyer extends Thread implements IBuyer, IUseBacket {
 
     @Override
     public void chooseGoods() {
+        System.out.println(this + " has started to choose an item of goods.");
         int millis = (int) (Helper.getRandomIntValue(500, 2000) * cognitiveDelay);
         Helper.sleep(millis);
         Map.Entry<String, Double> itemInHands = personalBacket.chooseAnItemOfGoods();
