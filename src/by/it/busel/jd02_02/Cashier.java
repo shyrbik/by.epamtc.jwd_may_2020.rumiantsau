@@ -4,6 +4,7 @@ class Cashier extends Thread {
 
     Cashier(int id) {
         this.setName("Cashier №" + id + " ");
+        Dispatcher.cashierOpensTheCounter();
     }
 
     @Override
@@ -16,7 +17,20 @@ class Cashier extends Thread {
         System.out.println(this + " has started to work.");
         while (!Dispatcher.shopCanBeClosed()) {
             //todo method that makes sleep
-
+            if (Dispatcher.saysCashierToCloseTheCounter()) {
+                synchronized (this) {
+                    try {
+                        Dispatcher.cashierClosesTheCounter();
+                        System.out.println(this + " has ended to work.");
+                        wait();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    } finally {
+                        Dispatcher.cashierOpensTheCounter();
+                        System.out.println(this + " has started to work.");
+                    }
+                }
+            }
             Buyer buyerAtTheCounter = SoleQueue.extract();
             if (buyerAtTheCounter != null) {
                 System.out.println(this + " has started to serve " + buyerAtTheCounter);
@@ -27,10 +41,10 @@ class Cashier extends Thread {
                     buyerAtTheCounter.notify();
                 }
             } else {
-                //TODO check if acceptable
                 yield();
             }
         }
+        Dispatcher.cashierClosesTheCounter();
         System.out.println(this + " has ended to work.");
     }
 }
