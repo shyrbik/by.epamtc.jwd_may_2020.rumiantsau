@@ -4,23 +4,52 @@ import java.util.ArrayList;
 import java.util.List;
 
 class Market {
+    private List<Buyer> buyersInMarket = new ArrayList<>(1000);
+    private List<Thread> cashierInMarket = new ArrayList<>(Dispatcher.CASHIER_MAX);
 
     public static void main(String[] args) {
+        Market market = new Market();
         Helper.writeGoodsMap();
         System.out.println("****** Open shop ******");
-        List<Buyer> buyersInMarket = new ArrayList<>(1000);
-        List<Thread> cashierInMarket = new ArrayList<>(Dispatcher.CASHIER_MAX);
+        market.letInCashier();
+        market.letInAdministrator();
+        market.letInBuyers();
 
+        for (Buyer buyer : market.buyersInMarket) {
+            try {
+                buyer.join();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+        for (Thread cashier : market.cashierInMarket) {
+            try {
+                cashier.join();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+
+
+        System.out.println("****** Close shop ******");
+
+    }
+
+    private void letInCashier() {
         for (int i = 1; i <= Dispatcher.CASHIER_MAX; i++) {
             Cashier cashier = new Cashier(i);
             Thread thread = new Thread(cashier);
             cashierInMarket.add(thread);
             thread.start();
         }
+    }
 
+    private void letInAdministrator() {
         Administrator administrator = new Administrator();
         administrator.start();
+    }
 
+    private void letInBuyers() {
         int counter = 1;
         int letIn = 1;
         int sec = 1;
@@ -41,25 +70,6 @@ class Market {
             Helper.delay(1000);
 
         }
-
-        for (Buyer buyer : buyersInMarket) {
-            try {
-                buyer.join();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
-        for (Thread cashier : cashierInMarket) {
-            try {
-                cashier.join();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
-
-
-        System.out.println("****** Close shop ******");
-
     }
 }
 
