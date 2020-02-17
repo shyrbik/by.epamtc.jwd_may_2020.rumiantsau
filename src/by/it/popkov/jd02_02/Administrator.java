@@ -5,26 +5,36 @@ package by.it.popkov.jd02_02;
  * Notify extra Cashier, when queueSize / onlineCashier > 5
  **/
 class Administrator extends Thread {
+    private BuyerQueue buyerQueue;
+    private final Object monitorCashier;
+    private Dispatcher dispatcher;
+
+    public Administrator(BuyerQueue buyerQueue, Object monitorCashier, Dispatcher dispatcher) {
+        this.buyerQueue = buyerQueue;
+        this.monitorCashier = monitorCashier;
+        this.dispatcher = dispatcher;
+    }
+
     @Override
     public void run() {
-        while (!Dispatcher.marketIsClosed()) {
+        while (!dispatcher.marketIsClosed()) {
             Helper.delay(1000);
-            int queueSize = BuyerQueue.getBuyerQueueSize() + BuyerQueue.getPensionerQueueSize();
-            int onlineCashier = Cashier.onlineCashier;
+            int queueSize = buyerQueue.getBuyerQueueSize() + buyerQueue.getPensionerQueueSize();
+            int onlineCashier = dispatcher.getOnlineCashier();
             if (onlineCashier == 0) {
                 if (queueSize > 0) {
-                    synchronized (Cashier.monitor) {
-                        Cashier.monitor.notify();
+                    synchronized (monitorCashier) {
+                        monitorCashier.notify();
                     }
                 }
             } else if (queueSize / onlineCashier > 5) {
-                synchronized (Cashier.monitor) {
-                    Cashier.monitor.notify();
+                synchronized (monitorCashier) {
+                    monitorCashier.notify();
                 }
             }
         }
-        synchronized (Cashier.monitor) {//after market closet restart work and let go home all Cashier
-            Cashier.monitor.notifyAll();
+        synchronized (monitorCashier) {//after market closet restart work and let go home all Cashier
+            monitorCashier.notifyAll();
         }
     }
 }

@@ -3,31 +3,31 @@ package by.it.popkov.jd02_02;
 import java.util.ArrayDeque;
 
 class BuyerQueue {
-    private static final ArrayDeque<Buyer> buyerQueue = new ArrayDeque<>(96);
+    private final ArrayDeque<Buyer> buyerQueue = new ArrayDeque<>(96);
 
-    private static final ArrayDeque<Buyer> pensionerQueue = new ArrayDeque<>(48);
+    private final ArrayDeque<Buyer> pensionerQueue = new ArrayDeque<>(48);
 
-    public synchronized static void addToQueue(Buyer buyer) {
+    public synchronized void addToQueue(Buyer buyer) {
         buyerQueue.addLast(buyer);
     }
 
-    public synchronized static Buyer getFirstBuyer() {
+    public synchronized Buyer getFirstBuyer() {
         return buyerQueue.pollFirst();
     }
 
-    public synchronized static void addToPensionerQueue(Buyer buyer) {
+    public synchronized void addToPensionerQueue(Buyer buyer) {
         pensionerQueue.addLast(buyer);
     }
 
-    public synchronized static Buyer getFirstPensioner() {
+    public synchronized Buyer getFirstPensioner() {
         return pensionerQueue.pollFirst();
     }
 
-    public synchronized static int getBuyerQueueSize() {
+    public synchronized int getBuyerQueueSize() {
         return buyerQueue.size();
     }
 
-    public synchronized static int getPensionerQueueSize() {
+    public synchronized int getPensionerQueueSize() {
         return pensionerQueue.size();
     }
 }

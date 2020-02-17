@@ -1,14 +1,18 @@
 package by.it.popkov.jd02_02;
 
 class Cashier implements Runnable {
-    static final Object monitor = new Object();
-
-    static volatile int onlineCashier = Dispatcher.CASHIER_MAX;
+    private final Object monitorCashier;
 
     private String name;
 
-    public Cashier(int num) {
+    private BuyerQueue buyerQueue;
+    private Dispatcher dispatcher;
+
+    public Cashier(int num, BuyerQueue buyerQueue, Object monitorCashier, Dispatcher dispatcher) {
         name = "Cashier " + num;
+        this.buyerQueue = buyerQueue;
+        this.monitorCashier = monitorCashier;
+        this.dispatcher = dispatcher;
     }
 
     @Override
@@ -18,21 +22,21 @@ class Cashier implements Runnable {
 
     @Override
     public void run() {
-        while (!Dispatcher.marketIsClosed()) {
-            Buyer pensioner = BuyerQueue.getFirstPensioner();
+        while (!dispatcher.marketIsClosed()) {
+            Buyer pensioner = buyerQueue.getFirstPensioner();
             if (pensioner != null) {
                 serve(pensioner);
             } else {
-                Buyer buyer = BuyerQueue.getFirstBuyer();
+                Buyer buyer = buyerQueue.getFirstBuyer();
                 if (buyer != null) {
                     serve(buyer);
                 } else {
-                    synchronized (monitor) {
+                    synchronized (monitorCashier) {
                         try {
-                            onlineCashier--;
+                            dispatcher.cashierClosed();
                             System.out.println(this + " is closed");
-                            monitor.wait();
-                            onlineCashier++;
+                            monitorCashier.wait();
+                            dispatcher.cashierOpened();
                             System.out.println(this + " is opened");
                         } catch (InterruptedException e) {
                             e.printStackTrace();

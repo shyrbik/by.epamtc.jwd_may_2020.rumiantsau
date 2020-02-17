@@ -4,8 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 class Market {
+    private BuyerQueue buyerQueue = new BuyerQueue();
+    private Dispatcher dispatcher = new Dispatcher();
+    final Object monitorCashier = new Object();
     private List<Buyer> buyersInMarket = new ArrayList<>(1000);
-    private List<Thread> cashierInMarket = new ArrayList<>(Dispatcher.CASHIER_MAX);
+    private List<Thread> cashierInMarket = new ArrayList<>(dispatcher.CASHIER_MAX);
 
     public static void main(String[] args) {
         Market market = new Market();
@@ -36,8 +39,8 @@ class Market {
     }
 
     private void letInCashier() {
-        for (int i = 1; i <= Dispatcher.CASHIER_MAX; i++) {
-            Cashier cashier = new Cashier(i);
+        for (int i = 1; i <= dispatcher.CASHIER_MAX; i++) {
+            Cashier cashier = new Cashier(i , buyerQueue, monitorCashier, dispatcher);
             Thread thread = new Thread(cashier);
             cashierInMarket.add(thread);
             thread.start();
@@ -45,7 +48,7 @@ class Market {
     }
 
     private void letInAdministrator() {
-        Administrator administrator = new Administrator();
+        Administrator administrator = new Administrator(buyerQueue, monitorCashier, dispatcher);
         administrator.start();
     }
 
@@ -53,20 +56,20 @@ class Market {
         int counter = 1;
         int letIn = 1;
         int sec = 1;
-        while (Dispatcher.planIsNotCompleted()) {
-            if ((Dispatcher.buyerOnline < sec % 60 && sec % 60 <= 30) || //UP
-                    (Dispatcher.buyerOnline <= 40 + (30 - sec % 60) && sec % 60 > 30)) {   //DOWN
+        while (dispatcher.planIsNotCompleted()) {
+            if ((dispatcher.getBuyerOnline() < sec % 60 && sec % 60 <= 30) || //UP
+                    (dispatcher.getBuyerOnline() <= 40 + (30 - sec % 60) && sec % 60 > 30)) {   //DOWN
                 letIn = Helper.randNumUntil(4);
                 for (int j = 1; j <= letIn; j++) {
-                    if (Dispatcher.planIsNotCompleted()) {
-                        Buyer buyer = new Buyer(counter++);
+                    if (dispatcher.planIsNotCompleted()) {
+                        Buyer buyer = new Buyer(counter++, buyerQueue, dispatcher);
                         buyer.start();
                         buyersInMarket.add(buyer);
                     }
                 }
             }
             sec++;
-            System.out.println("SEC = " + sec + " buyerOnline = " + Dispatcher.buyerOnline);
+//            System.out.println("SEC = " + sec + " buyerOnline = " + dispatcher.getBuyerOnline());
             Helper.delay(1000);
 
         }
