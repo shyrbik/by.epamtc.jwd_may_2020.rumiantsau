@@ -1,17 +1,21 @@
 package by.it.filipovich.jd02_01;
 
 
-class Buyer extends Thread implements IBuyer{
+import java.util.*;
+
+class Buyer extends Thread implements IBuyer, IUseBasket{
 
     public Buyer(int number){
-        super("Buyer № "+number+" entered");
+        super("Buyer № "+number);
         Dispatcher.count++;
     }
 
     @Override
     public void run() {
         enterToMarket();
+        takeBasket();
         chooseGoods();
+        putGoodsToBasket();
         goOut();
     }
 
@@ -25,7 +29,7 @@ class Buyer extends Thread implements IBuyer{
     public void chooseGoods() {
         System.out.println(this + " started to choose the goods");
         Helper.sleep(Helper.random(500, 2000));
-        System.out.println(this + " finished to choose the goods");
+        System.out.println(this + " finished choosing the goods");
     }
 
 
@@ -38,5 +42,34 @@ class Buyer extends Thread implements IBuyer{
     @Override
     public String toString() {
         return this.getName();
+    }
+
+    @Override
+    public void takeBasket() {
+        System.out.println(this+" take the basket.");
+        Helper.sleep(Helper.random(500,2000));
+    }
+
+    @Override
+    public void putGoodsToBasket() {
+        System.out.println(this+" put the Goods into the basket");
+        Helper.sleep(Helper.random(500,2000));
+        putTo();
+    }
+
+    private void putTo() {
+        int numberOfGoods = Helper.random(1,4);
+        StringBuilder sb = new StringBuilder();
+        List<String> namesOfGoods = new ArrayList<>(Goods.getListOfGoods().keySet());
+        for (int i = 1; i <= numberOfGoods; i++) {
+            String randomGood = namesOfGoods.get(new Random().nextInt(namesOfGoods.size()));
+            Double priceOfGood = Goods.getListOfGoods().get(randomGood);
+            sb.append(randomGood).append(" (").append(priceOfGood).append(" USD)");
+            if(i == numberOfGoods)
+                sb.append(".");
+            else sb.append(",");
+        }
+        System.out.println(this + " bought the next goods:");
+        System.out.println(sb.toString());
     }
 }
