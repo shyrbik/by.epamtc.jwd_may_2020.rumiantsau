@@ -7,10 +7,12 @@ import java.util.Set;
 abstract class Var implements Operation {
 
     private static Map<String, Var> vars = new HashMap<>();
-    static Var saveVar (String name, Var var){
+    static void saveVar (String name, Var var) throws CalcException {
         vars.put(name, var);
-        return var;
+        VarFile.writer(vars);
+
     }
+
     static void sortvar (){
         Set<Map.Entry<String, Var>> entries = vars.entrySet();
         for (Map.Entry<String, Var> entry : entries) {
@@ -22,17 +24,19 @@ abstract class Var implements Operation {
         operand = operand.trim().replaceAll("\\s+", "");
         if (operand.matches(Patterns.SCALAR)){
             return new Scalar(operand);
-        }
+        } else
         if (operand.matches(Patterns.VECTOR)){
             return new Vector(operand);
-        }
+        } else
         if (operand.matches(Patterns.MATRIX)){
             return new Matrix(operand);
+        } else{
+            if (vars.containsKey(operand)) {
+                return vars.get(operand);
+            }
+            else
+                throw new CalcException("Невозможно создать такую переменную: " + operand);
         }
-        if (vars.containsKey(operand)) {
-            return vars.get(operand);
-        }
-        throw new CalcException("Невозможно создать такую переменную: " + operand);
     }
 
     @Override

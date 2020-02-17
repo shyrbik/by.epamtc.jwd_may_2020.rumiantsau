@@ -16,19 +16,6 @@ class Vector extends Var {
                 .replaceAll("[{]", "")
                 .replaceAll("[}]", "")
                 .split("[,]");
-
-       /* str.trim();
-
-
-       //  по другому не смогла удолить фигурные скобки
-        String[] string = str.split("[{ ,}]+");
-
-        if (string[0].equals(""))
-            for (int i = 0; i < string.length-1; i++) {
-                string[i]=string[i+1];
-            }
-        string = Arrays.copyOf(string,string.length-1);*/
-
         double[] array = new double[strings.length];
         for (int i = 0; i < array.length; i++) {
                 array[i] = Double.parseDouble(strings[i]);

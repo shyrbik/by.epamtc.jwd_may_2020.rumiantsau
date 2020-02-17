@@ -52,12 +52,8 @@ class Scalar extends Var {
 
     //////////   methods for mul operation
     @Override
-    public Var mul(Var other) throws CalcException{
-        if (other instanceof Scalar){
-            double mul = this.value * ((Scalar) other).value;
-            return new Scalar(mul);
-        }
-        else return other.mul(this);
+    public Var mul(Var rigth) throws CalcException{
+         return rigth.mul(this);
     }
     @Override
     public Var mul(Scalar left) throws CalcException {

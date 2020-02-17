@@ -1,12 +1,20 @@
 package by.it.samuseva.jd02_01;
 
+import java.util.Random;
+
 class Helper {
-    static void sleep (int terminat){
+    private static Random generator = new Random(System.nanoTime());
+
+    static void sleep (int timeout){
         try {
-            Thread.sleep(terminat);
+            Thread.sleep(timeout/Dispetcher.K_SPEED);
         } catch (InterruptedException e) {
             System.err.println("YPS !!!");
         }
 
+    }
+
+    static int random(int min, int max){
+        return min+generator.nextInt(max-min+1);
     }
 }

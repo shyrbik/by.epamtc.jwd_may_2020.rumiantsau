@@ -7,6 +7,7 @@ public class ConsoleRunner {
         Scanner scan = new Scanner(System.in);
         Parset parset = new Parset();
         Printer printer = new Printer();
+        VarFile.load();
         while (true){
             String line = scan.next();
             if (line.equals("end")){
