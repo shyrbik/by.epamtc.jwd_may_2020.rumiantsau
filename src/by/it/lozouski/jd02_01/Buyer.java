@@ -56,6 +56,7 @@ class Buyer extends Thread implements IBuyer, IUseBacket {
         Object[] keysArray = GoodsInThisMarket.productsForTheBuyer.keySet().toArray();
 
         for (int product = 1; product <= setOfGoods; product++) {
+            Help.sleep((int) (Help.randomGenerate(500, 2000) * this.speedPerson));
             int randomIndex = new Random().nextInt(keysArray.length);
             Integer value = GoodsInThisMarket.productsForTheBuyer.get(keysArray[randomIndex].toString());
             backetWithBoughtGoods.put((String) keysArray[randomIndex], value);

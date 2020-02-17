@@ -1,15 +1,24 @@
 package by.it.lozouski.jd02_02;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Random;
+import java.util.*;
 
 class Buyer extends Thread implements IBuyer, IUseBacket {
 
-    private Map<String, Integer> backetWithBoughtGoods = new HashMap<>();
+    private volatile Map<String, Integer> backetWithBoughtGoods = new HashMap<>();
+    private Integer amountOfGoods = 0;
+
+
     private boolean pensioner;
     private double speedPerson;
 
+
+    public Map<String, Integer> getBacketWithBoughtGoods() {
+        return backetWithBoughtGoods;
+    }
+
+    public Integer getAmountOfGoods() {
+        return amountOfGoods;
+    }
 
     public Buyer(int idBuyer, boolean pensioner) {
         super("ID покупателя: " + idBuyer + " ");
@@ -54,16 +63,17 @@ class Buyer extends Thread implements IBuyer, IUseBacket {
 
     @Override
     public void putGoodsToBacket() {
-        Help.sleep((int) (Help.randomGenerate(500, 2000) * this.speedPerson));
         int setOfGoods = Help.randomGenerate(1, 4);
         Object[] keysArray = GoodsInThisMarket.productsForTheBuyer.keySet().toArray();
 
         for (int product = 1; product <= setOfGoods; product++) {
+            Help.sleep((int) (Help.randomGenerate(500, 2000) * this.speedPerson));
             int randomIndex = new Random().nextInt(keysArray.length);
             Integer value = GoodsInThisMarket.productsForTheBuyer.get(keysArray[randomIndex].toString());
             backetWithBoughtGoods.put((String) keysArray[randomIndex], value);
-            System.out.println(this + "Выбрал товар: " + keysArray[randomIndex] + " Цена: " + value + "p.");
+//            System.out.println(this + "Выбрал товар: " + keysArray[randomIndex] + " Цена: " + value + "p.");
         }
+        amountOfGoods = backetWithBoughtGoods.values().stream().mapToInt(Integer::intValue).sum();
         System.out.println(this + "Закончил выбирать товары.");
 
     }
@@ -72,7 +82,7 @@ class Buyer extends Thread implements IBuyer, IUseBacket {
     public void goToQueue() {
         System.out.println(this + "отправился в очередь.");
         QueueBuyer.addBuyerToQueue(this);
-        synchronized (this){
+        synchronized (this) {
             try {
                 this.wait();
             } catch (InterruptedException e) {
@@ -89,7 +99,7 @@ class Buyer extends Thread implements IBuyer, IUseBacket {
 
     @Override
     public String toString() {
-        if (pensioner) return this.getName()+"Пенсионер ";
+        if (pensioner) return this.getName() + "Пенсионер ";
         else return this.getName();
     }
 }

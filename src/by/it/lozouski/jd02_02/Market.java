@@ -8,12 +8,14 @@ class Market {
         System.out.println("------------------МАГАЗИН ОТКРЫЛСЯ.-------------------");
         GoodsInThisMarket.productListInThisMarket(); //заполнил магазин товарами
         List<Thread> threads = new ArrayList<>(1000);
-        for (int id = 1; id <= 2; id++) {
+        for (int id = 1; id <= 5; id++) {
             Cashier cashier = new Cashier(id);
             Thread cashierThread = new Thread(cashier);
             threads.add(cashierThread);
             cashierThread.start();
         }
+        ControllerCashiers controllerCashiers = new ControllerCashiers();
+        controllerCashiers.start();
 
         int buyerId = 1;
         while (Dispetcher.marketOpened()){
