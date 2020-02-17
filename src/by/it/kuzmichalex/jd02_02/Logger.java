@@ -22,7 +22,7 @@ class Logger {
     private static void printAndFlush() {
     //    System.out.println("-------------------------------------------------------------------------------");
         //Заполним 6 колонку данными по очереди
-        arrLogs[5]=String.format("in Queue: %3d\nIn Trading hall: %3d",BuyerQueue.getQueueSize(),Dispatcher.getCountBuyersInside());
+        arrLogs[5]=String.format("In Queue:  %3d\nIn Market: %3d",BuyerQueue.getQueueSize(),Dispatcher.getCountBuyersInside());
         arrLogs[6]=String.format("Total amount: %7.2f\nCashiers working: %2d",
                     Dispatcher.getMarketTotalAmount(),
                     CashierManager.getCountCashiersWorks());
