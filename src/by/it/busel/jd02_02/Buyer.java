@@ -68,13 +68,13 @@ class Buyer extends Thread implements IBuyer, IUseBacket {
     }
 
     @Override
-    public void goOut() {
-        System.out.println(this + " has made for the shop-exit and has gone out.");
-        Dispatcher.decrementNumberOfBuyers();
+    public void goToQueue() {
+        System.out.println(this + " has made for the sole queue in the shop.");
     }
 
     @Override
-    public void goToQueue() {
-        System.out.println(this + " has made for the sole queue in the shop.");
+    public void goOut() {
+        System.out.println(this + " has made for the shop-exit and has gone out.");
+        Dispatcher.decrementNumberOfBuyers();
     }
 }
