@@ -42,25 +42,19 @@ class Buyer extends Thread implements IBuyer, IUseBacket {
     }
 
     @Override
+    public void takeBacket() {
+        int millis = (int) (Helper.getRandomIntValue(500, 2000) * cognitiveDelay);
+        Helper.sleep(millis);
+        System.out.println(this + " has taken a backet.");
+    }
+
+    @Override
     public void chooseGoods() {
         int millis = (int) (Helper.getRandomIntValue(500, 2000) * cognitiveDelay);
         Helper.sleep(millis);
         Map.Entry<String, Double> itemInHands = personalBacket.chooseAnItemOfGoods();
         System.out.println(this + " has chosen an item of goods \"" + itemInHands.getKey() + "\", which costs "
                 + itemInHands.getValue() + " BYN.");
-    }
-
-    @Override
-    public void goOut() {
-        System.out.println(this + " has made for the shop-exit and has gone out.");
-        Dispatcher.decrementNumberOfBuyers();
-    }
-
-    @Override
-    public void takeBacket() {
-        int millis = (int) (Helper.getRandomIntValue(500, 2000) * cognitiveDelay);
-        Helper.sleep(millis);
-        System.out.println(this + " has taken a backet.");
     }
 
     @Override
@@ -71,5 +65,16 @@ class Buyer extends Thread implements IBuyer, IUseBacket {
         System.out.println(this + " has put a chosen item of goods \"" + lastInputtedItem.getKey() + "\", which costs "
                 + lastInputtedItem.getValue() + " BYN, to the backet.");
 
+    }
+
+    @Override
+    public void goOut() {
+        System.out.println(this + " has made for the shop-exit and has gone out.");
+        Dispatcher.decrementNumberOfBuyers();
+    }
+
+    @Override
+    public void goToQueue() {
+        System.out.println(this + " has made for the sole queue in the shop.");
     }
 }
