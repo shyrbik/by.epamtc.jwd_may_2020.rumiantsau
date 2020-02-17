@@ -1,24 +1,26 @@
 package by.it.potapovich.jd02_02;
 
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 public class Backet  {
-    Set <Good> backets = new HashSet<>();
+    Map<Good,Integer> backets = new HashMap<>();
     public Backet (){
 
     }
 
 
-    public Backet(Set<Good> backets) {
+    public Backet(Map<Good,Integer> backets) {
         this.backets = backets;
     }
 
-    public Set<Good> getBackets() {
+    public Map<Good,Integer> getBackets() {
         return backets;
     }
 
-    public void setBackets(Set<Good> backets) {
+    public void setBackets(Map<Good,Integer> backets) {
         this.backets = backets;
     }
 

@@ -1,5 +1,6 @@
 package by.it.potapovich.jd02_02;
 
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
@@ -10,7 +11,7 @@ public class Buyer extends Thread implements Runnable, IBuyer, IUseBacket {
     private Backet backet;
     private Good good;
     private Map<Good, Integer> goods;
-    private Set<Good> backets;
+    private Map<Good,Integer> backets;
 
 
 
@@ -100,11 +101,12 @@ public class Buyer extends Thread implements Runnable, IBuyer, IUseBacket {
            Good [] goodsArray = goods.keySet().toArray(new Good[0]);
 
            good = goodsArray[index];
+          int value= goods.get(good);
            if (backets == null){
-               backets = new HashSet<>();
+               backets = new HashMap<>();
            }
             if (good != null){
-                backets.add(good);
+                backets.put(good,value);
                 chooseGoods();
                 System.out.println("Покупатель № " + this + "положил " + backets + "в корзину");
             }
