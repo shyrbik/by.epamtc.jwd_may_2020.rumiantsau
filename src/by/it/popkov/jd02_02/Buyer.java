@@ -72,7 +72,7 @@ class Buyer extends Thread implements IBuyer, IUseBacket {
             else Helper.delay((int) (Helper.randNum(500, 2000) * 1.5));
             int iteratorCounter = 1;
             int selectedGood = Helper.randNum(1, 7);
-            for (Map.Entry<String, Integer> entry : Helper.goodsMap.entrySet()) {
+            for (Map.Entry<String, Integer> entry : dispatcher.getGoodsMap().entrySet()) {
                 if (iteratorCounter == selectedGood) {
                     String entryKey = entry.getKey();
                     Integer entryValue = entry.getValue();

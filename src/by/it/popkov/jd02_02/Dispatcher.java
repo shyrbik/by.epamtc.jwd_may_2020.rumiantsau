@@ -1,5 +1,8 @@
 package by.it.popkov.jd02_02;
 
+import java.util.HashMap;
+import java.util.Map;
+
 class Dispatcher {
 
 
@@ -10,6 +13,21 @@ class Dispatcher {
     private int buyerOnline = 0;
     private int dayBuyerNum = 0;
 
+    private final Map<String, Integer> goodsMap = new HashMap<>();
+
+    public void writeGoodsMap() {
+        goodsMap.put("water", 1);
+        goodsMap.put("bread", 2);
+        goodsMap.put("apples", 3);
+        goodsMap.put("milk", 4);
+        goodsMap.put("eggs", 5);
+        goodsMap.put("cake", 6);
+        goodsMap.put("meat", 7);
+    }
+
+    public Map<String, Integer> getGoodsMap() {
+        return goodsMap;
+    }
 
     private final Object onlineCashierMonitor = new Object();
     private int onlineCashier = cashierMax;

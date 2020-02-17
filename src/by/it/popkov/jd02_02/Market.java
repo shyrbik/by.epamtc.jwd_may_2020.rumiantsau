@@ -6,13 +6,13 @@ import java.util.List;
 class Market {
     private BuyerQueue buyerQueue = new BuyerQueue();
     private Dispatcher dispatcher = new Dispatcher();
-    final Object monitorCashier = new Object();
+    private final Object monitorCashier = new Object();
     private List<Buyer> buyersInMarket = new ArrayList<>(1000);
     private List<Thread> cashierInMarket = new ArrayList<>(dispatcher.cashierMax);
 
     public static void main(String[] args) {
         Market market = new Market();
-        Helper.writeGoodsMap();
+        market.writeGoodsMap();
         System.out.println("****** Open shop ******");
         market.letInCashier();
         market.letInAdministrator();
@@ -38,7 +38,11 @@ class Market {
 
     }
 
-    private void letInCashier() {
+    public void writeGoodsMap() {
+        dispatcher.writeGoodsMap();
+    }
+
+    public void letInCashier() {
         for (int i = 1; i <= dispatcher.cashierMax; i++) {
             Cashier cashier = new Cashier(i , buyerQueue, monitorCashier, dispatcher);
             Thread thread = new Thread(cashier);
@@ -47,12 +51,12 @@ class Market {
         }
     }
 
-    private void letInAdministrator() {
+    public void letInAdministrator() {
         Administrator administrator = new Administrator(buyerQueue, monitorCashier, dispatcher);
         administrator.start();
     }
 
-    private void letInBuyers() {
+    public void letInBuyers() {
         int counter = 1;
         int letIn = 1;
         int sec = 1;
