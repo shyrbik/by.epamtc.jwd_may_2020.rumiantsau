@@ -5,7 +5,7 @@ import java.util.List;
 
 class Shop {
 
-    private static List<Buyer> subThreads = new ArrayList<>(200);
+    private static List<Buyer> subThreads = new ArrayList<>(1000);
 
     private static int subThreadId = 0;
 
