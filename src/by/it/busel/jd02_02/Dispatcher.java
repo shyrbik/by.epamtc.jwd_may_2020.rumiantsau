@@ -64,17 +64,6 @@ class Dispatcher {
                     case 5:
                         return false;
                 }
-//                if (quantityOfBuyersInAQueue <= 5 && counterOfOpenedCashiers == 1) {
-//                    return false;
-//                } else if (quantityOfBuyersInAQueue <= 10 && counterOfOpenedCashiers == 2) {
-//                    return false;
-//                } else if (quantityOfBuyersInAQueue <= 15 && counterOfOpenedCashiers == 3) {
-//                    return false;
-//                } else if (quantityOfBuyersInAQueue <= 20 && counterOfOpenedCashiers == 4) {
-//                    return false;
-//                } else if (quantityOfBuyersInAQueue >= 21 && counterOfOpenedCashiers == 5) {
-//                    return false;
-//                }
             }
         }
         return false;
@@ -82,7 +71,7 @@ class Dispatcher {
 
     static boolean saysCashierToCloseTheCounter() {
         synchronized (cashiersMonitor) {
-            synchronized (SoleQueue.class) {
+            synchronized (SoleQueue.queueMonitor) {
                 int quantityOfBuyersInAQueue = SoleQueue.getBuyersQuantity();
                 switch (counterOfOpenedCashiers) {
                     case 1:

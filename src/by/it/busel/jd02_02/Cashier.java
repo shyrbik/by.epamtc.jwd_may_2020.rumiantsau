@@ -16,19 +16,22 @@ class Cashier extends Thread {
     public void run() {
         System.out.println(this + " has started to work.");
         while (!Dispatcher.shopCanBeClosed()) {
-            //todo method that makes sleep
             if (Dispatcher.saysCashierToCloseTheCounter()) {
-                synchronized (this) {
-                    try {
-                        Dispatcher.cashierClosesTheCounter();
-                        System.out.println(this + " has ended to work.");
-                        wait();
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    } finally {
-                        Dispatcher.cashierOpensTheCounter();
-                        System.out.println(this + " has started to work.");
+                if (Dispatcher.shopDoorsAreStillOpened()) {
+                    synchronized (this) {
+                        try {
+                            Dispatcher.cashierClosesTheCounter();
+                            System.out.println(this + " has ended to work!!!.");
+                            wait();
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        } finally {
+                            Dispatcher.cashierOpensTheCounter();
+                            System.out.println(this + " has started to work!!!.");
+                        }
                     }
+                } else {
+                    break;
                 }
             }
             Buyer buyerAtTheCounter = SoleQueue.extract();

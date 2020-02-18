@@ -23,6 +23,15 @@ class Shop {
             System.out.println("Current second: " + second++ + "; Buyers inside the Shop: " + currentBuyersNumber
                     + "; Buyers to enter: " + numberOfBuyersToEnter);
             letBuyersGetIn(numberOfBuyersToEnter);
+            while (Dispatcher.needsCashierToOpenTheCounter()) {
+                for (Cashier cashier : cashiersThreads) {
+                    if (cashier.getState().name().equals("WAITING")) {
+                        synchronized (cashier) {
+                            cashier.notify();
+                        }
+                    }
+                }
+            }
             Helper.sleep(1000);
         }
         informAboutDoorsClosure(mainThreadName);
