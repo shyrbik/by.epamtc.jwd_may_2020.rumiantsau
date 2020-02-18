@@ -9,8 +9,9 @@ class Market {
     private BuyerQueue buyerQueue = new BuyerQueue();
     private Dispatcher dispatcher = new Dispatcher();
     private final Object monitorCashier = new Object();
-    private List<Buyer> buyersInMarket = new ArrayList<>(1000);
-    private List<Thread> cashierInMarket = new ArrayList<>(dispatcher.cashierMax);
+    final ExecutorService executorService = Executors.newFixedThreadPool(dispatcher.cashierMax);
+//    private List<Buyer> buyersInMarket = new ArrayList<>(1000);
+//    private List<Thread> cashierInMarket = new ArrayList<>(dispatcher.cashierMax);
 
     public static void main(String[] args) {
         Market market = new Market();
@@ -19,21 +20,22 @@ class Market {
         market.letInCashier();
         market.letInAdministrator();
         market.letInBuyers();
+        market.waitFinishWork();
 
-        for (Buyer buyer : market.buyersInMarket) {
-            try {
-                buyer.join();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
-        for (Thread cashier : market.cashierInMarket) {
-            try {
-                cashier.join();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
+//        for (Buyer buyer : market.buyersInMarket) {
+//            try {
+//                buyer.join();
+//            } catch (InterruptedException e) {
+//                e.printStackTrace();
+//            }
+//        }
+//        for (Thread cashier : market.cashierInMarket) {
+//            try {
+//                cashier.join();
+//            } catch (InterruptedException e) {
+//                e.printStackTrace();
+//            }
+//        }
 
 
         System.out.println("****** Close shop ******");
@@ -45,7 +47,7 @@ class Market {
     }
 
     public void letInCashier() {
-        final ExecutorService executorService = Executors.newFixedThreadPool(dispatcher.cashierMax);
+
         for (int i = 1; i <= dispatcher.cashierMax; i++) {
             executorService.execute(new Cashier(i , buyerQueue, monitorCashier, dispatcher));
         }
@@ -69,7 +71,7 @@ class Market {
                     if (dispatcher.planIsNotCompleted()) {
                         Buyer buyer = new Buyer(counter++, buyerQueue, dispatcher);
                         buyer.start();
-                        buyersInMarket.add(buyer);
+//                        buyersInMarket.add(buyer);
                     }
                 }
             }
@@ -78,6 +80,11 @@ class Market {
             Helper.delay(1000);
 
         }
+    }
+
+    public void waitFinishWork() {
+        while (!executorService.isTerminated());
+
     }
 }
 
