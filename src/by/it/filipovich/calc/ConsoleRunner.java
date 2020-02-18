@@ -9,27 +9,29 @@ public class ConsoleRunner {
         Scanner scanner = new Scanner(System.in);
         Parser parser = new Parser();
         Printer pr = new Printer();
+        label:
         while (true){
             String expression = scanner.nextLine();
-            if(expression.equals("end")){
-                break;
-            }
-            else if(expression.equals("printvar")){
-                for (Map.Entry<String, Var> pair : Var.vars.entrySet()) {
-                    System.out.println(pair);
-                }
-            }
-            else if(expression.equals("sortvar")){
-                for (Map.Entry<String, Var> varEntry : new TreeMap<>(Var.vars).entrySet()) {
-                    System.out.println(varEntry);
-                }
-            }
-            else {
-                try {
-                    pr.print(parser.calc(expression));
-                } catch (CalcException e) {
-                    System.out.println(e.getMessage());
-                }
+            switch (expression) {
+                case "end":
+                    break label;
+                case "printvar":
+                    for (Map.Entry<String, Var> pair : Var.vars.entrySet()) {
+                        System.out.println(pair);
+                    }
+                    break;
+                case "sortvar":
+                    for (Map.Entry<String, Var> varEntry : new TreeMap<>(Var.vars).entrySet()) {
+                        System.out.println(varEntry);
+                    }
+                    break;
+                default:
+                    try {
+                        pr.print(parser.calc(expression));
+                    } catch (CalcException e) {
+                        System.out.println(e.getMessage());
+                    }
+                    break;
             }
         }
     }

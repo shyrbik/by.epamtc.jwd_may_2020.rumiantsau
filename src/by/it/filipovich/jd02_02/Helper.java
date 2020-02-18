@@ -1,12 +1,18 @@
-package by.it.filipovich.jd02_01;
+package by.it.filipovich.jd02_02;
 
 import java.util.Random;
 
 class Helper {
-    private static final Random generator = new Random(System.nanoTime());
+    static final Random generator = new Random(System.nanoTime());
 
     static int random(int start, int finish){
-        return start+generator.nextInt(finish-start+1);
+        int rand = start+generator.nextInt(finish-start+1);
+        return rand;
+    }
+
+    static int random(int finish){
+        int rand = generator.nextInt(finish+1);
+        return rand;
     }
 
     static void sleep(int timeout){
