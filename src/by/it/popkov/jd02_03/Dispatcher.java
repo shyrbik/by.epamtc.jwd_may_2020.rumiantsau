@@ -16,9 +16,6 @@ class Dispatcher {
 
     private final Map<String, Integer> goodsMap = new HashMap<>();
 
-    private final Object onlineCashierMonitor = new Object();
-
-
     private final AtomicInteger onlineCashier = new AtomicInteger(cashierMax);
 
     public Map<String, Integer> getGoodsMap() {
@@ -57,20 +54,14 @@ class Dispatcher {
     }
 
     public void cashierClosed() {
-        synchronized (onlineCashierMonitor) {
-            onlineCashier.getAndDecrement();
-        }
+        onlineCashier.getAndDecrement();
     }
 
     public void cashierOpened() {
-        synchronized (onlineCashierMonitor) {
-            onlineCashier.getAndIncrement();
-        }
+        onlineCashier.getAndIncrement();
     }
 
     public int getOnlineCashier() {
-        synchronized (onlineCashierMonitor) {
-            return onlineCashier.get();
-        }
+        return onlineCashier.get();
     }
 }
