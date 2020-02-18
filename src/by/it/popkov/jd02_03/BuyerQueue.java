@@ -1,11 +1,14 @@
 package by.it.popkov.jd02_03;
 
-import java.util.ArrayDeque;
+
+import java.util.concurrent.BlockingDeque;
+import java.util.concurrent.ConcurrentLinkedDeque;
+import java.util.concurrent.LinkedBlockingDeque;
 
 class BuyerQueue {
-    private final ArrayDeque<Buyer> buyerQueue = new ArrayDeque<>(96);
+    private final BlockingDeque<Buyer> buyerQueue = new LinkedBlockingDeque<>(30);
 
-    private final ArrayDeque<Buyer> pensionerQueue = new ArrayDeque<>(48);
+    private final ConcurrentLinkedDeque<Buyer> pensionerQueue = new ConcurrentLinkedDeque<>();
 
     public synchronized void addToQueue(Buyer buyer) {
         buyerQueue.addLast(buyer);

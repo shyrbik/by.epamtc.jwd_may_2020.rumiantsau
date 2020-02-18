@@ -2,6 +2,8 @@ package by.it.popkov.jd02_03;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 class Market {
     private BuyerQueue buyerQueue = new BuyerQueue();
@@ -43,11 +45,10 @@ class Market {
     }
 
     public void letInCashier() {
+        final ExecutorService executorService = Executors.newFixedThreadPool(dispatcher.cashierMax);
         for (int i = 1; i <= dispatcher.cashierMax; i++) {
-            Cashier cashier = new Cashier(i , buyerQueue, monitorCashier, dispatcher);
-            Thread thread = new Thread(cashier);
-            cashierInMarket.add(thread);
-            thread.start();
+            executorService.execute(new Cashier(i , buyerQueue, monitorCashier, dispatcher));
+            executorService.shutdown();
         }
     }
 
