@@ -3,7 +3,7 @@ package by.it.busel.jd02_02;
 import java.util.Map;
 
 class Buyer extends Thread implements IBuyer, IUseBacket {
-    private boolean isPensioner;
+    boolean isPensioner;
 
     private double cognitiveDelay;
 
