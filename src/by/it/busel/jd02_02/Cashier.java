@@ -19,16 +19,17 @@ class Cashier extends Thread {
             if (Dispatcher.saysCashierToCloseTheCounter()) {
                 if (Dispatcher.shopDoorsAreStillOpened()) {
                     synchronized (this) {
+                        Dispatcher.cashierClosesTheCounter();
+                        System.out.println(this + " has ended to work!!!.");
                         try {
-                            Dispatcher.cashierClosesTheCounter();
-                            System.out.println(this + " has ended to work!!!.");
                             wait();
                         } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        } finally {
-                            Dispatcher.cashierOpensTheCounter();
-                            System.out.println(this + " has started to work!!!.");
+                            System.out.println(this + " has left the shop!!!.");
+                            return;
                         }
+                        Dispatcher.cashierOpensTheCounter();
+                        System.out.println(this + " has started to work!!!.");
+
                     }
                 } else {
                     break;
@@ -49,5 +50,6 @@ class Cashier extends Thread {
         }
         Dispatcher.cashierClosesTheCounter();
         System.out.println(this + " has ended to work.");
+        System.out.println(this + " has left the shop.");
     }
 }

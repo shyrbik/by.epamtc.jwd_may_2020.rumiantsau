@@ -4,7 +4,7 @@ package by.it.busel.jd02_02;
 class Dispatcher {
     static final int SPEED_COEFFICIENT = 100;
     private static final int MAX_DAILY_BUYERS_NUMBER = 100;
-    private static final int CASHIER_COUNTERS_AVAILABLE = 5;
+    static final int CASHIER_COUNTERS_AVAILABLE = 5;
 
     private static final Object buyersMonitor = new Object();
 

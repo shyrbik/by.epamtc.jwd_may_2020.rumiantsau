@@ -5,14 +5,16 @@ import java.util.List;
 
 class Shop {
 
-    private static List<Thread> buyersThreads = new ArrayList<>(1000);
+    private static List<Buyer> buyersThreads = new ArrayList<>(1000);
 
     private static List<Cashier> cashiersThreads = new ArrayList<>(5);
 
-    private static int subThreadId = 0;
+    private static int buyerId = 0;
+
+    private static int cashierId = 0;
 
     public static void main(String[] args) {
-        int thCount = Thread.activeCount();
+//        int thCount = Thread.activeCount();
         String mainThreadName = Shop.class.getSimpleName();
         informAboutOpening(mainThreadName);
         addCashiers(2);
@@ -24,24 +26,51 @@ class Shop {
                     + "; Buyers to enter: " + numberOfBuyersToEnter);
             letBuyersGetIn(numberOfBuyersToEnter);
             while (Dispatcher.needsCashierToOpenTheCounter()) {
+                boolean hasWaiting = false;
                 for (Cashier cashier : cashiersThreads) {
                     if (cashier.getState().name().equals("WAITING")) {
                         synchronized (cashier) {
                             cashier.notify();
+                            hasWaiting = true;
+                            break;
                         }
                     }
                 }
+                if (cashiersThreads.size() < Dispatcher.CASHIER_COUNTERS_AVAILABLE && !hasWaiting) {
+                    Cashier cashier = new Cashier(++cashierId);
+                    cashiersThreads.add(cashier);
+                    cashier.start();
+                }
             }
+//            while (Dispatcher.needsCashierToOpenTheCounter()) {
+//                for (Cashier cashier : cashiersThreads) {
+//                    if (cashier.getState().name().equals("WAITING")) {
+//                        synchronized (cashier) {
+//                            cashier.notify();
+//                        }
+//                    }
+//                }
+//            }
             Helper.sleep(1000);
         }
         informAboutDoorsClosure(mainThreadName);
-        executeUntilAllSubThreadsFinished(thCount);
+//        executeUntilAllSubThreadsFinished(thCount);
+        executeUntilAllBuyersFinished();
+        for (Cashier cashier : cashiersThreads) {
+            if (cashier.getState().name().equals("WAITING")) {
+                synchronized (cashier) {
+                    cashier.interrupt();
+                }
+            }
+        }
+        executeUntilAllCashiersFinished();
         informAboutClosureOfStore(mainThreadName);
     }
 
     private static void addCashiers(int number) {
         for (int i = 1; i <= number; i++) {
-            Cashier cashier = new Cashier(i);
+            cashierId = i;
+            Cashier cashier = new Cashier(cashierId);
             cashiersThreads.add(cashier);
             cashier.start();
         }
@@ -63,21 +92,38 @@ class Shop {
     private static void letBuyersGetIn(int numberOfBuyersToEnter) {
         for (int i = 0; i < numberOfBuyersToEnter; i++) {
             if (Dispatcher.shopDoorsAreStillOpened()) {
-                Buyer buyer = new Buyer(++subThreadId);
+                Buyer buyer = new Buyer(++buyerId);
                 buyersThreads.add(buyer);
                 buyer.start();
             }
         }
     }
 
-    private static void executeUntilAllSubThreadsFinished(int thCount) {
-        while (Thread.activeCount() > thCount) {
+    private static void executeUntilAllCashiersFinished() {
+        for (Cashier cashier : cashiersThreads) {
             try {
-                Thread.sleep(100);
+                cashier.join();
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
         }
+    }
+
+    private static void executeUntilAllBuyersFinished() {
+        for (Buyer buyer : buyersThreads) {
+            try {
+                buyer.join();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+//        while (Thread.activeCount() > thCount) {
+//            try {
+//                Thread.sleep(100);
+//            } catch (InterruptedException e) {
+//                e.printStackTrace();
+//            }
+//        }
     }
 
     private static void informAboutOpening(String mainThreadName) {
