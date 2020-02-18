@@ -2,6 +2,7 @@ package by.it.popkov.jd02_03;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.atomic.AtomicInteger;
 
 class Dispatcher {
 
@@ -10,10 +11,19 @@ class Dispatcher {
     final int cashierMax = 5;
     final int plan = 100;
 
-    private int buyerOnline = 0;
-    private int dayBuyerNum = 0;
+    private final AtomicInteger buyerOnline = new AtomicInteger(0);
+    private final AtomicInteger dayBuyerNum = new AtomicInteger(0);
 
     private final Map<String, Integer> goodsMap = new HashMap<>();
+
+    private final Object onlineCashierMonitor = new Object();
+
+
+    private final AtomicInteger onlineCashier = new AtomicInteger(cashierMax);
+
+    public Map<String, Integer> getGoodsMap() {
+        return goodsMap;
+    }
 
     public void writeGoodsMap() {
         goodsMap.put("water", 1);
@@ -25,49 +35,42 @@ class Dispatcher {
         goodsMap.put("meat", 7);
     }
 
-    public Map<String, Integer> getGoodsMap() {
-        return goodsMap;
+    public boolean planIsNotCompleted() {
+        return dayBuyerNum.get() < plan;
     }
 
-    private final Object onlineCashierMonitor = new Object();
-    private int onlineCashier = cashierMax;
-
-    public synchronized boolean planIsNotCompleted() {
-        return dayBuyerNum < plan;
+    public boolean marketIsClosed() {
+        return dayBuyerNum.get() == plan && buyerOnline.get() == 0;
     }
 
-    public synchronized boolean marketIsClosed() {
-        return dayBuyerNum == plan && buyerOnline == 0;
+    public void buyerComeIn() {
+        buyerOnline.getAndIncrement();
+        dayBuyerNum.getAndIncrement();
     }
 
-    public synchronized void buyerComeIn() {
-        buyerOnline++;
-        dayBuyerNum++;
+    public int getBuyerOnline() {
+        return buyerOnline.get();
     }
 
-    public synchronized int getBuyerOnline() {
-        return buyerOnline;
-    }
-
-    public synchronized void buyerWentOut() {
-        buyerOnline--;
+    public void buyerWentOut() {
+        buyerOnline.getAndDecrement();
     }
 
     public void cashierClosed() {
-        synchronized (onlineCashierMonitor){
-            onlineCashier--;
+        synchronized (onlineCashierMonitor) {
+            onlineCashier.getAndDecrement();
         }
     }
 
     public void cashierOpened() {
-        synchronized (onlineCashierMonitor){
-            onlineCashier++;
+        synchronized (onlineCashierMonitor) {
+            onlineCashier.getAndIncrement();
         }
     }
 
     public int getOnlineCashier() {
-        synchronized (onlineCashierMonitor){
-            return  onlineCashier;
+        synchronized (onlineCashierMonitor) {
+            return onlineCashier.get();
         }
     }
 }

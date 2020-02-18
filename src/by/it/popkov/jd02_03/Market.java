@@ -48,8 +48,8 @@ class Market {
         final ExecutorService executorService = Executors.newFixedThreadPool(dispatcher.cashierMax);
         for (int i = 1; i <= dispatcher.cashierMax; i++) {
             executorService.execute(new Cashier(i , buyerQueue, monitorCashier, dispatcher));
-            executorService.shutdown();
         }
+        executorService.shutdown();
     }
 
     public void letInAdministrator() {
