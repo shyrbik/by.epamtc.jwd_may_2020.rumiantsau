@@ -5,27 +5,31 @@ import java.util.regex.Pattern;
 
 class Parser {
 
-    Var calc(String expression){
-        String[] operand = expression.split("[+\\-*/]");
+    Var calc(String expression) throws CalcException {
         Var result = null;
-        Var operand1 = Var.createVar(operand[0]);
-        Var operand2 = Var.createVar(operand[1]);
-
-        Pattern pattern = Pattern.compile(Patterns.OPERATIONS);
-        Matcher matcher = pattern.matcher(expression);
+        expression = expression.replaceAll("\\s","");
+        Matcher matcher = Pattern.compile(Patterns.OPERATIONS).matcher(expression);
         if(matcher.find()){
+            String[] operand = expression.split(Patterns.OPERATIONS);
+            Var operand2 = Var.createVar(operand[1]);
             String mark = matcher.group();
-        switch (mark) {
-            case ("+"):
+            if(mark.equals("=")) {
+                Var.save(operand[0], operand2);
+                return operand2;
+            }
+            Var operand1 = Var.createVar(operand[0]);
+
+            switch (mark) {
+            case "+":
                 result = operand1.add(operand2);
             break;
-            case ("-"):
+            case "-":
                 result = operand1.sub(operand2);
             break;
-            case ("*"):
+            case "*":
                 result = operand1.mul(operand2);
                 break;
-            case ("/"):
+            case "/":
                 result = operand1.div(operand2);
                 break;
             default:
