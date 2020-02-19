@@ -13,7 +13,7 @@ class TaskB {
         try {
             StringBuilder stringBuilder = readFileWithDeleteCements(fileName);
             String resultFileName = "src/by/it/shpakovskiy/jd01_15/TaskB.txt";
-            Files.writeString(Paths.get(resultFileName), stringBuilder);
+//            Files.writeString(Paths.get(resultFileName), stringBuilder);
             System.out.println(stringBuilder);
         } catch (IOException e) {
             e.printStackTrace();
