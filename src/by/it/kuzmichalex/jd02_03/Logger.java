@@ -22,7 +22,7 @@ class Logger {
 
      static void printAndFlush() {
     //    System.out.println("-------------------------------------------------------------------------------");
-        //Заполним 6 колонку данными по очереди
+        //Заполним 6-7 колонку данными по очереди и тому подобному
         arrLogs[Dispatcher.MAX_CASHIERS]=String.format("In Queue:  %3d\nIn Market: %3d",BuyerQueue.getQueueSize(), Dispatcher.getBuyersInMarket());
         arrLogs[Dispatcher.MAX_CASHIERS+1]=String.format("Total amount: %7.2f\nCashiers working: %2d",
                     Dispatcher.getMarketTotalAmount(),
