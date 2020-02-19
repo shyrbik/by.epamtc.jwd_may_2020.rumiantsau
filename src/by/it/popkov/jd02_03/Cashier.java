@@ -96,6 +96,7 @@ class Cashier implements Runnable {
             stringBuffer.append(String.format(tab + "%-30s" + "\n", "", entry.getKey() + " = " + entry.getValue()));
         }
         stringBuffer.append(String.format(tab + "%-30s" + "\n", "", "SUM: " + sumOfCheck));
+        stringBuffer.append(String.format(tab + "%-30s" + "\n", "", "Cashier: " + this.name));
         System.out.println(stringBuffer);
     }
 }
