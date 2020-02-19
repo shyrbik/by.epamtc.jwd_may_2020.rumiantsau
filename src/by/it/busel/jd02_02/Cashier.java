@@ -64,14 +64,12 @@ class Cashier extends Thread {
     @SuppressWarnings("all")
     private void serve(Buyer buyerAtTheCounter) {
         if (buyerAtTheCounter != null) {
-            System.out.println(this + " has started to serve " + buyerAtTheCounter);
-            Helper.sleep(2000, 5000);
-            Map<String, Double> personalGoods = buyerAtTheCounter.payOff();
-
-            System.out.println(getCheck(buyerAtTheCounter, personalGoods));
-
-            System.out.println(this + " has ended to serve " + buyerAtTheCounter);
             synchronized (buyerAtTheCounter) {
+                System.out.println(this + " has started to serve " + buyerAtTheCounter);
+                Helper.sleep(2000, 5000);
+                Map<String, Double> personalGoods = buyerAtTheCounter.payOff();
+                System.out.println(getCheck(buyerAtTheCounter, personalGoods));
+                System.out.println(this + " has ended to serve " + buyerAtTheCounter);
                 buyerAtTheCounter.notify();
             }
         } else {
