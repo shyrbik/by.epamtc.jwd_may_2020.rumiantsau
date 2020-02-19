@@ -6,7 +6,7 @@ import java.util.concurrent.Semaphore;
 
 class Buyer extends Thread implements iBuyer, iUseBucket {
     private static Semaphore buyersInHallSemaphore;
-    private static Semaphore backetSemaphore;
+    private static Semaphore bucketSemaphore;
     private boolean bUseBucket;
     private boolean bPensioner;
     private List<String> items = new ArrayList<>();
@@ -20,7 +20,7 @@ class Buyer extends Thread implements iBuyer, iUseBucket {
     public Buyer(int nBuyer ,Semaphore inHall, Semaphore backets) {
         super(Integer.toString(nBuyer));
         buyersInHallSemaphore =inHall;
-        backetSemaphore = backets;
+        bucketSemaphore = backets;
         bPensioner = (TimeHelper.getRandom(1, 4) == 4);
     }
 
@@ -41,7 +41,7 @@ class Buyer extends Thread implements iBuyer, iUseBucket {
     }
 
     /**
-     * Заход покупателя в магазин. Мгновенно
+     * Заход покупателя в магазин. Только если там менее MAX_BUYERS_IN_HALL
      */
     @Override
     public void enterToMarket() {
@@ -91,16 +91,16 @@ class Buyer extends Thread implements iBuyer, iUseBucket {
     public void goOut() {
         Dispatcher.decBuyersInMarket();
         Dispatcher.incBuyersDone();
-        backetSemaphore.release();
+        bucketSemaphore.release();
     }
 
     /**
-     * Использование корзинки
+     * Получение корзинки. Всего корзинок MAX_BUCKETS
      */
     @Override
     public void takeBucket() {
        try {
-            backetSemaphore.acquire();
+            bucketSemaphore.acquire();
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
