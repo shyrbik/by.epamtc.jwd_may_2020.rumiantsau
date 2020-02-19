@@ -1,19 +1,15 @@
 package by.it.rumiantcau.jd02_01;
 
-import java.util.HashMap;
-import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 
 class Buyer extends Thread implements IBuyer, IUseBacket{
     //в этой хашмапе будет хранится товары, купленые покупателем, где Кей - номер покупатиля, Валью - стринг с
     //купленными товарами
-    static Map<Buyer, String> basket = new HashMap<>();
+
         public Buyer(int number) {
         super("Buyer №"+number+" ");
-        Dispatcher.countBuyer++;
+        Dispatcher.buyerEnter();
     }
-
-
 
     @Override
     public void run() {
@@ -21,7 +17,20 @@ class Buyer extends Thread implements IBuyer, IUseBacket{
         takeBacket();
         chooseGoods();
         putGoodsToBacket();
+        goToQueue();
         goOut();
+    }
+
+    public void goToQueue() {
+        System.out.println(this+" встал в очередь");
+        QueueBuyer.add(this);
+        synchronized (this){
+            try {
+                this.wait();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     @Override
@@ -42,28 +51,24 @@ class Buyer extends Thread implements IBuyer, IUseBacket{
     @Override
     public void putGoodsToBacket() {
         final AtomicInteger countGoods = new AtomicInteger(Helper.random(1, 4));
-        StringBuilder str = new StringBuilder("");
+        StringBuilder str = new StringBuilder(" ");
         while (countGoods.doubleValue() != 0) {
-            System.out.print(this);
-            //складываем товары покупателя в стрингбилдер
-            str.append(Good.putGoodToBacket()).append(" | ");
             countGoods.getAndDecrement();
+            //складываем товары покупателя в стрингбилдер
+            str.append(Good.putGoodToBacket(this)).append(", ");
             if (countGoods.doubleValue() == 0)
-                basket.put(this, str.toString());
+                Basket.basket.put(this, str.toString());
         }
         System.out.println(this+"закончил выбирать товары");
-        System.out.println("товары в корзине покупателя " + this + ": " + basket.get(this));
+        System.out.println("товары в корзине покупателя " + this + ": " + Basket.basket.get(this));
         System.out.println("" + this+"закончил ложить товары в корзину");
     }
-
-
 
     @Override
     public void goOut() {
         System.out.println(this+"вышел из магазина");
-        Dispatcher.countBuyer--;
+        Dispatcher.buyerLeave();
     }
-
 
     @Override
     public String toString() {

@@ -1,4 +1,4 @@
-package by.it.rumiantcau.jd02_01;
+package by.it.rumiantcau.jd02_02;
 
 import java.util.ArrayList;
 import java.util.Arrays;

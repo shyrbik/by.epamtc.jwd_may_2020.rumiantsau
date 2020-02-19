@@ -1,4 +1,4 @@
-package by.it.rumiantcau.jd02_02;
+package by.it.rumiantcau.jd02_03;
 
 import java.util.Random;
 
@@ -11,7 +11,7 @@ class Helper {
         try {
             Thread.sleep(timiout/ Dispatcher.K_SPEED);
         } catch (InterruptedException e) {
-            System.out.println("Ошибка при ускорении программы, неверный коэффициент ускорения");
+            System.out.println("WOW");
         }
     }
 
