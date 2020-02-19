@@ -46,12 +46,11 @@ class Market {
 
     public void letInBuyers() {
         int counter = 1;
-        int letIn = 1;
         int sec = 1;
         while (dispatcher.planIsNotCompleted()) {
             if ((dispatcher.getBuyerOnline() < sec % 60 && sec % 60 <= 30) || //UP
                     (dispatcher.getBuyerOnline() <= 40 + (30 - sec % 60) && sec % 60 > 30)) {   //DOWN
-                letIn = Helper.randNumUntil(4);
+                int letIn = Helper.randNumUntil(4);
                 for (int j = 1; j <= letIn; j++) {
                     if (dispatcher.planIsNotCompleted()) {
                         Buyer buyer = new Buyer(counter++, buyerQueue, dispatcher, goodsSpaceSemaphore);
