@@ -1,19 +1,21 @@
 package by.it.kuzmichalex.jd02_03;
 
+import java.util.concurrent.atomic.AtomicInteger;
+
 class Dispatcher {
-    static final int MAX_CASHIERS = 5;
+    static final int MAX_CASHIERS = 5;            //Больше 5 не надо. сломается логгер. Или нет. Я не проверял )))
     static final int PLAN = 100;
-    static final int MIN_BUYERS = 10;
-    static final int MAX_BUYERS = 35;
+    static final int MIN_BUYERS = 10;             //Яма getBuyersNeed покупателей при плавном изменениии по времени
+    static final int MAX_BUYERS = 40;             //Пик getBuyersNeed покупателей при плавном изменении по времени
+    static final int MAX_BUYERS_IN_QUEUE = 30;            //Максимальный размер очереди.
+    static final int MAX_BUYERS_IN_HALL = 20;               //Максимальное количество на торговом зале
+    static final int MAX_BUCKETS = 50;           //Максимальные количество покупателей в магазине
 
-    static final Object monitorBuyers = new Object();
-    static volatile int countOfBuyers = 0;
-    static volatile int countOfBuyersDone = 0;
-
-    static final Object monitorTotalAmount = new Object();
-    static volatile double marketTotalAmount = 0.0;
-
-
+    private final static AtomicInteger buyersCreated = new AtomicInteger(0);
+    private final static AtomicInteger buyersInMarket = new AtomicInteger(0);
+    private final static AtomicInteger buyersInHall = new AtomicInteger(0);
+    private final static AtomicInteger buyersDone = new AtomicInteger(0);
+    private final static AtomicInteger marketTotalAmount = new AtomicInteger(0);
 
     /**
      * Получить количество требуемых покупателей в зависимости от времени.
@@ -32,47 +34,61 @@ class Dispatcher {
         return MAX_BUYERS - (MAX_BUYERS - MIN_BUYERS) * (nPeriod % 30) / 30;               //Нисходящий полупериод
     }
 
-    static int getCountBuyersInside() {
-        synchronized (monitorBuyers) {
-            return countOfBuyers;
-        }
+    /*static int getBuyersInside() {
+        return buyersInMarket.get();
+    }*/
+
+    static int getBuyersDone() {
+        return buyersDone.get();
+    }
+
+    static int getBuyersCreated() {
+        return buyersCreated.get();
+    }
+
+    static int incBuyersCreated() {
+        return buyersCreated.incrementAndGet();
+    }
+
+    static int getBuyersInHall(){
+        return buyersInHall.get();
+    }
+
+    static int getBuyersInMarket(){
+        return buyersInMarket.get();
+    }
+
+    static int incBuyersInMarket(){
+        return buyersInMarket.incrementAndGet();
+    }
+
+    static int decBuyersInMarket(){
+        return buyersInMarket.decrementAndGet();
     }
 
 
+    static int incBuyersInHall(){
+        return buyersInHall.incrementAndGet();
+    }
 
-    static int getCountBuyersDone() {
-        synchronized (monitorBuyers) {
-            return countOfBuyersDone;
-        }
+    static int decBuyersInHall(){
+        return buyersInHall.decrementAndGet();
+    }
+
+    static int incBuyersDone(){
+        return buyersDone.incrementAndGet();
     }
 
     static boolean isAllBuyersDone() {
-        synchronized (monitorBuyers) {
-            return countOfBuyersDone == PLAN;
-        }
+        return buyersDone.get() == PLAN;
     }
 
-    static void enterToMarket() {
-        synchronized (monitorBuyers) {
-            countOfBuyers++;
-        }
+    static void addMarketAmount(int amount) {
+        marketTotalAmount.getAndAdd(amount);
     }
 
-    static void goOut() {
-        synchronized (monitorBuyers) {
-            countOfBuyers--;
-            countOfBuyersDone++;
-        }
-    }
-
-    static void addMarketAmount(double amount){
-        synchronized (monitorTotalAmount){
-            marketTotalAmount+=amount;
-        }
-    }
-
-    static double getMarketTotalAmount(){
-        return marketTotalAmount;
+    static double getMarketTotalAmount() {
+        return marketTotalAmount.get();
     }
 
 }

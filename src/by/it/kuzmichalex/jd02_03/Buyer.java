@@ -2,24 +2,29 @@ package by.it.kuzmichalex.jd02_03;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.Semaphore;
 
 class Buyer extends Thread implements iBuyer, iUseBucket {
+    private static Semaphore buyersInHallSemaphore;
+    private static Semaphore backetSemaphore;
     private boolean bUseBucket;
     private boolean bPensioner;
     private List<String> items = new ArrayList<>();
-    private double buyerTotalAmount = 0.0;
+    private int buyerTotalAmount = 0;
 
     /**
      * Конструктор. Присваиваем родительским методом потоку имя Buyer_ + номер
      * 1/4 покупателей - пенсионеры
      * Корзинные покупатели выбирают от 1 до 4 товаров
      */
-    public Buyer(int nBuyer) {
+    public Buyer(int nBuyer ,Semaphore inHall, Semaphore backets) {
         super(Integer.toString(nBuyer));
+        buyersInHallSemaphore =inHall;
+        backetSemaphore = backets;
         bPensioner = (TimeHelper.getRandom(1, 4) == 4);
     }
 
-    double getBuyerTotalAmount() {
+    int getBuyerTotalAmount() {
         return buyerTotalAmount;
     }
 
@@ -28,8 +33,8 @@ class Buyer extends Thread implements iBuyer, iUseBucket {
      */
     @Override
     public void run() {
-        enterToMarket();
         takeBucket();
+        enterToMarket();
         chooseGoods();
         goToQueue();
         goOut();
@@ -40,8 +45,13 @@ class Buyer extends Thread implements iBuyer, iUseBucket {
      */
     @Override
     public void enterToMarket() {
-        Dispatcher.enterToMarket();
-        //System.out.println(this + "Enter");
+        try {
+            buyersInHallSemaphore.acquire();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        Dispatcher.incBuyersInMarket();
+        Dispatcher.incBuyersInHall();
     }
 
     /**
@@ -61,6 +71,8 @@ class Buyer extends Thread implements iBuyer, iUseBucket {
     @Override
     public void goToQueue() {
         BuyerQueue.addBuyerToQueue(this);
+        Dispatcher.decBuyersInHall();
+        buyersInHallSemaphore.release();
         //Будем ждать в очереди, пока не Cashier не устроит Notify
         //Монитором будет сам Buyer. Чтобы его никто не разбудил, пока он не заснул
         synchronized (this) {
@@ -77,7 +89,9 @@ class Buyer extends Thread implements iBuyer, iUseBucket {
      */
     @Override
     public void goOut() {
-        Dispatcher.goOut();
+        Dispatcher.decBuyersInMarket();
+        Dispatcher.incBuyersDone();
+        backetSemaphore.release();
     }
 
     /**
@@ -85,8 +99,12 @@ class Buyer extends Thread implements iBuyer, iUseBucket {
      */
     @Override
     public void takeBucket() {
+       try {
+            backetSemaphore.acquire();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         bUseBucket = true;
-        sleep(0, 0);
     }
 
     /**
@@ -118,7 +136,7 @@ class Buyer extends Thread implements iBuyer, iUseBucket {
         TimeHelper.sleep(nTimeOut);
     }
 
-    boolean isPensioneer() {
+    boolean isPensioner() {
         return bPensioner;
     }
 
@@ -127,12 +145,12 @@ class Buyer extends Thread implements iBuyer, iUseBucket {
      */
     public String getCheck() {
         StringBuilder sb = new StringBuilder();
-        sb.append("*** Cheque ").append(this).append("\n");
+        sb.append("***** Cheque ").append(this).append("\n");
         for (String item : items) {
-            sb.append(String.format("* %-15s:%7.2f", item, Goods.getPrice(item))).append("\n");
+            sb.append(String.format("* %-15s:%7d *", item, Goods.getPrice(item))).append("\n");
         }
-        sb.append(String.format("* %-15s:%7.2f","Amount", buyerTotalAmount)).append("\n");
-        sb.append("***********************\n");
+        sb.append(String.format("* %-15s:%7d *","Amount......", buyerTotalAmount)).append("\n");
+        sb.append("***************************\n");
         return sb.toString();
     }
 }

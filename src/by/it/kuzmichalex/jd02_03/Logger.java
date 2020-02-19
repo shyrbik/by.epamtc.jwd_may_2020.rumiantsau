@@ -3,7 +3,7 @@ package by.it.kuzmichalex.jd02_03;
 
 class Logger {
     private static final int MAX_WIDTH = 27;
-    private static final int MAX_COLUMNS = 7;
+    private static final int MAX_COLUMNS = Dispatcher.MAX_CASHIERS+2;
     private static final Object monitor = new Object();
     private static volatile String[] arrLogs = new String[MAX_COLUMNS];
 
@@ -22,8 +22,8 @@ class Logger {
      static void printAndFlush() {
     //    System.out.println("-------------------------------------------------------------------------------");
         //Заполним 6 колонку данными по очереди
-        arrLogs[5]=String.format("In Queue:  %3d\nIn Market: %3d",BuyerQueue.getQueueSize(), Dispatcher.getCountBuyersInside());
-        arrLogs[6]=String.format("Total amount: %7.2f\nCashiers working: %2d",
+        arrLogs[Dispatcher.MAX_CASHIERS]=String.format("In Queue:  %3d\nIn Market: %3d",BuyerQueue.getQueueSize(), Dispatcher.getBuyersInMarket());
+        arrLogs[Dispatcher.MAX_CASHIERS+1]=String.format("Total amount: %7.2f\nCashiers working: %2d",
                     Dispatcher.getMarketTotalAmount(),
                     CashierManager.getCountCashiersWorks());
 
