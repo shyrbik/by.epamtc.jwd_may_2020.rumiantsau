@@ -1,5 +1,8 @@
 package by.it.popkov.jd02_03;
 
+import java.io.PrintStream;
+import java.util.Map;
+
 class Cashier implements Runnable {
     private final Object monitorCashier;
 
@@ -49,12 +52,48 @@ class Cashier implements Runnable {
     }
 
     private void serve(Buyer buyer) {
+        String pos = "";
+        String posBuyerOnline = "";
         System.out.println(this + " start serve " + buyer);
         Helper.delay(Helper.randNum(2000, 5000)); //Time to serve
-        System.out.println(this + " print " + buyer + " check: " + buyer.getBasket() + " SUM: "
-                + buyer.getBasket().values().stream().mapToInt(Integer::intValue).sum());
+        String s = buyer.getBasket().toString()
+                .replaceAll("[,{}]", "")
+                .replaceAll(" ", "\n");
+        StringBuffer stringBuffer = new StringBuffer();
+        System.out.println(this + " print " + buyer + " check");
+        switch (this.name) {
+            case "Cashier 1":
+                pos = "%40s";
+                posBuyerOnline = "%160s";
+                break;
+            case "Cashier 2":
+                pos = "%60s";
+                posBuyerOnline = "%140s";
+                break;
+            case "Cashier 3":
+                pos = "%80s";
+                posBuyerOnline = "%120s";
+                break;
+            case "Cashier 4":
+                pos = "%100s";
+                posBuyerOnline = "%100s";
+                break;
+            case "Cashier 5":
+                pos = "%160s";
+                posBuyerOnline = "%40s";
+                break;
+        }
+        stringBuffer.append(String.format(pos + posBuyerOnline + "\n", buyer + " check:",
+               "Buyer queue size:" + buyerQueue.getBuyerQueueSize()));
+        for (Map.Entry<String, Integer> entry : buyer.getBasket().entrySet()) {
+            stringBuffer.append(String.format(pos + "\n", entry.getKey() + " = " + entry.getValue()));
+        }
+        stringBuffer.append(String.format(pos + "\n", " SUM: " + buyer.getBasket().values().stream()
+                .mapToInt(Integer::intValue).sum()));
+        System.out.println(stringBuffer);
+//        System.out.println(stringBuffer.toString());
         System.out.println(this + " finished serve " + buyer);
-        synchronized (buyer) { //Finished serve, buyer can continue
+        synchronized (buyer) {
             buyer.notify();
         }
     }
