@@ -52,9 +52,11 @@ class Cashier implements Runnable {
     }
 
     private void serve(Buyer buyer) {
-        String pos = "";
+        int sumOfCheck = buyer.getBasket().values().stream().mapToInt(Integer::intValue).sum();
+        String tab = "";
         String posBuyerOnline = "";
         System.out.println(this + " start serve " + buyer);
+        dispatcher.plusDayProfit(sumOfCheck);
         Helper.delay(Helper.randNum(2000, 5000)); //Time to serve
         String s = buyer.getBasket().toString()
                 .replaceAll("[,{}]", "")
@@ -63,33 +65,32 @@ class Cashier implements Runnable {
         System.out.println(this + " print " + buyer + " check");
         switch (this.name) {
             case "Cashier 1":
-                pos = "%40s";
-                posBuyerOnline = "%160s";
+                tab = "%10s";
+                posBuyerOnline = "%150s";
                 break;
             case "Cashier 2":
-                pos = "%60s";
-                posBuyerOnline = "%140s";
-                break;
-            case "Cashier 3":
-                pos = "%80s";
+                tab = "%40s";
                 posBuyerOnline = "%120s";
                 break;
+            case "Cashier 3":
+                tab = "%70s";
+                posBuyerOnline = "%90s";
+                break;
             case "Cashier 4":
-                pos = "%100s";
-                posBuyerOnline = "%100s";
+                tab = "%100s";
+                posBuyerOnline = "%60s";
                 break;
             case "Cashier 5":
-                pos = "%160s";
-                posBuyerOnline = "%40s";
+                tab = "%130s";
+                posBuyerOnline = "%30s";
                 break;
         }
-        stringBuffer.append(String.format(pos + posBuyerOnline + "\n", buyer + " check:",
-               "Buyer queue size:" + buyerQueue.getBuyerQueueSize()));
+        stringBuffer.append(String.format(tab + "%-30s" + posBuyerOnline + "%20s" +  "\n","", buyer + " check:",
+               "Buyer queue size:" + buyerQueue.getBuyerQueueSize(), "Day profit: " + dispatcher.getDayProfit()));
         for (Map.Entry<String, Integer> entry : buyer.getBasket().entrySet()) {
-            stringBuffer.append(String.format(pos + "\n", entry.getKey() + " = " + entry.getValue()));
+            stringBuffer.append(String.format(tab + "%-30s" + "\n", "", entry.getKey() + " = " + entry.getValue()));
         }
-        stringBuffer.append(String.format(pos + "\n", " SUM: " + buyer.getBasket().values().stream()
-                .mapToInt(Integer::intValue).sum()));
+        stringBuffer.append(String.format(tab + "%-30s" + "\n", "", "SUM: " + sumOfCheck));
         System.out.println(stringBuffer);
 //        System.out.println(stringBuffer.toString());
         System.out.println(this + " finished serve " + buyer);

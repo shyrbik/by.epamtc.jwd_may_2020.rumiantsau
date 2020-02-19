@@ -13,6 +13,7 @@ class Dispatcher {
 
     private final AtomicInteger buyerOnline = new AtomicInteger(0);
     private final AtomicInteger dayBuyerNum = new AtomicInteger(0);
+    private final AtomicInteger dayProfit = new AtomicInteger(0);
 
     private final Map<String, Integer> goodsMap = new HashMap<>();
 
@@ -20,6 +21,14 @@ class Dispatcher {
 
     public Map<String, Integer> getGoodsMap() {
         return goodsMap;
+    }
+
+    public int getDayProfit() {
+        return dayProfit.get();
+    }
+
+    public void plusDayProfit(int plus) {
+        dayProfit.addAndGet(plus);
     }
 
     public void writeGoodsMap() {
