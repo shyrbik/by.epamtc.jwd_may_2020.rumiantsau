@@ -27,7 +27,7 @@ class Administrator extends Thread {
                         monitorCashier.notify();
                     }
                 }
-            } else if (queueSize / onlineCashier >= 5) {
+            } else if (queueSize / onlineCashier > 5) {
                 synchronized (monitorCashier) {
                     monitorCashier.notify();
                 }
