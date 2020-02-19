@@ -1,11 +1,18 @@
-package by.it.shpakovskiy.jd02_02;
+package by.it.shpakovskiy.jd02_03;
+
+import java.util.concurrent.locks.Condition;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 
 class Buyer extends Thread implements IBuyer, IUseBasket {
     private boolean pensioner;
-    private BulbaStore store;
+    private final BulbaStore store;
     private Basket basket;
     private Product product;
     private double check;
+    Lock lock = new ReentrantLock();
+    Condition servedByCashier = lock.newCondition();
+    private boolean isStayingInQueue;
 
     Buyer(int num, BulbaStore store) {
         super("Buyer-" + num);
@@ -14,12 +21,21 @@ class Buyer extends Thread implements IBuyer, IUseBasket {
         start();
     }
 
+    Buyer() {
+        store = null;
+        pensioner = true;
+    }
+
     public void setCheck(double check) {
         this.check = check;
     }
 
     public double getCheck() {
         return check;
+    }
+
+    public void setStayingInQueue(boolean stayingInQueue) {
+        isStayingInQueue = stayingInQueue;
     }
 
     @Override
@@ -49,6 +65,14 @@ class Buyer extends Thread implements IBuyer, IUseBasket {
         sleepBuyer(500, 2000);
     }
 
+    private void enterTradeHall() {
+        store.enterToTradeHall(this);
+    }
+
+    private void leaveTradeHall() {
+        store.leaveTradeHall(this);
+    }
+
     @Override
     public void chooseGoods() {
         if (!ShopRunner.IN_A_TABLE) System.out.println(this + " started choosing by goods");
@@ -67,14 +91,18 @@ class Buyer extends Thread implements IBuyer, IUseBasket {
     }
 
     private void getInQueue() {
-        int size = store.addToQueue(this);
-        if (!ShopRunner.IN_A_TABLE) System.out.println(this + " stay in queue. Buyers count in queue: " + size);
-        synchronized (this) {
-            try {
-                wait();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
+        lock.lock();
+        try {
+            int size = store.addToQueue(this);
+            if (!ShopRunner.IN_A_TABLE) System.out.println(this + " stay in queue. Buyers count in queue: " + size);
+            isStayingInQueue = true;
+            while (isStayingInQueue) {
+                servedByCashier.await();
             }
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } finally {
+            lock.unlock();
         }
     }
 
@@ -86,18 +114,21 @@ class Buyer extends Thread implements IBuyer, IUseBasket {
     public void goToOut() {
         store.returnBasket(basket);
         int count = store.leave(this);
-        if (!ShopRunner.IN_A_TABLE) System.out.println(this + " go out. Your check:" + check + " Left: " + count);
+        if (!ShopRunner.IN_A_TABLE)
+            System.out.println(this + " go out. Your check:" + check + " Left: " + count);
     }
 
     @Override
     public void run() {
         if (enterToMarket()) {
             takeBasket();
+            enterTradeHall();
             int random = Helper.getRandom(1, 4);
             for (int i = 0; i < random; i++) {
                 chooseGoods();
                 putGoodsToBasket();
             }
+            leaveTradeHall();
             getInQueue();
             goToOut();
         }
@@ -113,8 +144,8 @@ class Buyer extends Thread implements IBuyer, IUseBasket {
     }
 
     private void sleepBuyer(int from, int to) {
-        if (pensioner) to=(int)(to*1.5);
-        Helper.sleepRandom(from,to);
+        if (pensioner) to = (int) (to * 1.5);
+        Helper.sleepRandom(from, to);
     }
 
     public boolean isPensioner() {

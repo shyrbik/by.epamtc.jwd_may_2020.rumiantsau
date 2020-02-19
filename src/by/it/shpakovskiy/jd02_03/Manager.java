@@ -1,4 +1,4 @@
-package by.it.shpakovskiy.jd02_02;
+package by.it.shpakovskiy.jd02_03;
 
 public class Manager implements Runnable {
     private BulbaStore store;
@@ -7,8 +7,7 @@ public class Manager implements Runnable {
 
     Manager(BulbaStore store) {
         this.store = store;
-        Thread thread = new Thread(this, "Manager");
-        thread.start();
+        new Thread(this, "Manager").start();
     }
 
     public boolean isAlive() {
@@ -33,13 +32,15 @@ public class Manager implements Runnable {
                 break;
             }
         }
-        if (ShopRunner.IN_A_TABLE){
+        if (ShopRunner.IN_A_TABLE) {
             String s = "│ Total buyers count: " + String.format("%4d", store.getTotalBuyersCount()) +
                     ". Total revenue: $" + String.format("%6.2f", store.getRevenue()) + "." +
                     " ".repeat(116) + "│\n" +
                     "└" + "─".repeat(167) + "┘";
             System.out.println(s);
-        }
+        } else
+            System.out.println("Total buyers count: " + store.getTotalBuyersCount()
+                    + ". Total revenue: $" + store.getRevenue());
         System.out.println("########################## BulbaStore closed! Buy! ##########################");
     }
 

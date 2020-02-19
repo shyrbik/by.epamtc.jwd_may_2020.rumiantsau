@@ -1,11 +1,9 @@
-package by.it.shpakovskiy.jd02_02;
+package by.it.shpakovskiy.jd02_03;
 
 import java.util.LinkedList;
 
 class ShopRunner {
-
     static final int MAX_COUNT = 100;
-    private static int countBuyers = 0;
     // Output to table?
     static final boolean IN_A_TABLE = true;
     // how many characters is the width of the column when outputting to the column?
@@ -13,6 +11,7 @@ class ShopRunner {
     static final String EMPTY_COL = "                                           ".substring(0, CHAR_IN_COLUMN);
 
     public static void main(String[] args) {
+        int countBuyers = 0;
         LinkedList<Buyer> buyers = new LinkedList<>();
         System.out.println("########################## Hello! BulbaStore opened! ##########################");
         BulbaStore store = new BulbaStore(50);//ENTER THE NUMBER OF BASKETS

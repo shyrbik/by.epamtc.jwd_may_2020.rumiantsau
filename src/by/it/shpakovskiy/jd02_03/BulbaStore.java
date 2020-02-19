@@ -1,62 +1,90 @@
-package by.it.shpakovskiy.jd02_02;
+package by.it.shpakovskiy.jd02_03;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.*;
+import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.concurrent.atomic.AtomicInteger;
 
 class BulbaStore {
-    private Set<Buyer> buyers;
-    private Set<Basket> baskets;
+    private final CopyOnWriteArraySet<Buyer> buyers;
+    private final ConcurrentLinkedDeque<Basket> baskets;
     private final Showcase showcase;
-    private QueueBuyer queueBuyer;
-    private int totalBuyersCount = 0;
+    private final QueueBuyer queueBuyer;
+    private AtomicInteger totalBuyersCount = new AtomicInteger(0);
     // Если true - магазин больше не пускает посетителей и закроется как только последний выйдет.
-    private boolean closing;
+    private AtomicBoolean closing = new AtomicBoolean(false);
     private static final int CASHIERS_COUNT = 5;
     private ArrayList<Cashier> cashiers;
     private final Manager manager;
-    private double revenue;
+    private AtomicInteger revenue = new AtomicInteger(0);
     private static final Object outputMonitor = new Object();
+    private final Semaphore tradeHall = new Semaphore(20, true);
+    private final ExecutorService cashExecService;
 
     BulbaStore(int basketsCount) {
-        buyers = new HashSet<>();
-        baskets = new HashSet<>();
+        buyers = new CopyOnWriteArraySet<>();
+        baskets = new ConcurrentLinkedDeque<>();
         for (int i = 0; i < basketsCount; i++) {
             baskets.add(new Basket());
         }
         showcase = new Showcase();
-        queueBuyer = new QueueBuyer();
+        queueBuyer = new QueueBuyer(30);
         cashiers = new ArrayList<>();
+        cashExecService = Executors.newFixedThreadPool(CASHIERS_COUNT);
         for (int i = 0; i < CASHIERS_COUNT; i++) {
-            cashiers.add(new Cashier(i + 1, this));
+            Cashier cashier = new Cashier(i + 1, this);
+            cashiers.add(cashier);
+            cashExecService.execute(cashier);
         }
+        cashExecService.shutdown();
         manager = new Manager(this);
         if (ShopRunner.IN_A_TABLE) printTitleLine();
     }
 
     public int getTotalBuyersCount() {
-        return totalBuyersCount;
+        return totalBuyersCount.get();
     }
 
     public double getRevenue() {
-        return revenue;
+        return revenue.doubleValue() / 100;
+    }
+
+    private double setRevenue(double revenue) {
+        return (double) this.revenue.addAndGet((int) (revenue * 100)) / 100;
     }
 
     public Showcase getAccessToTheShowcase() {
         return showcase;
     }
 
-    synchronized int enter(Buyer buyer) {
-        if (!closing) {
+    int enter(Buyer buyer) {
+        if (!closing.get()) {
             buyers.add(buyer);
-            if (++totalBuyersCount >= ShopRunner.MAX_COUNT) closing = true;
+            if (totalBuyersCount.incrementAndGet() >= ShopRunner.MAX_COUNT) closing.set(true);
             return buyers.size();
         } else return -1;
+    }
+
+    void enterToTradeHall(Buyer buyer) {
+        try {
+            tradeHall.acquire();
+        } catch (InterruptedException e) {
+            System.err.println("InterruptedException " + e.getMessage());
+        }
+        if (!ShopRunner.IN_A_TABLE) System.out.println(buyer + " entered the trading hall.");
+    }
+
+    void leaveTradeHall(Buyer buyer) {
+        tradeHall.release();
+        if (!ShopRunner.IN_A_TABLE) System.out.println(buyer + " left the trading hall.");
     }
 
     boolean isClosedStore() {
         return buyers.size() == 0;
     }
 
-    synchronized int leave(Buyer buyer) {
+    int leave(Buyer buyer) {
         buyers.remove(buyer);
         return buyers.size();
     }
@@ -66,26 +94,22 @@ class BulbaStore {
             for (Cashier cashier : cashiers) {
                 cashier.endOfWorkingDay();
             }
-            cashiers.forEach(cashier -> {
-                Thread thread = cashier.getThread();
-                try {
-                    while (thread.isAlive()) {
-                        thread.join(10);
-                        cashier.endOfWorkingDay();
-                    }
-                } catch (InterruptedException e) {
-                    System.err.println("InterruptedException " + e.getMessage());
-                }
-            });
+            try {
+                cashExecService.awaitTermination(1000, TimeUnit.MILLISECONDS);
+            } catch (InterruptedException e) {
+                System.err.println("InterruptedException " + e.getMessage());
+            }
+            if (!cashExecService.isTerminated())
+                cashExecService.shutdownNow();
             this.manager.endOfWorkingDay();
         }
     }
 
-    public synchronized int buyersCount() {
+    public int buyersCount() {
         return buyers.size();
     }
 
-    synchronized int addToQueue(Buyer buyer) {
+    int addToQueue(Buyer buyer) {
         if (!manager.isAlive()) {
             synchronized (manager) {
                 manager.notify();
@@ -94,33 +118,24 @@ class BulbaStore {
         return queueBuyer.addBuyer(buyer);
     }
 
-    synchronized Buyer getBuyer() {
+    Buyer getBuyer() {
         return queueBuyer.next();
     }
 
-    synchronized int queueLength() {
+    int queueLength() {
         return queueBuyer.length();
     }
 
-    synchronized Basket getBasket() {
-        if (isBasket()) {
-            Basket basket = baskets.iterator().next();
-            baskets.remove(basket);
-            return basket;
-        }
-        return null;
+    Basket getBasket() {
+        return baskets.pollLast();
     }
 
-    synchronized boolean isBasket() {
+    boolean isBasket() {
         return !baskets.isEmpty();
     }
 
-    synchronized void returnBasket(Basket basket) {
-        baskets.add(basket);
-    }
-
-    private synchronized double setRevenue(double revenue) {
-        return this.revenue += revenue;
+    void returnBasket(Basket basket) {
+        baskets.addLast(basket);
     }
 
     private int getNeededCashiersCount(int c) {
@@ -132,9 +147,7 @@ class BulbaStore {
         return 0;
     }
 
-    // Возвращает массив размера length заполненный случайными числами от 0 до length-1,
-    // причем ни одно число не повторяется
-    private int[] getRandomNumbers(int length) {
+    private int[] getRandomArray(int length) {
         List<Integer> list = new ArrayList<>(length);
         boolean add;
         while (list.size() < length) {
@@ -168,7 +181,7 @@ class BulbaStore {
                 if (!cashier.isWaiting()) working++;
             }
             if (need > working) {
-                int[] ran = getRandomNumbers(cashiers.size());
+                int[] ran = getRandomArray(cashiers.size());
                 for (int i = 0; i < cashiers.size(); i++) {
                     if (cashiers.get(ran[i]).wakeUp()) {
                         if (!ShopRunner.IN_A_TABLE) System.out.println("Manager opened " + cashiers.get(ran[i]));
@@ -195,20 +208,21 @@ class BulbaStore {
 
     void check(Buyer buyer, Cashier cashier, int lineLength) {
         Basket basket = buyer.getGoods();
-        Product product = basket.getProduct();
+        Product product /*= basket.getProduct()*/;
         List<String> output = new ArrayList<>();
         double fullSum = 0;
-        while (product != null) {
+        while ((product= basket.getProduct()) != null) {
             double money = showcase.getPrice(product);
             if (!ShopRunner.IN_A_TABLE)
                 System.out.println(cashier + " get from " + buyer + " $" + money + " per " + product);
-            if (ShopRunner.IN_A_TABLE) output.add(getTableLine(cashier, product.toString(), money, lineLength, false));
+            else output.add(getTableLine(cashier, product.toString(), money, lineLength, false));
             fullSum += money;
-            product = basket.getProduct();
+//            product = basket.getProduct();
         }
-        if (!ShopRunner.IN_A_TABLE)
+        if (!ShopRunner.IN_A_TABLE) {
             System.out.println("Total " + buyer + " spent $" + fullSum + ".");
-        if (ShopRunner.IN_A_TABLE) output.add(getTableLine(cashier, "Total:", fullSum, lineLength, true));
+            setRevenue(fullSum);
+        } else output.add(getTableLine(cashier, "Total:", fullSum, lineLength, true));
         synchronized (outputMonitor) {
             output.forEach(System.out::println);
         }
