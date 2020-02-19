@@ -18,7 +18,7 @@ public class Market {
 
         // System.out.println("=====MARKET OPENED=====");
         int nSeconds = 0;
-        while (!Dispatcher.isAllBuyersDone()) {
+        while (Dispatcher.isPlanNotExecuted()) {
             int newComers = Dispatcher.getBuyersNeed(nSeconds) - Dispatcher.getBuyersInMarket();
             if (newComers > 0) {
                 if ((Dispatcher.getBuyersCreated() + newComers) > (Dispatcher.PLAN - 1))

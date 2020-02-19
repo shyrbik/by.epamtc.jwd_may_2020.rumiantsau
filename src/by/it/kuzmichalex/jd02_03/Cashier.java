@@ -18,7 +18,7 @@ class Cashier implements Runnable {
 
     @Override
     public void run() {
-        while (!Dispatcher.isAllBuyersDone()) {
+        while (Dispatcher.isPlanNotExecuted()) {
             if (toStop.get()) {
                 Logger.addToLog("......." + this + ".......\n.... PAUSED wait(); ....\n........................", cashierNumber);
                 synchronized (this) {

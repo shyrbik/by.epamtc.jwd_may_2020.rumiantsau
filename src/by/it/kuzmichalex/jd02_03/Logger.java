@@ -24,7 +24,7 @@ class Logger {
     //    System.out.println("-------------------------------------------------------------------------------");
         //Заполним 6-7 колонку данными по очереди и тому подобному
         arrLogs[Dispatcher.MAX_CASHIERS]=String.format("In Queue:  %3d\nIn Market: %3d",BuyerQueue.getQueueSize(), Dispatcher.getBuyersInMarket());
-        arrLogs[Dispatcher.MAX_CASHIERS+1]=String.format("Total amount: %7.2f\nCashiers working: %2d",
+        arrLogs[Dispatcher.MAX_CASHIERS+1]=String.format("Total amount: %7d\nCashiers working: %2d",
                     Dispatcher.getMarketTotalAmount(),
                     CashierManager.getCountCashiersWorks());
 
@@ -34,9 +34,7 @@ class Logger {
             if(arrLogs[x]!=null){
                 String[] splitted = arrLogs[x].split("\n");
                 countOfStrings= Math.max(splitted.length, countOfStrings);
-                for (int y = 0; y < splitted.length; y++) {
-                    tmp[x][y]=splitted[y];
-                }
+                System.arraycopy(splitted, 0, tmp[x], 0, splitted.length);
                 arrLogs[x] = null;  //Зачищаем
             }else if(x< Dispatcher.MAX_CASHIERS){
                 //В логе кассира X пусто. Значит, занят он обслуживает клиента sleep() или выключен wait()

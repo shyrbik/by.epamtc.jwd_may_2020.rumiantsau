@@ -38,9 +38,7 @@ class Dispatcher {
         return buyersInMarket.get();
     }*/
 
-    static int getBuyersDone() {
-        return buyersDone.get();
-    }
+    //static int getBuyersDone() { return buyersDone.get(); }
 
     static int getBuyersCreated() {
         return buyersCreated.get();
@@ -50,44 +48,42 @@ class Dispatcher {
         return buyersCreated.incrementAndGet();
     }
 
-    static int getBuyersInHall(){
-        return buyersInHall.get();
-    }
+   // static int getBuyersInHall(){ return buyersInHall.get(); }
 
     static int getBuyersInMarket(){
         return buyersInMarket.get();
     }
 
-    static int incBuyersInMarket(){
-        return buyersInMarket.incrementAndGet();
+    static void incBuyersInMarket(){
+        buyersInMarket.incrementAndGet();
     }
 
-    static int decBuyersInMarket(){
-        return buyersInMarket.decrementAndGet();
+    static void decBuyersInMarket(){
+        buyersInMarket.decrementAndGet();
     }
 
 
-    static int incBuyersInHall(){
-        return buyersInHall.incrementAndGet();
+    static void incBuyersInHall(){
+        buyersInHall.incrementAndGet();
     }
 
-    static int decBuyersInHall(){
-        return buyersInHall.decrementAndGet();
+    static void decBuyersInHall(){
+        buyersInHall.decrementAndGet();
     }
 
-    static int incBuyersDone(){
-        return buyersDone.incrementAndGet();
+    static void incBuyersDone(){
+        buyersDone.incrementAndGet();
     }
 
-    static boolean isAllBuyersDone() {
-        return buyersDone.get() == PLAN;
+    static boolean isPlanNotExecuted() {
+        return buyersDone.get() != PLAN;
     }
 
     static void addMarketAmount(int amount) {
         marketTotalAmount.getAndAdd(amount);
     }
 
-    static double getMarketTotalAmount() {
+    static int getMarketTotalAmount() {
         return marketTotalAmount.get();
     }
 
