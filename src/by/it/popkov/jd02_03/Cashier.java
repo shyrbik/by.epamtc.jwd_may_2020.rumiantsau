@@ -1,6 +1,5 @@
 package by.it.popkov.jd02_03;
 
-import java.io.PrintStream;
 import java.util.Map;
 
 class Cashier implements Runnable {
