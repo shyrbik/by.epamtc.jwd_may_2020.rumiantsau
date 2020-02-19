@@ -52,15 +52,21 @@ class Cashier implements Runnable {
     }
 
     private void serve(Buyer buyer) {
+        System.out.println(this + " start serve " + buyer);
+        Helper.delay(Helper.randNum(2000, 5000)); //Time to serve
+        printCheck(buyer);
+        System.out.println(this + " finished serve " + buyer);
+        synchronized (buyer) {
+            buyer.setReadyToNotify(true);
+            buyer.notify();
+        }
+    }
+
+    private void printCheck(Buyer buyer) {
         int sumOfCheck = buyer.getBasket().values().stream().mapToInt(Integer::intValue).sum();
+        dispatcher.plusDayProfit(sumOfCheck);
         String tab = "";
         String posBuyerOnline = "";
-        System.out.println(this + " start serve " + buyer);
-        dispatcher.plusDayProfit(sumOfCheck);
-        Helper.delay(Helper.randNum(2000, 5000)); //Time to serve
-        String s = buyer.getBasket().toString()
-                .replaceAll("[,{}]", "")
-                .replaceAll(" ", "\n");
         StringBuffer stringBuffer = new StringBuffer();
         System.out.println(this + " print " + buyer + " check");
         switch (this.name) {
@@ -92,11 +98,5 @@ class Cashier implements Runnable {
         }
         stringBuffer.append(String.format(tab + "%-30s" + "\n", "", "SUM: " + sumOfCheck));
         System.out.println(stringBuffer);
-//        System.out.println(stringBuffer.toString());
-        System.out.println(this + " finished serve " + buyer);
-        synchronized (buyer) {
-            buyer.setReadyToNotify(true);
-            buyer.notify();
-        }
     }
 }
