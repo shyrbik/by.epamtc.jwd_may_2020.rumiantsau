@@ -1,6 +1,6 @@
 package by.it.shpakovskiy.jd02_02;
 
-public class Cashier implements Runnable {
+class Cashier implements Runnable {
     private BulbaStore shop;
     private Thread thread;
     private boolean endWork;

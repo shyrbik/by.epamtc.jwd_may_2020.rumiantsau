@@ -1,6 +1,6 @@
 package by.it.shpakovskiy.jd02_02;
 
-public class Manager implements Runnable {
+class Manager implements Runnable {
     private BulbaStore store;
     private boolean alive;
     private boolean endWork;

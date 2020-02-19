@@ -1,6 +1,6 @@
 package by.it.shpakovskiy.jd02_03;
 
-public class Cashier implements Runnable {
+class Cashier implements Runnable {
     private String name;
     private BulbaStore shop;
     private boolean endWork;
