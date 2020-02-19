@@ -2,6 +2,7 @@ package by.it.popkov.jd02_03;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.Semaphore;
 
 class Buyer extends Thread implements IBuyer, IUseBacket {
 
@@ -11,11 +12,13 @@ class Buyer extends Thread implements IBuyer, IUseBacket {
 
     private BuyerQueue buyerQueue;
     private Dispatcher dispatcher;
+    private Semaphore goodsSpaceSemaphore;
 
-    public Buyer(int name, BuyerQueue buyerQueue, Dispatcher dispatcher) {
+    public Buyer(int name, BuyerQueue buyerQueue, Dispatcher dispatcher, Semaphore goodsSpaceSemaphore) {
         super("Buyer " + name);
         this.buyerQueue = buyerQueue;
         this.dispatcher = dispatcher;
+        this.goodsSpaceSemaphore = goodsSpaceSemaphore;
         if (Helper.randNum(1, 4) == 4) {
             pensioneer = true;
             super.setName(this.getName() + " (pensioneer)");
@@ -32,8 +35,15 @@ class Buyer extends Thread implements IBuyer, IUseBacket {
     public void run() {
         enterToMarket();
         takeBacket();
-        chooseGoods();
-        putGoodsToBacket();
+        try {
+            goodsSpaceSemaphore.acquire();
+            chooseGoods();
+            putGoodsToBacket();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }finally {
+            goodsSpaceSemaphore.release();
+        }
         goToQueue();
         goOut();
     }
@@ -45,10 +55,10 @@ class Buyer extends Thread implements IBuyer, IUseBacket {
             buyerQueue.addToPensionerQueue(this);
         } else {
             System.out.println(this + " go to united queue");
-            buyerQueue.addToQueue(this);
         }
         synchronized (this) {
             try {
+                buyerQueue.addToQueue(this);
                 this.wait();
             } catch (InterruptedException e) {
                 e.printStackTrace();

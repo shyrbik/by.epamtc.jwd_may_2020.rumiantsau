@@ -4,14 +4,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.Semaphore;
 
 class Market {
     private BuyerQueue buyerQueue = new BuyerQueue();
     private Dispatcher dispatcher = new Dispatcher();
     private final Object monitorCashier = new Object();
     final ExecutorService executorService = Executors.newFixedThreadPool(dispatcher.cashierMax);
-//    private List<Buyer> buyersInMarket = new ArrayList<>(1000);
-//    private List<Thread> cashierInMarket = new ArrayList<>(dispatcher.cashierMax);
+    private Semaphore goodsSpaceSemaphore =  new Semaphore(20);
 
     public static void main(String[] args) {
         Market market = new Market();
@@ -21,23 +21,6 @@ class Market {
         market.letInAdministrator();
         market.letInBuyers();
         market.waitFinishWork();
-
-//        for (Buyer buyer : market.buyersInMarket) {
-//            try {
-//                buyer.join();
-//            } catch (InterruptedException e) {
-//                e.printStackTrace();
-//            }
-//        }
-//        for (Thread cashier : market.cashierInMarket) {
-//            try {
-//                cashier.join();
-//            } catch (InterruptedException e) {
-//                e.printStackTrace();
-//            }
-//        }
-
-
         System.out.println("****** Close shop ******");
 
     }
@@ -69,7 +52,7 @@ class Market {
                 letIn = Helper.randNumUntil(4);
                 for (int j = 1; j <= letIn; j++) {
                     if (dispatcher.planIsNotCompleted()) {
-                        Buyer buyer = new Buyer(counter++, buyerQueue, dispatcher);
+                        Buyer buyer = new Buyer(counter++, buyerQueue, dispatcher, goodsSpaceSemaphore);
                         buyer.start();
 //                        buyersInMarket.add(buyer);
                     }
