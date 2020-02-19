@@ -14,7 +14,7 @@ class Cashier extends Thread {
         }
     }
 
-    static Double getTotalRevenue() {
+    private static Double getTotalRevenue() {
         synchronized (totalRevenueMonitor) {
             return totalRevenue;
         }
