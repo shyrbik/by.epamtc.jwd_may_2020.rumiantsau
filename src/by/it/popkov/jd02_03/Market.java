@@ -13,6 +13,7 @@ class Market {
     private List<Buyer> buyersInMarket = new ArrayList<>(1000);
     final ExecutorService executorService = Executors.newFixedThreadPool(dispatcher.cashierMax);
     private Semaphore goodsSpaceSemaphore =  new Semaphore(20);
+    private Semaphore basketSemaphore =  new Semaphore(50);
 
 
     public static void main(String[] args) {
@@ -53,7 +54,7 @@ class Market {
                 int letIn = Helper.randNumUntil(4);
                 for (int j = 1; j <= letIn; j++) {
                     if (dispatcher.planIsNotCompleted()) {
-                        Buyer buyer = new Buyer(counter++, buyerQueue, dispatcher, goodsSpaceSemaphore);
+                        Buyer buyer = new Buyer(counter++, buyerQueue, dispatcher, goodsSpaceSemaphore, basketSemaphore);
                         buyer.start();
                         buyersInMarket.add(buyer);
                     }

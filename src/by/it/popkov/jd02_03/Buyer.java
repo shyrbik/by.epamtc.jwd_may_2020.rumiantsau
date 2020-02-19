@@ -13,12 +13,14 @@ class Buyer extends Thread implements IBuyer, IUseBacket {
     private BuyerQueue buyerQueue;
     private Dispatcher dispatcher;
     private Semaphore goodsSpaceSemaphore;
+    private Semaphore basketSemaphore;
 
-    public Buyer(int name, BuyerQueue buyerQueue, Dispatcher dispatcher, Semaphore goodsSpaceSemaphore) {
+    public Buyer(int name, BuyerQueue buyerQueue, Dispatcher dispatcher, Semaphore goodsSpaceSemaphore, Semaphore basketSemaphore) {
         super("Buyer " + name);
         this.buyerQueue = buyerQueue;
         this.dispatcher = dispatcher;
         this.goodsSpaceSemaphore = goodsSpaceSemaphore;
+        this.basketSemaphore = basketSemaphore;
         if (Helper.randNum(1, 4) == 4) {
             pensioneer = true;
             super.setName(this.getName() + " (pensioneer)");
@@ -34,18 +36,26 @@ class Buyer extends Thread implements IBuyer, IUseBacket {
     @Override
     public void run() {
         enterToMarket();
-        takeBacket();
         try {
-            goodsSpaceSemaphore.acquire();
-            chooseGoods();
-            putGoodsToBacket();
+            basketSemaphore.acquire();
+            takeBacket();
+            try {
+                goodsSpaceSemaphore.acquire();
+                chooseGoods();
+                putGoodsToBacket();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            } finally {
+                goodsSpaceSemaphore.release();
+            }
+            goToQueue();
+            goOut();
         } catch (InterruptedException e) {
             e.printStackTrace();
-        }finally {
-            goodsSpaceSemaphore.release();
+        } finally {
+            basketSemaphore.release();
         }
-        goToQueue();
-        goOut();
+
     }
 
     @Override
