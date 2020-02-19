@@ -10,8 +10,10 @@ class Market {
     private BuyerQueue buyerQueue = new BuyerQueue();
     private Dispatcher dispatcher = new Dispatcher();
     private final Object monitorCashier = new Object();
+    private List<Buyer> buyersInMarket = new ArrayList<>(1000);
     final ExecutorService executorService = Executors.newFixedThreadPool(dispatcher.cashierMax);
     private Semaphore goodsSpaceSemaphore =  new Semaphore(20);
+
 
     public static void main(String[] args) {
         Market market = new Market();
@@ -54,7 +56,7 @@ class Market {
                     if (dispatcher.planIsNotCompleted()) {
                         Buyer buyer = new Buyer(counter++, buyerQueue, dispatcher, goodsSpaceSemaphore);
                         buyer.start();
-//                        buyersInMarket.add(buyer);
+                        buyersInMarket.add(buyer);
                     }
                 }
             }
