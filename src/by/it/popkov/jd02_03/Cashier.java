@@ -95,6 +95,7 @@ class Cashier implements Runnable {
 //        System.out.println(stringBuffer.toString());
         System.out.println(this + " finished serve " + buyer);
         synchronized (buyer) {
+            buyer.setReadyToNotify(true);
             buyer.notify();
         }
     }

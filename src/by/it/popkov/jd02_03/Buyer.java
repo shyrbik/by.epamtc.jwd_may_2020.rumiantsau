@@ -15,6 +15,12 @@ class Buyer extends Thread implements IBuyer, IUseBacket {
     private Semaphore goodsSpaceSemaphore;
     private Semaphore basketSemaphore;
 
+    private boolean readyToNotify = false;
+
+    public void setReadyToNotify(boolean readyToNotify) {
+        this.readyToNotify = readyToNotify;
+    }
+
     public Buyer(int name, BuyerQueue buyerQueue, Dispatcher dispatcher, Semaphore goodsSpaceSemaphore, Semaphore basketSemaphore) {
         super("Buyer " + name);
         this.buyerQueue = buyerQueue;
@@ -70,6 +76,7 @@ class Buyer extends Thread implements IBuyer, IUseBacket {
             }
             try {
                 this.wait();
+                if (!readyToNotify) this.wait();
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
