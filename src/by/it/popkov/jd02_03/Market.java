@@ -61,7 +61,6 @@ class Market {
                 }
             }
             sec++;
-//            System.out.println("SEC = " + sec + " buyerOnline = " + dispatcher.getBuyerOnline());
             Helper.delay(1000);
 
         }
