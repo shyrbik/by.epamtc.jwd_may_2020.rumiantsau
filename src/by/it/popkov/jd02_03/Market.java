@@ -10,10 +10,10 @@ class Market {
     private BuyerQueue buyerQueue = new BuyerQueue();
     private Dispatcher dispatcher = new Dispatcher();
     private final Object monitorCashier = new Object();
-    private List<Buyer> buyersInMarket = new ArrayList<>(1000);
     final ExecutorService executorService = Executors.newFixedThreadPool(dispatcher.cashierMax);
     private Semaphore goodsSpaceSemaphore =  new Semaphore(20);
     private Semaphore basketSemaphore =  new Semaphore(50);
+    private List<Buyer> buyersInMarket = new ArrayList<>(1000);//????
 
 
     public static void main(String[] args) {
