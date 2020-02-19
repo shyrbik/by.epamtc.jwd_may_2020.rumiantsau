@@ -11,6 +11,7 @@ class Logger {
      * Добавление в лог
      */
     static void addToLog(String text, int number) {
+        //Поскольку покупатели ОЧЕНЬ медленные, закон Амдала не нарушен :)
         synchronized (monitor) {
             if (arrLogs[number] != null){
                 printAndFlush();
