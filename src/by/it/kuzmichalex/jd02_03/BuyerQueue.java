@@ -1,7 +1,5 @@
 package by.it.kuzmichalex.jd02_03;
 
-import java.util.ArrayDeque;
-import java.util.Deque;
 import java.util.Iterator;
 import java.util.concurrent.*;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -21,7 +19,7 @@ class BuyerQueue {
 
     static void addBuyerToQueue(Buyer buyer) {
         int attempts = 1000;
-        boolean success = true;
+        boolean success;
         do {
             success = true;
             try {
@@ -33,6 +31,9 @@ class BuyerQueue {
             }
         }
         while (!success && attempts > 0);
+        if (attempts == 0) {
+            throw new IllegalStateException();
+        }
         queueSize.getAndIncrement();
         manager.doManaging("add");
     }
