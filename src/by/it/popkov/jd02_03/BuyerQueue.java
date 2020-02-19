@@ -10,27 +10,27 @@ class BuyerQueue {
 
     private final ConcurrentLinkedDeque<Buyer> pensionerQueue = new ConcurrentLinkedDeque<>();
 
-    public synchronized void addToQueue(Buyer buyer) {
+    public void addToQueue(Buyer buyer) {
         buyerQueue.addLast(buyer);
     }
 
-    public synchronized Buyer getFirstBuyer() {
+    public Buyer getFirstBuyer() {
         return buyerQueue.pollFirst();
     }
 
-    public synchronized void addToPensionerQueue(Buyer buyer) {
+    public void addToPensionerQueue(Buyer buyer) {
         pensionerQueue.addLast(buyer);
     }
 
-    public synchronized Buyer getFirstPensioner() {
+    public Buyer getFirstPensioner() {
         return pensionerQueue.pollFirst();
     }
 
-    public synchronized int getBuyerQueueSize() {
+    public int getBuyerQueueSize() {
         return buyerQueue.size();
     }
 
-    public synchronized int getPensionerQueueSize() {
+    public int getPensionerQueueSize() {
         return pensionerQueue.size();
     }
 }
