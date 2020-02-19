@@ -1,29 +1,30 @@
 package by.it.filipovich.calc;
 
+import java.util.HashMap;
+import java.util.Map;
+
 abstract class Var implements Operation {
+    static Map<String,Var> vars = new HashMap<>();
 
     @Override
-    public Var add(Var other) {
-        System.out.println("Operating for "+this+" + "+ other + " is impossible");
-        return null;
+    public Var add(Var other) throws CalcException {
+        throw new CalcException("Operating for "+this+" + "+ other + " is impossible");
+
     }
 
     @Override
-    public Var sub(Var other) {
-        System.out.println("Operating for "+this+" - "+ other + " is impossible");
-        return null;
+    public Var sub(Var other) throws CalcException {
+        throw new CalcException("Operating for "+this+" - "+ other + " is impossible");
     }
 
     @Override
-    public Var mul(Var other) {
-        System.out.println("Operating for "+this+" * "+ other + " is impossible");
-        return null;
+    public Var mul(Var other) throws CalcException {
+        throw new CalcException("Operating for "+this+" * "+ other + " is impossible");
     }
 
     @Override
-    public Var div(Var other) {
-        System.out.println("Operating for "+this+" / "+ other + " is impossible");
-        return null;
+    public Var div(Var other) throws CalcException {
+        throw new CalcException("Operating for "+this+" / "+ other + " is impossible");
     }
 
     @Override
@@ -31,7 +32,7 @@ abstract class Var implements Operation {
         return "Я метод Var, я не хочу ничего решать!";
     }
 
-    static Var createVar(String operand){
+    static Var createVar(String operand) throws CalcException {
         String a = operand.trim();
         if(a.matches(Patterns.SCALAR))
             return new Scalar(a);
@@ -39,7 +40,18 @@ abstract class Var implements Operation {
             return new Vector(a);
         else if(a.matches(Patterns.MATRIX))
             return new Matrix(a);
+        else{
+            Var var = vars.get(operand);
+            if (var != null) {
+                return var;
+            } else {
+                throw new CalcException("Unknown expression: "+operand);
+            }
+        }
+    }
 
-        return null;
+    static void save(String key, Var value)
+    {
+        vars.put(key,value);
     }
 }
