@@ -19,15 +19,15 @@ class Administrator extends Thread {
     public void run() {
         while (!dispatcher.marketIsClosed()) {
             Helper.delay(1000);
-            int queueSize = buyerQueue.getBuyerQueueSize() + buyerQueue.getPensionerQueueSize();
-            int onlineCashier = dispatcher.getOnlineCashier();
+            double queueSize = buyerQueue.getBuyerQueueSize() + buyerQueue.getPensionerQueueSize();
+            double onlineCashier = dispatcher.getOnlineCashier();
             if (onlineCashier == 0) {
                 if (queueSize > 0) {
                     synchronized (monitorCashier) {
                         monitorCashier.notify();
                     }
                 }
-            } else if (queueSize / onlineCashier > 5) {
+            } else if (queueSize / onlineCashier >= 5) {
                 synchronized (monitorCashier) {
                     monitorCashier.notify();
                 }
