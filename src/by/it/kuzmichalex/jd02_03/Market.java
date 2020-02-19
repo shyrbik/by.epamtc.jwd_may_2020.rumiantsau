@@ -43,9 +43,9 @@ public class Market {
         System.out.println("Фактор ускорения просмотра TimeHelper.SUPER_SPEED: " + TimeHelper.getSuperSpeed());
         System.out.println("Фактор замедления пенсионера TimeHelper.SLOW_SPEED: " + TimeHelper.getSlowSpeed());
         System.out.println("Все константы по очередям, корзинам и тд в Dispatcher");
-        System.out.println("Покупатели по времени: ");
+        System.out.println("Создание покупателей по времени: ");
         System.out.println(graph);
-        System.out.println("Серый - это после  ");
+        System.out.println("Серый - это после прекращения создания покупателей ");
 
 
 

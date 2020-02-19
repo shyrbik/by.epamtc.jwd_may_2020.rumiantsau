@@ -7,9 +7,9 @@ class Dispatcher {
     static final int PLAN = 100;
     static final int MIN_BUYERS = 10;             //Яма getBuyersNeed покупателей при плавном изменениии по времени
     static final int MAX_BUYERS = 40;             //Пик getBuyersNeed покупателей при плавном изменении по времени
-    static final int MAX_BUYERS_IN_QUEUE = 30;            //Максимальный размер очереди.
-    static final int MAX_BUYERS_IN_HALL = 20;               //Максимальное количество на торговом зале
-    static final int MAX_BUCKETS = 50;           //Максимальные количество покупателей в магазине
+    static final int MAX_BUYERS_IN_QUEUE = 30;    //Максимальный размер очереди.
+    static final int MAX_BUYERS_IN_HALL = 20;     //Максимальное количество на торговом зале
+    static final int MAX_BUCKETS = 50;            //Максимальные количество корзинок
 
     private final static AtomicInteger buyersCreated = new AtomicInteger(0);
     private final static AtomicInteger buyersInMarket = new AtomicInteger(0);
@@ -48,7 +48,7 @@ class Dispatcher {
         return buyersCreated.incrementAndGet();
     }
 
-   // static int getBuyersInHall(){ return buyersInHall.get(); }
+   static int getBuyersInHall(){ return buyersInHall.get(); }
 
     static int getBuyersInMarket(){
         return buyersInMarket.get();
@@ -61,7 +61,6 @@ class Dispatcher {
     static void decBuyersInMarket(){
         buyersInMarket.decrementAndGet();
     }
-
 
     static void incBuyersInHall(){
         buyersInHall.incrementAndGet();
