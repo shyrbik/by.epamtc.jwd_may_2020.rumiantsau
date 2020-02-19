@@ -4,7 +4,7 @@ package by.it.kuzmichalex.jd02_03;
 class Logger {
     private static final int MAX_WIDTH = 27;
     private static final int MAX_COLUMNS = 7;
-    private static final Object monitor = new Object();
+    private static final Object logMonitor = new Object();
     private static volatile String[] arrLogs = new String[MAX_COLUMNS];
 
     /**
@@ -12,7 +12,7 @@ class Logger {
      */
     static void addToLog(String text, int number) {
         //Покупатели очень медленные, в кассиры ещё хуже. Так что закон амдала не нарушен :)
-        synchronized (monitor) {
+        synchronized (logMonitor) {
             if (arrLogs[number] != null){
                 printAndFlush();
             }
