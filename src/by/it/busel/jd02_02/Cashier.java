@@ -20,10 +20,34 @@ class Cashier extends Thread {
         }
     }
 
+    private int id;
+    private String preBlanks = "";
+    private String postBlanks = "";
 
     Cashier(int id) {
         this.setName("Cashier №" + id + " ");
+        this.id = id;
         Dispatcher.cashierOpensTheCounter();
+        setPreBlanks(id);
+        setPostBlanks(id);
+    }
+
+    private void setPreBlanks(int id) {
+        int index = (id - 1) * 24;
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < index; i++) {
+            sb.append(" ");
+        }
+        preBlanks = sb.toString();
+    }
+
+    private void setPostBlanks(int id) {
+        int index = (5 - id) * 24;
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < index; i++) {
+            sb.append(" ");
+        }
+        postBlanks = sb.toString();
     }
 
     @Override
@@ -68,8 +92,8 @@ class Cashier extends Thread {
                 System.out.println(this + " has started to serve " + buyerAtTheCounter);
                 Helper.sleep(2000, 5000);
                 Map<String, Double> personalGoods = buyerAtTheCounter.payOff();
-                System.out.println(getCheck(buyerAtTheCounter, personalGoods));
-                System.out.println(this + " has ended to serve " + buyerAtTheCounter);
+                System.out.println(getCheckAndService(buyerAtTheCounter, personalGoods));
+//                System.out.println(this + " has ended to serve " + buyerAtTheCounter);
                 buyerAtTheCounter.notify();
             }
         } else {
@@ -77,35 +101,37 @@ class Cashier extends Thread {
         }
     }
 
-    private String getCheck(Buyer buyerAtTheCounter, Map<String, Double> personalGoods) {
+    private String getCheckAndService(Buyer buyerAtTheCounter, Map<String, Double> personalGoods) {
         int index = 0;
         Double total = 0.0;
         StringBuilder sb = new StringBuilder("\n");
-        sb.append("Data output from a cashier (check) ").append("for ").append(buyerAtTheCounter).append('\n');
-        sb.append("╔══════════════╦══════════════════════╦══╦════════════╦══════╦═════════════╦═════════════╗")
-                .append('\n');
-        sb.append("║").append("Cashier's name").append("║").append("Buyer's name          ").append("║").append("№№").
-                append("║").append("item        ").append("║").append("price ").append("║")
-                .append("queue size   ").append("║").append("total revenue").append("║").append("\n");
+        sb.append(preBlanks).append(this).append('\n');
+        sb.append(preBlanks).append("╔══════════════════════╗").append('\n');
+        sb.append(preBlanks).append("║").append(String.format("%-22s", buyerAtTheCounter)).append("║").append('\n');
+        sb.append(preBlanks).append("╠══╦════════════╦══════╣").append(postBlanks).append("╔═════════════╦═════════════╗").append('\n');
+        sb.append(preBlanks).append("║").append("№№").append("║")
+                .append("item        ").append("║")
+                .append("price ").append("║")
+                .append(postBlanks).append("║")
+                .append("queue size   ").append("║").append("Shop revenue ").append("║").append("\n");
         for (Map.Entry<String, Double> entry : personalGoods.entrySet()) {
             total = total + entry.getValue();
             increaseTotalRevenue(entry.getValue());
-            sb.append("╠══════════════╬══════════════════════╬══╬════════════╬══════╬═════════════╬═════════════╣")
-                    .append('\n');
-            sb.append("║").append(String.format("%14s", this))
-                    .append("║").append(String.format("%22s", buyerAtTheCounter))
-                    .append("║").append(String.format("%2d", ++index))
+            sb.append(preBlanks).append("╠══╬════════════╬══════╣")
+                    .append(postBlanks).append("╠═════════════╬═════════════╣").append('\n');
+            sb.append(preBlanks).append("║").append(String.format("%2d", ++index))
                     .append("║").append(String.format("%12s", entry.getKey()))
-                    .append("║").append(String.format("%6.2f", entry.getValue()))
+                    .append("║").append(String.format("%6.2f", entry.getValue())).append("║")
+                    .append(postBlanks)
                     .append("║").append(String.format("%13d", SoleQueue.getBuyersQuantity()))
-                    .append("║").append(String.format("%13.2f", getTotalRevenue())).
-                    append("║").append('\n');
+                    .append("║").append(String.format("%13.2f", getTotalRevenue()))
+                    .append("║").append('\n');
         }
-        sb.append("╚══════════════╩══════════════════════╩══╩════════════╩══════╩═════════════╩═════════════╝").
-                append('\n');
-        sb.append("╔══════════════╦══════════════════════╗\n");
-        sb.append(String.format("║%14s║%-5.2f %-16s║%n", "To pay:", total, "BYN"));
-        sb.append("╚══════════════╚══════════════════════╝\n");
+        sb.append(preBlanks).append("╠══╩════╦═══════╩══════╣")
+                .append(postBlanks).append("╚═════════════╩═════════════╝").append('\n');
+        sb.append(preBlanks).append(String.format("║%8s%10.2f%4s║", "To pay:║", total, " BYN"));
+        sb.append('\n').append(preBlanks).append("╚═══════╩══════════════╝").append('\n');
+        sb.append(this).append(" has ended to serve ").append(buyerAtTheCounter);
         return sb.toString();
     }
 }
