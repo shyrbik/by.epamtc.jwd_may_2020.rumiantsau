@@ -31,9 +31,9 @@ class Shop {
         int numberOfBuyersToEnter;
         int simplifiedTimeUnit = second % 60;
         if (simplifiedTimeUnit < 30) {
-            numberOfBuyersToEnter = simplifiedTimeUnit + 10 - currentBuyersNumber;
+            numberOfBuyersToEnter = simplifiedTimeUnit + 9 - currentBuyersNumber;
         } else {
-            numberOfBuyersToEnter = 40 + (30 - simplifiedTimeUnit) - currentBuyersNumber;
+            numberOfBuyersToEnter = 40 + (23 - simplifiedTimeUnit) - currentBuyersNumber;
         }
         if (numberOfBuyersToEnter < 0) numberOfBuyersToEnter = 0;
         return numberOfBuyersToEnter;

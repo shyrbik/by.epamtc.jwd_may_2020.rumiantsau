@@ -156,7 +156,7 @@ class Dispatcher extends Thread {
     @SuppressWarnings("all")
     private static void checkIfCasiersStillAtWorkAndSendThemHome() {
         for (Cashier cashier : cashiersThreads) {
-            if (cashier.getState().name().equals("WAITING")) {
+            if (!cashier.getState().name().equals("TERMINATED")) {
                 synchronized (cashier) {
                     cashier.interrupt();
                 }
@@ -177,7 +177,7 @@ class Dispatcher extends Thread {
     @Override
     public void run() {
         addCashiers();
-        while (Dispatcher.getBuyersNumberInside() > 0)
+        while (!Dispatcher.shopCanBeClosed())
             while (Dispatcher.needsCashierToOpenTheCounter()) {
                 makeCashierWork();
             }
