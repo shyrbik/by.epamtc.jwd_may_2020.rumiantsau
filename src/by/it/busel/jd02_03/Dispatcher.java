@@ -2,6 +2,8 @@ package by.it.busel.jd02_03;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.concurrent.atomic.AtomicInteger;
 
 //todo maybe replace with  AtomicInteger
@@ -107,19 +109,17 @@ class Dispatcher extends Thread {
 
     private static int cashierId = 0;
 
-    private static List<Cashier> cashiersThreads = new ArrayList<>(5);
+    private static List<Cashier> cashiersThreads = new ArrayList<>(CASHIER_COUNTERS_AVAILABLE);
 
-    private static void addCashiers() {
-        for (int i = 1; i <= 2; i++) {
+    static {
+        for (int i = 1; i < 2; i++) {
             cashierId = i;
-            Cashier cashier = new Cashier(cashierId);
-            cashiersThreads.add(cashier);
-            cashier.start();
+            cashiersThreads.add(new Cashier(cashierId));
         }
     }
 
     @SuppressWarnings("all")
-    private static void makeCashierWork() {
+    private static void makeCashierWork(ExecutorService executorService) {
         boolean hasWaiting = false;
         for (Cashier cashier : cashiersThreads) {
             if (cashier.getState().name().equals("WAITING")) {
@@ -131,41 +131,33 @@ class Dispatcher extends Thread {
             }
         }
         if (cashiersThreads.size() < Dispatcher.CASHIER_COUNTERS_AVAILABLE && !hasWaiting) {
-            Cashier cashier = new Cashier(++cashierId);
-            cashiersThreads.add(cashier);
-            cashier.start();
+            cashiersThreads.add(new Cashier(++cashierId));
+            executorService.execute(cashiersThreads.get(cashierId - 1));
         }
     }
 
-    @SuppressWarnings("all")
-    private static void checkIfCasiersStillAtWorkAndSendThemHome() {
-        for (Cashier cashier : cashiersThreads) {
-            if (!cashier.getState().name().equals("TERMINATED")) {
-                synchronized (cashier) {
-                    cashier.interrupt();
-                }
-            }
-        }
-    }
-
-    private static void executeUntilAllCashiersFinished() {
-        for (Cashier cashier : cashiersThreads) {
-            try {
-                cashier.join();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
-    }
+//    @SuppressWarnings("all")
+//    private static void checkIfCasiersStillAtWorkAndSendThemHome() {
+//        for (Cashier cashier : cashiersThreads) {
+//            if (!cashier.getState().name().equals("TERMINATED")) {
+//                synchronized (cashier) {
+//                    cashier.interrupt();
+//                }
+//            }
+//        }
+//    }
 
     @Override
     public void run() {
-        addCashiers();
+        ExecutorService executorServiceOfCashiers = Executors.newFixedThreadPool(CASHIER_COUNTERS_AVAILABLE);
+        for (Cashier cashier : cashiersThreads) {
+            executorServiceOfCashiers.execute(cashier);
+        }
         while (!Dispatcher.shopCanBeClosed())
             while (Dispatcher.needsCashierToOpenTheCounter()) {
-                makeCashierWork();
+                makeCashierWork(executorServiceOfCashiers);
             }
-        checkIfCasiersStillAtWorkAndSendThemHome();
-        executeUntilAllCashiersFinished();
+        executorServiceOfCashiers.shutdownNow();
+//        checkIfCasiersStillAtWorkAndSendThemHome();
     }
 }
