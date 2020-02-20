@@ -37,6 +37,12 @@ class Buyer extends Thread implements IBuyer, IUseBacket {
     public void run() {
         enterToMarket();
         takeBacket();
+        performActivitiesInSalesAre();
+        goToQueue();
+        goOut();
+    }
+
+    private void performActivitiesInSalesAre() {
         try {
             salesAreaCapacity.acquire();
             System.out.println(this + " has entered the sales area.");
@@ -51,8 +57,6 @@ class Buyer extends Thread implements IBuyer, IUseBacket {
             System.out.println(this + " has left the sales area.");
             salesAreaCapacity.release();
         }
-        goToQueue();
-        goOut();
     }
 
     @Override
