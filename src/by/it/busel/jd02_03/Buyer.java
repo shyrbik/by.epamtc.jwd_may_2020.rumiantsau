@@ -1,9 +1,18 @@
 package by.it.busel.jd02_03;
 
 import java.util.Map;
+import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.Semaphore;
 
 class Buyer extends Thread implements IBuyer, IUseBacket {
+    private static final ArrayBlockingQueue<Backet> backets = new ArrayBlockingQueue<>(50);
+
+    static {
+        for (int i = 0; i < Dispatcher.NUMBER_OF_BACKETS; i++) {
+            backets.add(new Backet());
+        }
+    }
+
     boolean isPensioner;
 
     private boolean waitingFlag = false;
@@ -14,7 +23,7 @@ class Buyer extends Thread implements IBuyer, IUseBacket {
 
     private double cognitiveDelay;
 
-    private Backet personalBacket = new Backet();
+    private Backet personalBacket;
 
     private static final Semaphore salesAreaCapacity = new Semaphore(20);
 
@@ -36,9 +45,19 @@ class Buyer extends Thread implements IBuyer, IUseBacket {
     @Override
     public void run() {
         enterToMarket();
+        try {
+            personalBacket = backets.take();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         takeBacket();
         performActivitiesInSalesAre();
         goToQueue();
+        try {
+            backets.put(this.personalBacket);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         goOut();
     }
 
@@ -125,5 +144,9 @@ class Buyer extends Thread implements IBuyer, IUseBacket {
 //        }
 //        sb.append(String.format("%14s %-5.2f %s%n", "Total:", total, "BYN"));
 //        System.out.println(sb.toString());
+    }
+
+    void emptyBacket() {
+        personalBacket.emptyBacket();
     }
 }

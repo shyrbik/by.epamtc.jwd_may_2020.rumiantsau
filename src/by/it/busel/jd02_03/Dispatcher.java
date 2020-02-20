@@ -10,6 +10,7 @@ class Dispatcher extends Thread {
     static final int SPEED_COEFFICIENT = 100;
     private static final int MAX_DAILY_BUYERS_NUMBER = 100;
     private static final int CASHIER_COUNTERS_AVAILABLE = 5;
+    static final int NUMBER_OF_BACKETS = 50;
 
     private static AtomicInteger counterOfBuyersServedToday = new AtomicInteger(0);
     private static AtomicInteger counterOfBuyersInside = new AtomicInteger(0);

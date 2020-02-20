@@ -45,4 +45,9 @@ class Backet {
     Map<String, Double> getPersonalGoods() {
         return personalGoods;
     }
+
+    void emptyBacket() {
+        personalGoods = new HashMap<>();
+        lastChosenItem = null;
+    }
 }
