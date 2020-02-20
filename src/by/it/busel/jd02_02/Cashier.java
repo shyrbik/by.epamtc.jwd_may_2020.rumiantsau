@@ -20,13 +20,11 @@ class Cashier extends Thread {
         }
     }
 
-    private int id;
     private String preBlanks = "";
     private String postBlanks = "";
 
     Cashier(int id) {
         this.setName("Cashier №" + id + " ");
-        this.id = id;
         Dispatcher.cashierOpensTheCounter();
         setPreBlanks(id);
         setPostBlanks(id);

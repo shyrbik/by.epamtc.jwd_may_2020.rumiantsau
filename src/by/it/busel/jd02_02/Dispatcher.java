@@ -7,7 +7,7 @@ import java.util.List;
 class Dispatcher extends Thread {
     static final int SPEED_COEFFICIENT = 100;
     private static final int MAX_DAILY_BUYERS_NUMBER = 100;
-    static final int CASHIER_COUNTERS_AVAILABLE = 5;
+    private static final int CASHIER_COUNTERS_AVAILABLE = 5;
 
     private static final Object buyersMonitor = new Object();
 
@@ -49,7 +49,7 @@ class Dispatcher extends Thread {
 
     private static final Object cashiersMonitor = new Object();
 
-    static boolean needsCashierToOpenTheCounter() {
+    private static boolean needsCashierToOpenTheCounter() {
         synchronized (cashiersMonitor) {
             synchronized (SoleQueue.class) {
                 int quantityOfBuyersInAQueue = SoleQueue.getBuyersQuantity();
@@ -103,11 +103,11 @@ class Dispatcher extends Thread {
         }
     }
 
-    static int getCashiersNumberWorking() {
-        synchronized (cashiersMonitor) {
-            return counterOfOpenedCashiers;
-        }
-    }
+//    static int getCashiersNumberWorking() {
+//        synchronized (cashiersMonitor) {
+//            return counterOfOpenedCashiers;
+//        }
+//    }
 
     static void cashierOpensTheCounter() {
         synchronized (cashiersMonitor) {
