@@ -6,7 +6,6 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.atomic.AtomicInteger;
 
-//todo maybe replace with  AtomicInteger
 class Dispatcher extends Thread {
     static final int SPEED_COEFFICIENT = 100;
     private static final int MAX_DAILY_BUYERS_NUMBER = 100;
