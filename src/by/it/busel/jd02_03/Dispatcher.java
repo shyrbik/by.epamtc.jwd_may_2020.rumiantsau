@@ -2,6 +2,7 @@ package by.it.busel.jd02_03;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 
 //todo maybe replace with  AtomicInteger
 class Dispatcher extends Thread {
@@ -9,43 +10,32 @@ class Dispatcher extends Thread {
     private static final int MAX_DAILY_BUYERS_NUMBER = 100;
     private static final int CASHIER_COUNTERS_AVAILABLE = 5;
 
-    private static final Object buyersMonitor = new Object();
-
-    private static int counterOfBuyersServedToday = 0;
-    private static int counterOfBuyersInside = 0;
+    private static AtomicInteger counterOfBuyersServedToday = new AtomicInteger(0);
+    private static AtomicInteger counterOfBuyersInside = new AtomicInteger(0);
 
     static boolean shopDoorsAreStillOpened() {
-        synchronized (buyersMonitor) {
-            return counterOfBuyersServedToday < MAX_DAILY_BUYERS_NUMBER;
-        }
+        return counterOfBuyersServedToday.get() < MAX_DAILY_BUYERS_NUMBER;
     }
 
     static boolean shopCanBeClosed() {
-        synchronized (buyersMonitor) {
-            return counterOfBuyersServedToday == MAX_DAILY_BUYERS_NUMBER && counterOfBuyersInside == 0;
-        }
+        return counterOfBuyersServedToday.get() == MAX_DAILY_BUYERS_NUMBER
+                && counterOfBuyersInside.get() == 0;
     }
 
     static int getBuyersNumberInside() {
-        synchronized (buyersMonitor) {
-            return counterOfBuyersInside;
-        }
+        return counterOfBuyersInside.get();
     }
 
     static void buyerEntered() {
-        synchronized (buyersMonitor) {
-            counterOfBuyersServedToday++;
-            counterOfBuyersInside++;
-        }
+        counterOfBuyersServedToday.getAndIncrement();
+        counterOfBuyersInside.getAndIncrement();
     }
 
     static void buyerLeft() {
-        synchronized (buyersMonitor) {
-            counterOfBuyersInside--;
-        }
+        counterOfBuyersInside.getAndDecrement();
     }
 
-    private static int counterOfOpenedCashiers = 0;
+    private static AtomicInteger counterOfOpenedCashiers = new AtomicInteger(0);
 
     private static final Object cashiersMonitor = new Object();
 
@@ -53,7 +43,7 @@ class Dispatcher extends Thread {
         synchronized (cashiersMonitor) {
             synchronized (SoleQueue.class) {
                 int quantityOfBuyersInAQueue = SoleQueue.getBuyersQuantity();
-                switch (counterOfOpenedCashiers) {
+                switch (counterOfOpenedCashiers.get()) {
                     case 0:
                         return quantityOfBuyersInAQueue > 0;
                     case 1:
@@ -76,7 +66,7 @@ class Dispatcher extends Thread {
         synchronized (cashiersMonitor) {
             synchronized (SoleQueue.queueMonitor) {
                 int quantityOfBuyersInAQueue = SoleQueue.getBuyersQuantity();
-                switch (counterOfOpenedCashiers) {
+                switch (counterOfOpenedCashiers.get()) {
                     case 1:
                         return quantityOfBuyersInAQueue == 0;
                     case 2:
@@ -103,22 +93,16 @@ class Dispatcher extends Thread {
         }
     }
 
-//    static int getCashiersNumberWorking() {
-//        synchronized (cashiersMonitor) {
-//            return counterOfOpenedCashiers;
-//        }
-//    }
+    static int getCashiersNumberWorking() {
+        return counterOfOpenedCashiers.get();
+    }
 
     static void cashierOpensTheCounter() {
-        synchronized (cashiersMonitor) {
-            counterOfOpenedCashiers++;
-        }
+        counterOfOpenedCashiers.getAndIncrement();
     }
 
     static void cashierClosesTheCounter() {
-        synchronized (cashiersMonitor) {
-            counterOfOpenedCashiers--;
-        }
+        counterOfOpenedCashiers.getAndDecrement();
     }
 
     private static int cashierId = 0;
