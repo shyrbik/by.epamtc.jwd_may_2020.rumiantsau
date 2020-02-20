@@ -16,13 +16,6 @@ public class Backet  {
         this.backets = backets;
     }
 
-    public Map<Good,Integer> getBackets() {
-        return backets;
-    }
-
-    public void setBackets(Map<Good,Integer> backets) {
-        this.backets = backets;
-    }
 
     @Override
     public boolean equals(Object o) {
