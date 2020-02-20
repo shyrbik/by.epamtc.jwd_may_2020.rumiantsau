@@ -5,6 +5,12 @@ import java.util.Map;
 class Buyer extends Thread implements IBuyer, IUseBacket {
     boolean isPensioner;
 
+    private boolean waitingFlag = false;
+
+    void setWaitingFlag(boolean waitingFlag) {
+        this.waitingFlag = waitingFlag;
+    }
+
     private double cognitiveDelay;
 
     private Backet personalBacket = new Backet();
@@ -72,12 +78,15 @@ class Buyer extends Thread implements IBuyer, IUseBacket {
     @Override
     public void goToQueue() {
         System.out.println(this + " has made for the sole queue in the shop.");
-        SoleQueue.add(this);
         synchronized (this) {
-            try {
-                this.wait();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
+            SoleQueue.add(this);
+            this.waitingFlag = true;
+            while (this.waitingFlag) {
+                try {
+                    this.wait();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
             }
         }
     }
