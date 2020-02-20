@@ -9,7 +9,7 @@ class Dispatcher {
     static final int MAX_BUYERS = 40;             //Пик getBuyersNeed покупателей при плавном изменении по времени
     static final int MAX_BUYERS_IN_QUEUE = 30;    //Максимальный размер очереди.
     static final int MAX_BUYERS_IN_HALL = 20;     //Максимальное количество на торговом зале
-    static final int MAX_BUCKETS = 10;            //Максимальные количество корзинок
+    static final int MAX_BUCKETS = 50;            //Максимальные количество корзинок
 
     private final static AtomicInteger buyersCreated = new AtomicInteger(0);
     private final static AtomicInteger buyersInMarket = new AtomicInteger(0);
