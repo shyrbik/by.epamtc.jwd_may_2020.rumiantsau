@@ -7,25 +7,25 @@ class Shop {
 
     private static List<Buyer> buyersThreads = new ArrayList<>(1000);
 
-    private static List<Cashier> cashiersThreads = new ArrayList<>(5);
+//    private static List<Cashier> cashiersThreads = new ArrayList<>(5);
 
     private static int buyerId = 0;
 
-    private static int cashierId = 0;
+//    private static int cashierId = 0;
 
     private static void informAboutOpening(String mainThreadName) {
         System.out.println("<<<<< The \"" + mainThreadName + "\" has opened >>>>>");
     }
 
     //private static void addCashiers(int number)
-    private static void addCashiers() {
-        for (int i = 1; i <= 2; i++) {
-            cashierId = i;
-            Cashier cashier = new Cashier(cashierId);
-            cashiersThreads.add(cashier);
-            cashier.start();
-        }
-    }
+//    private static void addCashiers() {
+//        for (int i = 1; i <= 2; i++) {
+//            cashierId = i;
+//            Cashier cashier = new Cashier(cashierId);
+//            cashiersThreads.add(cashier);
+//            cashier.start();
+//        }
+//    }
 
     private static int getNumberOfBuyersToEnter(int second, int currentBuyersNumber) {
         int numberOfBuyersToEnter;
@@ -49,24 +49,24 @@ class Shop {
         }
     }
 
-    @SuppressWarnings("all")
-    private static void makeCashierWork() {
-        boolean hasWaiting = false;
-        for (Cashier cashier : cashiersThreads) {
-            if (cashier.getState().name().equals("WAITING")) {
-                synchronized (cashier) {
-                    cashier.notify();
-                    hasWaiting = true;
-                    break;
-                }
-            }
-        }
-        if (cashiersThreads.size() < Dispatcher.CASHIER_COUNTERS_AVAILABLE && !hasWaiting) {
-            Cashier cashier = new Cashier(++cashierId);
-            cashiersThreads.add(cashier);
-            cashier.start();
-        }
-    }
+//    @SuppressWarnings("all")
+//    private static void makeCashierWork() {
+//        boolean hasWaiting = false;
+//        for (Cashier cashier : cashiersThreads) {
+//            if (cashier.getState().name().equals("WAITING")) {
+//                synchronized (cashier) {
+//                    cashier.notify();
+//                    hasWaiting = true;
+//                    break;
+//                }
+//            }
+//        }
+//        if (cashiersThreads.size() < Dispatcher.CASHIER_COUNTERS_AVAILABLE && !hasWaiting) {
+//            Cashier cashier = new Cashier(++cashierId);
+//            cashiersThreads.add(cashier);
+//            cashier.start();
+//        }
+//    }
 
     private static void informAboutDoorsClosure(String mainThreadName) {
         System.out.println("===== The dispatcher of the \"" + mainThreadName + "\" has shut the doors =====");
@@ -90,26 +90,26 @@ class Shop {
 //        }
     }
 
-    @SuppressWarnings("all")
-    private static void checkIfCasiersStillWorkAndSendThemHome() {
-        for (Cashier cashier : cashiersThreads) {
-            if (cashier.getState().name().equals("WAITING")) {
-                synchronized (cashier) {
-                    cashier.interrupt();
-                }
-            }
-        }
-    }
+//    @SuppressWarnings("all")
+//    private static void checkIfCasiersStillWorkAndSendThemHome() {
+//        for (Cashier cashier : cashiersThreads) {
+//            if (cashier.getState().name().equals("WAITING")) {
+//                synchronized (cashier) {
+//                    cashier.interrupt();
+//                }
+//            }
+//        }
+//    }
 
-    private static void executeUntilAllCashiersFinished() {
-        for (Cashier cashier : cashiersThreads) {
-            try {
-                cashier.join();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
-    }
+//    private static void executeUntilAllCashiersFinished() {
+//        for (Cashier cashier : cashiersThreads) {
+//            try {
+//                cashier.join();
+//            } catch (InterruptedException e) {
+//                e.printStackTrace();
+//            }
+//        }
+//    }
 
     private static void informAboutClosureOfStore(String mainThreadName) {
         System.out.println("<<<<< The \"" + mainThreadName + "\" has closed >>>>>");
@@ -119,7 +119,11 @@ class Shop {
     public static void main(String[] args) {
         String mainThreadName = Shop.class.getSimpleName();
         informAboutOpening(mainThreadName);
-        addCashiers();
+        //new start
+        Dispatcher dispatcher = new Dispatcher();
+        dispatcher.start();
+        //new end
+//        addCashiers();
         int second = 0;
         while (Dispatcher.shopDoorsAreStillOpened()) {
             int currentBuyersNumber = Dispatcher.getBuyersNumberInside();
@@ -127,15 +131,20 @@ class Shop {
             System.out.println("Current second: " + second++ + "; Buyers inside the Shop: " + currentBuyersNumber
                     + "; Buyers to enter: " + numberOfBuyersToEnter);
             letBuyersGetIn(numberOfBuyersToEnter);
-            while (Dispatcher.needsCashierToOpenTheCounter()) {
-                makeCashierWork();
-            }
+//            while (Dispatcher.needsCashierToOpenTheCounter()) {
+//                makeCashierWork();
+//            }
             Helper.sleep(1000);
         }
         informAboutDoorsClosure(mainThreadName);
+        try {
+            dispatcher.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         executeUntilAllBuyersFinished();
-        checkIfCasiersStillWorkAndSendThemHome();
-        executeUntilAllCashiersFinished();
+//        checkIfCasiersStillWorkAndSendThemHome();
+//        executeUntilAllCashiersFinished();
         informAboutClosureOfStore(mainThreadName);
     }
 }

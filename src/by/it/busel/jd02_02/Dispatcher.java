@@ -1,7 +1,10 @@
 package by.it.busel.jd02_02;
 
+import java.util.ArrayList;
+import java.util.List;
+
 //todo maybe replace with  AtomicInteger
-class Dispatcher {
+class Dispatcher extends Thread {
     static final int SPEED_COEFFICIENT = 100;
     private static final int MAX_DAILY_BUYERS_NUMBER = 100;
     static final int CASHIER_COUNTERS_AVAILABLE = 5;
@@ -118,4 +121,67 @@ class Dispatcher {
         }
     }
 
+    private static int cashierId = 0;
+
+    private static List<Cashier> cashiersThreads = new ArrayList<>(5);
+
+    private static void addCashiers() {
+        for (int i = 1; i <= 2; i++) {
+            cashierId = i;
+            Cashier cashier = new Cashier(cashierId);
+            cashiersThreads.add(cashier);
+            cashier.start();
+        }
+    }
+
+    @SuppressWarnings("all")
+    private static void makeCashierWork() {
+        boolean hasWaiting = false;
+        for (Cashier cashier : cashiersThreads) {
+            if (cashier.getState().name().equals("WAITING")) {
+                synchronized (cashier) {
+                    cashier.notify();
+                    hasWaiting = true;
+                    break;
+                }
+            }
+        }
+        if (cashiersThreads.size() < Dispatcher.CASHIER_COUNTERS_AVAILABLE && !hasWaiting) {
+            Cashier cashier = new Cashier(++cashierId);
+            cashiersThreads.add(cashier);
+            cashier.start();
+        }
+    }
+
+    @SuppressWarnings("all")
+    private static void checkIfCasiersStillAtWorkAndSendThemHome() {
+        for (Cashier cashier : cashiersThreads) {
+            if (cashier.getState().name().equals("WAITING")) {
+                synchronized (cashier) {
+                    cashier.interrupt();
+                }
+            }
+        }
+    }
+
+    private static void executeUntilAllCashiersFinished() {
+        for (Cashier cashier : cashiersThreads) {
+            try {
+                cashier.join();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    @Override
+    public void run() {
+        addCashiers();
+        while (Dispatcher.getBuyersNumberInside() > 0)
+            while (Dispatcher.needsCashierToOpenTheCounter()) {
+                makeCashierWork();
+            }
+        checkIfCasiersStillAtWorkAndSendThemHome();
+        executeUntilAllCashiersFinished();
+    }
 }
