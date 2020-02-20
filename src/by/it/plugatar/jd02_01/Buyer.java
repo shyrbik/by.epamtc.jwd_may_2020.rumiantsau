@@ -1,7 +1,7 @@
 package by.it.plugatar.jd02_01;
 
 public class Buyer extends Thread implements IBuyer, IUseBasket {
-    private boolean retired = false;
+    private boolean pensioneer = false;
     private Basket basket = new Basket();
 
     public Buyer(int number){
@@ -9,9 +9,9 @@ public class Buyer extends Thread implements IBuyer, IUseBasket {
         Dispatcher.totalBuyersCount++;
         Dispatcher.buyersCount++;
         if (RandomHelper.random(1, 4) == 1) {
-            this.retired = true;
+            this.pensioneer = true;
             Dispatcher.totalRetiredCount++;
-            this.setName(this.getName() + "(retired)");
+            this.setName(this.getName() + " (pensioneer)");
         }
     }
 

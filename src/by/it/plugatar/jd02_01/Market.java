@@ -18,7 +18,7 @@ public class Market {
     }
     private static void marketStatistics() {
         System.out.println("Buyers in Market Statistics:");
-        System.out.printf("Total buyers: %d, retired buyers: %d\n", Dispatcher.totalBuyersCount, Dispatcher.totalRetiredCount);
+        System.out.printf("Total buyers: %d, pensioneer buyers: %d\n", Dispatcher.totalBuyersCount, Dispatcher.totalRetiredCount);
         System.out.println("-------------------------------------------------------------------------------------");
         int n = numberOfBuyers.size();
         System.out.print("entry № | number of buyers in the market | entered buyers | total number of buyers (in the market + entered) |\n");
