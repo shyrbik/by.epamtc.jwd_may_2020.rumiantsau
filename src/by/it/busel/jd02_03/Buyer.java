@@ -1,6 +1,7 @@
 package by.it.busel.jd02_03;
 
 import java.util.Map;
+import java.util.concurrent.Semaphore;
 
 class Buyer extends Thread implements IBuyer, IUseBacket {
     boolean isPensioner;
@@ -14,6 +15,8 @@ class Buyer extends Thread implements IBuyer, IUseBacket {
     private double cognitiveDelay;
 
     private Backet personalBacket = new Backet();
+
+    private static final Semaphore salesAreaCapacity = new Semaphore(20);
 
     Buyer(int id) {
         if (id % 4 != 0) this.setName("Buyer №" + id);
@@ -34,10 +37,19 @@ class Buyer extends Thread implements IBuyer, IUseBacket {
     public void run() {
         enterToMarket();
         takeBacket();
-        int numberOfGoodsNeeded = Helper.getRandomIntValue(1, 4);
-        for (int i = 0; i < numberOfGoodsNeeded; i++) {
-            chooseGoods();
-            putGoodsToBacket();
+        try {
+            salesAreaCapacity.acquire();
+            System.out.println(this + " has entered the sales area.");
+            int numberOfGoodsNeeded = Helper.getRandomIntValue(1, 4);
+            for (int i = 0; i < numberOfGoodsNeeded; i++) {
+                chooseGoods();
+                putGoodsToBacket();
+            }
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } finally {
+            System.out.println(this + " has left the sales area.");
+            salesAreaCapacity.release();
         }
         goToQueue();
         goOut();
