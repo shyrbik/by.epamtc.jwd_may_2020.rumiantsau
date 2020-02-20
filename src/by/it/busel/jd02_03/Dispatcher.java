@@ -42,56 +42,39 @@ class Dispatcher extends Thread {
     private static final Object cashiersMonitor = new Object();
 
     private static boolean needsCashierToOpenTheCounter() {
-        synchronized (cashiersMonitor) {
-            synchronized (SoleQueue.class) {
-                int quantityOfBuyersInAQueue = SoleQueue.getBuyersQuantity();
-                switch (counterOfOpenedCashiers.get()) {
-                    case 0:
-                        return quantityOfBuyersInAQueue > 0;
-                    case 1:
-                        return quantityOfBuyersInAQueue > 5;
-                    case 2:
-                        return quantityOfBuyersInAQueue > 10;
-                    case 3:
-                        return quantityOfBuyersInAQueue > 15;
-                    case 4:
-                        return quantityOfBuyersInAQueue > 20;
-                    case 5:
-                        return false;
-                }
-            }
+//        int quantityOfBuyersInAQueue = SoleQueue.getBuyersQuantity();
+        switch (counterOfOpenedCashiers.get()) {
+            case 0:
+                return SoleQueue.getBuyersQuantity() > 0;
+            case 1:
+                return SoleQueue.getBuyersQuantity() > 4;
+            case 2:
+                return SoleQueue.getBuyersQuantity() > 9;
+            case 3:
+                return SoleQueue.getBuyersQuantity() > 14;
+            case 4:
+                return SoleQueue.getBuyersQuantity() > 19;
+            case 5:
+                return false;
         }
         return false;
     }
 
     static boolean saysCashierToCloseTheCounter() {
-        synchronized (cashiersMonitor) {
-            synchronized (SoleQueue.queueMonitor) {
-                int quantityOfBuyersInAQueue = SoleQueue.getBuyersQuantity();
-                switch (counterOfOpenedCashiers.get()) {
-                    case 1:
-                        return quantityOfBuyersInAQueue == 0;
-                    case 2:
-                        return quantityOfBuyersInAQueue <= 5;
-                    case 3:
-                        return quantityOfBuyersInAQueue <= 10;
-                    case 4:
-                        return quantityOfBuyersInAQueue <= 15;
-                    case 5:
-                        return quantityOfBuyersInAQueue <= 20;
-                    default:
-                        return false;
-                }
-//                if (counterOfOpenedCashiers == 1) {
-//                    return false;
-//                } else if (counterOfOpenedCashiers == 2 && quantityOfBuyersInAQueue <= 5) {
-//                    return true;
-//                } else if (counterOfOpenedCashiers == 3 && quantityOfBuyersInAQueue <= 10) {
-//                    return true;
-//                } else if (counterOfOpenedCashiers == 4 && quantityOfBuyersInAQueue <= 15) {
-//                    return true;
-//                } else return counterOfOpenedCashiers == 5 && quantityOfBuyersInAQueue <= 20;
-            }
+//        int quantityOfBuyersInAQueue = SoleQueue.getBuyersQuantity();
+        switch (counterOfOpenedCashiers.get()) {
+            case 1:
+                return SoleQueue.getBuyersQuantity() == 0;
+            case 2:
+                return SoleQueue.getBuyersQuantity() <= 4;
+            case 3:
+                return SoleQueue.getBuyersQuantity() <= 9;
+            case 4:
+                return SoleQueue.getBuyersQuantity() <= 14;
+            case 5:
+                return SoleQueue.getBuyersQuantity() <= 19;
+            default:
+                return false;
         }
     }
 
@@ -136,17 +119,6 @@ class Dispatcher extends Thread {
         }
     }
 
-//    @SuppressWarnings("all")
-//    private static void checkIfCasiersStillAtWorkAndSendThemHome() {
-//        for (Cashier cashier : cashiersThreads) {
-//            if (!cashier.getState().name().equals("TERMINATED")) {
-//                synchronized (cashier) {
-//                    cashier.interrupt();
-//                }
-//            }
-//        }
-//    }
-
     @Override
     public void run() {
         ExecutorService executorServiceOfCashiers = Executors.newFixedThreadPool(CASHIER_COUNTERS_AVAILABLE);
@@ -158,6 +130,5 @@ class Dispatcher extends Thread {
                 makeCashierWork(executorServiceOfCashiers);
             }
         executorServiceOfCashiers.shutdownNow();
-//        checkIfCasiersStillAtWorkAndSendThemHome();
     }
 }
