@@ -44,6 +44,7 @@ class Parser {
                     return first.div(second);
             }
         }
+        throw new CalcException("Ошибка ввода");
     }
 
     Var calc(String expression) throws CalcException {
@@ -54,10 +55,15 @@ class Parser {
         Matcher m = Pattern.compile(Patterns.MATH_SIGN).matcher(expression);
         while (m.find()) {
             mathSigns.add(m.group());
-            String[] values = expression.split(Patterns.MATH_SIGN);
         }
+        while (mathSigns.size() > 0) {
+            int posHighestPriority = findHighestPriority(mathSigns);
+            String sign = mathSigns.remove(posHighestPriority);
+            String left = numbers.remove(posHighestPriority);
+            String right = numbers.remove(posHighestPriority);
+            Var var = singleOperation(left, sign, right);
+            numbers.add(posHighestPriority, var.toString());
+        }
+        return Var.newVar(numbers.get(0));
     }
 }
-
-
-//else throw new CalcException("Ошибка ввода");
