@@ -7,6 +7,7 @@ class Parser {
 
     Var calc(String expression) throws CalcException {
         Log.writeLog(expression);
+        expression = expression.replace("\\s+", "");
         Matcher m = Pattern.compile(Patterns.MATH_SIGN).matcher(expression);
         if (m.find()) {
             String sing = m.group();
