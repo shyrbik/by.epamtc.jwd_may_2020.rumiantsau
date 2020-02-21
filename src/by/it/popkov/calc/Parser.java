@@ -12,22 +12,22 @@ class Parser {
         if (m.find()) {
             String sing = m.group();
             String[] values = expression.split(Patterns.MATH_SIGN);
-            String first = values[0];
-            String second = values[1];
+            Var second = Var.newVar(values[1]);
             if (sing.equals("=")){
-                Var.save(values[0], Var.newVar(second));
-                return Var.newVar(second);
+                Var.save(values[0], second);
+                return second;
             }
-            if (Var.newVar(first) != null && Var.newVar(second) != null) {
+            Var first = Var.newVar(values[0]);
+            if (first != null && second != null) {
                 switch (sing) {
                     case "+":
-                        return Var.newVar(first).add(Var.newVar(second));
+                        return first.add(second);
                     case "-":
-                        return Var.newVar(first).sub(Var.newVar(second));
+                        return first.sub(second);
                     case "*":
-                        return Var.newVar(first).mul(Var.newVar(second));
+                        return first.mul(second);
                     case "/":
-                        return Var.newVar(first).div(Var.newVar(second));
+                        return first.div(second);
 
                 }
             }
