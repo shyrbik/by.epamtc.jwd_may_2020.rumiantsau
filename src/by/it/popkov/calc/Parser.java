@@ -20,7 +20,11 @@ class Parser {
         int posHighestPriority = -1;
         int highestPriority = -1;
         for (int i = 0; i < listMathSigns.size(); i++) {
-            if (priorityMap.get(listMathSigns.get(i)) > highestPriority) posHighestPriority = i;
+            Integer thisPriority = priorityMap.get(listMathSigns.get(i));
+            if (thisPriority > highestPriority) {
+                posHighestPriority = i;
+                highestPriority = thisPriority;
+            }
         }
         return posHighestPriority;
     }
