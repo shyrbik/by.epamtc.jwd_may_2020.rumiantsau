@@ -1,9 +1,6 @@
 package by.it.borodachev.jd02_02;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
-import java.util.PriorityQueue;
+import java.util.*;
 
 class Dispatcher {
     static final int K_SPEED=10000;
