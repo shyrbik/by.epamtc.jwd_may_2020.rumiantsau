@@ -1,37 +1,63 @@
 package by.it.popkov.calc;
 
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 class Parser {
 
+    private static Map<String, Integer> priorityMap = new HashMap<>();
+
+    static {
+        priorityMap.put("=", 0);
+        priorityMap.put("+", 1);
+        priorityMap.put("-", 1);
+        priorityMap.put("*", 2);
+        priorityMap.put("/", 2);
+    }
+
+    private int findHighestPriority(List<String> listMathSigns) {
+        int posHighestPriority = -1;
+        int highestPriority = -1;
+        for (int i = 0; i < listMathSigns.size(); i++) {
+            if (priorityMap.get(listMathSigns.get(i)) > highestPriority) posHighestPriority = i;
+        }
+        return posHighestPriority;
+    }
+
+    private Var singleOperation(String left, String sing, String right) throws CalcException {
+        Var second = Var.newVar(right);
+        if (sing.equals("=")) {
+            Var.save(left, second);
+            return second;
+        }
+        Var first = Var.newVar(left);
+        if (first != null && second != null) {
+            switch (sing) {
+                case "+":
+                    return first.add(second);
+                case "-":
+                    return first.sub(second);
+                case "*":
+                    return first.mul(second);
+                case "/":
+                    return first.div(second);
+            }
+        }
+    }
+
     Var calc(String expression) throws CalcException {
         Log.writeLog(expression);
         expression = expression.replace("\\s+", "");
+        List<String> numbers = new ArrayList<>(Arrays.asList(expression.split(Patterns.MATH_SIGN)));
+        List<String> mathSigns = new ArrayList<>();
         Matcher m = Pattern.compile(Patterns.MATH_SIGN).matcher(expression);
-        if (m.find()) {
-            String sing = m.group();
+        while (m.find()) {
+            mathSigns.add(m.group());
             String[] values = expression.split(Patterns.MATH_SIGN);
-            Var second = Var.newVar(values[1]);
-            if (sing.equals("=")){
-                Var.save(values[0], second);
-                return second;
-            }
-            Var first = Var.newVar(values[0]);
-            if (first != null && second != null) {
-                switch (sing) {
-                    case "+":
-                        return first.add(second);
-                    case "-":
-                        return first.sub(second);
-                    case "*":
-                        return first.mul(second);
-                    case "/":
-                        return first.div(second);
-
-                }
-            }
         }
-        throw new CalcException("Ошибка ввода");
     }
 }
+
+
+//else throw new CalcException("Ошибка ввода");
