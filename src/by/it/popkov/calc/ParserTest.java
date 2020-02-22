@@ -60,6 +60,8 @@ public class ParserTest {
         }
     }
 
+    /**                               TEST MATRIX                          **/
+
     @Test
     public void matrixAddScalar() {
         System.out.println("Test {{0, 1}, {2, 3}} + 2");
@@ -169,4 +171,44 @@ public class ParserTest {
             e.printStackTrace();
         }
     }
+
+    /**                               TEST VARIABLE                         **/
+
+    @Test
+    public void varScalar() {
+        System.out.println("Test variable Scalar");
+        try {
+            Var calc = parser.calc("A=1.5");
+            assertEquals("Wrong result for A=1.5", "1.5", calc.toString());
+            System.out.println(calc.toString());
+            System.out.println("Test is successful, so you see this message");
+        } catch (CalcException e) {
+            e.printStackTrace();
+        }
+    }
+    @Test
+    public void varVector() {
+        System.out.println("Test variable B={1.5, 2.3}");
+        try {
+            Var calc = parser.calc("B={1.5, 2.3}");
+            assertEquals("Wrong result for B={1.5, 2.3}", "{1.5, 2.3}", calc.toString());
+            System.out.println(calc.toString());
+            System.out.println("Test is successful, so you see this message");
+        } catch (CalcException e) {
+            e.printStackTrace();
+        }
+    }
+    @Test
+    public void varMatrix() {
+        System.out.println("Test variable A=1.5");
+        try {
+            Var calc = parser.calc("Test variable A=1.5");
+            assertEquals("Wrong result for A=2+5.3", "7.3", calc.toString());
+            System.out.println(calc.toString());
+            System.out.println("Test is successful, so you see this message");
+        } catch (CalcException e) {
+            e.printStackTrace();
+        }
+    }
+
 }
