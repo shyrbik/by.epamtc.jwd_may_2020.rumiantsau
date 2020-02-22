@@ -1,6 +1,5 @@
 package by.it.lozouski.calc;
 
-import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
@@ -9,84 +8,212 @@ public class My_Test_Calc_Parser {
 
     private Parser testParser = new Parser();
 
-    @Before
-    public void startTest() {
-        System.out.println("Старт теста для задания.\n");
+
+    @Test(timeout = 5000)
+    public void testCreateScalar() {
+        try {
+            Var resultActual1 = testParser.calculate("s=5.25");
+            Var resultActual2 = testParser.calculate("s1=2.0");
+            Var resultActual3 = testParser.calculate("s2=-10.4");
+            String expected1 = "5.25";
+            String expected2 = "2.0";
+            String expected3 = "-10.4";
+            assertEquals("Некорректный результат.", expected1, resultActual1.toString());
+            System.out.println("Создание переменной: " + "s=5.25" + " выполнено успешно.\n" + "Результат:" + resultActual1.toString());
+            assertEquals("Некорректный результат.", expected2, resultActual2.toString());
+            System.out.println("Создание переменной: " + "s1=2.0" + " выполнено успешно.\n" + "Результат:" + resultActual2.toString());
+            assertEquals("Некорректный результат.", expected3, resultActual3.toString());
+            System.out.println("Создание переменной: " + "s2=-10.4" + " выполнено успешно.\n" + "Результат:" + resultActual3.toString());
+        } catch (CalcException e) {
+            System.out.println("Тест не пройден!!!");
+            e.printStackTrace();
+        }
+    }
+
+    @Test(timeout = 5000)
+    public void testCreateVector() throws CalcException {
+        Var resultActual4 = testParser.calculate("v={1,2,3}");
+        Var resultActual5 = testParser.calculate("v1={4,-5, 6, 0}");
+        Var resultActual6 = testParser.calculate("v2={-2, 10,4,225,-5}");
+        String expected4 = "{1.0, 2.0, 3.0}";
+        String expected5 = "{4.0, -5.0, 6.0, 0.0}";
+        String expected6 = "{-2.0, 10.0, 4.0, 225.0, -5.0}";
+        assertEquals("Некорректный результат.", expected4, resultActual4.toString());
+        System.out.println("Создание переменной: " + "v={1,2,3}" + " выполнено успешно.\n" + "Результат:" + resultActual4.toString());
+        assertEquals("Некорректный результат.", expected5, resultActual5.toString());
+        System.out.println("Создание переменной: " + "v1={4,-5, 6, 0}" + " выполнено успешно.\n" + "Результат:" + resultActual5.toString());
+        assertEquals("Некорректный результат.", expected6, resultActual6.toString());
+        System.out.println("Создание переменной: " + "v2={-2, 10,4,225,-5}" + " выполнено успешно.\n" + "Результат:" + resultActual6.toString());
+    }
+
+    @Test(timeout = 5000)
+    public void testCreateMatrix() throws CalcException {
+        Var resultActual7 = testParser.calculate("m={{1,2,3},{4,5,6}}");
+        Var resultActual8 = testParser.calculate("m1={{4,-5, 6, 0}, {2,3,-4,5}}");
+        Var resultActual9 = testParser.calculate("m2={{-2, 10,4,225,-5},{5,4,325,1,-9}}");
+        String expected7 = "{{1.0, 2.0, 3.0}, {4.0, 5.0, 6.0}}";
+        String expected8 = "{{4.0, -5.0, 6.0, 0.0}, {2.0, 3.0, -4.0, 5.0}}";
+        String expected9 = "{{-2.0, 10.0, 4.0, 225.0, -5.0}, {5.0, 4.0, 325.0, 1.0, -9.0}}";
+        assertEquals("Некорректный результат.", expected7, resultActual7.toString());
+        System.out.println("Создание переменной: " + "m={{1,2,3},{4,5,6}}" + " выполнено успешно.\n" + "Результат:" + resultActual7.toString());
+        assertEquals("Некорректный результат.", expected8, resultActual8.toString());
+        System.out.println("Создание переменной: " + "m1={{4,-5, 6, 0}, {2,3,-4,5}}" + " выполнено успешно.\n" + "Результат:" + resultActual8.toString());
+        assertEquals("Некорректный результат.", expected9, resultActual9.toString());
+        System.out.println("Создание переменной: " + "m2={{-2, 10,4,225,-5},{5,4,325,1,-9}}" + " выполнено успешно.\n" + "Результат:" + resultActual9.toString());
     }
 
     @Test
-    public void testScalarOperation() {
-            String[] testArrayExpressionScalar = new String[]{"A=2+5.3", "B=A*3.5", "B1=B+0.11*-5", "B2=A/2-1"};
-            Double[] testArrayResultScalar = new Double[]{7.3, 25.55, 25.0, 2.65};
-            Double[] actualArrayResultScalar = new Double[testArrayExpressionScalar.length];
-            for (int i = 0; i < testArrayExpressionScalar.length; i++) {
-                try{
-                Var scalarI = testParser.calculate(testArrayExpressionScalar[i]);
-                double actualResultScalarI = Double.parseDouble(scalarI.toString());
-                actualArrayResultScalar[i] = actualResultScalarI;
-            }catch (CalcException e){
-                    System.out.println("Тест не пройден. Сообщение об ошибке:");
-                    e.printStackTrace();
-                    System.out.println();
-                }
-            }
-            for (int i = 0; i < testArrayExpressionScalar.length; i++) {
-                assertEquals("Неправильный результат вычисления: " +
-                        testArrayExpressionScalar[i], testArrayResultScalar[i], actualArrayResultScalar[i]);
-                System.out.println("Выражение: " + testArrayExpressionScalar[i] + " выполнено успешно." +
-                        "\nРезультат: " + actualArrayResultScalar[i] + '\n');
-            }
+    public void testScalarAddScalar() throws CalcException {
+        String expression = "22.45+77.55";
+        double expected = 100.00;
+        double actual = Double.parseDouble(testParser.calculate(expression).toString());
+        assertEquals("Некорректное вычисление " + expression, expected, actual, 0.005);
+        System.out.println("Для выражения " + expression + "   Результат: " + actual + "\nТЕСТ ОК!");
     }
 
     @Test
-    public void testVectorOperation() {
-            String[] testArrayExpressionVector = new String[]{"Q={1,2,3}+{4,-5,-6}", "W=Q-{2,-2,20}", "W1=W+{3,11,4}*Q", "W2=Q*W"};
-            String[] testArrayResultVector = new String[]{"{5.0, -3.0, -3.0}", "{3.0, -1.0, -23.0}", "{-27.0, -31.0, -53.0}", "87.0"};
-            String[] actualArrayResultVector = new String[testArrayExpressionVector.length];
-        for (int i = 0; i < testArrayExpressionVector.length; i++) {
-            try{
-            Var vectorI = testParser.calculate(testArrayExpressionVector[i]);
-            String actualResultVectorI = vectorI.toString();
-            actualArrayResultVector[i] = actualResultVectorI;
-            }catch (CalcException e){
-                System.out.println("Тест не пройден. Сообщение об ошибке:");
-                e.printStackTrace();
-                System.out.println();
-            }
-        }
-        for (int i = 0; i < testArrayExpressionVector.length; i++) {
-            assertEquals("Неправильный результат вычисления: " +
-                    testArrayExpressionVector[i], testArrayResultVector[i], actualArrayResultVector[i]);
-            System.out.println("Выражение: " + testArrayExpressionVector[i] + " выполнено успешно." +
-                    "\nРезультат: " + actualArrayResultVector[i] + '\n');
-        }
+    public void testScalarSubScalar() throws CalcException {
+        String expression = "77.55-22.45";
+        double expected = 55.099;
+        double actual = Double.parseDouble(testParser.calculate(expression).toString());
+        assertEquals("Некорректное вычисление " + expression, expected, actual, 0.005);
+        System.out.println("Для выражения: " + expression + "   Результат: " + actual + "\nТЕСТ ОК!");
     }
 
     @Test
-    public void testMatrixOperation() {
-        String[] testArrayExpressionMatrix = new String[]{"Z={{1,2,3},{4,-5,-6}}+{{1,2,3},{4,-5,-6}}",
-                "X=Z-{{7,-8,9},{-10,11,12}}"};
-        String[] testArrayResultMatrix = new String[]{"{{2.0, 4.0, 6.0}, {8.0, -10.0, -12.0}}",
-                "{{-5.0, 12.0, 6.0}, {18.0, -21.0, -12.0}}"};
-        String[] actualArrayResultMatrix = new String[testArrayExpressionMatrix.length];
-        for (int i = 0; i < testArrayExpressionMatrix.length; i++) {
-            try{
-                Var matrixI = testParser.calculate(testArrayExpressionMatrix[i]);
-                String actualResultVectorI = matrixI.toString();
-                actualArrayResultMatrix[i] = actualResultVectorI;
-            }catch (CalcException e){
-                System.out.println("Тест не пройден. Сообщение об ошибке:");
-                e.printStackTrace();
-                System.out.println();
-            }
-        }
-        for (int i = 0; i < testArrayExpressionMatrix.length; i++) {
-            assertEquals("Неправильный результат вычисления: " +
-                    testArrayExpressionMatrix[i], testArrayResultMatrix[i], actualArrayResultMatrix[i]);
-            System.out.println("Выражение: " + testArrayExpressionMatrix[i] + " выполнено успешно." +
-                    "\nРезультат: " + actualArrayResultMatrix[i] + '\n');
-        }
+    public void testScalarMulScalar() throws CalcException {
+        String expression = "77.55*22.45";
+        double expected = 1740.9975;
+        double actual = Double.parseDouble(testParser.calculate(expression).toString());
+        assertEquals("Некорректное вычисление " + expression, expected, actual, 0.005);
+        System.out.println("Для выражения: " + expression + "   Результат: " + actual + "\nТЕСТ ОК!");
     }
 
+    @Test
+    public void testScalarDivScalar() throws CalcException {
+        String expression = "77.55/22.45";
+        double expected = 3.4543;
+        double actual = Double.parseDouble(testParser.calculate(expression).toString());
+        assertEquals("Некорректное вычисление " + expression, expected, actual, 0.005);
+        System.out.println("Для выражения: " + expression + "   Результат: " + actual + "\nТЕСТ ОК!");
+    }
+
+    @Test(expected = CalcException.class, timeout = 5000)
+    public void testErrorDivByZeroScalar() throws CalcException {
+        String expression = "77.55/0";
+        Var scalar = testParser.calculate(expression);
+        System.out.println("ТЕСТ НЕ ПРОШЕЛ! Деление на ноль не произошло!\n"
+                + "актуальное значение: " + expression + " Результат: " + scalar);
+    }
+
+    @Test
+    public void testVectorAddVector() throws CalcException {
+        String expression = "{-1,2,3}+{4,5,-6}";
+        String expected = "{3.0, 7.0, -3.0}";
+        String vectorActual = testParser.calculate(expression).toString();
+        assertEquals("Некорректное вычисление " + expression, expected, vectorActual);
+        System.out.println("Для выражения " + expression + "   Результат: " + vectorActual + "\nТЕСТ ОК!");
+    }
+
+    @Test
+    public void testVectorSubVector() throws CalcException {
+        String expression = "{-1,2,3}-{4,5,-6}";
+        String expected = "{-5.0, -3.0, 9.0}";
+        String vectorActual = testParser.calculate(expression).toString();
+        assertEquals("Некорректное вычисление " + expression, expected, vectorActual);
+        System.out.println("Для выражения " + expression + "   Результат: " + vectorActual + "\nТЕСТ ОК!");
+    }
+
+    @Test
+    public void testVectorMulVector() throws CalcException {
+        String expression = "{-1,2,3}*{4,5,-6}";
+        String expected = "-12.0";
+        String vectorActual = testParser.calculate(expression).toString();
+        assertEquals("Некорректное вычисление " + expression, expected, vectorActual);
+        System.out.println("Для выражения " + expression + "   Результат: " + vectorActual + "\nТЕСТ ОК!");
+    }
+
+    @Test(expected = CalcException.class, timeout = 5000)
+    public void testErrorVectorDivVector() throws CalcException {
+        String expression = "{-1,2,3}/{4,5,-6}";
+        String vectorActual = testParser.calculate(expression).toString();
+        System.out.println("ТЕСТ НЕ ПРОШЕЛ!!! ВЕКТОР НА ВЕКТОР ДЕЛИТЬ НЕЛЬЗЯ!!!");
+    }
+
+    @Test(expected = CalcException.class, timeout = 5000)
+    public void testErrorDivByZeroVector() throws CalcException {
+        String expression = "{1,2,3}/0";
+        Var scalar = testParser.calculate(expression);
+        System.out.println("ТЕСТ НЕ ПРОШЕЛ! Деление на ноль не произошло!\n"
+                + "актуальное значение: " + expression + " Результат: " + scalar);
+    }
+
+    @Test
+    public void testMatrixAddMatrix() throws CalcException {
+        String expression = "{{-1,2,3},{-5,2,5}}+{{4,5,-6},{10,4,20}}";
+        String expected = "{{3.0, 7.0, -3.0}, {5.0, 6.0, 25.0}}";
+        String vectorActual = testParser.calculate(expression).toString();
+        assertEquals("Некорректное вычисление " + expression, expected, vectorActual);
+        System.out.println("Для выражения " + expression + "   Результат: " + vectorActual + "\nТЕСТ ОК!");
+    }
+
+    @Test
+    public void testMatrixSubMatrix() throws CalcException {
+        String expression = "{{-1,2,3},{-5,2,5}}-{{4,5,-6},{10,4,20}}";
+        String expected = "{{-5.0, -3.0, 3.0}, {-15.0, -2.0, 5.0}}";
+        String vectorActual = testParser.calculate(expression).toString();
+        assertEquals("Некорректное вычисление " + expression, expected, vectorActual);
+        System.out.println("Для выражения " + expression + "   Результат: " + vectorActual + "\nТЕСТ ОК!");
+    }
+
+    @Test(expected = CalcException.class, timeout = 5000)
+    public void testErrorMatrixMulMatrix() throws CalcException {
+        String expression = "{{-1,2,3},{-5,2,5}}*{{4,5,-6},{10,4,20}}";
+        String vectorActual = testParser.calculate(expression).toString();
+        System.out.println("ТЕСТ НЕ ПРОШЕЛ!!! ТАКАЯ ОПЕРАЦИЯ НЕ СУЩЕСТВУЕТ!");
+    }
+
+    @Test(expected = CalcException.class, timeout = 5000)
+    public void testErrorMatrixDivMatrix() throws CalcException {
+        String expression = "{{-1,2,3},{-5,2,5}}/{{4,5,-6},{10,4,20}}";
+        String vectorActual = testParser.calculate(expression).toString();
+        System.out.println("ТЕСТ НЕ ПРОШЕЛ!!! ТАКАЯ ОПЕРАЦИЯ НЕ СУЩЕСТВУЕТ!");
+    }
+
+    @Test(expected = CalcException.class, timeout = 5000)
+    public void testErrorDivByZeroMatrix() throws CalcException {
+        String expression = "{{1,2,3},{4,5,6}}/0";
+        Var scalar = testParser.calculate(expression);
+        System.out.println("ТЕСТ НЕ ПРОШЕЛ! Деление на ноль не произошло!\n"
+                + "актуальное значение: " + expression + " Результат: " + scalar);
+    }
+
+    @Test
+    public void testOperationsWithScalars() throws CalcException {
+        String expression;
+        double expected;
+        double actual;
+
+        expression = "A=2+5.3";
+        expected = 7.3;
+        actual = Double.parseDouble(testParser.calculate(expression).toString());
+        System.out.println("TEST: " + expression + "   RESULT: " + actual + "  OK!");
+
+        expression = "B=A*3.5";
+        expected = 25.55;
+        actual = Double.parseDouble(testParser.calculate(expression).toString());
+        System.out.println("TEST: " + expression + "   RESULT: " + actual + "  OK!");
+
+        expression = "B1=B+0.11*-5";
+        expected = 25.00;
+        actual = Double.parseDouble(testParser.calculate(expression).toString());
+        System.out.println("TEST: " + expression + "   RESULT: " + actual + "  OK!");
+
+        expression = "B2=A/2-1";
+        expected = 2.65;
+        actual = Double.parseDouble(testParser.calculate(expression).toString());
+        System.out.println("TEST: " + expression + "   RESULT: " + actual + "  OK!");
+
+    }
 
 }
