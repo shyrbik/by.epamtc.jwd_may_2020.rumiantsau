@@ -76,12 +76,7 @@ public class ParserTestLevel_A {
         assertEquals("Incorrect " + expression, expected, actual, 1e-5);
     }
 
-    @Test(expected = CalcException.class)
-    public void testScalarDivisionByZero() throws CalcException {
-        Parser parser = new Parser();
-        String expression = "1234321*/0";
-        Scalar scalar = (Scalar) parser.calc(expression);
-    }
+
 
     @Test
     public void testScalarLongExpression() throws CalcException {
@@ -120,26 +115,4 @@ public class ParserTestLevel_A {
         actual = Double.parseDouble(scalar.toString());
         assertEquals("Incorrect " + expression, expected, actual, 1e-5);
     }
-    @Test(expected = CalcException.class)
-    public void testParserIncorrectOperation() throws CalcException {
-        Parser parser = new Parser();
-        String expression = "привет";
-        Scalar scalar = (Scalar) parser.calc(expression);
-    }
-
-    @Test(expected = CalcException.class)
-    public void testParserIncorrectOperands() throws CalcException {
-        Parser parser = new Parser();
-        String expression = "5+";
-        Scalar scalar = (Scalar) parser.calc(expression);
-    }
-
-    @Test(expected = CalcException.class)
-    public void testParserUndefinedVar() throws CalcException {
-        Parser parser = new Parser();
-        String expression = "5+some_undefined_var_asdf";
-        Scalar scalar = (Scalar) parser.calc(expression);
-    }
-
-
 }

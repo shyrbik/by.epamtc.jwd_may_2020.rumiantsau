@@ -136,32 +136,4 @@ public class ParserTestLevel_B {
         assertEquals("Incorrect " + expression, strExpected, strActual);
     }
 
-    @Test(expected = CalcException.class)
-    public void testVectorIncorrectDefine() throws CalcException {
-        Parser parser = new Parser();
-        String expression = "{234324, 34443 ";
-        Scalar scalar = (Scalar) parser.calc(expression);
-    }
-
-    @Test(expected = CalcException.class)
-    public void testVectorAddIncorrectSizeAdd() throws CalcException {
-        Parser parser = new Parser();
-        String expression = "{1,2,3,4,5}+{1,2,3}";
-        Scalar scalar = (Scalar) parser.calc(expression);
-    }
-
-    @Test(expected = CalcException.class)
-    public void testVectorIncorrectSizeMul() throws CalcException {
-        Parser parser = new Parser();
-        String expression = "{1,2,3,4,5}*{1,2,3}";
-        Scalar scalar = (Scalar) parser.calc(expression);
-    }
-
-    @Test(expected = CalcException.class)
-    public void testVectorDivisionByVector() throws CalcException {
-        Parser parser = new Parser();
-        String expression = "{1,2,3,4,5}/{1,2,3}";
-        Scalar scalar = (Scalar) parser.calc(expression);
-    }
-
 }
