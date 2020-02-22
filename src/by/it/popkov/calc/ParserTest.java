@@ -100,6 +100,7 @@ public class ParserTest {
             e.printStackTrace();
         }
     }
+
     @Test
     public void matrixSubMatrix() {
         System.out.println("Test {{0, 1}, {2, 3}} - {{-4, 5}, {6, -10}}");
@@ -107,6 +108,61 @@ public class ParserTest {
             Var calc = parser.calc("{{0, 1}, {2, 3}} - {{-4, 5}, {6, -10}}");
             assertEquals("Wrong result for {{0, 1}, {2, 3}} - {{-4, 5}, {6, -10}}",
                     "{{4.0, -4.0}, {-4.0, 13.0}}", calc.toString());
+            System.out.println(calc.toString());
+            System.out.println("Test is successful, so you see this message");
+        } catch (CalcException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void matrixMulScalar() {
+        System.out.println("Test {{0, 1}, {2, 3}} * 3");
+        try {
+            Var calc = parser.calc("{{0, 1}, {2, 3}} * 3");
+            assertEquals("Wrong result for {{0, 1}, {2, 3}} * 3",
+                    "{{0.0, 3.0}, {6.0, 9.0}}", calc.toString());
+            System.out.println(calc.toString());
+            System.out.println("Test is successful, so you see this message");
+        } catch (CalcException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void matrixMulVector() {
+        System.out.println("Test {{0, 1}, {2, 3}} * {-4, 5}");
+        try {
+            Var calc = parser.calc("{{0, 1}, {2, 3}} * {-4, 5}");
+            assertEquals("Wrong result for {{0, 1}, {2, 3}} * {-4, 5}",
+                    "{5.0, 7.0}", calc.toString());
+            System.out.println(calc.toString());
+            System.out.println("Test is successful, so you see this message");
+        } catch (CalcException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void matrixMulMatrix() {
+        System.out.println("Test {{0, 1}, {2, 3}} * {{-4, 5}, {6, -10}}");
+        try {
+            Var calc = parser.calc("{{0, 1}, {2, 3}} * {{-4, 5}, {6, -10}}");
+            assertEquals("Wrong result for {{0, 1}, {2, 3}} * {{-4, 5}, {6, -10}}",
+                    "{{6.0, -10.0}, {10.0, -20.0}}", calc.toString());
+            System.out.println(calc.toString());
+            System.out.println("Test is successful, so you see this message");
+        } catch (CalcException e) {
+            e.printStackTrace();
+        }
+    }
+    @Test
+    public void matrixDivScalar() {
+        System.out.println("Test {{0, 1}, {2, 3}} / 2.0");
+        try {
+            Var calc = parser.calc("{{0, 1}, {2, 3}} / 2.0");
+            assertEquals("Wrong result for {{0, 1}, {2, 3}} / 2.0",
+                    "{{0.0, 0.5}, {1.0, 1.5}}", calc.toString());
             System.out.println(calc.toString());
             System.out.println("Test is successful, so you see this message");
         } catch (CalcException e) {
