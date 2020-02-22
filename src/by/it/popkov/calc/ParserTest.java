@@ -59,6 +59,11 @@ public class ParserTest {
             e.printStackTrace();
         }
     }
+    /**                               TEST VECTOR                          **/
+
+    
+
+
 
     /**                               TEST MATRIX                          **/
 
@@ -191,6 +196,7 @@ public class ParserTest {
         System.out.println("Test variable B={1.5, 2.3}");
         try {
             Var calc = parser.calc("B={1.5, 2.3}");
+            Var var = parser.calc("B");
             assertEquals("Wrong result for B={1.5, 2.3}", "{1.5, 2.3}", calc.toString());
             System.out.println(calc.toString());
             System.out.println("Test is successful, so you see this message");
