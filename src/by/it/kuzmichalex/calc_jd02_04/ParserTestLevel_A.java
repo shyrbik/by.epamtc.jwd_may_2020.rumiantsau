@@ -24,17 +24,18 @@ public class ParserTestLevel_A {
     @Test
     public void testScalarDefineVar() throws CalcException {
         Parser parser = new Parser();
+
         String expression = "testvar=1234.5";
         double expected = 1234.5;
         double actual;
-
         Scalar scalar = (Scalar) parser.calc(expression);
         actual = Double.parseDouble(scalar.toString());
         assertEquals("Incorrect " + expression, expected, actual, 1e-5);
 
+        String strExpected="1234.5";
         Var result = parser.calc("testvar");
-        actual = Double.parseDouble(result.toString());
-        assertEquals("Incorrect " + expression, expected, actual, 1e-5);
+        String strActual =result.toString();
+        assertEquals("Incorrect " + expression, strExpected, strActual);
     }
 
     @Test
