@@ -68,7 +68,6 @@ class Market {
 
     public void waitFinishWork() {
         while (!executorService.isTerminated());
-
     }
 }
 
