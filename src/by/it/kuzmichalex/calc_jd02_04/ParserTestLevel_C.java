@@ -17,7 +17,8 @@ public class ParserTestLevel_C {
 
         expression = "a";
         expected = "{{1.0, 2.0, 3.0}, {4.0, 5.0, 6.0}, {7.0, 8.0, 9.0}}";
-        matrix = (Matrix) parser.calc("a");
+        Var result =  parser.calc(expression);
+        actual=result.toString();
         assertEquals("Incorrect " + expression, expected, actual);
     }
 

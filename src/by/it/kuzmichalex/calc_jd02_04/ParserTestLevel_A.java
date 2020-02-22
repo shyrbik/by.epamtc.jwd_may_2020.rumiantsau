@@ -32,8 +32,8 @@ public class ParserTestLevel_A {
         actual = Double.parseDouble(scalar.toString());
         assertEquals("Incorrect " + expression, expected, actual, 1e-5);
 
-        scalar = (Scalar) parser.calc("testvar");
-        actual = Double.parseDouble(scalar.toString());
+        Var result = parser.calc("testvar");
+        actual = Double.parseDouble(result.toString());
         assertEquals("Incorrect " + expression, expected, actual, 1e-5);
     }
 
@@ -136,7 +136,7 @@ public class ParserTestLevel_A {
     @Test(expected = CalcException.class)
     public void testParserUndefinedVar() throws CalcException {
         Parser parser = new Parser();
-        String expression = "5+some";
+        String expression = "5+some_undefined_var_asdf";
         Scalar scalar = (Scalar) parser.calc(expression);
     }
 

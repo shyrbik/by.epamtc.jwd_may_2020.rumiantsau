@@ -25,8 +25,8 @@ public class ParserTestLevel_B {
         assertEquals("Incorrect " + expression, expected, actual);
 
         expression = "a";
-        vector = (Vector) parser.calc(expression);
-        actual = vector.toString();
+        Var result =  parser.calc(expression);
+        actual=result.toString();
         assertEquals("Incorrect " + expression, expected, actual);
     }
 
