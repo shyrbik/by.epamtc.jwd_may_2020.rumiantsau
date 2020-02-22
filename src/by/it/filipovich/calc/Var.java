@@ -33,25 +33,23 @@ abstract class Var implements Operation {
     }
 
     static Var createVar(String operand) throws CalcException {
-        String a = operand.trim();
-        if(a.matches(Patterns.SCALAR))
-            return new Scalar(a);
-        else if(a.matches(Patterns.VECTOR))
-            return new Vector(a);
-        else if(a.matches(Patterns.MATRIX))
-            return new Matrix(a);
+        if(operand.matches(Patterns.SCALAR))
+            return new Scalar(operand);
+        if(operand.matches(Patterns.VECTOR))
+            return new Vector(operand);
+        if(operand.matches(Patterns.MATRIX))
+            return new Matrix(operand);
         else{
             Var var = vars.get(operand);
             if (var != null) {
                 return var;
-            } else {
+            } else
                 throw new CalcException("Unknown expression: "+operand);
-            }
         }
     }
 
-    static void save(String key, Var value)
-    {
+    static void save(String key, Var value) throws CalcException {
         vars.put(key,value);
+        VarToFile.save(vars);
     }
 }
