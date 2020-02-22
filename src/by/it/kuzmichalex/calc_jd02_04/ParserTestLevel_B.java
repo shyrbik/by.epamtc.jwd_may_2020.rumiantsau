@@ -8,22 +8,20 @@ public class ParserTestLevel_B {
 
 
     @Test
-    public void testVectorParse() throws CalcException {
+    public void testVectorDefineVar() throws CalcException {
+
         Parser parser = new Parser();
         String expression = "{1,2,-3}";
         String expected = "{1.0, 2.0, -3.0}";
         Vector vector = (Vector) parser.calc(expression);
         String actual = vector.toString();
         assertEquals("Incorrect " + expression, expected, actual);
-    }
 
-    @Test
-    public void testVectorDefine() throws CalcException {
-        Parser parser = new Parser();
-        String expression = "a={1,2,-3}";
-        String expected = "{1.0, 2.0, -3.0}";
-        Vector vector = (Vector) parser.calc(expression);
-        String actual = vector.toString();
+        parser = new Parser();
+        expression = "a={1,2,-3}";
+        expected = "{1.0, 2.0, -3.0}";
+        vector = (Vector) parser.calc(expression);
+        actual = vector.toString();
         assertEquals("Incorrect " + expression, expected, actual);
 
         expression = "a";
@@ -31,6 +29,7 @@ public class ParserTestLevel_B {
         actual = vector.toString();
         assertEquals("Incorrect " + expression, expected, actual);
     }
+
 
     @Test
     public void testVectorAdd() throws CalcException {
