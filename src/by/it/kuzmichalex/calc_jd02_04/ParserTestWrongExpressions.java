@@ -14,7 +14,7 @@ public class ParserTestWrongExpressions {
     @Test(expected = CalcException.class)
     public void testUndefinedVar() throws CalcException {
         Parser parser = new Parser();
-        String expression = "5+some_undefined_var_asdf";
+        String expression = "5+some_very_very_ver_undefined_var_";
         parser.calc(expression);
     }
 
@@ -94,5 +94,11 @@ public class ParserTestWrongExpressions {
         parser.calc(expression);
     }
 
+    @Test(expected = CalcException.class)
+    public void testWrongEquationUsage() throws CalcException {
+        Parser parser = new Parser();
+        String expression = "1=2+3=5";
+        parser.calc(expression);
+    }
 
 }
