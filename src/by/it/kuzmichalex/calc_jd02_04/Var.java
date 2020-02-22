@@ -26,13 +26,13 @@ abstract class Var implements Operation {
         return ("abstract class Var");
     }
 
-    /**
-     * Create Var from expression
-     * 1.12 Scalar
-     * {1.23, 4.56} Vector
-     * {{1.23, 4.56},{7.89, 10.1112}} matrix
-     *
-     * @param strExperession - Строковое выражение с переменной типа Scalar Vector или Matrix
+    /*
+      Create Var from expression
+      1.12 Scalar
+      {1.23, 4.56} Vector
+      {{1.23, 4.56},{7.89, 10.1112}} matrix
+
+      @param strExperession - Строковое выражение с переменной типа Scalar Vector или Matrix
      *                       Имена quit, exit, end, printvar, sortvar не разрешаются!
      * @return Var
      */
@@ -228,7 +228,6 @@ abstract class Var implements Operation {
      * save Var and value into HashMap mapVars
      *
      * @param key - var name. A, B, counter, superPuperVar etc
-     * @return Var-type value
      */
     static void save(String key, Var value) throws CalcException {
         if (!key.matches(Patterns.VARNAME)) throw new CalcException("Invalid variable name: " + key);

@@ -50,7 +50,7 @@ class Matrix extends Var {
      */
     @Override
     public String toString() {
-        StringBuffer retStrBuffer = new StringBuffer("{");
+        StringBuilder retStrBuffer = new StringBuilder("{");
         for (int y = 0; y < this.value.length; y++) {
             retStrBuffer.append("{");
             for (int x = 0; x < this.value[y].length; x++) {

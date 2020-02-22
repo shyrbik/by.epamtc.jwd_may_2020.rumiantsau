@@ -9,7 +9,6 @@ import java.util.Scanner;
         Logger.loadLog();
         Logger.printAndLog("Calculator started");
         Parser parser = new Parser();
-        Printer printer = new Printer();
         Var.loadVarsFromFile();
 
 
@@ -33,7 +32,6 @@ import java.util.Scanner;
                 }
                 Var result = parser.calc(expression);
                 Logger.printAndLog(result.toString());
-                //printer.print(result);
             }
             catch (CalcException e){
                 Logger.printAndLog(e.getMessage());

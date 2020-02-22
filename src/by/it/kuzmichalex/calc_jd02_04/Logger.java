@@ -4,7 +4,7 @@ import java.io.*;
 import java.util.ArrayDeque;
 
  class Logger {
-    static private ArrayDeque<String> logList = new ArrayDeque();
+    static private ArrayDeque<String> logList = new ArrayDeque<>();
     static private String sLogFileName = FHelper.getFileName("log.txt", Logger.class);
 
     /**

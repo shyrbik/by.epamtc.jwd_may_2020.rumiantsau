@@ -35,13 +35,13 @@ class Vector extends Var {
      */
     @Override
     public String toString() {
-        StringBuffer returnStrBuffer = new StringBuffer("{");
+        StringBuilder returnStrBuilder = new StringBuilder("{");
         for (int i = 0; i < this.value.length; i++) {
-            returnStrBuffer.append(Double.toString(this.value[i]));
-            if (i < (this.value.length - 1)) returnStrBuffer.append(", ");
+            returnStrBuilder.append(this.value[i]);
+            if (i < (this.value.length - 1)) returnStrBuilder.append(", ");
         }
-        returnStrBuffer.append("}");
-        return returnStrBuffer.toString();
+        returnStrBuilder.append("}");
+        return returnStrBuilder.toString();
     }
 
     public double[] getValue() {
