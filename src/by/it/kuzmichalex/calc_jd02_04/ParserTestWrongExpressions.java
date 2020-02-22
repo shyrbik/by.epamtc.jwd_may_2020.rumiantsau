@@ -2,7 +2,7 @@ package by.it.kuzmichalex.calc_jd02_04;
 
 import org.junit.Test;
 
-public class ParserTestIncorrectExpr {
+public class ParserTestWrongExpressions {
 
     @Test(expected = CalcException.class)
     public void testDivisionByZero() throws CalcException {
