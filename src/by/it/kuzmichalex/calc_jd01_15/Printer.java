@@ -1,4 +1,4 @@
-package by.it.kuzmichalex.calc_jd01_13;
+package by.it.kuzmichalex.calc_jd01_15;
 
 class Printer {
 

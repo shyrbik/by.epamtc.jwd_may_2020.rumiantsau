@@ -1,4 +1,4 @@
-package by.it.kuzmichalex.calc_jd01_13;
+package by.it.kuzmichalex.calc_jd01_15;
 public class KeyWords {
     static final String EXIT="exit";
     static final String QUIT="quit";
