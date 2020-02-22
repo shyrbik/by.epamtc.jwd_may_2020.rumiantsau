@@ -46,7 +46,12 @@ public class ParserTestWrongExpressions {
         parser.calc(expression);
     }
 
-
+    @Test(expected = CalcException.class)
+    public void testEmptyExpression() throws CalcException {
+        Parser parser = new Parser();
+        String expression = "()";
+        parser.calc(expression);
+    }
     @Test(expected = CalcException.class)
     public void testWrongVectorDefine() throws CalcException {
         Parser parser = new Parser();
