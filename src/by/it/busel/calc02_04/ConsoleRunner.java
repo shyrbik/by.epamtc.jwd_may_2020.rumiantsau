@@ -15,7 +15,7 @@ class ConsoleRunner {
             if (!varExpression.equals("end") && !varExpression.equals("конец")) {
                 //TODO overload method printAndSave
                 try {
-                    Var result = parser.calc(varExpression.trim());
+                    Var result = parser.calc(varExpression.replace("\\s+", ""));
                     printer.printAndSave(varExpression, result.toString());
                 } catch (CalcException e) {
                     printer.printAndSave(varExpression, e.getMessage());
