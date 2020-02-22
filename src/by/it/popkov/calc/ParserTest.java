@@ -92,8 +92,8 @@ public class ParserTest {
         System.out.println("Test {{0, 1}, {2, 3}} - 3");
         try {
             Var calc = parser.calc("{{0, 1}, {2, 3}} - 3");
-            assertEquals("Wrong result for {{0, 1}, {2, 3}} + {{4, 5}, {6, 10}}",
-                    "{{4.0, 6.0}, {8.0, 13.0}}", calc.toString());
+            assertEquals("Wrong result for {{0, 1}, {2, 3}} - 3",
+                    "{{-3.0, -2.0}, {-1.0, 0.0}}", calc.toString());
             System.out.println(calc.toString());
             System.out.println("Test is successful, so you see this message");
         } catch (CalcException e) {
@@ -102,11 +102,11 @@ public class ParserTest {
     }
     @Test
     public void matrixSubMatrix() {
-        System.out.println("Test {{0, 1}, {2, 3}} + {{4, 5}, {6, 10}}");
+        System.out.println("Test {{0, 1}, {2, 3}} - {{4, 5}, {6, 10}}");
         try {
-            Var calc = parser.calc("{{0, 1}, {2, 3}} + {{4, 5}, {6, 10}}");
-            assertEquals("Wrong result for {{0, 1}, {2, 3}} + {{4, 5}, {6, 10}}",
-                    "{{4.0, 6.0}, {8.0, 13.0}}", calc.toString());
+            Var calc = parser.calc("{{0, 1}, {2, 3}} - {{4, 5}, {6, 10}}");
+            assertEquals("Wrong result for {{0, 1}, {2, 3}} - {{4, 5}, {6, 10}}",
+                    "{{-4.0, -4.0}, {-4.0, -7.0}}", calc.toString());
             System.out.println(calc.toString());
             System.out.println("Test is successful, so you see this message");
         } catch (CalcException e) {
