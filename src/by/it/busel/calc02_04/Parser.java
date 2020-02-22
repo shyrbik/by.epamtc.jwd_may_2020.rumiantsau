@@ -50,13 +50,14 @@ class Parser {
      * or assigning of a Var expression
      */
     Var calc(String varExpression) throws CalcException {
-        Pattern parenthesesPattern = Pattern.compile("\\(([-+*/0-9.,{}]+)\\)");
+        Pattern parenthesesPattern = Pattern.compile("\\(([-+*/0-9A-Za-zА-Яа-яЁё.,{}]+)\\)");
         Matcher parenthesesMatcher = parenthesesPattern.matcher(varExpression);
         while (parenthesesMatcher.find()) {
             String group = parenthesesMatcher.group();
             String strResult = group.substring(1, group.length() - 1);
             Var result = processWithoutParentheses(strResult);
-            varExpression = parenthesesMatcher.replaceAll(result.toString());
+            varExpression = parenthesesMatcher.replaceFirst(result.toString());
+//            varExpression = parenthesesMatcher.replaceAll(result.toString());
             parenthesesMatcher.reset(varExpression);
         }
         return processWithoutParentheses(varExpression);
