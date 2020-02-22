@@ -5,13 +5,6 @@ import org.junit.Test;
 public class ParserTestWrongExpressions {
 
     @Test(expected = CalcException.class)
-    public void testDivisionByZero() throws CalcException {
-        Parser parser = new Parser();
-        String expression = "123/0";
-        parser.calc(expression);
-    }
-
-    @Test(expected = CalcException.class)
     public void testWrongNewVarName() throws CalcException {
         Parser parser = new Parser();
         String expression = "end=5";
@@ -33,21 +26,21 @@ public class ParserTestWrongExpressions {
     }
 
     @Test(expected = CalcException.class)
-    public void testMissedOperand() throws CalcException {
+    public void testMissingOperand() throws CalcException {
         Parser parser = new Parser();
         String expression = "5+";
         parser.calc(expression);
     }
 
     @Test(expected = CalcException.class)
-    public void testMissedOpenBracket() throws CalcException {
+    public void testMissingOpenBracket() throws CalcException {
         Parser parser = new Parser();
         String expression = "(2+3)/3)";
         parser.calc(expression);
     }
 
     @Test(expected = CalcException.class)
-    public void testMissedCloseBracket() throws CalcException {
+    public void testMissingCloseBracket() throws CalcException {
         Parser parser = new Parser();
         String expression = "((2+3)/3";
         parser.calc(expression);
@@ -72,6 +65,13 @@ public class ParserTestWrongExpressions {
     public void testWrongVectorSizeMul() throws CalcException {
         Parser parser = new Parser();
         String expression = "{1,2,3,4,5}*{1,2,3}";
+        parser.calc(expression);
+    }
+
+    @Test(expected = CalcException.class)
+    public void testDivisionByZero() throws CalcException {
+        Parser parser = new Parser();
+        String expression = "123/0";
         parser.calc(expression);
     }
 
