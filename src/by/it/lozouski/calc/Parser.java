@@ -54,7 +54,7 @@ class Parser {
 
 
     Var calculate(String expression) throws CalcException {
-        expression = expression.replaceAll("\\s+", "");
+        expression = expression.replace("\\s+", "");
 
         List<String> operandsList = new ArrayList<>(Arrays.asList(expression.split(Patterns.OPERATION)));
         List<String> operationsList = new ArrayList<>();

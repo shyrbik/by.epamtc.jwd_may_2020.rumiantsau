@@ -89,6 +89,9 @@ class Vector extends Var {
 
     @Override
     Var mul(Vector otherVector) throws CalcException {
+        if (otherVector.getValue().length != this.value.length){
+            throw new CalcException("Different length Vectors!!");
+        }
         try {
             double scalarMultipleVectors = 0;
             for (int i = 0; i < this.value.length; i++) {
