@@ -8,7 +8,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
  class ReversePolishNotation {
-    private static final Map<String, Integer> priority = new HashMap();
+    private static final Map<String, Integer> priority = new HashMap<>();
 
     static {
         priority.put("*", 3);
@@ -109,22 +109,25 @@ import java.util.regex.Pattern;
                 varStack.addFirst(Var.getCreatedVar(expression));
             else if (expression.matches(Patterns.OPERATION)) {
                 if (varStack.size() < 2) throw new CalcException("Operation needs 2 operands");
-                if (expression.equals("+")) {
-                    right = varStack.poll();
-                    left = varStack.poll();
-                    varStack.addFirst(left.add(right));
-                } else if (expression.equals("-")) {
-                    right = varStack.poll();
-                    left = varStack.poll();
-                    varStack.addFirst(left.sub(right));
-                } else if (expression.equals("*")) {
-                    right = varStack.poll();
-                    left = varStack.poll();
-                    varStack.addFirst(left.mul(right));
-                } else if (expression.equals("/")) {
-                    right = varStack.poll();
-                    left = varStack.poll();
-                    varStack.addFirst(left.div(right));
+                right = varStack.poll();
+                left = varStack.poll();
+                switch (expression) {
+                    case "+":
+                        assert left != null;
+                        varStack.addFirst(left.add(right));
+                        break;
+                    case "-":
+                        assert left != null;
+                        varStack.addFirst(left.sub(right));
+                        break;
+                    case "*":
+                        assert left != null;
+                        varStack.addFirst(left.mul(right));
+                        break;
+                    case "/":
+                        assert left != null;
+                        varStack.addFirst(left.div(right));
+                        break;
                 }
             } else throw new CalcException("Uhhh... What is it: " + expression + "?");
         }
