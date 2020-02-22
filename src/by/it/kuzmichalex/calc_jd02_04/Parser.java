@@ -1,6 +1,6 @@
 package by.it.kuzmichalex.calc_jd02_04;
 
-public class Parser {
+ class Parser {
 
     Var calc(String expression) throws CalcException {
         expression = expression.replace("\\s+", "");

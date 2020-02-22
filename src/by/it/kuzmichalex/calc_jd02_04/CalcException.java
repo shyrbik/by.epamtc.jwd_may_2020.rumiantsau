@@ -1,6 +1,6 @@
 package by.it.kuzmichalex.calc_jd02_04;
 
-public class CalcException extends Exception {
+ class CalcException extends Exception {
     public CalcException() {
         super();
     }

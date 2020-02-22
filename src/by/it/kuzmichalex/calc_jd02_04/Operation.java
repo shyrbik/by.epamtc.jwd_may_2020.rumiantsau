@@ -1,6 +1,6 @@
 package by.it.kuzmichalex.calc_jd02_04;
 
-public interface Operation {
+ interface Operation {
     Var add(Var rightOperand) throws CalcException;
 
     Var sub(Var rightOperand) throws CalcException;

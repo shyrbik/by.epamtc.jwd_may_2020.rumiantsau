@@ -3,7 +3,7 @@ package by.it.kuzmichalex.calc_jd02_04;
 import java.io.*;
 import java.util.ArrayDeque;
 
-public class Logger {
+ class Logger {
     static private ArrayDeque<String> logList = new ArrayDeque();
     static private String sLogFileName = FHelper.getFileName("log.txt", Logger.class);
 

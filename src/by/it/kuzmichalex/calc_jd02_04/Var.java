@@ -36,7 +36,7 @@ abstract class Var implements Operation {
      *                       Имена quit, exit, end, printvar, sortvar не разрешаются!
      * @return Var
      */
-    static Var createVar(String strExperession) throws CalcException {
+   /* static Var createVar(String strExperession) throws CalcException {
 
         if (strExperession.matches(Patterns.SCALAR))
             return new Scalar(strExperession);
@@ -52,7 +52,7 @@ abstract class Var implements Operation {
             if (strExperession.length() == 0) throw new CalcException("Empty right part");
             throw new CalcException("Expression " + strExperession + " contains madness.");
         }
-    }
+    }*/
 
     /**
      * convert all Vars to String
@@ -63,9 +63,7 @@ abstract class Var implements Operation {
         StringBuilder retValue = new StringBuilder();
         if (mapVars.isEmpty()) return ("No Vars defined");
         Set<Map.Entry<String, Var>> entries = mapVars.entrySet();
-        Iterator<Map.Entry<String, Var>> iterator = entries.iterator();
-        while (iterator.hasNext()) {
-            Map.Entry<String, Var> varMapValue = iterator.next();
+        for (Map.Entry<String, Var> varMapValue : entries) {
             retValue.append(varMapValue.getKey()).append("=");
             retValue.append(varMapValue.getValue().toString());
             retValue.append('\n');
@@ -81,11 +79,9 @@ abstract class Var implements Operation {
     static String sortVars() {
         StringBuilder retValue = new StringBuilder();
         if (mapVars.isEmpty()) return ("No Vars defined");
-        TreeMap<String, Var> sortedVars = new TreeMap<String, Var>(mapVars);
+        TreeMap<String, Var> sortedVars = new TreeMap<>(mapVars);
         Set<Map.Entry<String, Var>> entries = sortedVars.entrySet();
-        Iterator<Map.Entry<String, Var>> iterator = entries.iterator();
-        while (iterator.hasNext()) {
-            Map.Entry<String, Var> nextSorted = iterator.next();
+        for (Map.Entry<String, Var> nextSorted : entries) {
             retValue.append(nextSorted.getKey()).append("=").append(nextSorted.getValue().toString()).append('\n');
         }
         return retValue.toString();
@@ -232,7 +228,7 @@ abstract class Var implements Operation {
      * save Var and value into HashMap mapVars
      *
      * @param key - var name. A, B, counter, superPuperVar etc
-     * @Value Var-type value
+     * @return Var-type value
      */
     static void save(String key, Var value) throws CalcException {
         if (!key.matches(Patterns.VARNAME)) throw new CalcException("Invalid variable name: " + key);

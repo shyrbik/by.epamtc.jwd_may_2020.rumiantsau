@@ -1,5 +1,5 @@
 package by.it.kuzmichalex.calc_jd02_04;
-public class KeyWords {
+ class KeyWords {
     static final String EXIT="exit";
     static final String QUIT="quit";
     static final String END="end";

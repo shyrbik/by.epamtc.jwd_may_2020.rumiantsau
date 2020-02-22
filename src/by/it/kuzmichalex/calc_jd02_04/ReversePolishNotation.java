@@ -7,7 +7,7 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class ReversePolishNotation {
+ class ReversePolishNotation {
     private static final Map<String, Integer> priority = new HashMap();
 
     static {

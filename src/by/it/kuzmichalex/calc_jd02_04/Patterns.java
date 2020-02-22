@@ -1,6 +1,6 @@
 package by.it.kuzmichalex.calc_jd02_04;
 
-public class Patterns {
+ class Patterns {
 
     static final String OPERATION="[-+*/=]";
     static final String SCALAR="-?[0-9]+(\\.[0-9]+)?";

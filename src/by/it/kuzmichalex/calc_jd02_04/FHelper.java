@@ -2,7 +2,7 @@ package by.it.kuzmichalex.calc_jd02_04;
 
 import java.io.File;
 
-public class FHelper {
+ class FHelper {
     /**
      * get full (including path to package) file name
      *

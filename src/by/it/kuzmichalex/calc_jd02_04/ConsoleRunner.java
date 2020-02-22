@@ -2,7 +2,7 @@ package by.it.kuzmichalex.calc_jd02_04;
 
 import java.util.Scanner;
 
-public class ConsoleRunner {
+ class ConsoleRunner {
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
