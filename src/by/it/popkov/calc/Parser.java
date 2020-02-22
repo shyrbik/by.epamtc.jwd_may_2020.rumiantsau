@@ -53,7 +53,7 @@ class Parser {
 
     Var calc(String expression) throws CalcException {
         Log.writeLog(expression);
-        expression = expression.replace("\\s+", "");
+        expression = expression.replaceAll("\\s+", "");
         List<String> numbers = new ArrayList<>(Arrays.asList(expression.split(Patterns.MATH_SIGN)));
         List<String> mathSigns = new ArrayList<>();
         Matcher m = Pattern.compile(Patterns.MATH_SIGN).matcher(expression);
