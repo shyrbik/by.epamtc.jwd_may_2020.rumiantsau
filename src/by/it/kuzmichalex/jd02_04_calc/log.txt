@@ -1,50 +1,50 @@
-Expression: -12345
-ERROR: Operation needs 2 operands
+ERROR: Uhhh... What is it: -3.0}?
+Expression: {1.0
+ERROR: Uhhh... What is it: {1.0?
+Expression: ,
+ERROR: Uhhh... What is it: ,?
+Expression: 2.0,
+ERROR: Uhhh... What is it: 2.0,?
+Expression: -3.0}
+ERROR: Uhhh... What is it: -3.0}?
+Expression: {1.0,
+ERROR: Uhhh... What is it: {1.0,?
+Expression: 2.0,
+ERROR: Uhhh... What is it: 2.0,?
+Expression: -3.0}
+ERROR: Uhhh... What is it: -3.0}?
 Calculator started
-Execute expression from file: a=4.0
-Expression: -1
-ERROR: Operation needs 2 operands
+Execute expression from file: a={1.0, 2.0, -3.0}
+Error parsing saved vars ERROR: Uhhh... What is it: {1.0, 2.0, ?
+Expression: {1.0,
+ERROR: Uhhh... What is it: {1.0,?
+Expression: 2.0,
+ERROR: Uhhh... What is it: 2.0,?
+Expression: -3.0}{1.0,
+ERROR: Uhhh... What is it: -3.0}{1.0,?
+Expression: 2.0,
+ERROR: Uhhh... What is it: 2.0,?
+Expression: -3.0}
+ERROR: Uhhh... What is it: -3.0}?
+Expression: {1.0,
+ERROR: Uhhh... What is it: {1.0,?
+Expression: 2.0,
+ERROR: Uhhh... What is it: 2.0,?
+Expression: -3.0}
+ERROR: Uhhh... What is it: -3.0}?
 Calculator started
-Execute expression from file: a=4.0
-Expression: -1
-ERROR: Operation needs 2 operands
-Expression: {12,44
-ERROR: Uhhh... What is it: {12,44?
-Expression: 2323,232
-ERROR: Uhhh... What is it: 2323,232?
-Expression: 233,323}
-ERROR: Uhhh... What is it: 233,323}?
-Expression: {1,2,3}
-{1.0, 2.0, 3.0}
-Expression: {1,2-3}
-ERROR: Uhhh... What is it: {1,2?
-Expression: {1,2,-3}
-{1.0, 2.0, -3.0}
-Expression: {1,}
-ERROR: Uhhh... What is it: {1,}?
-Expression: {1}
-{1.0}
-Expression: {1-1}
-ERROR: Uhhh... What is it: {1?
-Expression: {1,2,3}
-{1.0, 2.0, 3.0}
-Expression: {1,2,3,4}
-{1.0, 2.0, 3.0, 4.0}
-Expression: {1,2,3,4}*7
-{7.0, 14.0, 21.0, 28.0}
-Expression: {1,2,3}/2
-{0.5, 1.0, 1.5}
-Expression: -1
-ERROR: Operation needs 2 operands
+Execute expression from file: a={1.0, 2.0, -3.0}
+Error parsing saved vars ERROR: Uhhh... What is it: {1.0, 2.0, ?
 Calculator started
-Execute expression from file: a=4.0
-Expression: -1-1
-ERROR: Operation needs 2 operands
-Expression: 1+(-1)
-ERROR: Operation needs 2 operands
-Expression: 1+-1
-0.0
-Expression: (-1)
-ERROR: Operation needs 2 operands
-Expression: (1)
-1.0
+Execute expression from file: a={1.0, 2.0, -3.0}
+Error parsing saved vars ERROR: Uhhh... What is it: {1.0, 2.0, ?
+Calculator started
+Execute expression from file: A=7.3
+Execute expression from file: B=25.55
+Execute expression from file: C=40.15
+Execute expression from file: D=10.0
+Execute expression from file: E={10.0, 15.0}
+Execute expression from file: a={1.0, 2.0, -3.0}
+Expression: "{1,2,3,4,5}*{1,2,3}
+ERROR: Uhhh... What is it: "{1,2,3,4,5}?
+Expression: {1,2,3,4,5}*{1,2,3}

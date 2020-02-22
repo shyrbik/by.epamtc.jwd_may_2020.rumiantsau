@@ -69,8 +69,6 @@ class Vector extends Var {
     public Var add(Vector leftOperand) throws CalcException {
         if (this.value.length != leftOperand.value.length) {
             throw new CalcException("Operation " + leftOperand + " + " + this + "impossible: dimensions do not match");
-            //System.out.println("Операция " + leftOperand + " + " + this + " невозможна: несовпадают размерности.");
-            //return null;
         }
         double[] returnVector = new double[leftOperand.value.length];
         for (int i = 0; i < leftOperand.value.length; i++) {
@@ -115,10 +113,9 @@ class Vector extends Var {
 
     //Vector*Vector
     @Override
-    public Var mul(Vector leftOperand) {
+    public Var mul(Vector leftOperand) throws CalcException {
         if (this.value.length != leftOperand.value.length) {
-            System.out.println("Операция " + leftOperand + " * " + this + " Невозможна: Не совпадают размерности");
-            return null;
+            throw new CalcException("Operation " + leftOperand + " * " + this + "impossible: dimensions mismatch");
         }
         double scalarResult = 0;
         for (int i = 0; i < this.value.length; i++) {
@@ -129,12 +126,11 @@ class Vector extends Var {
 
     //Matrix*Vector
     @Override
-    public Var mul(Matrix leftOperand) {
+    public Var mul(Matrix leftOperand) throws CalcException {
         double[][] leftOperandValue = leftOperand.getValue();
 
         if (leftOperandValue[0].length != this.value.length) {
-            System.out.println("Умножение матрицы на вектор невозможно: Кол-во столбцов матрицы не соответствует вектору ");
-            return null;
+            throw new CalcException("Operation " + leftOperand + " * " + this + "impossible: dimensions mismatch");
         }
         double[] returnVector = new double[leftOperandValue.length];
         for (int y = 0; y < leftOperandValue.length; y++) {

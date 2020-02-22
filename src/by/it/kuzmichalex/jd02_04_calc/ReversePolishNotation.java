@@ -98,7 +98,6 @@ public class ReversePolishNotation {
         varStack.clear();
         while (outString.size() > 0) {
             String expression = outString.poll();
-//            System.out.println("EXPRESSION " + expression);
 
             if (expression.matches(Patterns.SCALAR))
                 varStack.addFirst(new Scalar(expression));

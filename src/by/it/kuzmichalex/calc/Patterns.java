@@ -7,6 +7,7 @@ public class Patterns {
     static final String VECTOR="\\{"+SCALAR+"(,"+SCALAR+")*}";
     static final String MATRIX="\\{"+VECTOR+"(,"+VECTOR+")*}";
     static final String VARNAME="^[a-zA-Z_]{1,}[a-zA-Z1-9_]{0,}";
+    static final String OPERATION_PATTERN = "([()])|((?<![-+*/,{])[-+*/])";
 
     private Patterns() {
     }

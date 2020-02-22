@@ -4,6 +4,7 @@ public class Parser {
 
     Var calc(String expression) throws CalcException {
         expression = expression.replace("\\s+", "");
+        expression = expression.replace(" ", "");
         ReversePolishNotation rpn = new ReversePolishNotation();
         String[] partsOfExpression = expression.split("=");
         if (partsOfExpression.length == 1) {

@@ -7,16 +7,22 @@ import static org.junit.Assert.*;
 public class ParserTestLevel_A {
 
     @Test
-    public void testParseScalar() throws CalcException {
+    public void testScalarParse() throws CalcException {
         Parser parser = new Parser();
         String expression = "-123.45";
         double expected = -123.45;
         Scalar scalar = (Scalar) parser.calc(expression);
         double actual = Double.parseDouble(scalar.toString());
         assertEquals("Incorrect " + expression, expected, actual, 1e-5);
+
+        expression = "123.45";
+        expected = 123.45;
+        scalar = (Scalar) parser.calc(expression);
+        actual = Double.parseDouble(scalar.toString());
+        assertEquals("Incorrect " + expression, expected, actual, 1e-5);
     }
     @Test
-    public void testPutScalarToVar() throws CalcException {
+    public void testScalarPutToVar() throws CalcException {
         Parser parser = new Parser();
         String expression = "testvar=1234.5";
         double expected = 1234.5;
@@ -70,7 +76,7 @@ public class ParserTestLevel_A {
     }
 
     @Test(expected = CalcException.class)
-    public void testScalarDivByZero() throws CalcException {
+    public void testScalarDivisionByZero() throws CalcException {
         Parser parser = new Parser();
         String expression = "1234321*/0";
         Scalar scalar = (Scalar) parser.calc(expression);
@@ -85,17 +91,9 @@ public class ParserTestLevel_A {
         double actual = Double.parseDouble(scalar.toString());
         assertEquals("Incorrect " + expression, expected, actual, 1e-5);
     }
+
     @Test
-    public void testScalarBrackets() throws CalcException {
-        Parser parser = new Parser();
-        String expression = "((1+1/2)+-0.5)/0.1";
-        double expected = 10;
-        Scalar scalar = (Scalar) parser.calc(expression);
-        double actual = Double.parseDouble(scalar.toString());
-        assertEquals("Incorrect " + expression, expected, actual, 1e-5);
-    }
-    @Test
-    public void testExpressionsWitchVars() throws CalcException {
+    public void testScalarExpressionWitchVars() throws CalcException {
         Parser parser = new Parser();
         String expression = "a=2+5.3";
         double expected = 7.3;
@@ -120,7 +118,27 @@ public class ParserTestLevel_A {
         scalar = (Scalar) parser.calc(expression);
         actual = Double.parseDouble(scalar.toString());
         assertEquals("Incorrect " + expression, expected, actual, 1e-5);
-
-
     }
+    @Test(expected = CalcException.class)
+    public void testParserIncorrectOperation() throws CalcException {
+        Parser parser = new Parser();
+        String expression = "привет";
+        Scalar scalar = (Scalar) parser.calc(expression);
+    }
+
+    @Test(expected = CalcException.class)
+    public void testParserIncorrectOperands() throws CalcException {
+        Parser parser = new Parser();
+        String expression = "5+";
+        Scalar scalar = (Scalar) parser.calc(expression);
+    }
+
+    @Test(expected = CalcException.class)
+    public void testParserUndefinedVar() throws CalcException {
+        Parser parser = new Parser();
+        String expression = "5+some";
+        Scalar scalar = (Scalar) parser.calc(expression);
+    }
+
+
 }
