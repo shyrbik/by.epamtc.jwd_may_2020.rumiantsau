@@ -8,6 +8,8 @@ public class ParserTest {
 
     private Parser parser = new Parser();
 
+    /**                               TEST SCALAR                          **/
+    
     @Test
     public void a1() {
         System.out.println("Test A=2+5.3");
