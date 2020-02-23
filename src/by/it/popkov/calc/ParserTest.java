@@ -68,7 +68,7 @@ public class ParserTest {
      * TEST VECTOR
      **/
     @Test
-    public void vectorAddScalar() {
+    public void vectorAddScalarForTaskB() {
         System.out.println("Test {2, 3} + 2");
         try {
             Var calc = parser.calc("{2, 3} + 2");
@@ -81,7 +81,7 @@ public class ParserTest {
     }
 
     @Test
-    public void vectorAddVector() {
+    public void vectorAddVectorForTaskB() {
         System.out.println("Test {0, 1}+{2, 3}");
         try {
             Var calc = parser.calc("{0, 1}+{2, 3}");
@@ -94,7 +94,7 @@ public class ParserTest {
     }
 
     @Test
-    public void vectorSubScalar() {
+    public void vectorSubScalarForTaskB() {
         System.out.println("Test {2, 3} - 2");
         try {
             Var calc = parser.calc("{2, 3} - 2");
@@ -107,7 +107,7 @@ public class ParserTest {
     }
 
     @Test
-    public void vectorSubVector() {
+    public void vectorSubVectorForTaskB() {
         System.out.println("Test {0, 1} - {2, 3}");
         try {
             Var calc = parser.calc("{0, 1} - {2, 3}");
@@ -120,7 +120,7 @@ public class ParserTest {
     }
 
     @Test
-    public void vectorMulScalar() {
+    public void vectorMulScalarForTaskB() {
         System.out.println("Test {{0, 1}, {2, 3}} * 3");
         try {
             Var calc = parser.calc("{{0, 1}, {2, 3}} * 3");
@@ -133,7 +133,7 @@ public class ParserTest {
     }
 
     @Test
-    public void vectorMulVector() {
+    public void vectorMulVectorForTaskB() {
         System.out.println("Test {0, 1} * {2, 3}");
         try {
             Var calc = parser.calc("{0, 1} * {2, 3}");
@@ -146,7 +146,7 @@ public class ParserTest {
     }
 
     @Test
-    public void vectorMulMatrix() {
+    public void vectorMulMatrixForTaskB() {
         System.out.println("Test {2,6} * {{0, 1}, {2, 3}}");
         try {
             Var calc = parser.calc("{2,6} * {{0, 1}, {2, 3}}");
@@ -159,7 +159,7 @@ public class ParserTest {
     }
 
     @Test
-    public void vectorDivScalar() {
+    public void vectorDivScalarForTaskB() {
         System.out.println("Test {2, 3} / 2");
         try {
             Var calc = parser.calc("{2, 3} / 2");
@@ -177,7 +177,7 @@ public class ParserTest {
      **/
 
     @Test
-    public void matrixAddScalar() {
+    public void matrixAddScalarForTaskC() {
         System.out.println("Test {{0, 1}, {2, 3}} + 2");
         try {
             Var calc = parser.calc("{{0, 1}, {2, 3}} + 2");
@@ -190,7 +190,7 @@ public class ParserTest {
     }
 
     @Test
-    public void matrixAddMatrix() {
+    public void matrixAddMatrixForTaskC() {
         System.out.println("Test {{0, 1}, {2, 3}} + {{4, 5}, {6, 10}}");
         try {
             Var calc = parser.calc("{{0, 1}, {2, 3}} + {{4, 5}, {6, 10}}");
@@ -204,7 +204,7 @@ public class ParserTest {
     }
 
     @Test
-    public void matrixSubScalar() {
+    public void matrixSubScalarForTaskC() {
         System.out.println("Test {{0, 1}, {2, 3}} - 3");
         try {
             Var calc = parser.calc("{{0, 1}, {2, 3}} - 3");
@@ -218,7 +218,7 @@ public class ParserTest {
     }
 
     @Test
-    public void matrixSubMatrix() {
+    public void matrixSubMatrixForTaskC() {
         System.out.println("Test {{0, 1}, {2, 3}} - {{-4, 5}, {6, -10}}");
         try {
             Var calc = parser.calc("{{0, 1}, {2, 3}} - {{-4, 5}, {6, -10}}");
@@ -232,7 +232,7 @@ public class ParserTest {
     }
 
     @Test
-    public void matrixMulScalar() {
+    public void matrixMulScalarForTaskC() {
         System.out.println("Test {{0, 1}, {2, 3}} * 3");
         try {
             Var calc = parser.calc("{{0, 1}, {2, 3}} * 3");
@@ -246,7 +246,7 @@ public class ParserTest {
     }
 
     @Test
-    public void matrixMulVector() {
+    public void matrixMulVectorForTaskC() {
         System.out.println("Test {{0, 1}, {2, 3}} * {-4, 5}");
         try {
             Var calc = parser.calc("{{0, 1}, {2, 3}} * {-4, 5}");
@@ -260,7 +260,7 @@ public class ParserTest {
     }
 
     @Test
-    public void matrixMulMatrix() {
+    public void matrixMulMatrixForTaskC() {
         System.out.println("Test {{0, 1}, {2, 3}} * {{-4, 5}, {6, -10}}");
         try {
             Var calc = parser.calc("{{0, 1}, {2, 3}} * {{-4, 5}, {6, -10}}");
@@ -274,7 +274,7 @@ public class ParserTest {
     }
 
     @Test
-    public void matrixDivScalar() {
+    public void matrixDivScalarForTaskC() {
         System.out.println("Test {{0, 1}, {2, 3}} / 2.0");
         try {
             Var calc = parser.calc("{{0, 1}, {2, 3}} / 2.0");
@@ -292,7 +292,7 @@ public class ParserTest {
      **/
 
     @Test
-    public void varScalar() {
+    public void varScalarForTaskC() {
         System.out.println("Test variable A=1.5");
         try {
             Var calc = parser.calc("A=1.5");
@@ -306,7 +306,7 @@ public class ParserTest {
     }
 
     @Test
-    public void varVector() {
+    public void varVectorForTaskC() {
         System.out.println("Test variable B={1.5, 2.7}");
         try {
             Var calc = parser.calc("B={1.5, 2.7}");
@@ -320,7 +320,7 @@ public class ParserTest {
     }
 
     @Test
-    public void varMatrix() {
+    public void varMatrixForTaskC() {
         System.out.println("Test variable B={{1.5, 2.7}, {3, 5}}");
         try {
             Var calc = parser.calc("B={{1.5, 2.7}, {3, 5}}");
@@ -338,46 +338,30 @@ public class ParserTest {
      **/
 
     @Test
-    public void newScalar() {
-        fail();
-        System.out.println("Test variable Scalar");
-        try {
-            Var calc = parser.calc("A=1.5");
-            assertEquals("Wrong result for A=1.5", "1.5", calc.toString());
-            System.out.println(calc.toString());
-            System.out.println("Test is successful, so you see this message");
-        } catch (CalcException e) {
-            e.printStackTrace();
-        }
+    public void newScalarForTaskC() {
+        System.out.println("Test new Scalar(\"1.5\")");
+        Var scalar = new Scalar("1.5");
+        assertEquals("Wrong result for new Scalar(\"1.5\")", "1.5", scalar.toString());
+        System.out.println(scalar.toString());
+        System.out.println("Test is successful, so you see this message");
     }
 
     @Test
-    public void newVector() {
-        fail();
-        System.out.println("Test variable B={1.5, 2.3}");
-        try {
-            Var calc = parser.calc("B={1.5, 2.3}");
-            Var var = parser.calc("B");
-            assertEquals("Wrong result for B={1.5, 2.3}", "{1.5, 2.3}", calc.toString());
-            System.out.println(calc.toString());
-            System.out.println("Test is successful, so you see this message");
-        } catch (CalcException e) {
-            e.printStackTrace();
-        }
+    public void newVectorForTaskC() {
+        System.out.println("Test new Vector(\"{1.5, 2.7}\")");
+        Var vector = new Vector("{1.5, 2.7}");
+        assertEquals("Wrong result for new Vector(\"{1.5, 2.7}\");", "{1.5, 2.7}", vector.toString());
+        System.out.println(vector.toString());
+        System.out.println("Test is successful, so you see this message");
     }
 
     @Test
-    public void newMatrix() {
-        fail();
-        System.out.println("Test variable A=1.5");
-        try {
-            Var calc = parser.calc("Test variable A=1.5");
-            assertEquals("Wrong result for A=2+5.3", "7.3", calc.toString());
-            System.out.println(calc.toString());
-            System.out.println("Test is successful, so you see this message");
-        } catch (CalcException e) {
-            e.printStackTrace();
-        }
+    public void newMatrixForTaskC() {
+        System.out.println("Test new Matrix(\"{{1.5, 2.7}, {3.0, 5.0}}\")");
+        Var matrix = new Matrix("{{1.5, 2.7}, {3.0, 5.0}}");
+        assertEquals("Wrong result for new Matrix(\"{{1.5, 2.7}, {3.0, 5.0}}\")",
+                "{{1.5, 2.7}, {3.0, 5.0}}", matrix.toString());
+        System.out.println(matrix.toString());
+        System.out.println("Test is successful, so you see this message");
     }
-
 }
