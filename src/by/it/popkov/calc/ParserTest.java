@@ -293,6 +293,52 @@ public class ParserTest {
 
     @Test
     public void varScalar() {
+        System.out.println("Test variable A=1.5");
+        try {
+            Var calc = parser.calc("A=1.5");
+            Var var = parser.calc("A");
+            assertEquals("Wrong result for A=1.5", "1.5", var.toString());
+            System.out.println(calc.toString());
+            System.out.println("Test is successful, so you see this message");
+        } catch (CalcException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void varVector() {
+        System.out.println("Test variable B={1.5, 2.7}");
+        try {
+            Var calc = parser.calc("B={1.5, 2.7}");
+            Var var = parser.calc("B");
+            assertEquals("Wrong result for B={1.5, 2.7}", "{1.5, 2.7}", var.toString());
+            System.out.println(calc.toString());
+            System.out.println("Test is successful, so you see this message");
+        } catch (CalcException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void varMatrix() {
+        System.out.println("Test variable B={{1.5, 2.7}, {3, 5}}");
+        try {
+            Var calc = parser.calc("B={{1.5, 2.7}, {3, 5}}");
+            Var var = parser.calc("B");
+            assertEquals("Wrong result for B={{1.5, 2.7}, {3, 5}}", "{{1.5, 2.7}, {3.0, 5.0}}", var.toString());
+            System.out.println(calc.toString());
+            System.out.println("Test is successful, so you see this message");
+        } catch (CalcException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * TEST NEW VAR
+     **/
+
+    @Test
+    public void newScalar() {
         fail();
         System.out.println("Test variable Scalar");
         try {
@@ -306,7 +352,7 @@ public class ParserTest {
     }
 
     @Test
-    public void varVector() {
+    public void newVector() {
         fail();
         System.out.println("Test variable B={1.5, 2.3}");
         try {
@@ -321,7 +367,7 @@ public class ParserTest {
     }
 
     @Test
-    public void varMatrix() {
+    public void newMatrix() {
         fail();
         System.out.println("Test variable A=1.5");
         try {
