@@ -1,4 +1,4 @@
-package by.it.filipovich.calc;
+package by.it.filipovich.jd02_04;
 
 import java.util.Map;
 import java.util.Scanner;

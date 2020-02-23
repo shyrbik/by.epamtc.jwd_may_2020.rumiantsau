@@ -1,4 +1,4 @@
-package by.it.filipovich.calc;
+package by.it.filipovich.jd02_04;
 
 public class Matrix extends Var {
 

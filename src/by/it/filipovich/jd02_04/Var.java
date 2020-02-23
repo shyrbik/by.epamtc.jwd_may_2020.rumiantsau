@@ -1,10 +1,10 @@
-package by.it.filipovich.calc;
+package by.it.filipovich.jd02_04;
 
 import java.util.HashMap;
 import java.util.Map;
 
 abstract class Var implements Operation {
-    static Map<String,Var> vars = new HashMap<>();
+    static Map<String, Var> vars = new HashMap<>();
 
     @Override
     public Var add(Var other) throws CalcException {
