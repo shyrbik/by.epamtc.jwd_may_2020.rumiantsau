@@ -7,7 +7,13 @@ import static by.it.plugatar.calc.Patterns.OPERATION;
 import static by.it.plugatar.calc.Var.*;
 
 class Parser {
-
+    /*
+    Var oneOperation(String strLeft, String operation, String strRight){
+        if operation.equals("="){
+            Var.save(left,varRight);
+        }
+    }
+    */
     Var calc(String expression) throws CalcException{
         expression = expression.replaceAll("\\s+", "");
         if (expression.equals("printvar")){

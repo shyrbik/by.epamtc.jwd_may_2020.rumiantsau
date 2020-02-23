@@ -9,7 +9,6 @@ public class Cashier implements Runnable {
     private String name;
     private int numberOfCashier;
 
-    //конструктор по номеру кассы
     public Cashier(int number) {
         Dispatcher.newCashier();
         this.name = "Cashier №" + number;
@@ -67,7 +66,7 @@ public class Cashier implements Runnable {
         }
     }
 
-    //метод для вывода работы кассы с определённым покупателем в консоль
+    //кассы с определённым покупателем в консоль
     private void cashiersWorkToConsole(Buyer buyer, String s) {
         System.out.println("\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tSize of queue: " +
                 QueueBuyer.getQueueSize());
@@ -84,7 +83,7 @@ public class Cashier implements Runnable {
                 Dispatcher.getOverallPrice());
     }
 
-    //метод для опеределения сдвига вывода в консоль результатов работы определённой кассы
+    //в консоль результатов работы определённой кассы
     private String getShiftForConsole() {
         String s;
         switch (this.numberOfCashier) {
@@ -118,7 +117,7 @@ public class Cashier implements Runnable {
         return s;
     }
 
-    //метод для проверки нужны ли дополнительные кассы и при необходимости их открытия
+    //нужны ли дополнительные кассы
     private void startMoreCashiers() {
         if (Dispatcher.getCountCashiers() < 5) {
             while (QueueBuyer.getQueueSize() > Dispatcher.getCountCashiers() * 5) {
@@ -131,7 +130,7 @@ public class Cashier implements Runnable {
         }
     }
 
-    //сохранение результатов работы касс в файле cashierLog.txt
+    //сохранение результатов cashierLog.txt
     private void logCashier(Buyer buyer) {
         String path = RandomHelper.getCashierLogPath();
         try (PrintWriter pw = new PrintWriter(new FileWriter(path, true))) {
@@ -159,7 +158,7 @@ public class Cashier implements Runnable {
         }
     }
 
-    //сохранение работы первой кассы в файле cashierLog.txt
+    //работа первой кассы cashierLog.txt
     private void logCashier1(Buyer buyer, PrintWriter pw) {
         pw.printf("%-90s%s\n",
                 "C1 service B" + buyer.getBuyerNumber(), QueueBuyer.getQueueSize());
@@ -175,7 +174,7 @@ public class Cashier implements Runnable {
                 "------------------------------------------------------------");
     }
 
-    //сохранение работы второй кассы в файле cashierLog.txt
+    //работа второй кассы - cashierLog.txt
     private void logCashier2(Buyer buyer, PrintWriter pw) {
         pw.printf("%-18s%-72s%s\n", "",
                 "C2 service B" + buyer.getBuyerNumber(), QueueBuyer.getQueueSize());
@@ -191,7 +190,7 @@ public class Cashier implements Runnable {
                 "------------------------------------------------------------");
     }
 
-    //сохранение работы третьей кассы в файле cashierLog.txt
+    //работа третьей кассы -cashierLog.txt
     private void logCashier3(Buyer buyer, PrintWriter pw) {
         pw.printf("%-36s%-54s%s\n", "",
                 "C3 service B" + buyer.getBuyerNumber(), QueueBuyer.getQueueSize());
@@ -207,7 +206,7 @@ public class Cashier implements Runnable {
                 "------------------------------------------------------------");
     }
 
-    //сохранение работы четвёртой кассы в файле cashierLog.txt
+    //работа четвёртой кассы cashierLog.txt
     private void logCashier4(Buyer buyer, PrintWriter pw) {
         pw.printf("%-54s%-36s%s\n", "",
                 "C4 service B" + buyer.getBuyerNumber(), QueueBuyer.getQueueSize());
@@ -223,7 +222,7 @@ public class Cashier implements Runnable {
                 "------------------------------------------------------------");
     }
 
-    //сохранение работы пятой кассы в файле cashierLog.txt
+    //работа пятой кассы cashierLog.txt
     private void logCashier5(Buyer buyer, PrintWriter pw) {
         pw.printf("%-72s%-18s%s\n", "",
                 "C5 service B" + buyer.getBuyerNumber(), QueueBuyer.getQueueSize());

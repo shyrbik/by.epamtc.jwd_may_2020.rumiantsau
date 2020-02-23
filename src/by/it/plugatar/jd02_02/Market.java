@@ -8,23 +8,18 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class Market {
-
-    //коллекция количеств покупателей в определённый момент времени в магазине (для вывода статистики в конце)
     private static LinkedList<Integer> numberOfBuyers = new LinkedList<>();
-
-    /*коллекция количеств покупателей в определённый момент времени в магазине учитывая вошедших
-    (для вывода статистики в конце) */
     private static LinkedList<Integer> enteredBuyers = new LinkedList<>();
 
-    static List<Thread> listOfThreads = new ArrayList<>();    //коллекция всех запущенных потоков
-    private static int number = 1;     //статическое поле для нумерации покупателей
+    static List<Thread> listOfThreads = new ArrayList<>();
+    private static int number = 1;     //нумерация покупателей
 
     public static void main(String[] args) {
         workingMarket();
         marketStatistics();
     }
 
-    //вывод статистики магазина по секундам (по запускам покупателей
+    //статистика магазина по запускам покупателей
     private static void marketStatistics() {
         System.out.println("Buyers in Market Statistics:");
         System.out.println("---------------------------------------------------------------------------------------------------------------");
@@ -42,7 +37,7 @@ public class Market {
         }
     }
 
-    //метод "магазин в рабочем состоянии"
+
     private static void workingMarket() {
         int max_entries = 2;
         synchronized (Dispatcher.LOCK_CONSOLE) {
@@ -50,7 +45,7 @@ public class Market {
         }
         cashierLogStart();
         startOfFirstCashier();
-        for (int i = 1; i <= 180; i++) {
+        for (int i = 1; i <= 100; i++) {
             enteringBuyers(max_entries, i);
             if (!Dispatcher.marketIsOpen() || Dispatcher.planIsComplete()) break;
         }
@@ -73,7 +68,7 @@ public class Market {
         }
     }
 
-    //метод для открытия первой кассы
+    //первая кассы
     private static void startOfFirstCashier() {
         Cashier c = new Cashier(Dispatcher.cashiersNumber++);
         Thread th = new Thread(c);
@@ -81,7 +76,7 @@ public class Market {
         th.start();
     }
 
-    //метод для записи шапки в файл cashierLog.txt
+    //cashierLog.txt
     private static void cashierLogStart() {
         String path = RandomHelper.getCashierLogPath();
         try (PrintWriter pw = new PrintWriter(new FileWriter(path))) {
@@ -95,7 +90,7 @@ public class Market {
         }
     }
 
-    //метод для запуска покупателей в магазин пилообразно
+    //для запуска покупателей в магазин
     private static void enteringBuyers(int max_entries, int i) {
         int sec = i % 60;
         int num = -1;
