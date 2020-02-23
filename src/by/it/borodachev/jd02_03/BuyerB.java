@@ -50,15 +50,16 @@ class BuyerB extends Buyer implements IUseBacket {
       System.out.println(this+"Положил товар к корзину "+randomGoodName+" Цена "+goodPrice);
     }
     @Override
-    public void add2Queue()  {
-        System.out.println(this+"Ожидание в очереди");
-        try { Dispatcher.buyer2Cash.put(this);}
-        catch (InterruptedException e) {}
+    public void add2Queue() {
+        System.out.println(this + "Ожидание в очереди");
+        try {
+            Dispatcher.buyer2Cash.put(this);
+        } catch (InterruptedException e) {
+        }
 
         // если кто-то спит разбудим
-            int needcashier= Dispatcher.buyer2Cash.size()/5+1;
-            if ((needcashier > Dispatcher.countCashier.get()) &&(Dispatcher.countCashier.get() <5))
-            {
+        int needcashier = Dispatcher.buyer2Cash.size() / 5 + 1;
+        if ((needcashier > Dispatcher.countCashier.get()) && (Dispatcher.countCashier.get() < 5)) {
             for (Cashier cashier : Dispatcher.cashiers) {
                 if (cashier.getState() == WAITING) {
                     synchronized (cashier) {
@@ -67,13 +68,16 @@ class BuyerB extends Buyer implements IUseBacket {
                     break;
                 }
             }
-            }
+        }
 
 
         synchronized (this) {
-            try {
-                this.wait();
-            } catch (InterruptedException e) {
+            while (this.waitNextOperation.get()) {
+                try {
+                    this.wait();
+                } catch (InterruptedException e) {
+                    System.out.println(" Error:" + this + e.toString());
+                }
             }
         }
     }
@@ -86,6 +90,7 @@ class BuyerB extends Buyer implements IUseBacket {
         System.out.println(this+" Сумма чека= "+String.format("%.2f", sumCheck));
         Dispatcher.buyersinMaktetSize.release();
         System.out.println(this+" Вернул корзину");
+        waitNextOperation.set(false);
         return ;
     }
 }

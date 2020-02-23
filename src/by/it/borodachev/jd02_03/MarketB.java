@@ -9,6 +9,8 @@ import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+import static java.lang.Thread.State.WAITING;
+
 class MarketB {
 
     public static void main(String[] args) {
@@ -22,7 +24,7 @@ class MarketB {
             cashier.setDaemon(true);
             Dispatcher.countCashier.incrementAndGet();
             fixedThreadPool.execute(cashier);
-        }
+       }
         fixedThreadPool.shutdown();
 
         int number=0;
@@ -34,7 +36,9 @@ class MarketB {
             }
             Helper.sleep(1000);
         }
-        while (!Dispatcher.marketClosed()) {  Helper.sleep(100);}
+        while (!Dispatcher.marketClosed()) {
+            Helper.sleep(100);
+        }
 
         System.out.println("--------- Market closed");
     }

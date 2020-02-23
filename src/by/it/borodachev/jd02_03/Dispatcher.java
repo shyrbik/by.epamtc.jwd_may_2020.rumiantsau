@@ -10,7 +10,7 @@ import java.util.concurrent.atomic.AtomicLong;
 
 class Dispatcher {
     static final int K_SPEED=10000;
-    static final int PLAN = 10;
+    static final int PLAN = 100;
     static final int maxChooseBuyers =20;
     static AtomicInteger countCashier=new AtomicInteger(0);
     static AtomicInteger inBuyer=new AtomicInteger(0);
@@ -20,19 +20,29 @@ class Dispatcher {
         return inBuyer.get() < PLAN;
     }
     static boolean marketClosed() {
-        return inBuyer.get() == PLAN && outBuyer.get() == PLAN;
+        return inBuyer.get() == outBuyer.get() && outBuyer.get() >= PLAN;
     }
-    static void buyerEnter() {
-        inBuyer.incrementAndGet();
-    }
+    static void buyerEnter() {inBuyer.getAndIncrement(); }
     static void buyerLeave() {
-         outBuyer.incrementAndGet();
+         outBuyer.getAndIncrement();
     }
     static List <Cashier> cashiers=new ArrayList<>();
     static void addsumBuyers(Double paySum) {sumBuyers.addAndGet(Math.round(paySum*100));}
     static Double getsumBuyers() {return sumBuyers.doubleValue()/100;}
-    static BlockingQueue<IBuyer> buyer2Cash;
+    static BlockingQueue<Buyer> buyer2Cash;
     static void initQueue (BlockingQueue T) {buyer2Cash=T;}
     static Semaphore buyersinMaktetSize = new Semaphore(maxChooseBuyers);
     static ArrayBlockingQueue<Backet> bakets = new ArrayBlockingQueue<Backet>(30);
+    static void setbakets ()
+    {
+    for (int i = 0; i < 30; i++) {
+        try {
+            Dispatcher.bakets.put(new Backet());
+        }
+        catch (InterruptedException e) {
+            System.out.println(e.toString());
+        }
+    }
+
+}
 }

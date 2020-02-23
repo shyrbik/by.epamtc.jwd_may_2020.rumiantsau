@@ -4,6 +4,8 @@ import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+import static java.lang.Thread.State.WAITING;
+
 class Market {
 
     public static void main(String[] args) {
@@ -16,10 +18,12 @@ class Market {
         for (Cashier cashier : Dispatcher.cashiers) {
             cashier.setDaemon(true);
             Dispatcher.countCashier.incrementAndGet();
-            fixedThreadPool.execute(cashier);
+            fixedThreadPool.submit(cashier);
+          cashier.start();
           }
          fixedThreadPool.shutdown();
 
+        Helper.sleep(2000);
         int number=0;
         while (Dispatcher.marketOpened()) {
             int count= Helper.random(0,2);
@@ -30,11 +34,22 @@ class Market {
             Helper.sleep(1000);
         }
         while (!Dispatcher.marketClosed()) {
-            int i =Dispatcher.inBuyer.get()-Dispatcher.outBuyer.get();
-            int k=Dispatcher.buyer2Cash.size();
-            Helper.sleep(1000);
+           Helper.sleep(1000);
         }
 
+        for (Cashier cashier : Dispatcher.cashiers) {
+           if (cashier.getState()==WAITING) {
+                System.out.println(cashier+" будим");
+                synchronized (cashier) {
+                    cashier.notify();
+                }
+                try {
+                    cashier.join();
+                } catch (InterruptedException e) {
+                    System.out.println("WOW2");
+                }
+            }
+        }
         System.out.println("--------- Market closed");
     }
 

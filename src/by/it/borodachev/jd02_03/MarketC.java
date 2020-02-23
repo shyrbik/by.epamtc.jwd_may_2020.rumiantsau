@@ -13,6 +13,7 @@ class MarketC {
 
     public static void main(String[] args) {
         System.out.println("---------- Market opened");
+        Dispatcher.setbakets();
         Comparator comp = new Comparator<BuyerC>() {
             public int compare(BuyerC o1, BuyerC o2) {
                 int ret=0;
@@ -57,5 +58,6 @@ class MarketC {
 
         System.out.println("--------- Market closed");
     }
+
 
 }

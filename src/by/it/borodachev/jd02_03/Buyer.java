@@ -1,8 +1,11 @@
 package by.it.borodachev.jd02_03;
 
+import java.util.concurrent.atomic.AtomicBoolean;
+
 import static java.lang.Thread.State.WAITING;
 
 class Buyer extends Thread implements IBuyer {
+    AtomicBoolean waitNextOperation=new AtomicBoolean(false);
     public Buyer(int number) {
         super("Buyer №"+number+" ");
         Dispatcher.buyerEnter();
@@ -11,7 +14,9 @@ class Buyer extends Thread implements IBuyer {
     @Override
     public void add2Queue()  {
         System.out.println(this+" Ожидание очереди");
-        try { Dispatcher.buyer2Cash.put(this);}
+        waitNextOperation.set(true);
+        try {
+              Dispatcher.buyer2Cash.put(this);}
               catch (InterruptedException e) {
                   System.out.println(" Error:"+this+e.toString());
               }
@@ -25,15 +30,19 @@ class Buyer extends Thread implements IBuyer {
                     }
                 }
             }
-       synchronized (this) {
-            try {
-                this.wait();
-            } catch (InterruptedException e) {  System.out.println(" Error:"+this+e.toString());
-            }
-        }
+            synchronized (this) {
+           while (this.waitNextOperation.get()) {
+               try {
+                   this.wait();
+               } catch (InterruptedException e) {
+                   System.out.println(" Error:" + this + e.toString());
+               }
+           }
+           }
     }
     @Override
     public void pay(int numCash) {
+        waitNextOperation.set(false);
          return ;
      }
 

@@ -19,7 +19,7 @@ class Helper {
         return generator.nextInt(max+1);
     }
     static Double randomPrice(double maxDouble) {
-       return 0.01+Math.round(maxDouble*generator.nextDouble()*100)/100;
+       return 0.01+Math.round(maxDouble*generator.nextLong()*100)/100;
     }
 
 
