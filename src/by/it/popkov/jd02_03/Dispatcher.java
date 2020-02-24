@@ -27,7 +27,7 @@ class Dispatcher {
         return dayProfit.get();
     }
 
-    public void plusDayProfit(int plus) {
+    public void plusDayProfit(Integer plus) {
         dayProfit.addAndGet(plus);
     }
 

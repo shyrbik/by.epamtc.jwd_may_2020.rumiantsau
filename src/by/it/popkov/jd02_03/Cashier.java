@@ -64,6 +64,7 @@ class Cashier implements Runnable {
     private void printCheck(Buyer buyer) {
         int sumOfCheck = buyer.getBasket().values().stream().mapToInt(Integer::intValue).sum();
         dispatcher.plusDayProfit(sumOfCheck);
+        String widthOfCheck = "%-30s";
         String tab = "";
         String posBuyerOnline = "";
         StringBuffer stringBuffer = new StringBuffer();
@@ -90,7 +91,6 @@ class Cashier implements Runnable {
                 posBuyerOnline = "%30s";
                 break;
         }
-        String widthOfCheck = "%-30s";
         stringBuffer.append(String.format(tab + widthOfCheck + posBuyerOnline + "%20s" +  "\n","", buyer + " check:",
                "All queues sum size:" + (buyerQueue.getBuyerQueueSize()+ buyerQueue.getPensionerQueueSize()),
                 "Day profit: " + dispatcher.getDayProfit()));
