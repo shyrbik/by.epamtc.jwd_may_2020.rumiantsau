@@ -30,7 +30,10 @@ class Buyer extends Thread implements IBuyer, IUseBacket {
     }
 
     @Override
-    public void enterToMarket() { System.out.println(this + " " + "entered the market."); }
+    public void enterToMarket() {
+        System.out.println(this + " " + "entered the market.");
+
+    }
 
     @Override
     public void chooseGoods() {

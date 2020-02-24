@@ -2,11 +2,11 @@ package by.it.samuseva.jd02_02;
 
 import java.util.Map;
 
-public class Cashier implements Runnable {
+class Cashier implements Runnable {
 
     private String name;
 
-    public Cashier(int number) {
+    Cashier(int number) {
         name = "***Cashier № "+ number +" ";
     }
 
@@ -26,10 +26,14 @@ public class Cashier implements Runnable {
                     buyer.setFlagQueue(false);
                 }
             }
-            else {
-                //wait for this??
-                Helper.sleep(1);
+            else { Helper.sleep(20);
+//                try {
+//                    this.wait();
+//                } catch (InterruptedException e) {
+//                    e.printStackTrace();
+//                }
             }
+
         }
         System.out.println(this + "closed.");
     }

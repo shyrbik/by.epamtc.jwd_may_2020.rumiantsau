@@ -17,4 +17,11 @@ public class QueueBuyer {
         else return queue.pollFirst();
     }
 
+     static int getQueueSize() {
+        return queue.size();
+    }
+
+    static int getQueuePensionerSize() {
+        return queuePensioner.size();
+    }
 }

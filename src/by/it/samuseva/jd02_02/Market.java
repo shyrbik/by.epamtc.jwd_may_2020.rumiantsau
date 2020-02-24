@@ -9,7 +9,10 @@ public class Market {
         List<Thread> threads = new ArrayList<>(1000);
 
         System.err.println("-----------THE MARKET HAS OPENED-----------");
-        for (int i = 1; i <= Dispetcher.getCountCasher(); i++) {
+//        CashierManager cashierManager = new CashierManager();
+//        threads.add(cashierManager);
+//        cashierManager.start();
+        for (int i = 1; i <= Dispetcher.getCountCashier(); i++) {
             Cashier cashier = new Cashier(i);
             Thread thread = new Thread(cashier);
             threads.add(thread);
@@ -23,7 +26,6 @@ public class Market {
                     Buyer buyer = new Buyer(++number);
                     if (number%4 == 0) {
                         buyer.pensioner = true;
-                        System.err.println(number%4);
                     }
                     threads.add(buyer);
                     buyer.start();
