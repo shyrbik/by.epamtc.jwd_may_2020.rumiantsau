@@ -1,8 +1,10 @@
-package by.it.plugatar.jd02_01;
+package by.it.plugatar.jd02_03;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class Market {
 
@@ -18,7 +20,7 @@ public class Market {
     }
     private static void marketStatistics() {
         System.out.println("Buyers in Market Statistics:");
-        System.out.printf("Total buyers: %d, pensioneer buyers: %d\n", Dispatcher.totalBuyersCount, Dispatcher.totalRetiredCount);
+        System.out.printf("Total buyers: %d, retired buyers: %d\n", Dispatcher.totalBuyersCount, Dispatcher.totalRetiredCount);
         System.out.println("-------------------------------------------------------------------------------------");
         int n = numberOfBuyers.size();
         System.out.print("entry № | number of buyers in the market | entered buyers | total number of buyers (in the market + entered) |\n");
@@ -58,9 +60,14 @@ public class Market {
     private static void workingMarket(){
         System.out.println("-----------Market opened");
         List<Buyer> buyers = new ArrayList<>(1000);
+        ExecutorService fixedThreadPool= Executors.newFixedThreadPool(5);
         for (int time = 0; time <= 120; time++) {
-            int countBuyer=RandomHelper.random(0,2);
+            int countBuyer= RandomHelper.random(0,2);
+            Cashier cashier = new Cashier(i);
+            fixedThreadPool.execute(cashier);
         }
+        fixedThreadPool.shutdown();
+
         for (int i = 1; i < 120; i++) {
             Buyer buyer = new Buyer(i);
             buyers.add(buyer);
@@ -76,4 +83,5 @@ public class Market {
         }
         System.out.println("-----------Market closed");
     }
+    //while (fixedThreadPool.awaitTermination)
 }

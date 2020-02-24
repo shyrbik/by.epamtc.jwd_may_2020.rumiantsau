@@ -1,17 +1,21 @@
-package by.it.plugatar.jd02_01;
+package by.it.plugatar.jd02_03;
+
+import java.util.concurrent.Semaphore;
 
 public class Buyer extends Thread implements IBuyer, IUseBasket {
-    private boolean pensioneer = false;
+    private boolean retired = false;
     private Basket basket = new Basket();
+    private boolean waitingFlag =false;
+    private static final Semaphore semaphore=new Semaphore(20);
 
     public Buyer(int number){
         super("Buyer №:"+number);
         Dispatcher.totalBuyersCount++;
         Dispatcher.buyersCount++;
         if (RandomHelper.random(1, 4) == 1) {
-            this.pensioneer = true;
+            this.retired = true;
             Dispatcher.totalRetiredCount++;
-            this.setName(this.getName() + " (pensioneer)");
+            this.setName(this.getName() + "(retired)");
         }
     }
 
@@ -70,4 +74,20 @@ public class Buyer extends Thread implements IBuyer, IUseBasket {
     String ToString()
 
      */
+
+    public void goToQueue(){
+        System.out.println(this+"Go to queue");
+        synchronized (this){
+            semaphore.release();
+            QueueBuyer.add(this);
+            this.waitingFlag=true;
+        }
+    while (this.waitingFlag)
+        try{
+            this.wait();
+        }catch(InterruptedException e){
+            e.printStackTrace();
+        }
+    }
+
 }
