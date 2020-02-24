@@ -8,11 +8,11 @@ class Patterns {
      * A pattern (String-object) containing basic arithmetical operators corresponding to subtraction, addition,
      * multiplication, division
      */
-    static final String OPERATION = "(?<![-+=*/{,(])[-+*/=]";
+    static final String OPERATION = "(?<![ -+=*/{,(])[-+*/=]";
     /**
      * A pattern (String-object) containing a general definition of a Scalar expression
      */
-    static final String SCALAR = "(-?[0-9]+)([\\.][0-9]+)?";
+    static final String SCALAR = "(-?[0-9]+)([\\.][0-9Ee]+)?";
     /**
      * A pattern (String-object) containing a general definition of a Vector expression
      */
