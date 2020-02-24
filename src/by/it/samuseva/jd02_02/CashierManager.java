@@ -18,8 +18,6 @@ class CashierManager extends Thread{
             System.err.println(cashier.getName() +" "+ cashier.getState());
        //     cashier.notify();
             System.err.println(cashier.getName() +" "+ cashier.getState());
-
-
 //            Thread thread = cashier;
 //            System.err.println(thread.getName() +" "+ thread.getState());
 //            run(thread);

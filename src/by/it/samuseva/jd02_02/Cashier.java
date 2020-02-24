@@ -33,7 +33,6 @@ class Cashier implements Runnable {
 //                    e.printStackTrace();
 //                }
             }
-
         }
         System.out.println(this + "closed.");
     }

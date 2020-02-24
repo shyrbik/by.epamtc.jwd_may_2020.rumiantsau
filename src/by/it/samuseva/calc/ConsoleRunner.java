@@ -10,7 +10,7 @@ public class ConsoleRunner {
         VarFile.load();
         while (true){
             String line = scan.next();
-            if (line.equals("end")){
+            if (line.equals("end")|| line.equals("END") ){
                 break;
             }
             Var rezult = null;
