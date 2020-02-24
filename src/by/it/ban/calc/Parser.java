@@ -4,8 +4,6 @@ import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import static by.it.ban.calc.Var.*;
-
 class Parser {
     private static final Map<String, Integer> map = new HashMap<>();
 
@@ -73,27 +71,45 @@ class Parser {
     Var calc(String expression) throws CalcException {
         expression = expression.replaceAll("\\s+", "");
         if (check(expression)) {
-
-
-
-            List<String> operands = new ArrayList<>(Arrays.asList(expression.split(Patterns.OPERATION)));
-            List<String> operations = new ArrayList<>();
-            Matcher matcher = Pattern.compile(Patterns.OPERATION).matcher(expression);
-            while (matcher.find()) {
-                String operation = matcher.group();
-                operations.add(operation);
-            }
-            while (operations.size() > 0) {
-                int i = getIndex(operations);
-                String operation = operations.remove(i);
-                String left = operands.remove(i);
-                String right = operands.remove(i);
-                Var result = oneOperation(left, operation, right);
-                operands.add(i, result.toString());
-            }
-            return Var.createVar(operands.get(0));
+            if (expression.contains("(")) {
+                expression=calcComplex(expression);
+            }else
+                expression=calcSimple(expression);
+            return Var.createVar(expression);
         }
         return null;
+    }
+
+    private String calcComplex(String expression) throws CalcException {
+        Matcher matcher = Pattern.compile(Patterns.BRACKETS).matcher(expression);
+        while (matcher.find()) {
+            String subString = new String(matcher.group());
+            expression=matcher.replaceFirst(calcComplex(subString.substring(1, subString.length()-1)));
+            matcher.reset(expression);
+        }
+        //return calcSimple(expression);
+        return calcSimple(expression);
+    }
+
+    String calcSimple(String expression) throws CalcException {
+        expression = expression.replaceAll("\\s+", "");
+
+        List<String> operands = new ArrayList<>(Arrays.asList(expression.split(Patterns.OPERATION)));
+        List<String> operations = new ArrayList<>();
+        Matcher matcher = Pattern.compile(Patterns.OPERATION).matcher(expression);
+        while (matcher.find()) {
+            String operation = matcher.group();
+            operations.add(operation);
+        }
+        while (operations.size() > 0) {
+            int i = getIndex(operations);
+            String operation = operations.remove(i);
+            String left = operands.remove(i);
+            String right = operands.remove(i);
+            Var result = oneOperation(left, operation, right);
+            operands.add(i, result.toString().replaceAll("\\s+", ""));
+        }
+        return operands.get(0);
     }
 }
 
