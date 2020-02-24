@@ -1,7 +1,4 @@
-package by.it.potapovich.jd02_01;
-
-import java.util.LinkedHashMap;
-import java.util.Map;
+package by.it.potapovich.jd02_03;
 
 public class Good {
     private String nameGood;
@@ -16,13 +13,6 @@ public class Good {
         this.nameGood = nameGood;
     }
 
-    public String getNameGood() {
-        return nameGood;
-    }
-
-    public void setNameGood(String nameGood) {
-        this.nameGood = nameGood;
-    }
 
     @Override
     public boolean equals(Object o) {
@@ -41,7 +31,7 @@ public class Good {
 
     @Override
     public String toString() {
-        return "Товар " + nameGood + '\''
-                ;
+        return "Товар " + nameGood + '\'' +
+                '}';
     }
 }

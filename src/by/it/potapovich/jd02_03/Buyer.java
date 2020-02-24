@@ -1,35 +1,32 @@
-package by.it.potapovich.jd02_02;
+package by.it.potapovich.jd02_03;
 
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Map;
-import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.Semaphore;
 
 public class Buyer extends Thread implements Runnable, IBuyer, IUseBacket {
     private int num;
     private String name;
     private Backet backet;
     private Good good;
-    private Map<Good, Integer> goods;
-    private Map<Good, Integer> backets;
+    ConcurrentHashMap<Good, Integer> goods;
+    private ConcurrentHashMap<Good, Integer> backets;
+    private boolean waitingFlag = false;
 
+    void setWaitingFlag(boolean waitingFlag) {
+        this.waitingFlag = waitingFlag;
+    }
 
-    Buyer(int num, Map<Good, Integer> goods, Backet backet) throws InterruptedException {
-        this.num = num;
-        this.setName("Покупатель № " + num + " ");
-        Dispatcher.buyerEnter();
+    public Buyer(int number, ConcurrentHashMap<Good, Integer> goods, Backet backet) {
+            super("Покупатель № " + number + " ");
+            Dispatcher.buyerEnter();
         this.goods = goods;
         this.backet = backet;
-        start();
+
     }
 
-    public Map<Good, Integer> getGoods() {
-        return goods;
-    }
 
-    public void setGoods(Map<Good, Integer> goods) {
-        this.goods = goods;
-    }
 
     @Override
     public void run() {
@@ -39,6 +36,7 @@ public class Buyer extends Thread implements Runnable, IBuyer, IUseBacket {
         putGoodsToBacket();
         goToQueue();
         goOut();
+
     }
 
     @Override
@@ -56,9 +54,6 @@ public class Buyer extends Thread implements Runnable, IBuyer, IUseBacket {
     public void takeBacket() {
         //  if (name != null) {
         backet = new Backet();
-        chooseGoods();
-
-
         System.out.println(this + "взял корзину");
 
 
@@ -67,26 +62,36 @@ public class Buyer extends Thread implements Runnable, IBuyer, IUseBacket {
 
     @Override
     public void chooseGoods() {
+        Semaphore semaphore = new Semaphore(20);
         try {
-            int pause = Helper.random(500, 2000);
-            Thread.sleep(pause);
+            semaphore.acquire();
+            //pause();
+         System.out.println(this + "начал выбирать товар");
+
         } catch (InterruptedException e) {
             System.err.println(this + "выбрал товар");
         }
+        finally {
+            semaphore.release(20);
+        }
 
-    }
+
+        }
+
+
 
     @Override
     public void goToQueue() {
         System.out.println(this + " пошел в очередь");
         QueueBuyer.add(this);
-        synchronized (this) {
-            try {
-                this.wait();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
+        pause();
+//        synchronized (this) {
+//            try {
+//                this.wait();
+//            } catch (InterruptedException e) {
+//                e.printStackTrace();
+//            }
+//        }
 
     }
 
@@ -97,17 +102,19 @@ public class Buyer extends Thread implements Runnable, IBuyer, IUseBacket {
         for (int i = 0; i <= count; i++) {
             int index = (int) (Math.random() * 9);
             // Random random = new Random();
-            Good[] goodsArray = goods.keySet().toArray(new Good[0]);
+            //goods = new ConcurrentHashMap<>();
+            Good [] goodsArray = goods.keySet().toArray(new Good[0]);
+           // System.out.println(goodsArray);
 
             good = goodsArray[index];
-            int value = goods.get(good);
+
             if (backets == null) {
-                backets = new HashMap<>();
+                backets = new ConcurrentHashMap<>();
             }
             if (good != null) {
-                backets.put(good, value);
-                chooseGoods();
-                System.out.println("Покупатель № " + this + "положил " + backets + "в корзину");
+                backets.put(good,index);
+               pause();
+                System.out.println(this + "положил " + backets + "в корзину");
             }
         }
     }
@@ -123,5 +130,14 @@ public class Buyer extends Thread implements Runnable, IBuyer, IUseBacket {
         System.out.println(this + " общая сумма чека " + checkSum);
         System.out.println(this + " вышел из магазина");
 
+    }
+    public void pause(){
+
+        try {
+            int pause = Helper.random(500, 2000);
+            Thread.sleep(pause);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 }

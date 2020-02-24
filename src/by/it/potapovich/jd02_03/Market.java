@@ -1,10 +1,16 @@
-package by.it.potapovich.jd02_02;
+package by.it.potapovich.jd02_03;
 
-import java.util.*;
+import by.it.samuseva.jd01_13.Help;
+
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.concurrent.TimeUnit;
 
 public class Market {
-    private static int countBuyers = 0;
-
 
     public static void main(String[] args) throws InterruptedException {
         Good toiletPaper = new Good("Туалетная бумага");
@@ -18,7 +24,7 @@ public class Market {
         Good cheese = new Good("Сыр");
         Good chicken = new Good("Мясо");
 
-        Map<Good, Integer> goods = new LinkedHashMap<>();
+        ConcurrentHashMap<Good, Integer> goods = new ConcurrentHashMap<>(15);
         goods.put(toiletPaper, 5);
         goods.put(cucumber, 2);
         goods.put(bread, 1);
@@ -33,7 +39,14 @@ public class Market {
 
 
         System.out.println("---------- Market opened");
-        List<Thread> threads = new ArrayList<>(1000);
+        CopyOnWriteArrayList <Thread> threads = new CopyOnWriteArrayList<Thread>();
+
+        int number = 0;
+
+        if (Dispatcher.marketOpened()) {
+            Buyer buyer = new Buyer(++number, goods, backet);
+            buyer.start();
+        }
 
         int numberOfCashiers = 0;
         Cashier cashier = new Cashier(++numberOfCashiers);
@@ -41,28 +54,39 @@ public class Market {
         threads.add(thread);
         thread.start();
 
-        while (countBuyers <= 100) {
-            Thread.sleep(6000);
+        while (Dispatcher.marketOpened()) {
+            Helper.sleep(10000000);
             int count = Helper.random(0, 2);
             for (int i = 0; i <= count; i++) {
-                countBuyers++;
-                new Buyer(countBuyers, goods, backet);
+                if (Dispatcher.marketOpened()) {
+                    Buyer buyer = new Buyer(++number, goods, backet);
+                    buyer.start();
+                }
             }
+            Helper.sleep(1000);
             Thread newCashier = null;
-            if (countBuyers > 1 && countBuyers % 5 == 1 && numberOfCashiers < 5) {
+            if (number > 1 && number % 5 == 1 && numberOfCashiers < 5) {
                 newCashier = new Thread(new Cashier(++numberOfCashiers));
                 threads.add(newCashier);
                 newCashier.start();
             }
-            if (countBuyers != 1 && ((numberOfCashiers * 5) - countBuyers == 1)) {
+            if (number != 1 && numberOfCashiers != 1 && ((numberOfCashiers * 5) - number == 1)) {
                 Thread removedCashier = threads.remove(threads.size() - 1);
-                --numberOfCashiers;
-                if (!removedCashier.isInterrupted()) {
+                if (!removedCashier.isInterrupted() && removedCashier.isAlive()) {
+                    System.out.println("Касса № " + numberOfCashiers + " закрывается");
                     removedCashier.interrupt();
                 }
+                --numberOfCashiers;
+            }
+
+        }
+        while (true) {
+            if (Dispatcher.marketClosed()) {
+                Helper.sleep(100000);
+                System.out.println("--------- Market closed");
+                break;
             }
         }
-        System.out.println("--------- Market closed");
     }
 
 }

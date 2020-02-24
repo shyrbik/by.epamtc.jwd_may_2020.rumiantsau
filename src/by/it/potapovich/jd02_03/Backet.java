@@ -1,20 +1,20 @@
-package by.it.potapovich.jd02_02;
+package by.it.potapovich.jd02_03;
 
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Map;
-import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class Backet  {
-    Map<Good,Integer> backets = new HashMap<>();
+    ConcurrentHashMap<Good,Integer> backets = new ConcurrentHashMap<>();
     public Backet (){
 
     }
 
 
-    public Backet(Map<Good,Integer> backets) {
+    public Backet(ConcurrentHashMap<Good,Integer> backets) {
         this.backets = backets;
     }
+
 
 
     @Override

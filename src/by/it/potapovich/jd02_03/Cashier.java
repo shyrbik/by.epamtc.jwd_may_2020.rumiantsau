@@ -1,4 +1,4 @@
-package by.it.potapovich.jd02_02;
+package by.it.potapovich.jd02_03;
 
 public class Cashier implements Runnable {
     private String name;
@@ -11,19 +11,25 @@ public class Cashier implements Runnable {
     public void run() {
         System.out.println(this + "Открыто");
         while (!Dispatcher.marketClosed()) {
+
             Buyer buyer = QueueBuyer.extract();
 
+            if (buyer == null) {
+                continue;
+            }
 
-                if (buyer != null) {
+            if (buyer != null) {
                     System.out.println(this + "начало обслуживания " + buyer);
                     int timeout = Helper.random(2000, 5000);
                     Helper.sleep(timeout);
                     System.out.println(this + "конец обслуживания " + buyer);
                     synchronized (buyer) {
+                        buyer.setWaitingFlag(false);
                         buyer.notify();
                     }
 
-                } else {
+                }
+            else {
                     Helper.sleep(100000);
                 }
             }
