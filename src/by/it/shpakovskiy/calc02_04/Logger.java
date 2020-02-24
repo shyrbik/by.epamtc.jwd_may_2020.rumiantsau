@@ -1,4 +1,4 @@
-package by.it.shpakovskiy.calc;
+package by.it.shpakovskiy.calc02_04;
 
 import java.io.FileWriter;
 import java.io.IOException;
@@ -11,7 +11,7 @@ class Logger {
 
     public Logger() {
         try {
-            count = (int) Files.lines(Paths.get("src/by/it/shpakovskiy/calc/log.txt")).count();
+            count = (int) Files.lines(Paths.get("src/by/it/shpakovskiy/calc02_04/log.txt")).count();
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
@@ -23,9 +23,9 @@ class Logger {
                 clear();
             }
             if (message.equals("end")) {
-                message = message + "\nI hope to see you again \u270B";
+                message += "\nI hope to see you again \u270B";
             }
-            try (PrintWriter writer = new PrintWriter(new FileWriter("src/by/it/shpakovskiy/calc/log.txt", true))) {
+            try (PrintWriter writer = new PrintWriter(new FileWriter("src/by/it/shpakovskiy/calc02_04/log.txt", true))) {
                 count++;
                 writer.println(message);
             } catch (IOException e) {
@@ -37,7 +37,7 @@ class Logger {
     void clear() {
         count = 0;
         try {
-            Files.delete(Paths.get("src/by/it/shpakovskiy/calc/log.txt"));
+            Files.delete(Paths.get("src/by/it/shpakovskiy/calc02_04/log.txt"));
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
