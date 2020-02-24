@@ -1,4 +1,4 @@
-package by.it.busel.jd02_02;
+package by.it.busel.jd02_03;
 
 import java.util.Map;
 
@@ -90,8 +90,9 @@ class Cashier extends Thread {
                 System.out.println(this + " has started to serve " + buyerAtTheCounter);
                 Helper.sleep(2000, 5000);
                 Map<String, Double> personalGoods = buyerAtTheCounter.payOff();
-                System.out.println(getCheckAndService(buyerAtTheCounter, personalGoods));
+                System.out.println(getCheckAndEndService(buyerAtTheCounter, personalGoods));
 //                System.out.println(this + " has ended to serve " + buyerAtTheCounter);
+                buyerAtTheCounter.setWaitingFlag(false);
                 buyerAtTheCounter.notify();
             }
         } else {
@@ -99,7 +100,7 @@ class Cashier extends Thread {
         }
     }
 
-    private String getCheckAndService(Buyer buyerAtTheCounter, Map<String, Double> personalGoods) {
+    private String getCheckAndEndService(Buyer buyerAtTheCounter, Map<String, Double> personalGoods) {
         int index = 0;
         Double total = 0.0;
         StringBuilder sb = new StringBuilder("\n");

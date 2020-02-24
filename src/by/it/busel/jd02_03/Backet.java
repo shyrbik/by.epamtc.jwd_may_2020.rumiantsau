@@ -1,4 +1,4 @@
-package by.it.busel.jd02_02;
+package by.it.busel.jd02_03;
 
 import java.util.*;
 
@@ -44,5 +44,10 @@ class Backet {
 
     Map<String, Double> getPersonalGoods() {
         return personalGoods;
+    }
+
+    void emptyBacket() {
+        personalGoods = new HashMap<>();
+        lastChosenItem = null;
     }
 }

@@ -1,13 +1,31 @@
-package by.it.busel.jd02_02;
+package by.it.busel.jd02_03;
 
 import java.util.Map;
+import java.util.concurrent.ArrayBlockingQueue;
+import java.util.concurrent.Semaphore;
 
 class Buyer extends Thread implements IBuyer, IUseBacket {
+    private static final ArrayBlockingQueue<Backet> backets = new ArrayBlockingQueue<>(50);
+
+    static {
+        for (int i = 0; i < Dispatcher.NUMBER_OF_BACKETS; i++) {
+            backets.add(new Backet());
+        }
+    }
+
     boolean isPensioner;
+
+    private boolean waitingFlag = false;
+
+    void setWaitingFlag(boolean waitingFlag) {
+        this.waitingFlag = waitingFlag;
+    }
 
     private double cognitiveDelay;
 
-    private Backet personalBacket = new Backet();
+    private Backet personalBacket;
+
+    private static final Semaphore salesAreaCapacity = new Semaphore(20);
 
     Buyer(int id) {
         if (id % 4 != 0) this.setName("Buyer №" + id);
@@ -27,14 +45,37 @@ class Buyer extends Thread implements IBuyer, IUseBacket {
     @Override
     public void run() {
         enterToMarket();
-        takeBacket();
-        int numberOfGoodsNeeded = Helper.getRandomIntValue(1, 4);
-        for (int i = 0; i < numberOfGoodsNeeded; i++) {
-            chooseGoods();
-            putGoodsToBacket();
+        try {
+            personalBacket = backets.take();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
+        takeBacket();
+        performActivitiesInSalesAre();
         goToQueue();
+        try {
+            backets.put(this.personalBacket);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         goOut();
+    }
+
+    private void performActivitiesInSalesAre() {
+        try {
+            salesAreaCapacity.acquire();
+            System.out.println(this + " has entered the sales area.");
+            int numberOfGoodsNeeded = Helper.getRandomIntValue(1, 4);
+            for (int i = 0; i < numberOfGoodsNeeded; i++) {
+                chooseGoods();
+                putGoodsToBacket();
+            }
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } finally {
+            System.out.println(this + " has left the sales area.");
+            salesAreaCapacity.release();
+        }
     }
 
     @Override
@@ -72,12 +113,15 @@ class Buyer extends Thread implements IBuyer, IUseBacket {
     @Override
     public void goToQueue() {
         System.out.println(this + " has made for the sole queue in the shop.");
-        SoleQueue.add(this);
         synchronized (this) {
-            try {
-                this.wait();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
+            SoleQueue.add(this);
+            this.waitingFlag = true;
+            while (this.waitingFlag) {
+                try {
+                    this.wait();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
             }
         }
     }
@@ -100,5 +144,9 @@ class Buyer extends Thread implements IBuyer, IUseBacket {
 //        }
 //        sb.append(String.format("%14s %-5.2f %s%n", "Total:", total, "BYN"));
 //        System.out.println(sb.toString());
+    }
+
+    void emptyBacket() {
+        personalBacket.emptyBacket();
     }
 }
