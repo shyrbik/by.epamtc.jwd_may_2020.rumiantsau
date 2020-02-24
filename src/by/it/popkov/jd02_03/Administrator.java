@@ -1,4 +1,4 @@
-package by.it.popkov.jd02_02;
+package by.it.popkov.jd02_03;
 
 /**
  * class Administrator control number of opened Cashier.
@@ -27,7 +27,7 @@ class Administrator extends Thread {
                         monitorCashier.notify();
                     }
                 }
-            } else if (queueSize / onlineCashier > 5) {
+            } else if (queueSize / onlineCashier >= 5.0) {
                 synchronized (monitorCashier) {
                     monitorCashier.notify();
                 }

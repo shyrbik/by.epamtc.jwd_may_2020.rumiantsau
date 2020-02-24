@@ -1,4 +1,4 @@
-package by.it.popkov.jd02_02;
+package by.it.popkov.jd02_03;
 
 import java.util.Map;
 
@@ -56,6 +56,7 @@ class Cashier implements Runnable {
         printCheck(buyer);
         System.out.println(this + " finished serve " + buyer);
         synchronized (buyer) {
+            buyer.setReadyToNotify(true);
             buyer.notify();
         }
     }
@@ -63,6 +64,7 @@ class Cashier implements Runnable {
     private void printCheck(Buyer buyer) {
         int sumOfCheck = buyer.getBasket().values().stream().mapToInt(Integer::intValue).sum();
         dispatcher.plusDayProfit(sumOfCheck);
+        String widthOfCheck = "%-30s";
         String tab = "";
         String posBuyerOnline = "";
         StringBuffer stringBuffer = new StringBuffer();
@@ -89,14 +91,14 @@ class Cashier implements Runnable {
                 posBuyerOnline = "%30s";
                 break;
         }
-        stringBuffer.append(String.format(tab + "%-30s" + posBuyerOnline + "%20s" +  "\n","", buyer + " check:",
-                "All queues sum size:" + (buyerQueue.getBuyerQueueSize()+ buyerQueue.getPensionerQueueSize()),
+        stringBuffer.append(String.format(tab + widthOfCheck + posBuyerOnline + "%20s" +  "\n","", buyer + " check:",
+               "All queues sum size:" + (buyerQueue.getBuyerQueueSize()+ buyerQueue.getPensionerQueueSize()),
                 "Day profit: " + dispatcher.getDayProfit()));
         for (Map.Entry<String, Integer> entry : buyer.getBasket().entrySet()) {
-            stringBuffer.append(String.format(tab + "%-30s" + "\n", "", entry.getKey() + " = " + entry.getValue()));
+            stringBuffer.append(String.format(tab + widthOfCheck + "\n", "", entry.getKey() + " = " + entry.getValue()));
         }
-        stringBuffer.append(String.format(tab + "%-30s" + "\n", "", "SUM: " + sumOfCheck));
-        stringBuffer.append(String.format(tab + "%-30s" + "\n", "", "Cashier: " + this.name));
+        stringBuffer.append(String.format(tab + widthOfCheck + "\n", "", "SUM: " + sumOfCheck));
+        stringBuffer.append(String.format(tab + widthOfCheck + "\n", "", "Cashier: " + this.name));
         System.out.println(stringBuffer);
     }
 }
