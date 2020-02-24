@@ -1,15 +1,14 @@
-package by.it.kuzmichalex.calc;
+package by.it.kuzmichalex.calc_jd02_04;
 
 import java.util.Scanner;
 
-public class ConsoleRunner {
+ class ConsoleRunner {
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         Logger.loadLog();
         Logger.printAndLog("Calculator started");
         Parser parser = new Parser();
-        Printer printer = new Printer();
         Var.loadVarsFromFile();
 
 
@@ -33,7 +32,6 @@ public class ConsoleRunner {
                 }
                 Var result = parser.calc(expression);
                 Logger.printAndLog(result.toString());
-                //printer.print(result);
             }
             catch (CalcException e){
                 Logger.printAndLog(e.getMessage());

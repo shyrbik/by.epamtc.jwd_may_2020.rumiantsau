@@ -1,4 +1,4 @@
-package by.it.kuzmichalex.calc;
+package by.it.kuzmichalex.calc_jd01_15;
 
 public interface Operation {
     Var add(Var rightOperand) throws CalcException;
