@@ -31,7 +31,7 @@ class VarFile {
 
     static void load (){
 
-        try {
+       /* try {
             Parset parset = new Parset();
             Files.lines(Paths.get(varFileName)).forEach(expression -> {
                 try {
@@ -42,31 +42,21 @@ class VarFile {
             });
         } catch (IOException ex) {
            // ex.printStackTrace();
-        }
+        }*/
 
 
-      /*  try (BufferedReader reader = new BufferedReader(new FileReader(varFileName))){
+       try (BufferedReader reader = new BufferedReader(new FileReader(varFileName))){
             Parset parset = new Parset();
             String line;
-
-            for (expression:
-                 null != (line = reader.readLine())) {
+            while ((line=reader.readLine())!= null){
                 try {
                     parset.calc(line);
                 } catch (CalcException e) {
                     e.printStackTrace();
                 }
             }
-           /* while ((line=reader.readLine())!= null){
-                try {
-                    parset.calc(line);
-                } catch (CalcException e) {
-                    e.printStackTrace();
-                }
-            }
-
         } catch (IOException e) {
             e.printStackTrace();
-        }*/
+        }
     }
 }
