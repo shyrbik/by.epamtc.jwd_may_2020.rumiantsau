@@ -90,14 +90,15 @@ class Cashier implements Runnable {
                 posBuyerOnline = "%30s";
                 break;
         }
-        stringBuffer.append(String.format(tab + "%-30s" + posBuyerOnline + "%20s" +  "\n","", buyer + " check:",
+        String widthOfCheck = "%-30s";
+        stringBuffer.append(String.format(tab + widthOfCheck + posBuyerOnline + "%20s" +  "\n","", buyer + " check:",
                "All queues sum size:" + (buyerQueue.getBuyerQueueSize()+ buyerQueue.getPensionerQueueSize()),
                 "Day profit: " + dispatcher.getDayProfit()));
         for (Map.Entry<String, Integer> entry : buyer.getBasket().entrySet()) {
-            stringBuffer.append(String.format(tab + "%-30s" + "\n", "", entry.getKey() + " = " + entry.getValue()));
+            stringBuffer.append(String.format(tab + widthOfCheck + "\n", "", entry.getKey() + " = " + entry.getValue()));
         }
-        stringBuffer.append(String.format(tab + "%-30s" + "\n", "", "SUM: " + sumOfCheck));
-        stringBuffer.append(String.format(tab + "%-30s" + "\n", "", "Cashier: " + this.name));
+        stringBuffer.append(String.format(tab + widthOfCheck + "\n", "", "SUM: " + sumOfCheck));
+        stringBuffer.append(String.format(tab + widthOfCheck + "\n", "", "Cashier: " + this.name));
         System.out.println(stringBuffer);
     }
 }
