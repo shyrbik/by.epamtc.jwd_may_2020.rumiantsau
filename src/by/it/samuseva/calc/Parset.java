@@ -17,7 +17,7 @@ class Parset {
                 return  operandTwo;
             }
             Var operandOne = Var.createVar(operands[0]);
-            if ((operandOne != null ) || (operandTwo != null)){
+            if ((operandOne != null ) && (operandTwo != null)){
                 switch (operation){
                     case "+": return operandOne.add(operandTwo);
                     case "-": return operandOne.sub(operandTwo);

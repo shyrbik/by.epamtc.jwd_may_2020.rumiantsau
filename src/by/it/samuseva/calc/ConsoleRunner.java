@@ -13,8 +13,10 @@ public class ConsoleRunner {
             if (line.equals("end")){
                 break;
             }
+            Var rezult = null;
             try {
-                printer.print(parset.calc(line));
+                rezult = parset.calc(line);
+                printer.print(rezult);
             } catch (CalcException e) {
                 System.out.println(e.getMessage());
             }

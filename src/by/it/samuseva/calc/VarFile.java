@@ -1,6 +1,8 @@
 package by.it.samuseva.calc;
 
 import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.Map;
 
 public class VarFile {
@@ -28,10 +30,34 @@ public class VarFile {
     }
 
     static void load (){
-        try (BufferedReader reader = new BufferedReader(new FileReader(varFileName))){
+
+        try {
+            Parset parset = new Parset();
+            Files.lines(Paths.get(varFileName)).forEach(expression -> {
+                try {
+                    parset.calc(expression);
+                } catch (CalcException e) {
+                    e.printStackTrace();
+                }
+            });
+        } catch (IOException ex) {
+           // ex.printStackTrace();
+        }
+
+
+      /*  try (BufferedReader reader = new BufferedReader(new FileReader(varFileName))){
             Parset parset = new Parset();
             String line;
-            while ((line=reader.readLine())!= null){
+
+            for (expression:
+                 null != (line = reader.readLine())) {
+                try {
+                    parset.calc(line);
+                } catch (CalcException e) {
+                    e.printStackTrace();
+                }
+            }
+           /* while ((line=reader.readLine())!= null){
                 try {
                     parset.calc(line);
                 } catch (CalcException e) {
@@ -41,6 +67,6 @@ public class VarFile {
 
         } catch (IOException e) {
             e.printStackTrace();
-        }
+        }*/
     }
 }
