@@ -4,6 +4,9 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Scanner;
 
+import static by.it.ban.calc.Var.printvar;
+import static by.it.ban.calc.Var.sortvar;
+
 public class ConsoleRunner {
 
     public static void main(String[] args) throws IOException {
@@ -19,16 +22,22 @@ public class ConsoleRunner {
                 log.close();
                 break;
             }
-            Var result = null;
-            try {
-                log.print(expression);
-                result = parser.calc(expression);
-                if (result != null) printer.print(result);
-            } catch (CalcException e) {
-                System.out.println(e.getMessage());
-                log.print(e.getMessage());
-            } catch (IOException e) {
-                e.printStackTrace();
+            if (expression.equals("printvar")) {
+                printvar();
+            } else if (expression.equals("sortvar")) {
+                sortvar();
+            }else {
+                Var result = null;
+                try {
+                    log.print(expression);
+                    result = parser.calc(expression);
+                    if (result != null) printer.print(result);
+                } catch (CalcException e) {
+                    System.out.println(e.getMessage());
+                    log.print(e.getMessage());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
         }
 
