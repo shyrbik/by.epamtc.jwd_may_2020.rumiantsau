@@ -1,9 +1,8 @@
-package by.it.shpakovskiy.calc;
+package by.it.shpakovskiy.calc02_04;
 
 import java.util.Scanner;
 
 class ConsoleRunner {
-
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         Parser parser = new Parser();
@@ -57,6 +56,5 @@ class ConsoleRunner {
                 logger.print(e.getMessage());
             }
         }
-
     }
 }
