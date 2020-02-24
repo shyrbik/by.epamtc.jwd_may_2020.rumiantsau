@@ -5,7 +5,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Map;
 
-public class VarFile {
+class VarFile {
     private static String varFileName = getPath("vars.txt", VarFile.class);
     static String getPath(String fileName, Class<?> aClass) {
         String pathDir = System.getProperty("user.dir") + File.separator + "src" + File.separator;
