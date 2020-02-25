@@ -1,9 +1,6 @@
 package by.it.plugatar.jd02_03;
 
-import java.util.Collections;
 import java.util.Map;
-
-import static java.util.Collections.unmodifiableSet;
 
 public class Cashier implements Runnable {
     private String name;

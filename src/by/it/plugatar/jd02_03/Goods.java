@@ -19,12 +19,12 @@ public class Goods {
         priceList.put("чай", 3.1);
         priceList.put("масло", 2.2);
     }
-    //размера списка товаров магазина
+    //размера списка товаров
     int getPriceListSize() {
         return priceList.size();
     }
 
-    //цены товара из списка товаров магазина
+    //цены товара из списка
     double getPrice(String goods) {
         return priceList.getOrDefault(goods, (double) 0);
     }

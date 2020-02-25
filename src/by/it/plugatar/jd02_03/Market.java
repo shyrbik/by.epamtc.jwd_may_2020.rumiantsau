@@ -8,13 +8,13 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class Market {
-    private static Deque<Integer> numberOfBuyers = new LinkedList<>();    //для статистики
-    private static Deque<Integer> enteredBuyers = new LinkedList<>();     //для статистики
-    private static Deque<Integer> queueSize = new LinkedList<>();         //для статистики
-    private static Deque<Integer> cashiersCount = new LinkedList<>();     //для статистики
+    private static Deque<Integer> numberOfBuyers = new LinkedList<>();
+    private static Deque<Integer> enteredBuyers = new LinkedList<>();
+    private static Deque<Integer> queueSize = new LinkedList<>();
+    private static Deque<Integer> cashiersCount = new LinkedList<>();
 
     static List<Thread> listOfThreads = new ArrayList<>();
-    private static int number = 1;     //нумерация покупателей
+    private static int number = 1;
 
     public static void main(String[] args) {try {
         Dispatcher.semaphoreConsole.acquire();
@@ -48,11 +48,11 @@ public class Market {
     }
 
     private static void workingMarket(ExecutorService cashiers, ExecutorService buyers, int i) {
-        numberOfBuyers.offerFirst(Dispatcher.buyersCount.get());   //для статистики
-        cashiersCount.offerFirst(Dispatcher.cashiersCount.get());   //для статистики
-        queueSize.offerFirst(QueueBuyer.queue.size());             //для статистики
-        int num = Dispatcher.marketIsClosed() ? 0 : getNum(i);      //количество запускаемых покупателей
-        enteredBuyers.offerFirst(num);        //для статистики
+        numberOfBuyers.offerFirst(Dispatcher.buyersCount.get());
+        cashiersCount.offerFirst(Dispatcher.cashiersCount.get());
+        queueSize.offerFirst(QueueBuyer.queue.size());
+        int num = Dispatcher.marketIsClosed() ? 0 : getNum(i);      //количество покупателей
+        enteredBuyers.offerFirst(num);
         for (int j = 0; j < num; j++) {       //запускаем покупателей
             if (Dispatcher.marketIsClosed()) break;
             buyers.execute(new Buyer(Dispatcher.buyersNumber.getAndIncrement()));

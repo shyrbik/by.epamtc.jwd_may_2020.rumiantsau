@@ -4,11 +4,11 @@ import java.util.concurrent.Semaphore;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class Dispatcher {
-    static final int K_SPEED = 50;     //коэффициент ускорения программы (для отладки)
-    static AtomicInteger cashiersNumber = new AtomicInteger(1);     //нумератор кассиров
-    static AtomicInteger cashiersCount = new AtomicInteger(0);     //количество работающих касс
-    static AtomicInteger buyersNumber = new AtomicInteger(1);     //нумератор покупателей
-    static AtomicInteger buyersCount = new AtomicInteger(0);     //количество покупателей в магазине (в данный момент)
+    static final int K_SPEED = 50;     //коэффициент ускорения (для отладки)
+    static AtomicInteger cashiersNumber = new AtomicInteger(1);     // кассиры
+    static AtomicInteger cashiersCount = new AtomicInteger(0);     // кассы
+    static AtomicInteger buyersNumber = new AtomicInteger(1);     //покупатели
+    static AtomicInteger buyersCount = new AtomicInteger(0);     //количество покупателей в магазе
     static AtomicInteger buyersComplete = new AtomicInteger(0);
     static AtomicInteger overallPrice = new AtomicInteger(0);
     private static final int plan = 100;     //план работы магазина

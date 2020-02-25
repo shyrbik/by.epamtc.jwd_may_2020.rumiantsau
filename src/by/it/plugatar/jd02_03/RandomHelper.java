@@ -53,11 +53,4 @@ public class RandomHelper {
             default: return null;
         }
     }
-    //путь для файла cashierLog.txt
-    static String getCashierLogPath() {
-        String path = System.getProperty("user.dir") + File.separator + "src" + File.separator;
-        String name = Cashier.class.getName().replace(".", File.separator);
-        name = name.replace(Cashier.class.getSimpleName(), "cashierLog.txt");
-        return path + name;
-    }
 }
