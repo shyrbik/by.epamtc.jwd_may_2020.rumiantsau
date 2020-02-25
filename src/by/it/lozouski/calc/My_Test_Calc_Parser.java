@@ -197,21 +197,25 @@ public class My_Test_Calc_Parser {
         expression = "A=2+5.3";
         expected = 7.3;
         actual = Double.parseDouble(testParser.calculate(expression).toString());
+        assertEquals("Wrong "+ expression,expected,actual,0.005);
         System.out.println("TEST: " + expression + "   RESULT: " + actual + "  OK!");
 
         expression = "B=A*3.5";
         expected = 25.55;
         actual = Double.parseDouble(testParser.calculate(expression).toString());
+        assertEquals("Wrong "+ expression,expected,actual,0.005);
         System.out.println("TEST: " + expression + "   RESULT: " + actual + "  OK!");
 
         expression = "B1=B+0.11*-5";
         expected = 25.00;
         actual = Double.parseDouble(testParser.calculate(expression).toString());
+        assertEquals("Wrong "+ expression,expected,actual,0.005);
         System.out.println("TEST: " + expression + "   RESULT: " + actual + "  OK!");
 
         expression = "B2=A/2-1";
         expected = 2.65;
         actual = Double.parseDouble(testParser.calculate(expression).toString());
+        assertEquals("Wrong "+ expression,expected,actual,0.005);
         System.out.println("TEST: " + expression + "   RESULT: " + actual + "  OK!");
 
     }
