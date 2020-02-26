@@ -19,14 +19,16 @@ class VarFile extends Helper {
 
 
     static void load(Parser parser) throws IOException {
-        Files.lines(Paths.get(varFile)).forEach(expression -> {
+        Files.lines(Paths.get(varFile)).forEach(
+                expression -> {
             try {
                 parser.calculate(expression);
                 Logging.logFileRecord(expression + " variable stored in file 'vars.txt'");
             } catch (CalcException e) {
                 e.printStackTrace();
             }
-        });
+        }
+        );
     }
 
     static void save(Map<String, Var> vars) throws CalcException {

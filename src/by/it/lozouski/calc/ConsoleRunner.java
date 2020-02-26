@@ -7,23 +7,23 @@ import java.util.Scanner;
 
 class ConsoleRunner {
     public static void main(String[] args) {
-        Logging.logFileRecord("The program was run.");
+        Logging.logFileRecord("****************************-------The program was run. -------****************************");
         Scanner sc1 = new Scanner(System.in);
         String inputLine;
         Parser parser = new Parser();
         Printer printer = new Printer();
         try {
-            if (Files.exists(Paths.get(VarFile.getVarFile())))
+            if (Files.exists(Paths.get(VarFile.getVarFile()))){
                 VarFile.load(parser);
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
-
+        Var.printStorageVar();
         while (true) {
             inputLine = sc1.nextLine();
             if (inputLine.equals("end")) {
-                Logging.logFileRecord("The program was end." + '\n'
-                        + "***************************************************************************");
+                Logging.logFileRecord("****************************-------The program was end. -------****************************");
                 break;
             }
             try {

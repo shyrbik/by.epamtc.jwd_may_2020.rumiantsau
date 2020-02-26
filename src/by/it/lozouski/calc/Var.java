@@ -1,15 +1,16 @@
 package by.it.lozouski.calc;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
 abstract class Var implements Operation {
 
+    private static Map<String, Var> varsMap = new HashMap<>();
+
     public static Map<String, Var> getVarsMap() {
         return varsMap;
     }
-
-    private static Map<String, Var> varsMap = new HashMap<>();
 
     @Override
     public Var add(Var other) throws CalcException {
@@ -76,7 +77,7 @@ abstract class Var implements Operation {
     }
 
 
-    static Var createVar(String operand) throws CalcException {
+    static Var createVar(String operand) throws CalcException{
         operand = operand.trim().replace("\\s+", "");
         if (operand.matches(Patterns.SCALAR)) return new Scalar(operand);
         else if (operand.matches(Patterns.VECTOR)) return new Vector(operand);
@@ -97,5 +98,17 @@ abstract class Var implements Operation {
         }
         varsMap.put(key, value);
         VarFile.save(varsMap);
+    }
+
+    static void printStorageVar() {
+        if (varsMap.size() > 0) {
+            System.out.println("Variables, saved in the memory storage: ");
+        }else {
+            System.out.println("Variables, saved in the memory storage: "+'\n'+"Memory is empty!");
+        }
+        for (Map.Entry<String, Var> entry : varsMap.entrySet()) {
+            System.out.println(entry.getKey() + "=" + entry.getValue());
+        }
+        System.out.println("Calculate started! Lets GO!!!");
     }
 }

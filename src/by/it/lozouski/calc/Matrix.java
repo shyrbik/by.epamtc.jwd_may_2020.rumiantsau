@@ -71,7 +71,7 @@ class Matrix extends Var {
         try {
             return otherMatrix.add(this.mul(new Scalar(-1)));
         }catch (Exception e){
-            throw new CalcException("Operation Matrix-Matrix impossible");
+            throw new CalcException("This operation isn't possible.");
         }
     }
 
@@ -92,8 +92,10 @@ class Matrix extends Var {
     }
 
     @Override
-    Var mul(Matrix otherMatrix) throws CalcException{
-        try{
+    Var mul(Matrix otherMatrix) throws CalcException {
+        if (otherMatrix.value[0].length != this.value.length){
+            throw new CalcException("The number of columns of the first matrix must much the number of rows of the second.");
+        }
         double[][] result = new double[otherMatrix.value.length][this.value[0].length];
         for (int i = 0; i < otherMatrix.value.length; i++) {
             for (int j = 0; j < this.value[0].length; j++) {
@@ -103,9 +105,6 @@ class Matrix extends Var {
             }
         }
         return new Matrix(result);
-        }catch (Exception e){
-            throw new CalcException("Operation isn't possible.");
-        }
     }
 
     @Override
