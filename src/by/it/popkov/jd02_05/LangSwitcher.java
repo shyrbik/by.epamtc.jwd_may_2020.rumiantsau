@@ -5,8 +5,8 @@ import java.util.ResourceBundle;
 
 enum  LangSwitcher  {
     LANG_SWITCHER;
-    private ResourceBundle resourceBundle;
     private String baseName = "by.it.popkov.jd02_05.resource.hello";
+    private ResourceBundle resourceBundle = ResourceBundle.getBundle(baseName, new Locale("en","US"));
 
     public ResourceBundle getResourceBundle() {
         return resourceBundle;
