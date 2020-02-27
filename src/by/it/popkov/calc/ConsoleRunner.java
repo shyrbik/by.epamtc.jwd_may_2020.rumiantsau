@@ -26,9 +26,9 @@ class ConsoleRunner {
             if (expression.equals("end")) break;
             else if (expression.equals("printvar")) Var.printvar();
             else if (expression.equals("sortvar")) Var.sortvar();
-            else if (expression.equals("en")) langSwitcher.setResourceBundle(new Locale("en","US"));
-            else if (expression.equals("be")) langSwitcher.setResourceBundle(new Locale("be","BY"));
-            else if (expression.equals("ru")) langSwitcher.setResourceBundle(new Locale("ru","RU"));
+            else if (expression.equals("en")) langSwitcher.setResourceBundle(new Locale("en"));
+            else if (expression.equals("be")) langSwitcher.setResourceBundle(new Locale("be"));
+            else if (expression.equals("ru")) langSwitcher.setResourceBundle(new Locale("ru"));
             else try {
                     printer.print(parser.calc(expression));
                 } catch (CalcException e) {
