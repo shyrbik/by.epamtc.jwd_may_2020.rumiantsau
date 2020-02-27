@@ -6,7 +6,7 @@ interface Error {
     String DIVISION_BY_ZERO = "error.DIVISION_BY_ZERO";
     String INPUT_ERROR = "error.INPUT_ERROR";
     String NULL_RESULT = "error.NULL_RESULT";
-    String IMPOSSIBLE_OPERATION = "error.IMPOSSIBLE";
+    String IMPOSSIBLE_OPERATION = "error.IMPOSSIBLE_OPERATION";
 
 
 
