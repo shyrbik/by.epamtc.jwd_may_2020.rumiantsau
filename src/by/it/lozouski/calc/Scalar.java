@@ -97,7 +97,7 @@ class Scalar extends Var {
     Var div(Scalar otherScalar) throws CalcException {
         double div = otherScalar.value / this.value;
         if (Double.isInfinite(div)){
-            throw new CalcException("Division by ZERO is impossible");
+            throw new CalcException("Division by ZERO isn't possible");
         }
         return new Scalar(div);
     }

@@ -51,7 +51,13 @@ class Matrix extends Var {
     }
 
     @Override
-    Var add(Matrix otherMatrix) {
+    Var add(Matrix otherMatrix) throws CalcException {
+        if (this.value.length != otherMatrix.value.length){
+            throw new CalcException("Incorrect matrix format.");
+        }
+        if (this.value[0].length != otherMatrix.value[0].length){
+            throw new CalcException("Incorrect matrix format");
+        }
         double[][] sum = new double[this.value.length][this.value[0].length];
         for (int i = 0; i < this.value.length; i++) {
             for (int j = 0; j < this.value[0].length; j++) {
@@ -68,11 +74,7 @@ class Matrix extends Var {
 
     @Override
     Var sub(Matrix otherMatrix) throws CalcException {
-        try {
             return otherMatrix.add(this.mul(new Scalar(-1)));
-        }catch (Exception e){
-            throw new CalcException("This operation isn't possible.");
-        }
     }
 
     @Override
@@ -94,7 +96,7 @@ class Matrix extends Var {
     @Override
     Var mul(Matrix otherMatrix) throws CalcException {
         if (otherMatrix.value[0].length != this.value.length){
-            throw new CalcException("The number of columns of the first matrix must much the number of rows of the second.");
+            throw new CalcException("Incorrect matrix format");
         }
         double[][] result = new double[otherMatrix.value.length][this.value[0].length];
         for (int i = 0; i < otherMatrix.value.length; i++) {

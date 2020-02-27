@@ -23,7 +23,7 @@ class VarFile extends Helper {
                 expression -> {
             try {
                 parser.calculate(expression);
-                Logging.logFileRecord(expression + " variable stored in file 'vars.txt'");
+                Logging.logFileRecord(expression + " variable stored in memory");
             } catch (CalcException e) {
                 e.printStackTrace();
             }
