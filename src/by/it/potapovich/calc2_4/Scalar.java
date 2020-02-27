@@ -1,7 +1,7 @@
 package by.it.potapovich.calc2_4;
 
 class Scalar extends Var {
-    private double value;
+    protected double value;
 
     public double getValue() {
         return value;
