@@ -12,6 +12,10 @@ enum ChangeLanguageService {
         setLocale(Locale.ENGLISH);
     }
 
+    public ResourceBundle getResourceBundle() {
+        return resourceBundle;
+    }
+
     void setLocale(Locale locale) {
         String locationPath = "by.it.lozouski.jd02_05.txt.messages";
         resourceBundle = ResourceBundle.getBundle(locationPath, locale);
