@@ -1,7 +1,5 @@
 package by.it.potapovich.calc2_4;
 
-import java.util.Arrays;
-
 class Vector extends Var {
     protected double[] value;
 
