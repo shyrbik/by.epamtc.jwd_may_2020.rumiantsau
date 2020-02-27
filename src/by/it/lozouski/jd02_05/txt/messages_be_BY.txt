@@ -1,0 +1,4 @@
+user.firstname=Андрэй
+user.lastname=Лазоускi
+message.question=Як твае справы?
+message.welcome=Прывiтанне!
