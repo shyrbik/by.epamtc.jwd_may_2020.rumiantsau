@@ -48,7 +48,8 @@ class Printer {
      * @return one separate log that is formed on the basis of input and output of a console
      */
     static String formLog(String input, String element) {
-        return dateFormat.format(new Date()) + '\n' + "Input:\n" + input + '\n' + "Output:\n" +
-                element + '\n';
+        return dateFormat.format(new Date()) + '\n' + ResourcesManager.get(Message.PRINTER_INPUT)
+                + '\n' + input + '\n' + ResourcesManager.get(Message.PRINTER_OUTPUT) +
+                '\n' + element + '\n';
     }
 }

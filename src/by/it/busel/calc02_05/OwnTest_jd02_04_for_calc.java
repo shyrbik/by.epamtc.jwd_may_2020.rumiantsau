@@ -9,6 +9,9 @@ import java.lang.reflect.Method;
 import static org.junit.Assert.*;
 
 public class OwnTest_jd02_04_for_calc {
+
+    private static ResourcesManager rManager = new ResourcesManager();
+
     private String className;
     private Class<?> classStructure;
     private Method method;
@@ -21,7 +24,7 @@ public class OwnTest_jd02_04_for_calc {
         try {
             className = classNameToTest;
             classStructure = Class.forName(classNameToTest);
-            if (classNameToTest.equals("by.it.busel.calc02_04.Parser")) {
+            if (classNameToTest.equals("by.it.busel.calc02_05.Parser")) {
                 method = classStructure.getDeclaredMethod("calc", String.class);
                 instance = classStructure.newInstance();
             }
@@ -366,7 +369,7 @@ public class OwnTest_jd02_04_for_calc {
         String taskC4First = "{{1.2,3.4,5.6},{7.8, 9.1, 11.12}}/0.1/3";
         double[][] expected1st = new double[][]{{4, 11.33333333, 18.66666667}, {26, 30.33333333, 37.06666667}};
         Matrix result1st = (Matrix) test.method.invoke(test.instance, taskC4First);
-        assertMatrixArrayEquals("Dividion between Matrixs and Scalars is incorrect",
+        assertMatrixArrayEquals("Division between Matrixs and Scalars is incorrect",
                 expected1st, result1st.getValue(), 1e-8);
 
         String taskC4Second = "{{1.2,3.4,5.6},{7.8, 9.1, 11.12}}/0.1/0";

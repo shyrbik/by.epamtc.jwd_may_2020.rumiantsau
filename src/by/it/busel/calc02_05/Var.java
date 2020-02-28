@@ -21,8 +21,7 @@ class Var implements Operation {
         } else if (Storage.containsKey(operand)) {
             return Storage.getVarFromStorage(operand);
         } else {
-            throw new CalcException("A wrong format of input expression or (an) unsaved Var-expression(s)!\nCheck the expression You inputted. Then re-enter your expression, please!");
-//            return null;
+            throw new CalcException(ResourcesManager.get(Message.ERROR_WRONG_OR_UNSAVED_EXP));
         }
 
     }
@@ -40,7 +39,7 @@ class Var implements Operation {
      */
     @Override
     public Var add(Var other) throws CalcException {
-        throw new CalcException("The operation \"addition\" " + other + " + " + this + " can not be performed.");
+        throw new CalcException(String.format(ResourcesManager.get(Message.ERROR_ADDITION), other, this));
     }
 
     /**
@@ -51,7 +50,7 @@ class Var implements Operation {
      */
     @Override
     public Var add(Scalar other) throws CalcException {
-        throw new CalcException("The operation \"addition\" " + other + " + " + this + " can not be performed.");
+        throw new CalcException(String.format(ResourcesManager.get(Message.ERROR_ADDITION), other, this));
     }
 
     /**
@@ -62,7 +61,7 @@ class Var implements Operation {
      */
     @Override
     public Var add(Vector other) throws CalcException {
-        throw new CalcException("The operation \"addition\" " + other + " + " + this + " can not be performed.");
+        throw new CalcException(String.format(ResourcesManager.get(Message.ERROR_ADDITION), other, this));
     }
 
     /**
@@ -73,7 +72,7 @@ class Var implements Operation {
      */
     @Override
     public Var add(Matrix other) throws CalcException {
-        throw new CalcException("The operation \"addition\" " + other + " + " + this + " can not be performed.");
+        throw new CalcException(String.format(ResourcesManager.get(Message.ERROR_ADDITION), other, this));
     }
 
 
@@ -85,7 +84,7 @@ class Var implements Operation {
      */
     @Override
     public Var sub(Var other) throws CalcException {
-        throw new CalcException("The operation \"subtraction\" " + other + " - " + this + " can not be performed.");
+        throw new CalcException(String.format(ResourcesManager.get(Message.ERROR_SUBTRACTION), other, this));
     }
 
     /**
@@ -96,7 +95,7 @@ class Var implements Operation {
      */
     @Override
     public Var sub(Scalar other) throws CalcException {
-        throw new CalcException("The operation \"subtraction\" " + other + " - " + this + " can not be performed.");
+        throw new CalcException(String.format(ResourcesManager.get(Message.ERROR_SUBTRACTION), other, this));
     }
 
     /**
@@ -107,7 +106,7 @@ class Var implements Operation {
      */
     @Override
     public Var sub(Vector other) throws CalcException {
-        throw new CalcException("The operation \"subtraction\" " + other + " - " + this + " can not be performed.");
+        throw new CalcException(String.format(ResourcesManager.get(Message.ERROR_SUBTRACTION), other, this));
     }
 
     /**
@@ -118,7 +117,7 @@ class Var implements Operation {
      */
     @Override
     public Var sub(Matrix other) throws CalcException {
-        throw new CalcException("The operation \"subtraction\" " + other + " - " + this + " can not be performed.");
+        throw new CalcException(String.format(ResourcesManager.get(Message.ERROR_SUBTRACTION), other, this));
     }
 
 
@@ -130,7 +129,7 @@ class Var implements Operation {
      */
     @Override
     public Var mul(Var other) throws CalcException {
-        throw new CalcException("The operation \"multiplication\" " + other + " * " + this + " can not be performed.");
+        throw new CalcException(String.format(ResourcesManager.get(Message.ERROR_MULTIPLICATION), other, this));
     }
 
     /**
@@ -141,7 +140,7 @@ class Var implements Operation {
      */
     @Override
     public Var mul(Scalar other) throws CalcException {
-        throw new CalcException("The operation \"multiplication\" " + other + " * " + this + " can not be performed.");
+        throw new CalcException(String.format(ResourcesManager.get(Message.ERROR_MULTIPLICATION), other, this));
     }
 
     /**
@@ -152,7 +151,7 @@ class Var implements Operation {
      */
     @Override
     public Var mul(Vector other) throws CalcException {
-        throw new CalcException("The operation \"multiplication\" " + other + " * " + this + " can not be performed.");
+        throw new CalcException(String.format(ResourcesManager.get(Message.ERROR_MULTIPLICATION), other, this));
     }
 
     /**
@@ -163,7 +162,7 @@ class Var implements Operation {
      */
     @Override
     public Var mul(Matrix other) throws CalcException {
-        throw new CalcException("The operation \"multiplication\" " + other + " * " + this + " can not be performed.");
+        throw new CalcException(String.format(ResourcesManager.get(Message.ERROR_MULTIPLICATION), other, this));
     }
 
 
@@ -175,7 +174,7 @@ class Var implements Operation {
      */
     @Override
     public Var div(Var other) throws CalcException {
-        throw new CalcException("The operation \"division\" " + other + " / " + this + " can not be performed.");
+        throw new CalcException(String.format(ResourcesManager.get(Message.ERROR_DIVISION), other, this));
     }
 
     /**
@@ -186,7 +185,7 @@ class Var implements Operation {
      */
     @Override
     public Var div(Scalar other) throws CalcException {
-        throw new CalcException("The operation \"division\" " + other + " / " + this + " can not be performed.");
+        throw new CalcException(String.format(ResourcesManager.get(Message.ERROR_DIVISION), other, this));
     }
 
     /**
@@ -197,7 +196,7 @@ class Var implements Operation {
      */
     @Override
     public Var div(Vector other) throws CalcException {
-        throw new CalcException("The operation \"division\" " + other + " / " + this + " can not be performed.");
+        throw new CalcException(String.format(ResourcesManager.get(Message.ERROR_DIVISION), other, this));
     }
 
     /**
@@ -208,7 +207,6 @@ class Var implements Operation {
      */
     @Override
     public Var div(Matrix other) throws CalcException {
-        throw new CalcException("The operation \"division\" " + other + " / " + this + " can not be performed.");
+        throw new CalcException(String.format(ResourcesManager.get(Message.ERROR_DIVISION), other, this));
     }
-
 }

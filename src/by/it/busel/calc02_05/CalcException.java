@@ -6,11 +6,11 @@ class CalcException extends Exception {
     }
 
     CalcException(String message) {
-        super("ERROR: " + message);
+        super(String.format("%s: ", ResourcesManager.get(Message.CALC_EXCEPTION_MESSAGE_PART)) + message);
     }
 
     CalcException(String message, Throwable cause) {
-        super("ERROR: " + message, cause);
+        super(String.format("%s: ", ResourcesManager.get(Message.CALC_EXCEPTION_MESSAGE_PART)) + message, cause);
     }
 
     CalcException(Throwable cause) {

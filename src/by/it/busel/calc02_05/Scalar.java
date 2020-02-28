@@ -258,7 +258,7 @@ class Scalar extends Var {
             double div = other.value / this.value;
             return new Scalar(div);
         } else {
-            throw new CalcException("Division by zero.");
+            throw new CalcException(ResourcesManager.get(Message.ERROR_DIVISION_BY_ZERO));
         }
     }
 
@@ -278,7 +278,7 @@ class Scalar extends Var {
             }
             return new Vector(result);
         } else {
-            throw new CalcException("Division by zero");
+            throw new CalcException(ResourcesManager.get(Message.ERROR_DIVISION_BY_ZERO));
         }
     }
 
@@ -301,7 +301,7 @@ class Scalar extends Var {
             }
             return new Matrix(result);
         } else {
-            throw new CalcException("Division by zero.");
+            throw new CalcException(ResourcesManager.get(Message.ERROR_DIVISION_BY_ZERO));
         }
     }
 

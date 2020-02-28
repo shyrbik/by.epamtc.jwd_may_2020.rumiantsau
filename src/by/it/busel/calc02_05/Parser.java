@@ -109,7 +109,7 @@ class Parser {
      */
     private boolean ifOneOrMoreOperandsExistOtherwiseThrowCalcException(List<String> operands) throws CalcException {
         if (operands.size() < 1) {
-            throw new CalcException("You've entered only a mathematical operator.");
+            throw new CalcException(ResourcesManager.get(Message.ERROR_ONLY_MATH_OPERATOR));
         }
         return true;
     }
@@ -226,7 +226,7 @@ class Parser {
             case "/":
                 return left.div(right);
             default:
-                throw new CalcException("The mathematical operator has not been found.\nCheck the expression You inputted. Then re-enter your expression, please!");
+                throw new CalcException(ResourcesManager.get(Message.ERROR_NO_MATH_OPERATOR_FOUND));
         }
     }
 }

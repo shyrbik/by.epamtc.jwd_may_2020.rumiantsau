@@ -9,10 +9,11 @@ class ConsoleRunner {
         Printer printer = new Printer();
         Storage storage = new Storage();
         Logger logger = new Logger();
+        ResourcesManager rManager = new ResourcesManager();
         while (true) {
             String varExpression = scanner.nextLine();
-            if (ConsoleCommands.call(varExpression)) continue;
             if (!varExpression.equals("end") && !varExpression.equals("конец")) {
+                if (ConsoleCommands.call(varExpression)) continue;
                 //TODO overload method printAndSave
                 try {
                     Var result = parser.calc(varExpression.replace("\\s+", ""));
@@ -23,6 +24,7 @@ class ConsoleRunner {
             } else {
                 break;
             }
+
         }
 //        storage.clearStorage();
     }
