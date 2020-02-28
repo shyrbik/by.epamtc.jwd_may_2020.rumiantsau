@@ -30,7 +30,6 @@ enum ResourcesManager {
         System.out.printf("The current language is %s\n", resourceBundle.getLocale().getDisplayLanguage());
     }
 
-
     private String generateBundleName(String fileName) {
         return ResourcesManager.class.getPackage().getName() + fileName;
     }
