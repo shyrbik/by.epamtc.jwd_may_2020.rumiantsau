@@ -3,15 +3,16 @@ package by.it.lozouski.calc;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.Locale;
 import java.util.Scanner;
 
 class ConsoleRunner {
     public static void main(String[] args) {
-        Logging.logFileRecord("****************************-------The program was run. -------****************************");
         Scanner sc1 = new Scanner(System.in);
-        String inputLine;
         Parser parser = new Parser();
         Printer printer = new Printer();
+        ChangeLangService langService = ChangeLangService.START;
+        Logging.logFileRecord(langService.get(Log.LOG_PROG_START));
         try {
             if (Files.exists(Paths.get(VarFile.getVarFile()))){
                 VarFile.load(parser);
@@ -19,18 +20,22 @@ class ConsoleRunner {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        Var.printStorageVar();
+
         while (true) {
-            inputLine = sc1.nextLine();
+            String inputLine = sc1.nextLine();
             if (inputLine.equals("end")) {
-                Logging.logFileRecord("****************************-------The program was end. -------****************************");
+                Logging.logFileRecord(langService.get(Log.LOG_PROG_FINISH));
                 break;
             }
-            try {
+            else if(inputLine.equals("printvar")) Var.printStorageVar();
+            else if (inputLine.equals("en")) langService.setLocale(new Locale("en"));
+            else if (inputLine.equals("ru")) langService.setLocale(new Locale("ru"));
+            else if (inputLine.equals("be")) langService.setLocale(new Locale("be"));
+            else try {
                 Logging.logFileRecord(inputLine);
                 Var result = parser.calculate(inputLine);
                 printer.print(result);
-                Logging.logFileRecord("Result: " + result.toString());
+                Logging.logFileRecord(langService.get(Log.LOG_RESULT) + result.toString());
             } catch (CalcException e) {
                 Logging.logFileRecord(e.getMessage());
                 System.out.println(e.getMessage());

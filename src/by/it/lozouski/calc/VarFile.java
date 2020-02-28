@@ -37,7 +37,7 @@ class VarFile extends Helper {
                 printWriter.printf("%s=%s\n", entry.getKey(), entry.getValue());
             }
         } catch (FileNotFoundException e) {
-            throw new CalcException("error " + varFile);
+            throw new CalcException("File not found exception --- " + varFile);
         }
     }
 }
