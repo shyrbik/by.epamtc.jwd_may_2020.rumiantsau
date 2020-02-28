@@ -78,7 +78,7 @@ class Parser {
     private Var processWithoutParentheses(String varExpression) throws CalcException {
         List<String> operands = new ArrayList<>(Arrays.asList(varExpression.split(Patterns.OPERATION)));
         if (verifyIfFirstCharIsMinusOrPlus(varExpression)
-                && ifOneOrMoreOperandsExistOtherwiseThrowCalcException(operands)) operands.set(0, "0");
+                & ifOneOrMoreOperandsExistOtherwiseThrowCalcException(operands)) operands.set(0, "0");
         List<String> operators = new ArrayList<>();
         fillOperatorsIfTheyExist(varExpression, operators);
         performMathOperationsAccordingToTheirPriority(operands, operators);
