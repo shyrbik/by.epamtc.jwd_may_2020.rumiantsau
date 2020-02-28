@@ -45,7 +45,6 @@ public class Runner {
                 locale = new Locale("ru", "RU");
                 res.setLocale(locale);
             }
-           // else  System.out.println(res.get(Messages.ENTER_ACTION));
         } while (true);
     }
 
