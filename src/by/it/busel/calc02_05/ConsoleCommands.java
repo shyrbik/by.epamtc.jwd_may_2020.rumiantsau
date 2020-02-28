@@ -1,5 +1,7 @@
 package by.it.busel.calc02_05;
 
+import java.util.Locale;
+
 /**
  * a class which contains main commands that can be called in order to perform some actions with
  * var expressions that were assigned and saved during previous executions of "Calc project"
@@ -18,6 +20,10 @@ class ConsoleCommands {
      */
     private static final String SORTVAR = "SORTVAR";
 
+    private static final Locale localeBLR = new Locale("be", "BY");
+    private static final Locale localeGB = new Locale("en", "GB");
+    private static final Locale localeRU = new Locale("ru", "RU");
+
     /**
      * a method which verifies if one of "Calc" commands is called
      *
@@ -29,7 +35,21 @@ class ConsoleCommands {
             Storage.printvar();
         } else if (varExpression.toUpperCase().equals(ConsoleCommands.SORTVAR)) {
             Storage.sortvar();
-        } else return false;
+        } else if (varExpression.length() == 2) {
+            switch (varExpression) {
+                case "be":
+                    ResourcesManager.setLocale(localeBLR);
+                    break;
+                case "en":
+                    ResourcesManager.setLocale(localeGB);
+                    break;
+                case "ru":
+                    ResourcesManager.setLocale(localeRU);
+                    break;
+            }
+        } else {
+            return false;
+        }
         return true;
     }
 }

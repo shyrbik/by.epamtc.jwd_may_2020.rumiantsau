@@ -8,10 +8,6 @@ class ResourcesManager {
 
     private static final String resourceBundleName = generateBundleName(".resources.errors");
 
-    private static final Locale localeBLR = new Locale("ru", "RU");
-    private static final Locale localeGB = new Locale("en", "GB");
-    private static final Locale localeRU = new Locale("ru", "RU");
-
     ResourcesManager() {
         resourceBundle = ResourceBundle.getBundle(resourceBundleName, Locale.getDefault());
     }
