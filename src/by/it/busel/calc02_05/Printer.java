@@ -32,8 +32,6 @@ class Printer {
         System.out.println(resultOutput);
         Logger.save(formLog(input, resultOutput));
     }
-    // add data of creation of a log
-
 
     /**
      * a method that forms log on the basis of input and output of a console.

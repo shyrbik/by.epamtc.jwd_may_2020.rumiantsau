@@ -14,7 +14,6 @@ class ConsoleRunner {
             String varExpression = scanner.nextLine();
             if (!varExpression.equals("end") && !varExpression.equals("конец")) {
                 if (ConsoleCommands.call(varExpression)) continue;
-                //TODO overload method printAndSave
                 try {
                     Var result = parser.calc(varExpression.replace("\\s+", ""));
                     printer.printAndSave(varExpression, result.toString());

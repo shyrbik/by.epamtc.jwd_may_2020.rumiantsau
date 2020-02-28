@@ -61,7 +61,7 @@ public class OwnTest_jd02_04_for_calc {
             if (cause.toString().contains("CalcException")) {
                 return null;
             }
-            return new Exception(e);
+            throw new Exception(e);
         }
     }
 
