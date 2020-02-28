@@ -9,12 +9,13 @@ class Runner {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
+        LangSwitcher langSwitch = LangSwitcher.LANG_SWITCHER;
+        if (args.length == 2) {
+            Locale locale = new Locale(args[0], args[1]);
+            langSwitch.setResourceBundle(locale);
+        }
+        print(langSwitch);
         while (true) {
-            LangSwitcher langSwitch = LangSwitcher.LANG_SWITCHER;
-//            if (args.length==2){
-//                Locale locale = new Locale(args[0], args[1]);
-//                langSwitch.setResourceBundle(locale);
-//            }
 
             switch (scanner.next()) {
                 case "ru":
