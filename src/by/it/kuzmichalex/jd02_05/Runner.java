@@ -4,7 +4,6 @@ package by.it.kuzmichalex.jd02_05;
 import java.text.DateFormat;
 import java.util.Calendar;
 import java.util.Locale;
-import java.util.Properties;
 import java.util.Scanner;
 
 public class Runner {
