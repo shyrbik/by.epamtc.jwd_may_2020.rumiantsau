@@ -1,4 +1,4 @@
-CalcException.constructor=ERROR (ПАМЫЛКА)
+CalcException.constructor=ERROR: (ПАМЫЛКА:)
 Parser.m.ifOneOrMoreOperandsExistOtherwiseThrowCalcException=Вы ўвялі толькі матэматычны аператар.
 Parser.m.calculateVar=Матэматычны аператар не знойдзены.\nПраверце выраз, які Вы ўвялі. Затым зноў увядзіце свой выраз, калі ласка!
 Printer.m.formLog_input=Увод:

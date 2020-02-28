@@ -1,4 +1,4 @@
-CalcException.constructor=ERROR
+CalcException.constructor=ERROR:
 Parser.m.ifOneOrMoreOperandsExistOtherwiseThrowCalcException=You've entered only a mathematical operator.
 Parser.m.calculateVar=The mathematical operator has not been found.\nCheck the expression You inputted. Then re-enter your expression, please!
 Printer.m.formLog_input=Input:
