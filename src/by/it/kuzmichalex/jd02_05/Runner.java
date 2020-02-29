@@ -10,7 +10,7 @@ public class Runner {
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        Locale locale= new Locale(System.getProperty("user.language"), System.getProperty("user.country"));
+        Locale locale = new Locale(System.getProperty("user.language"), System.getProperty("user.country"));
         ResMan res = ResMan.INSTANCE;
         res.setLocale(locale);
 
@@ -31,16 +31,14 @@ public class Runner {
 
             String expression = scanner.next();
             if (expression.toLowerCase().equals("end")) break;
-            else if (expression.toLowerCase().equals("en")){
+            else if (expression.toLowerCase().equals("en")) {
                 locale = new Locale("en", "US");
                 res.setLocale(locale);
                 //res.setLocale(Locale.ENGLISH);
-            }
-            else if (expression.toLowerCase().equals("by")){
+            } else if (expression.toLowerCase().equals("by") || expression.toLowerCase().equals("be")) {
                 locale = new Locale("be", "BY");
                 res.setLocale(locale);
-            }
-            else if (expression.toLowerCase().equals("ru")){
+            } else if (expression.toLowerCase().equals("ru")) {
                 locale = new Locale("ru", "RU");
                 res.setLocale(locale);
             }
