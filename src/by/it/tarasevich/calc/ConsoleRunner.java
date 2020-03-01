@@ -5,15 +5,20 @@ import java.util.Scanner;
 public class ConsoleRunner {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        String s;
-
         Parser parser = new Parser();
         Printer printer = new Printer();
-        while (!(s = scanner.nextLine()).equals("end")){
-            Var result = parser.calc(s);
-            printer.print(result);
+        VarFile.load();
+        while (true){
+            String expression = scanner.next();
+            if (expression.equals("end"))
+                break;
+            Var result = null;
+            try {
+                result = parser.calc(expression);
+                printer.print(result);
+            } catch (CalcException e) {
+                System.out.println(e.getMessage());
+            }
         }
-
-
     }
 }
