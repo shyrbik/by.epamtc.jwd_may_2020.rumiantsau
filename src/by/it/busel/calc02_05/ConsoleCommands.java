@@ -20,12 +20,31 @@ class ConsoleCommands {
      */
     private static final String SORTVAR = "SORTVAR";
 
+    /**
+     * a Locale object, which is used when all exception messages or other statement shall be in Belarusian
+     */
     private static final Locale localeBLR = new Locale("be", "BY");
+
+    /**
+     * a Locale object, which is used when all exception messages or other statement shall be in English.
+     * This Locale is a default one.
+     * Moreover, country "GB" is chosen, because it learnt British English
+     */
     private static final Locale localeGB = new Locale("en", "GB");
+
+    /**
+     * a Locale object, which is used when all exception messages or other statement shall be in Russian
+     */
     private static final Locale localeRU = new Locale("ru", "RU");
 
     /**
-     * a method which verifies if one of "Calc" commands is called
+     * a method which verifies if one of "Calc" commands is called.
+     * At the present they are:
+     * 1) "printvar" - prints all saved Var-expressions;
+     * 2) "sortvar" - prints all saved Var-expressions in an ascending order;
+     * 3) "be" - changes a language of the Calc application to Belarusian;
+     * 4) "ru" - changes a language of the Calc application to Russian;
+     * 5) "en" - changes a language of the Calc application to British English;
      *
      * @param varExpression a String which potentially can contain a "Calc" command
      * @return a boolean expression that states "true" when one of "Calc" commands was called
