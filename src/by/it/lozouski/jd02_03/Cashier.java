@@ -1,6 +1,7 @@
-package by.it.lozouski.jd02_02;
+package by.it.lozouski.jd02_03;
 
 import java.util.Arrays;
+
 
 class Cashier implements Runnable {
     static final Object monitorCashier = new Object();
@@ -20,6 +21,7 @@ class Cashier implements Runnable {
         while (!Dispetcher.marketClosed()) {
             Buyer buyer = QueueBuyer.extractBuyerFromQueue();
             if (buyer != null) {
+                synchronized (buyer){
                 StringBuilder sb = new StringBuilder();
                 System.out.println(this + "НАЧАЛ ОБСЛУЖИВАНИЕ " + buyer);
                 sb.append("Список товаров: ").append(buyer.toString()).append("--- ");
@@ -28,7 +30,7 @@ class Cashier implements Runnable {
                 System.out.println(sb);
                 System.out.println(this + "ЗАКОНЧИЛ ОБСЛУЖИВАНИЕ " + buyer);
                 Help.sleep(Help.randomGenerate(2000, 5000));
-                synchronized (buyer){
+                    buyer.setWaitFlag(false);
                     buyer.notify();
                 }
             } else {
