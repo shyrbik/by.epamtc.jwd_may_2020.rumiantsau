@@ -1,4 +1,4 @@
-package by.it.cherkas.jd01_09;
+package by.it.cherkas.calc;
 
 public class Patterns {
     static final String MATH_SIGN="[-+*/]";
