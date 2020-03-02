@@ -1,5 +1,7 @@
 package by.it.shpakovskiy.calc;
 
+import java.io.*;
+import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
@@ -9,87 +11,71 @@ abstract class Var implements Operation {
     private static Map<String, Var> vars = new HashMap<>();
 
     @Override
-    public Var add(Var other) {
-        System.out.println("Operation" + this + "with " + other + " impossible");
-        return null;
+    public Var add(Var other) throws CalcException {
+        throw new CalcException("Operation " + this + "+" + other + " impossible");
     }
 
-    public Var add(Scalar other) {
-        System.out.println("Operation" + this + "with " + other + " impossible");
-        return null;
+    public Var add(Scalar other) throws CalcException {
+        throw new CalcException("Operation " + this + "+" + other + " impossible");
     }
 
-    public Var add(Vector other) {
-        System.out.println("Operation" + this + "with " + other + " impossible");
-        return null;
+    public Var add(Vector other) throws CalcException {
+        throw new CalcException("Operation " + this + "+" + other + " impossible");
     }
 
-    public Var add(Matrix other) {
-        System.out.println("Operation" + this + "with " + other + " impossible");
-        return null;
+    public Var add(Matrix other) throws CalcException {
+        throw new CalcException("Operation " + this + "+" + other + " impossible");
     }
 
     @Override
-    public Var sub(Var other) {
-        System.out.println("Operation" + this + "with " + other + " impossible");
-        return null;
+    public Var sub(Var other) throws CalcException {
+        throw new CalcException("Operation " + this + "-" + other + " impossible");
     }
 
-    public Var sub(Scalar other) {
-        System.out.println("Operation" + this + "with " + other + " impossible");
-        return null;
+    public Var sub(Scalar other) throws CalcException {
+        throw new CalcException("Operation " + this + "-" + other + " impossible");
     }
 
-    public Var sub(Vector other) {
-        System.out.println("Operation" + this + "with " + other + " impossible");
-        return null;
+    public Var sub(Vector other) throws CalcException {
+        throw new CalcException("Operation " + this + "-" + other + " impossible");
     }
 
-    public Var sub(Matrix other) {
-        System.out.println("Operation" + this + "with " + other + " impossible");
-        return null;
+    public Var sub(Matrix other) throws CalcException {
+        throw new CalcException("Operation " + this + "-" + other + " impossible");
     }
 
     @Override
-    public Var mul(Var other) {
-        System.out.println("Operation" + this + "with " + other + " impossible");
-        return null;
+    public Var mul(Var other) throws CalcException {
+        throw new CalcException("Operation " + this + "*" + other + " impossible");
     }
 
-    public Var mul(Scalar other) {
-        System.out.println("Operation" + this + "with " + other + " impossible");
-        return null;
+    public Var mul(Scalar other) throws CalcException {
+        throw new CalcException("Operation " + this + "*" + other + " impossible");
     }
 
-    public Var mul(Vector other) {
-        System.out.println("Operation" + this + "with " + other + " impossible");
-        return null;
+    public Var mul(Vector other) throws CalcException {
+        throw new CalcException("Operation " + this + "*" + other + " impossible");
     }
 
-    public Var mul(Matrix other) {
-        System.out.println("Operation" + this + "with " + other + " impossible");
-        return null;
+    public Var mul(Matrix other) throws CalcException {
+        throw new CalcException("Operation " + this + "*" + other + " impossible");
     }
 
     @Override
-    public Var div(Var other) {
-        System.out.println("Operation" + this + "with " + other + " impossible");
-        return null;
+    public Var div(Var other) throws CalcException {
+        throw new CalcException("Operation " + this + "/" + other + " impossible");
     }
 
-    public Var div(Scalar other) {
-        System.out.println("Operation" + this + "with " + other + " impossible");
-        return null;
+    public Var div(Scalar other) throws CalcException {
+        throw new CalcException("Operation " + this + "/" + other + " impossible");
     }
 
-    public Var div(Vector other) {
-        System.out.println("Operation" + this + "with " + other + " impossible");
-        return null;
+    public Var div(Vector other) throws CalcException {
+        throw new CalcException("Operation " + this + "/" + other + " impossible");
     }
 
-    public Var div(Matrix other) {
-        System.out.println("Operation" + this + "with " + other + " impossible");
-        return null;
+    public Var div(Matrix other) throws CalcException {
+        throw new CalcException("Operation " + this + "/" + other + " impossible");
     }
 
     @Override
@@ -97,15 +83,21 @@ abstract class Var implements Operation {
         return "abstract Var";
     }
 
-    static Var createVar(String strVar) {
+    static Var createVar(String strVar) throws CalcException {
         if (strVar.matches(Patterns.SCALAR))
             return new Scalar(strVar);
         else if (strVar.matches(Patterns.VECTOR))
             return new Vector(strVar);
         else if (strVar.matches(Patterns.MATRIX))
             return new Matrix(strVar);
-        else
-            return vars.get(strVar);
+        else {
+            Var var = vars.get(strVar);
+            if (var != null) {
+                return var;
+            } else {
+                throw new CalcException("Unknown expression: " + strVar);
+            }
+        }
     }
 
     static void saveVar(String key, Var value) {
@@ -128,6 +120,30 @@ abstract class Var implements Operation {
         Set<String> set = new TreeSet<>(vars.keySet());
         for (String s : set) {
             System.out.println(s + "=" + vars.get(s));
+        }
+    }
+
+    static void saveVarToFile() throws CalcException {
+        String fileName="vars.txt";
+        try (PrintWriter writer = new PrintWriter("src/by/it/shpakovskiy/calc/"+fileName)) {
+            vars.forEach((key,value)->writer.printf("%s=%s\n",key,value));
+        } catch (FileNotFoundException e) {
+            throw  new CalcException(e);
+        }
+    }
+
+    static void loadVarFromFile(Parser parser) throws CalcException {
+        String fileName="vars.txt";
+        try (BufferedReader reader = new BufferedReader(new FileReader(Paths.get("src/by/it/shpakovskiy/calc/"+fileName).toFile()))) {
+            while (reader.ready()){
+                String line = reader.readLine();
+                if (line==null){
+                    throw new CalcException("Error reading file");
+                }
+                parser.calc(line);
+            }
+        } catch (IOException e) {
+            throw  new CalcException("error loading data "+e.getMessage());
         }
     }
 }

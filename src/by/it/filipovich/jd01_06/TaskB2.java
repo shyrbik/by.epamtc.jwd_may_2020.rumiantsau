@@ -6,17 +6,18 @@ import java.util.regex.Pattern;
 
 public class TaskB2 {
     public static void main(String[] args) {
-        String poem = Poem.text.replaceAll("\n", " ").replaceAll("\\.\\.\\.", "");
+        String poem = Poem.text.replaceAll("\n", " ")
+                                .replaceAll("\\.\\.\\.", "");
         Pattern pattern = Pattern.compile("[^.!?]+");
         Matcher matcher = pattern.matcher(poem);
         String[] str = new String[0];
         while(matcher.find()) {
-            String sentenсe = matcher.group().replaceAll("[^а-яА-ЯёЁ]"," ").
+            String sentence = matcher.group().replaceAll("[^а-яА-ЯёЁ]"," ").
                     replaceAll(" {2,}", " ").trim();
 
             int lastString = str.length;
             str = Arrays.copyOf(str, str.length+1);
-            str[lastString] = sentenсe;
+            str[lastString] = sentence;
         }
         sortByLength(str);
 

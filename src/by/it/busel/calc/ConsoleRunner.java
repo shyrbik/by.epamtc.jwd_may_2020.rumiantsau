@@ -8,16 +8,22 @@ class ConsoleRunner {
         Parser parser = new Parser();
         Printer printer = new Printer();
         Storage storage = new Storage();
+        Logger logger = new Logger();
         while (true) {
-            String varExpression = scanner.next();
-            ConsoleCommands.call(varExpression);
+            String varExpression = scanner.nextLine();
+            if (ConsoleCommands.call(varExpression)) continue;
             if (!varExpression.equals("end") && !varExpression.equals("конец")) {
-                Var result = parser.calc(varExpression.trim());
-                printer.print(result);
+                //TODO overload method printAndSave
+                try {
+                    Var result = parser.calc(varExpression.trim());
+                    printer.printAndSave(varExpression, result.toString());
+                } catch (CalcException e) {
+                    printer.printAndSave(varExpression, e.getMessage());
+                }
             } else {
                 break;
             }
         }
-
+//        storage.clearStorage();
     }
 }

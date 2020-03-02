@@ -8,22 +8,55 @@ class ConsoleRunner {
         Scanner scanner = new Scanner(System.in);
         Parser parser = new Parser();
         Printer printer = new Printer();
-        while (true){
-            String expression = scanner.next();
+        Logger logger = new Logger();
+        try {
+            Var.loadVarFromFile(parser);
+            logger.print("recovery of the variable list");
+        } catch (CalcException e) {
+            System.out.println(e.getMessage());
+            logger.print(e.getMessage());
+        }
+        while (true) {
+            String expression = scanner.nextLine();
             if (expression.equals("end")) {
-                System.out.println("I hope to see you again ¯\\_(ツ)_/¯");
+                try {
+                    Var.saveVarToFile();
+                } catch (CalcException e) {
+                    System.out.println(e.getMessage());
+                    logger.print(e.getMessage());
+                }
+                logger.print("save to file");
+                System.out.println("I hope to see you again \u270B");
+                logger.print(expression);
                 break;
             }
-            if (expression.equals("printvar")){
-                System.out.println(Var.getStringVars());
+            logger.print(expression);
+            if (expression.equals("printvar")) {
+                String stringVars = Var.getStringVars();
+                System.out.println(stringVars);
+                logger.print("print var\n" + stringVars);
+                try {
+                    Var.saveVarToFile();
+                } catch (CalcException e) {
+                    System.out.println(e.getMessage());
+                    logger.print(e.getMessage());
+                }
                 continue;
             }
-            if (expression.equals("sortvar")){
+            if (expression.equals("sortvar")) {
                 Var.sortAndPrintVars();
+                logger.print("Data sorted\n" + Var.getStringVars());
                 continue;
             }
-            Var result = parser.calc(expression);
-            printer.print(result);
+            try {
+                Var result = parser.calc(expression);
+                printer.print(result);
+                logger.print(result.toString());
+            } catch (CalcException e) {
+                System.out.println(e.getMessage());
+                logger.print(e.getMessage());
+            }
         }
+
     }
 }
