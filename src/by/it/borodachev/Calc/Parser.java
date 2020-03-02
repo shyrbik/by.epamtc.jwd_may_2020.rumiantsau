@@ -36,7 +36,6 @@ import static by.it.borodachev.Calc.Var.*;
         Var left = Var.createVar(strLeft);
         if (left != null && right != null) {
             switch (operation) {
-
                 case "+":
                     return left.add(right);
                 case "-":
@@ -47,7 +46,7 @@ import static by.it.borodachev.Calc.Var.*;
                     return left.div(right);
             }
         }
-        throw new CalcException("What?");
+        throw new CalcException(LanguageManager.get(ErrorMessage.unknown_operation));
     }
     public static boolean check(String s) {
         Deque<Character> deque = new LinkedList<>();
@@ -67,13 +66,29 @@ import static by.it.borodachev.Calc.Var.*;
     }
     public Var calc(String expression) throws CalcException {
         expression = expression.replaceAll("\\s+", "");
-        if (check(expression)) {
-            if (expression.contains("(")) {
-                expression=calcComplex(expression);
-            }else
-                expression=calcPrimitive(expression);
-            return Var.createVar(expression);
+        if (expression.equals("printvar")) {
+            printvar();
+        } else if (expression.equals("sortvar")) {
+            sortvar();
+        } else if (expression.equals("ru")) {
+            LanguageManager.setLanguage(expression);
+            System.out.println(LanguageManager.get("message.calculator_running"));
+        } else if (expression.equals("en")) {
+            LanguageManager.setLanguage(expression);
+            System.out.println(LanguageManager.get("message.calculator_running"));
+        } else if (expression.equals("by")) {
+            LanguageManager.setLanguage(expression);
+            System.out.println(LanguageManager.get("message.calculator_running"));
         }
+        else {
+                if (check(expression)) {
+                    if (expression.contains("(")) {
+                        expression = calcComplex(expression);
+                    } else
+                        expression = calcPrimitive(expression);
+                    return Var.createVar(expression);
+                }
+            }
         return null;
     }
 
@@ -87,16 +102,10 @@ import static by.it.borodachev.Calc.Var.*;
          return calcPrimitive(expression);
     }
     private String calcPrimitive(String expression) throws CalcException {
-        expression = expression.replace("\\s+", "");
-        if (expression.equals("printvar")) {
-            printvar();
-        } else if (expression.equals("sortvar")) {
-            sortvar();
-        } else
-        {
-            List<String> operands = new ArrayList<>(Arrays.asList(expression.split(Patterns.OPERATION)));
-            List<String> operations = new ArrayList<>();
-            Matcher matcher = Pattern.compile(Patterns.OPERATION).matcher(expression);
+         expression = expression.replace("\\s+", "");
+         List<String> operands = new ArrayList<>(Arrays.asList(expression.split(Patterns.OPERATION)));
+          List<String> operations = new ArrayList<>();
+           Matcher matcher = Pattern.compile(Patterns.OPERATION).matcher(expression);
             while (matcher.find()) {
                 String operation = matcher.group();
                 operations.add(operation);
@@ -112,7 +121,5 @@ import static by.it.borodachev.Calc.Var.*;
             return operands.get(0);
         }
 
-     return null;
-    }
 
 }

@@ -16,22 +16,22 @@ public abstract class Var implements Operation {
 
      @Override
      public Var add(Var newValue) throws CalcException {
-          throw new CalcException("Operation " + this + "+" + newValue + " impossible");
+          throw new CalcException(LanguageManager.get(ErrorMessage.imposible_operation)+ " "+ this + " + " + newValue );
      }
 
      @Override
      public Var sub(Var newValue) throws CalcException {
-          throw new CalcException("Operation " + this + "-" + newValue + " impossible");
+          throw new CalcException(LanguageManager.get(ErrorMessage.imposible_operation)+ " "+ this + " - " + newValue );
      }
 
      @Override
      public Var mul(Var newValue) throws CalcException {
-          throw new CalcException("Operation " + this + "*" + newValue + " impossible");
+          throw new CalcException(LanguageManager.get(ErrorMessage.imposible_operation)+ " "+ this + " * " + newValue );
      }
 
      @Override
      public Var div(Var newValue) throws CalcException{
-          throw new CalcException("Operation " + this + "/" + newValue + " impossible");
+          throw new CalcException(LanguageManager.get(ErrorMessage.imposible_operation)+ " "+ this + " / " + newValue );
      }
      static Var createVar(String strVar) throws CalcException {
           if (strVar.matches(Patterns.SCALAR))
@@ -43,7 +43,7 @@ public abstract class Var implements Operation {
           else if(field.containsKey(strVar))  // Сначала поищем в локальных переменных
           {return field.get(strVar);}
          else
-           throw new CalcException("Не возможно определить тип переменной :"+strVar);
+           throw new CalcException(LanguageManager.get(ErrorMessage.unknown_operation)+strVar);
           //TODO generate error here
      }
      static void save(String key, Var value) {
