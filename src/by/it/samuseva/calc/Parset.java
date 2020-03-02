@@ -50,6 +50,27 @@ class Parset {
     Var calc (String expression) throws CalcException{
         expression = expression.replace("\\s+", "");
 
+
+
+
+        while (expression.indexOf('(')>0){
+            String str1;
+            if (expression.indexOf("((")>0) {
+                str1 = expression.substring(expression.indexOf("(")+1, expression.indexOf(')')+1);
+            } else{
+                str1 = expression.substring(expression.indexOf("("), expression.indexOf(')')+1);
+            }
+            String str = str1.replace("(", "").replace(")", "");
+            String[] strs = str.split(Patterns.OPERATION);
+            String oper = "";
+            if (str.indexOf('+')>0) oper = "+";
+            if (str.indexOf('-')>0) oper = "-";
+            if (str.indexOf('/')>0) oper = "/";
+            if (str.indexOf('*')>0) oper = "*";
+            Var rez = oneOperation(strs[0],oper,strs[1]);
+            expression = expression.replace(str1,rez.toString());
+        }
+
         String[] parts = expression.split(Patterns.OPERATION);
         List<String> operands=new ArrayList<>(Arrays.asList(parts));
 
