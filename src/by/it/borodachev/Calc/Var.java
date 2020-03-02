@@ -35,13 +35,15 @@ public abstract class Var implements Operation {
      }
      static Var createVar(String strVar) throws CalcException {
           if (strVar.matches(Patterns.SCALAR))
-               return new Scalar(strVar);
+          {return new Scalar(strVar);}
           else if (strVar.matches(Patterns.VECTOR))
-               return new Vector(strVar);
+          {return new Vector(strVar);}
           else if (strVar.matches(Patterns.MATRIX))
-               return new Matrix(strVar);
-          else
-               throw new CalcException("Не возможно определить тип переменной :"+strVar);
+          {return new Matrix(strVar);}
+          else if(field.containsKey(strVar))  // Сначала поищем в локальных переменных
+          {return field.get(strVar);}
+         else
+           throw new CalcException("Не возможно определить тип переменной :"+strVar);
           //TODO generate error here
      }
      static void save(String key, Var value) {

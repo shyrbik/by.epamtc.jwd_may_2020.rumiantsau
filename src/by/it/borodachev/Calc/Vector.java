@@ -30,9 +30,9 @@ public class Vector extends Var {
         }
     }
     public Vector (String str) throws CalcException {
-          str=str.trim();
+        str=str.trim();
         String[] valStr;
-        Pattern pat= Pattern.compile("[^{}][0-9,/.]+");
+        Pattern pat= Pattern.compile("[^{}][0-9,-/.]+");
         Matcher m=pat.matcher(str);
         if (m.find()) {
             valStr = m.group().split(",");}
@@ -104,7 +104,7 @@ public class Vector extends Var {
                 return new Vector(tmpArr);
             }
         }
-        return super.add(newValue);
+        return super.sub(newValue);
     }
 
     @Override
@@ -128,7 +128,7 @@ public class Vector extends Var {
                 return new Scalar(retValue);
             }
         }
-        return super.add(newValue);
+        return super.mul(newValue);
     }
 
 
@@ -147,7 +147,7 @@ public class Vector extends Var {
             }
         }
 
-        return super.add(newValue);
+        return super.div(newValue);
         }
 
         }

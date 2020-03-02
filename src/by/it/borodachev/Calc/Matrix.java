@@ -44,7 +44,7 @@ public class Matrix extends Var {
         str=str.trim();
         str=str.replace(" ","");
         String[] valStr;
-        Pattern pat= Pattern.compile("[^{}][0-9,/.]+");
+        Pattern pat= Pattern.compile("[^{}][0-9,-/.]+");
         Matcher m=pat.matcher(str);
         rowLength=0;
         while (m.find()) {rowLength++;};
@@ -234,6 +234,22 @@ public class Matrix extends Var {
 
     @Override
     public Var div(Var newValue) throws CalcException {
+        if (newValue instanceof Scalar) {
+            Scalar tmpScalar = (Scalar) newValue;
+            if (tmpScalar.getValue() == 0) {
+                throw new CalcException("Division by zero");
+            }
+            double[][] tmpArr =Arrays.copyOf(value, value.length);
+            for (int i = 0; i < tmpArr.length; i++) {
+                tmpArr[i] = Arrays.copyOf(value[i], value[i].length);
+            }
+            for (int i = 0; i < rowLength; i++) {
+                for (int i1 = 0; i1 <colLength; i1++) {
+                    tmpArr[i][i1] /= tmpScalar.getValue() ;
+                }
+            }
+            return new Matrix(tmpArr);
+        }
         return super.div(newValue);
     }
 }
