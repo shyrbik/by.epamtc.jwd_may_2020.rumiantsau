@@ -1,4 +1,4 @@
-package by.it.shulga.jd01.jd02_01;
+package by.it.shulga.jd01.jd02_02;
 
 interface IUseBacket{
     void takeBacket(); //взял корзину
