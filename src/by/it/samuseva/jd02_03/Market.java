@@ -1,20 +1,22 @@
-package by.it.samuseva.jd02_02;
+package by.it.samuseva.jd02_03;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.Executor;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 public class Market {
     public static void main(String[] args) {
         new Good();
-        List<Thread> threads = new ArrayList<>(1000);
 
         System.err.println("-----------THE MARKET HAS OPENED-----------");
+        ExecutorService executor = Executors.newFixedThreadPool(5);
         for (int i = 1; i <= Dispetcher.getCountCashier(); i++) {
-            Cashier cashier = new Cashier(i);
-            Thread thread = new Thread(cashier);
-            threads.add(thread);
-            thread.start();
+         executor.execute(new Cashier(i));
         }
+        executor.shutdown();
         int number = 0;
         while (Dispetcher.marketOpened()){
             int count = Helper.random(0,2);
@@ -24,20 +26,17 @@ public class Market {
                     if (number%4 == 0) {
                         buyer.pensioner = true;
                     }
-                    threads.add(buyer);
                     buyer.start();
                 }
             }
             Helper.sleep(1000);
         }
 
-        for (Thread  buyer : threads) {
-            try {
-                buyer.join();
-            } catch (InterruptedException e) {
-                System.err.println("YPS !!!");
-            }
+        try {
+            while (!executor.awaitTermination(1000, TimeUnit.MILLISECONDS));
+                System.err.println("-----------THE MARKET HAS CLOSED-----------");
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
-        System.err.println("-----------THE MARKET HAS CLOSED-----------");
     }
 }

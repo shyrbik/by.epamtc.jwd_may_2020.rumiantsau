@@ -6,15 +6,12 @@ class Dispetcher {
 
     private static final Object monitor = new Object();
 
-    private static final int PLAN = 10;
+    private static final int PLAN = 100;
     private static final int countCashier = 5;
 
     private static int countBuyer = 0;
     private static int enterBayer = 0;
 
-    public static int getEnterBayer() {
-        return enterBayer;
-    }
 
     public static int getCountCashier() {
         return countCashier;
