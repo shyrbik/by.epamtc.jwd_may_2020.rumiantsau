@@ -1,7 +1,10 @@
 package by.it.lozouski.calc;
 import static by.it.lozouski.calc.ConsoleRunner.langService;
 
+
 class CalcException extends Exception {
+    private static final long serialVersionUID = -2730840095611934086L;
+
     public CalcException() {
     }
 
