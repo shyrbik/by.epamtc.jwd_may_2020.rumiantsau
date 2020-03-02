@@ -2,8 +2,7 @@ package by.it.cherkas.jd01_11;
 
 import java.util.*;
 
-public class ListA<T>implements List<T> {
-
+public class ListB<T> implements List<T>{
     private T[] elements= (T[]) new Object []{};
     private int size=0;
 
@@ -12,8 +11,8 @@ public class ListA<T>implements List<T> {
     public boolean add(T element) {
         if (size >= elements.length){
             elements = Arrays.copyOf(elements, elements.length * 3 / 2 + 1);
-    }
-            elements [size++]=element;
+        }
+        elements [size++]=element;
         return true;
     }
 
@@ -37,8 +36,8 @@ public class ListA<T>implements List<T> {
         String delimiter = "";
         for (int i = 0; i < size; i++){
             sb.append(delimiter).append(elements[i]);
-        delimiter = ", ";
-    }
+            delimiter = ", ";
+        }
 
         sb.append("]");
         return sb.toString();
@@ -48,16 +47,46 @@ public class ListA<T>implements List<T> {
     public int size() {
         return size;
     }
+    @Override
+    public T set(int index, T element) {
+        T oldElement=elements[index];
+        elements[index]=element;
+        return oldElement;
+    }
+
+    @Override
+    public void add(int index, T element) {
+        if (size>=elements.length){
+            elements=Arrays.copyOf(elements, elements.length*3/2+1);
+        }
+        System.arraycopy(elements, index, elements, index+1, size-index);
+        elements[index]=element;
+        size++;
+    }
+
+    @Override
+    public boolean addAll(Collection<? extends T> c) {
+        for (T t : c) {
+            if (size>=elements.length){
+                elements=Arrays.copyOf(elements, elements.length*3/2+1);
+            }
+            elements[size++]=t;
+        }
+        return true;
+    }
+
+    @Override
+    public boolean contains(Object o) {
+            return false;
+
+        }
 
     @Override
     public boolean isEmpty() {
         return false;
     }
 
-    @Override
-    public boolean contains(Object o) {
-        return false;
-    }
+
 
     @Override
     public Iterator<T> iterator() {
@@ -84,10 +113,7 @@ public class ListA<T>implements List<T> {
         return false;
     }
 
-    @Override
-    public boolean addAll(Collection<? extends T> c) {
-        return false;
-    }
+
 
     @Override
     public boolean addAll(int index, Collection<? extends T> c) {
@@ -109,15 +135,8 @@ public class ListA<T>implements List<T> {
 
     }
 
-    @Override
-    public T set(int index, T element) {
-        return null;
-    }
 
-    @Override
-    public void add(int index, T element) {
 
-    }
 
     @Override
     public int indexOf(Object o) {
@@ -144,3 +163,5 @@ public class ListA<T>implements List<T> {
         return null;
     }
 }
+
+
