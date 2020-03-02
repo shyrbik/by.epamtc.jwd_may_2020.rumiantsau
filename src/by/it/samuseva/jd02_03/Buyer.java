@@ -2,10 +2,13 @@ package by.it.samuseva.jd02_03;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.Semaphore;
 
 class Buyer extends Thread implements IBuyer, IUseBacket {
     boolean pensioner = false;
     private boolean flagQueue = false;
+
+    private static Semaphore semaphore = new Semaphore(20);
     private Map<String, Integer> goodBacket = new HashMap<>();
 
     public Map<String, Integer> getGoodBacket() {
@@ -24,8 +27,15 @@ class Buyer extends Thread implements IBuyer, IUseBacket {
     @Override
     public void run() {
         enterToMarket();
-        chooseGoods();
-        goToQueue();
+        try {
+            semaphore.acquire();
+            chooseGoods();
+            goToQueue();
+        } catch (Exception e){
+            e.printStackTrace();
+        }finally {
+            semaphore.release();
+        }
         goOut();
     }
 

@@ -14,6 +14,7 @@ public class Market {
          executor.execute(new Cashier(i));
         }
         executor.shutdown();
+
         int number = 0;
         while (Dispetcher.marketOpened()){
             int count = Helper.random(0,2);
