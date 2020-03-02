@@ -13,6 +13,7 @@ class ConsoleRunner {
         Printer printer = new Printer();
         ChangeLangService langService = ChangeLangService.START;
         Logging.logFileRecord(langService.get(Log.LOG_PROG_START));
+
         try {
             if (Files.exists(Paths.get(VarFile.getVarFile()))){
                 VarFile.load(parser);
@@ -28,9 +29,9 @@ class ConsoleRunner {
                 break;
             }
             else if(inputLine.equals("printvar")) Var.printStorageVar();
-            else if (inputLine.equals("en")) langService.setLocale(new Locale("en"));
-            else if (inputLine.equals("ru")) langService.setLocale(new Locale("ru"));
-            else if (inputLine.equals("be")) langService.setLocale(new Locale("be"));
+            else if (inputLine.equals("en")) langService.setLocale(new Locale("en","US"));
+            else if (inputLine.equals("ru")) langService.setLocale(new Locale("ru","RU"));
+            else if (inputLine.equals("be")) langService.setLocale(new Locale("be","BY"));
             else try {
                 Logging.logFileRecord(inputLine);
                 Var result = parser.calculate(inputLine);

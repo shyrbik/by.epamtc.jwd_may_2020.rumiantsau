@@ -9,6 +9,7 @@ class Parser {
     private static final Map<String, Integer> mapOperationPriority = new HashMap<>();
     private static final HashMap<Character, Character> bracketsMap = new HashMap<>();
     private static final Stack<Character> stackBrackets = new Stack<>();
+    static ChangeLangService langService = ChangeLangService.START;
 
     static {
         bracketsMap.put('(', ')');
@@ -83,7 +84,7 @@ class Parser {
                     return leftOper.div(rightOper);
             }
         }
-        throw new CalcException("Incorrect variable creation, please try again.");
+        throw new CalcException(langService.get(Error.ERR_INCORRECT_VAR_CREATE));
     }
 
     private String calcMultipleExpression(String expression) throws CalcException {
@@ -110,12 +111,16 @@ class Parser {
         }
 
         while (operationsList.size() > 0) {
+            try {
                 int i = getIndexOperation(operationsList);
                 String operation = operationsList.remove(i);
                 String leftOperand = operandsList.remove(i);
                 String rightOperand = operandsList.remove(i);
                 Var resultOperations = calculateOneOperation(leftOperand, operation, rightOperand);
                 operandsList.add(i, resultOperations.toString().replaceAll("\\s+", ""));
+            }catch (IndexOutOfBoundsException e){
+                throw new CalcException(langService.get(Error.ERR_INCORRECT_VAR_CREATE));
+            }
         }
         return operandsList.get(0);
     }

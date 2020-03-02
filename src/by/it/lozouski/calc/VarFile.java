@@ -12,7 +12,7 @@ import java.util.Map;
 class VarFile extends Helper {
 
     private static String varFile = Helper.getPath("vars.txt", VarFile.class);
-
+    static ChangeLangService langService = ChangeLangService.START;
     public static String getVarFile() {
         return varFile;
     }
@@ -23,7 +23,7 @@ class VarFile extends Helper {
                 expression -> {
             try {
                 parser.calculate(expression);
-                Logging.logFileRecord(expression + " variable stored in memory");
+                Logging.logFileRecord(expression + langService.get(Messages.MES_STORED_VAR));
             } catch (CalcException e) {
                 e.printStackTrace();
             }
@@ -37,7 +37,7 @@ class VarFile extends Helper {
                 printWriter.printf("%s=%s\n", entry.getKey(), entry.getValue());
             }
         } catch (FileNotFoundException e) {
-            throw new CalcException("File not found exception --- " + varFile);
+            throw new CalcException(langService.get(Error.ERR_FILE_NOT_FOUND) + varFile);
         }
     }
 }
