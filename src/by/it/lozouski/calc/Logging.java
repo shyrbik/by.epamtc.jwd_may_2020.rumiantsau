@@ -16,7 +16,7 @@ class Logging extends Helper {
     //fields
     private static String logFileTxtPath = Helper.getPath("log.txt", Logging.class);
     private static Path logPath = Paths.get(logFileTxtPath);
-    private static int limitOfLogMessages = 20;
+    private static int limitOfLogMessages = 10;
     static ChangeLangService langService = ChangeLangService.START;
 
     //methods

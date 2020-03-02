@@ -6,18 +6,14 @@ import java.util.ResourceBundle;
 enum ChangeLangService {
     START;
     private ResourceBundle resourceBundle;
-    private final String resourseName = "by.it.lozouski.calc.calcTxtFiles.messages";
+    private final String resourceName = "by.it.lozouski.calc.calcTxtFiles.messages";
 
     ChangeLangService() {
-        resourceBundle = ResourceBundle.getBundle(resourseName, Locale.getDefault());
+        resourceBundle = ResourceBundle.getBundle(resourceName, new Locale("en","US"));
     }
 
     void setLocale(Locale locale) {
-        resourceBundle = ResourceBundle.getBundle(resourseName, locale);
-    }
-
-    public ResourceBundle getResourceBundle() {
-        return resourceBundle;
+        resourceBundle = ResourceBundle.getBundle(resourceName, locale);
     }
 
     public String get(String key) {

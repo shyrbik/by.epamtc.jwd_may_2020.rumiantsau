@@ -9,10 +9,6 @@ abstract class Var implements Operation {
 
     private static Map<String, Var> varsMap = new HashMap<>();
 
-    public static Map<String, Var> getVarsMap() {
-        return varsMap;
-    }
-
     @Override
     public Var add(Var other) throws CalcException {
         throw new CalcException();

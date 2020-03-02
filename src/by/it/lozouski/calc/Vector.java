@@ -3,6 +3,7 @@ package by.it.lozouski.calc;
 import java.util.Arrays;
 
 class Vector extends Var {
+    static ChangeLangService langService = ChangeLangService.START;
 
     private double[] value;
 
@@ -44,7 +45,7 @@ class Vector extends Var {
     @Override
     Var add(Vector otherVector) throws CalcException{
         if (this.value.length != otherVector.value.length){
-            throw new CalcException("Different lengths of vectors!");
+            throw new CalcException(langService.get(Error.ERR_DIFF_LENGTH_VECTOR));
         }
             double[] sum = new double[this.value.length];
             for (int i = 0; i < this.value.length; i++) {
@@ -89,7 +90,7 @@ class Vector extends Var {
     @Override
     Var mul(Vector otherVector) throws CalcException {
         if (this.value.length != otherVector.value.length){
-            throw new CalcException("Different lengths of vectors!");
+            throw new CalcException(langService.get(Error.ERR_DIFF_LENGTH_VECTOR));
         }
             double scalarMultipleVectors = 0;
             for (int i = 0; i < this.value.length; i++) {
@@ -102,7 +103,7 @@ class Vector extends Var {
     Var mul(Matrix otherVector) throws CalcException {
         double[][] otherVectorValue = otherVector.getValue();
         if (otherVectorValue[0].length != this.value.length){
-            throw new CalcException("Invalid length of matrix or vector.");
+            throw new CalcException(langService.get(Error.ERR_INVALID_LENGTH));
         }
 
         double[] mul = new double[otherVectorValue.length];
