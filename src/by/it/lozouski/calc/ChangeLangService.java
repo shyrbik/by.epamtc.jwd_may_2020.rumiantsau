@@ -14,6 +14,7 @@ enum ChangeLangService {
 
     void setLocale(Locale locale) {
         resourceBundle = ResourceBundle.getBundle(resourceName, locale);
+        Logging.logFileRecord(ConsoleRunner.langService.get(Messages.MES_CURRENT_LANG));
     }
 
     public String get(String key) {

@@ -27,6 +27,7 @@ messages.needThisValueFormat=Пожалуйста, введите значени
 messages.needThisVarFormat=Пожалуйста, введите имя переменной в формате:
 messages.formatLetters=Латинские буквы и цифры = ваше значение(Скаляр, Вектор или Матрица)
 messages.undefinedVar=Неопределенная переменная:
+messages.currentLang=Текущий язык: русский.
 
 
 

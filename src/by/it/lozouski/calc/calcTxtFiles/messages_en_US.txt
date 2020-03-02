@@ -27,6 +27,7 @@ messages.needThisValueFormat=Please, input the value of the format: Scalar, Vect
 messages.needThisVarFormat=Please, input the variable name in the format:
 messages.formatLetters=Latin Letter and numbers = your value(Scalar, Vector, Matrix)
 messages.undefinedVar=Undefined variable:
+messages.currentLang=Current language: english.
 
 
 

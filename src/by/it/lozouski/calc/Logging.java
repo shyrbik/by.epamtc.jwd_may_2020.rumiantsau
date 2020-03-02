@@ -11,13 +11,13 @@ import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
-
+import static by.it.lozouski.calc.ConsoleRunner.langService;
 class Logging extends Helper {
     //fields
     private static String logFileTxtPath = Helper.getPath("log.txt", Logging.class);
     private static Path logPath = Paths.get(logFileTxtPath);
-    private static int limitOfLogMessages = 10;
-    static ChangeLangService langService = ChangeLangService.START;
+    private static int limitOfLogMessages = 25;
+
 
     //methods
     public static void logFileRecord(String currentLogMessage) {
@@ -28,9 +28,9 @@ class Logging extends Helper {
             } else {
                 try (PrintWriter logWriter = new PrintWriter(new FileWriter(logFileTxtPath, true))) {
                     String currentTime = LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss"));
-                    logWriter.println(langService.get(Log.LOG_TIME) + currentTime + langService.get(Log.LOG_EVENT) + currentLogMessage);
+                    logWriter.println(String.format("%s ",langService.get(Log.LOG_TIME))  + currentTime + String.format("%s ",langService.get(Log.LOG_EVENT)) + currentLogMessage);
                 } catch (IOException e) {
-                    System.out.println(langService.get(Log.LOG_ERROR_IO));
+                    System.out.println(String.format("%s ",langService.get(Log.LOG_ERROR_IO)));
                 }
             }
         } catch (IOException e) {
@@ -41,9 +41,11 @@ class Logging extends Helper {
     public static void logFileUpdate(String updateLogMessage) {
         try {
             List<String> elementsOfLogFile = Files.readAllLines(logPath);
-            elementsOfLogFile.remove(0);
+            while (elementsOfLogFile.size() >= limitOfLogMessages){
+                elementsOfLogFile.remove(0);
+            }
             String currentTime = LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss"));
-            elementsOfLogFile.add(langService.get(Log.LOG_TIME) + currentTime + langService.get(Log.LOG_EVENT) + updateLogMessage);
+            elementsOfLogFile.add(String.format("%s ",langService.get(Log.LOG_TIME)) + currentTime + String.format("%s ",langService.get(Log.LOG_EVENT)) + updateLogMessage);
             Files.write(logPath, elementsOfLogFile);
         } catch (IOException e) {
             e.printStackTrace();

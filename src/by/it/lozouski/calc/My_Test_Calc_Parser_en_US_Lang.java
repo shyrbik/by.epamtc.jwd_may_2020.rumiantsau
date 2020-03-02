@@ -4,7 +4,7 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 
-public class My_Test_Calc_Parser {
+public class My_Test_Calc_Parser_en_US_Lang {
     private Parser testParser = new Parser();
 
 

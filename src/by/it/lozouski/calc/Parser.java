@@ -3,13 +3,12 @@ package by.it.lozouski.calc;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
+import static by.it.lozouski.calc.ConsoleRunner.langService;
 class Parser {
 
     private static final Map<String, Integer> mapOperationPriority = new HashMap<>();
     private static final HashMap<Character, Character> bracketsMap = new HashMap<>();
     private static final Stack<Character> stackBrackets = new Stack<>();
-    static ChangeLangService langService = ChangeLangService.START;
 
     static {
         bracketsMap.put('(', ')');
@@ -119,7 +118,7 @@ class Parser {
                 Var resultOperations = calculateOneOperation(leftOperand, operation, rightOperand);
                 operandsList.add(i, resultOperations.toString().replaceAll("\\s+", ""));
             }catch (IndexOutOfBoundsException e){
-                throw new CalcException(langService.get(Error.ERR_INCORRECT_VAR_CREATE));
+                throw new CalcException(String.format("%s ",langService.get(Error.ERR_INCORRECT_VAR_CREATE)));
             }
         }
         return operandsList.get(0);

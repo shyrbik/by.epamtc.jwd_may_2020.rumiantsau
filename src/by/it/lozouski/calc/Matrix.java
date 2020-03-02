@@ -1,7 +1,7 @@
 package by.it.lozouski.calc;
+import static by.it.lozouski.calc.ConsoleRunner.langService;
 
 class Matrix extends Var {
-    static ChangeLangService langService = ChangeLangService.START;
 
     public double[][] getValue() {
         return value;
@@ -54,10 +54,10 @@ class Matrix extends Var {
     @Override
     Var add(Matrix otherMatrix) throws CalcException {
         if (this.value.length != otherMatrix.value.length){
-            throw new CalcException(langService.get(Error.ERR_INCORRECT_MATRIX_FORMAT));
+            throw new CalcException(String.format("%s ",langService.get(Error.ERR_INCORRECT_MATRIX_FORMAT)));
         }
         if (this.value[0].length != otherMatrix.value[0].length){
-            throw new CalcException(langService.get(Error.ERR_INCORRECT_MATRIX_FORMAT));
+            throw new CalcException(String.format("%s ",langService.get(Error.ERR_INCORRECT_MATRIX_FORMAT)));
         }
         double[][] sum = new double[this.value.length][this.value[0].length];
         for (int i = 0; i < this.value.length; i++) {
@@ -97,7 +97,7 @@ class Matrix extends Var {
     @Override
     Var mul(Matrix otherMatrix) throws CalcException {
         if (otherMatrix.value[0].length != this.value.length){
-            throw new CalcException(langService.get(Error.ERR_INCORRECT_MATRIX_FORMAT));
+            throw new CalcException(String.format("%s ",langService.get(Error.ERR_INCORRECT_MATRIX_FORMAT)));
         }
         double[][] result = new double[otherMatrix.value.length][this.value[0].length];
         for (int i = 0; i < otherMatrix.value.length; i++) {

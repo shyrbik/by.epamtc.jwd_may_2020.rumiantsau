@@ -9,4 +9,5 @@ interface Messages {
     String MES_VAR_FORMAT = "messages.needThisVarFormat";
     String MES_LETTERS_FORMAT = "messages.formatLetters";
     String MES_UNDEFINED_VAR = "messages.undefinedVar";
+    String MES_CURRENT_LANG = "messages.currentLang";
 }

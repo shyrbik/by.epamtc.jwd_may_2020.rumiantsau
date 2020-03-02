@@ -8,11 +8,10 @@ import java.io.PrintWriter;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Map;
-
+import static by.it.lozouski.calc.ConsoleRunner.langService;
 class VarFile extends Helper {
 
     private static String varFile = Helper.getPath("vars.txt", VarFile.class);
-    static ChangeLangService langService = ChangeLangService.START;
     public static String getVarFile() {
         return varFile;
     }
@@ -23,7 +22,7 @@ class VarFile extends Helper {
                 expression -> {
             try {
                 parser.calculate(expression);
-                Logging.logFileRecord(expression + langService.get(Messages.MES_STORED_VAR));
+                Logging.logFileRecord(expression + String.format("%s ",langService.get(Messages.MES_STORED_VAR)));
             } catch (CalcException e) {
                 e.printStackTrace();
             }
@@ -37,7 +36,7 @@ class VarFile extends Helper {
                 printWriter.printf("%s=%s\n", entry.getKey(), entry.getValue());
             }
         } catch (FileNotFoundException e) {
-            throw new CalcException(langService.get(Error.ERR_FILE_NOT_FOUND) + varFile);
+            throw new CalcException(String.format("%s ",langService.get(Error.ERR_FILE_NOT_FOUND)) + varFile);
         }
     }
 }
