@@ -9,19 +9,17 @@ public class Runner {
         Locale bel = new Locale("be", "BY");
         Locale eng = new Locale("en", "US");
 
-        String p = System.getProperty("user.dir") + "/src/by/it/tarasevich/jd02_05/text";
+        String p = "by.it.tarasevich.jd02_05.text.properties";
+        //String p = System.getProperty("user.dir") + "/src/by/it/tarasevich/jd02_05/text";
 
-
-        ResourceBundle s1 = ResourceBundle.getBundle(System.getProperty("user.dir") + "/src/by/it/tarasevich/jd02_05/text", rus);
-        ResourceBundle s2 = ResourceBundle.getBundle("by.it.tarasevich.jd02_05.text", bel);
-        ResourceBundle s3 = ResourceBundle.getBundle("by.it.tarasevich.jd02_05.text", eng);
+        ResourceBundle s1 = ResourceBundle.getBundle(p, rus);
+        ResourceBundle s2 = ResourceBundle.getBundle(p, bel);
+        ResourceBundle s3 = ResourceBundle.getBundle(p, eng);
 
         String str1 = s1.getString("user.name, " + "message.welcome");
         String str2 = s2.getString("user.name, " + "message.welcome");
         String str3 = s3.getString("user.name, " + "message.welcome");
 
         System.out.println(str1);
-
     }
-
 }
