@@ -1,0 +1,8 @@
+recovery of the variable list
+1/0
+ERROR: Division by zero!!!
+22/0
+ERROR: Division by zero!!!
+save to file
+end
+

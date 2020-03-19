@@ -1,0 +1,4 @@
+user.firstname=Аляксандр
+user.lastname=Румянцау
+message.question=Як жiццЁ?
+message.welcome=Прывiтанне!
