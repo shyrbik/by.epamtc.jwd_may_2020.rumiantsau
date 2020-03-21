@@ -1,45 +1,144 @@
 package by.it.rumiantcau.calc;
 
-abstract class Var implements Operation{
-    static Var createVAr(String operand){
-        operand = operand.trim().replace("\\s", "");
-        if (operand.matches(Patterns.SCALAR))
-            return new Scalar(operand);
-        if (operand.matches(Patterns.VECTOR))
-            return new Vector(operand);
-        if (operand.matches(Patterns.MATRIX))
-            return new Matrix(operand);
+import java.io.*;
+import java.nio.file.Paths;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
+import java.util.TreeSet;
 
-        return null;
+abstract class Var implements Operation {
+    private static Map<String, Var> vars = new HashMap<>();
+
+    @Override
+    public Var add(Var other) throws CalcException {
+        throw new CalcException("Operation " + other + "+" + this + " impossible");
+    }
+
+    public Var add(Scalar other) throws CalcException {
+        throw new CalcException("Operation " + other + "+" + this + " impossible");
+    }
+
+    public Var add(Vector other) throws CalcException {
+        throw new CalcException("Operation " + other + "+" + this + " impossible");
+    }
+
+    public Var add(Matrix other) throws CalcException {
+        throw new CalcException("Operation " + other + "+" + this + " impossible");
     }
 
     @Override
-    //сложение
-    public Var add(Var other) {
-        System.out.println("Операция сложения " + this + "+" + other + " невозможна");
-        return null;
+    public Var sub(Var other) throws CalcException {
+        throw new CalcException("Operation " + other + "-" + this + " impossible");
+    }
+
+    public Var sub(Scalar other) throws CalcException {
+        throw new CalcException("Operation " + other + "-" + this + " impossible");
+    }
+
+    public Var sub(Vector other) throws CalcException {
+        throw new CalcException("Operation " + other + "-" + this + " impossible");
+    }
+
+    public Var sub(Matrix other) throws CalcException {
+        throw new CalcException("Operation " + other + "-" + this + " impossible");
     }
 
     @Override
-    //вычитание
-    public Var sub(Var other) {
-        System.out.println("Операция вычитания " + this + "-" + other + " невозможна");
-        return null;
+    public Var mul(Var other) throws CalcException {
+        throw new CalcException("Operation " + other + "*" + this + " impossible");
+    }
+
+    public Var mul(Scalar other) throws CalcException {
+        throw new CalcException("Operation " + other + "*" + this + " impossible");
+    }
+
+    public Var mul(Vector other) throws CalcException {
+        throw new CalcException("Operation " + other + "*" + this + " impossible");
+    }
+
+    public Var mul(Matrix other) throws CalcException {
+        throw new CalcException("Operation " + other + "*" + this + " impossible");
     }
 
     @Override
-    //умножение
-    public Var mul(Var other) {
-        System.out.println("Операция умножения " + this + "*" + other + " невозможна");
-        return null;
+    public Var div(Var other) throws CalcException {
+        throw new CalcException("Operation " + other + "/" + this + " impossible");
+    }
+
+    public Var div(Scalar other) throws CalcException {
+        throw new CalcException("Operation " + other + "/" + this + " impossible");
+    }
+
+    public Var div(Vector other) throws CalcException {
+        throw new CalcException("Operation " + other + "/" + this + " impossible");
+    }
+
+    public Var div(Matrix other) throws CalcException {
+        throw new CalcException("Operation " + other + "/" + this + " impossible");
     }
 
     @Override
-    //деление
-    public Var div(Var other) {
-        System.out.println("Операция деления " + this  + "/" + other + " невозможна");
-        return null;
+    public String toString() {
+        return "abstract Var";
     }
 
+    static Var createVar(String strVar) throws CalcException {
+        if (strVar.matches(Patterns.SCALAR))
+            return new Scalar(strVar);
+        else if (strVar.matches(Patterns.VECTOR))
+            return new Vector(strVar);
+        else if (strVar.matches(Patterns.MATRIX))
+            return new Matrix(strVar);
+        else if (vars.containsKey(strVar))
+            return vars.get(strVar);
+        throw new CalcException("Unknown expression: " + strVar);
+    }
 
+    static void saveVar(String key, Var value) {
+        vars.put(key, value);
+    }
+
+    public static String getStringVars() {
+        StringBuilder stringBuilder = new StringBuilder();
+        for (String varName : vars.keySet()) {
+            stringBuilder.append(varName)
+                    .append("=")
+                    .append(vars.get(varName))
+                    .append("\n");
+        }
+        stringBuilder.deleteCharAt(stringBuilder.length() - 1);
+        return stringBuilder.toString();
+    }
+
+    public static void sortAndPrintVars() {
+        Set<String> set = new TreeSet<>(vars.keySet());
+        for (String s : set) {
+            System.out.println(s + "=" + vars.get(s));
+        }
+    }
+
+    static void saveVarToFile() throws CalcException {
+        String fileName = "vars.txt";
+        try (PrintWriter writer = new PrintWriter("src/by/it/rumiantcau/calc/" + fileName)) {
+            vars.forEach((key, value) -> writer.printf("%s=%s\n", key, value));
+        } catch (FileNotFoundException e) {
+            throw new CalcException(e);
+        }
+    }
+
+    static void loadVarFromFile(Parser parser) throws CalcException {
+        String fileName = "vars.txt";
+        try (BufferedReader reader = new BufferedReader(new FileReader(Paths.get("src/by/it/rumiantcau/calc/" + fileName).toFile()))) {
+            while (reader.ready()) {
+                String line = reader.readLine();
+                if (line == null) {
+                    throw new CalcException("Error reading file");
+                }
+                parser.calc(line);
+            }
+        } catch (IOException e) {
+            throw new CalcException("error loading data " + e.getMessage());
+        }
+    }
 }

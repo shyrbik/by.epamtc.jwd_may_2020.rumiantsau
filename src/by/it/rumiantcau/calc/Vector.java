@@ -1,152 +1,152 @@
 package by.it.rumiantcau.calc;
 
-//    B разработайте для класса Var наследника Vector с тремя конструкторами:
-//1. Из массива {1.0, 2.0, 4.0} сигнатура конструктора Vector(double[ ] value)
-//2. Из такой же точно переменной сигнатура конструктора Vector(Vector vector)
-//3. Из строки вида {1.0, 2.0, 4.0} сигнатура конструктора Vector(String strVector)
-//    Переопределите метод String toString() так, чтобы он возвращал строку вида {1.0, 2.0, 4.0}
-
 import java.util.Arrays;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 class Vector extends Var {
-
     private double[] value;
+
+    Vector(double[] value) {
+        this.value = new double[value.length];
+        System.arraycopy(value, 0, this.value, 0, value.length);
+    }
+
+    Vector(Vector vector) {
+        this(vector.value);
+    }
+
+    Vector(String strVector) {
+//        strVector = strVector.replaceAll("[{|}]", "");
+//        String[] stringValue = strVector.split(",");
+//        value = new double[stringValue.length];
+//        for (int i = 0; i < stringValue.length; i++) {
+//            value[i] = Double.parseDouble(stringValue[i].trim());
+//        }
+        Matcher mch = Pattern.compile("\\{(.*)}").matcher(strVector);
+        if (mch.find()) {
+            String[] sArr = mch.group(1).replace(" ", "").split(",");
+            value = new double[sArr.length];
+            for (int i = 0; i < sArr.length; i++) {
+                value[i] = Double.parseDouble(sArr[i]);
+            }
+        }
+    }
+
     public double[] getValue() {
         return value;
     }
-    Vector(double[] value) {
+
+    public void setValue(double[] value) {
         this.value = value;
     }
 
-   /* Vector(Double valueDouble) {
-        this.valueDouble = valueDouble;
-    }*/
-
-
-    Vector(Vector vector)
-    {
-        this.value = vector.value;
-    }
-
-    // вывод вещественного числа
-
-
-    Vector(String strVector){
-        strVector = strVector.replace("{", "");
-        strVector = strVector.replace("}", "");
-        String[] sb= strVector.split(",");
-
-        this.value = new double[sb.length];
-        for (int i = 0; i < sb.length; i++) {
-                value [i] = Double.parseDouble(sb[i]) ;
-        }
-        }
-
     @Override
-    public Var add(Var other) {
-        if (other instanceof Scalar){
-            double[] res = Arrays.copyOf(value, value.length);
-
-            for (int i = 0; i < res.length; i++) {
-                res[i] = res[i] + ((Scalar)other).getValue();
-
-            }
-            return new Vector(res);
-        }
-        else if (other instanceof Vector) {
-            double[] res = Arrays.copyOf(value, value.length);
-
-            for (int i = 0; i < res.length; i++) {
-                res[i] = res[i] + ((Vector)other).value[i];
-
-            }
-            return new Vector(res);
-        }
-
-        else
-            return super.add(other);
-    }
-
-    public Var sub(Var other) {
-        if (other instanceof Scalar){
-            double[] resSub = Arrays.copyOf(value, value.length);
-
-            for (int i = 0; i < resSub.length; i++) {
-                resSub[i] = resSub[i] - ((Scalar)other).getValue();
-
-            }
-            return new Vector(resSub);
-        }
-        else if (other instanceof Vector) {
-            double[] resSub = Arrays.copyOf(value, value.length);
-
-            for (int i = 0; i < resSub.length; i++) {
-                resSub[i] = resSub[i] - ((Vector)other).value[i];
-
-            }
-            return new Vector(resSub);
-        }
-
-        else
-           return super.sub(this);
-
-    }
-
-
-    @Override
-    public Var div(Var other) {
-       if (other instanceof Scalar){
-            double[] resDiv = Arrays.copyOf(value, value.length);
-
-            for (int i = 0; i < resDiv.length; i++) {
-                resDiv[i] = resDiv[i] / ((Scalar)other).getValue();
-
-            }
-            return new Vector(resDiv);
-        }
-        else
-            return super.div(this);
-    }
-
-    public Var mul(Var other) {
-        if (other instanceof Scalar){
-            double[] resMul = Arrays.copyOf(value, value.length);
-            for (int i = 0; i < resMul.length; i++) {
-               resMul[i] = resMul[i] * ((Scalar)other).getValue();
-            }
-            return new Vector(resMul);
-        }
-        else if (other instanceof Vector) {
-            double resDouble = 0;
-            double[] res = Arrays.copyOf(value, value.length);
-            for (int i = 0; i < res.length; i++) {
-               // resMul[0] = resMul[0] + res[i] * ((Vector)other).value[i];
-                resDouble = resDouble + res[i] * ((Vector)other).value[i];
-            }
-            return new Scalar(resDouble);
-        }
-        else
-            return super.mul(this);
-    }
-
-
     public String toString() {
-            StringBuilder sb = new StringBuilder("{");
-            String delimiter = "";
-            for (double v : value) {
-                sb.append(delimiter).append(v);
-                delimiter = ", ";
+        StringBuilder stringBuilder = new StringBuilder("{");
+        String delimiter = "";
+        for (double element : value) {
+            stringBuilder.append(delimiter).append(element);
+            delimiter = ", ";
+        }
+        stringBuilder.append("}");
+        return stringBuilder.toString();
+    }
+
+    @Override
+    public Var add(Var other) throws CalcException {
+        return other.add(this);
+    }
+
+    @Override
+    public Var add(Scalar other) {
+        double[] result = Arrays.copyOf(value, value.length);
+        for (int i = 0; i < result.length; i++) {
+            result[i] += other.getValue();
+        }
+        return new Vector(result);
+    }
+
+    @Override
+    public Var add(Vector other) throws CalcException {
+        if (this.value.length == other.value.length) {
+            double[] result = Arrays.copyOf(value, value.length);
+            for (int i = 0; i < result.length; i++) {
+                result[i] += other.value[i];
             }
-            sb.append("}");
-            return sb.toString();
+            return new Vector(result);
+        }
+        return super.mul(other);
     }
 
-
-
-
-
+    @Override
+    public Var sub(Var other) throws CalcException {
+        return other.sub(this);
     }
 
+    @Override
+    public Var sub(Scalar other) {
+        double[] result = Arrays.copyOf(value, value.length);
+        for (int i = 0; i < result.length; i++) {
+            result[i] = other.getValue() - result[i];
+        }
+        return new Vector(result);
+    }
 
+    @Override
+    public Var sub(Vector other) throws CalcException {
+        if (this.value.length == other.value.length) {
+            double[] result = Arrays.copyOf(other.value, other.value.length);
+            for (int i = 0; i < result.length; i++) {
+                result[i] -= value[i];
+            }
+            return new Vector(result);
+        }
+        return super.sub(other);
+    }
 
+    @Override
+    public Var mul(Var other) throws CalcException {
+        return other.mul(this);
+    }
 
+    @Override
+    public Var mul(Scalar other) {
+        double[] result = Arrays.copyOf(value, value.length);
+        for (int i = 0; i < result.length; i++) {
+            result[i] *= other.getValue();
+        }
+        return new Vector(result);
+    }
+
+    @Override
+    public Var mul(Vector other) throws CalcException {
+        if (this.value.length == other.value.length) {
+            double result = 0;
+            for (int i = 0; i < value.length; i++) {
+                result += value[i] * other.value[i];
+            }
+            return new Scalar(result);
+        }
+        return super.mul(other);
+    }
+
+    @Override
+    public Var mul(Matrix other) throws CalcException {
+        if (other.getValue()[0].length == value.length) {
+            double[] result = new double[value.length];
+            for (int i = 0; i < result.length; i++) {
+                for (int j = 0; j < other.getValue()[i].length; j++) {
+                    result[i] += value[j] * other.getValue()[i][j];
+                }
+            }
+            return new Vector(result);
+        }
+        return super.mul(other);
+    }
+
+    @Override
+    public Var div(Var other) throws CalcException {
+        return other.div(this);
+    }
+}
