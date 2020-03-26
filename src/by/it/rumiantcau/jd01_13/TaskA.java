@@ -1,6 +1,8 @@
 package by.it.rumiantcau.jd01_13;
 
+import java.io.BufferedReader;
 import java.util.HashMap;
+import java.util.Scanner;
 
 @SuppressWarnings("all")
 public class TaskA {
