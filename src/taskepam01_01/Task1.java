@@ -12,11 +12,11 @@ public class Task1 {
         double a, b, c;
         double result;
         System.out.println("a = ");
-        a = input.read();
+        a = Double.parseDouble(input.readLine());
         System.out.println("b = ");
-        b = input.read();
+        b = Double.parseDouble(input.readLine());;
         System.out.println("c = ");
-        c = input.read();
+        c = Double.parseDouble(input.readLine());;
 
         result = b + sqrt(b*b + 4*a*c) / (2 *a) - a*a*a*c + pow(b, -2);
         System.out.println("result =" + result);
