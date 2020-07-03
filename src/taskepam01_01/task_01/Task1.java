@@ -1,4 +1,4 @@
-package taskepam01_01.task_01;
+package by.epamtc.rumiantsau.taskepam01_01.task_01;
 import static java.lang.Math.*;
 
 public class Task1 {
