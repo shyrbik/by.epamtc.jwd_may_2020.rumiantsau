@@ -1,11 +1,10 @@
-package taskepam01_01.task_05;
-
+package by.epamtc.rumiantsau.taskepam01_01.task_05;
 
 public class Task5 {
     public static void main(String[] args) {
-        int hundreds;
-        int dozens;
-        int units;
+        int hundreds; //сотни
+        int dozens; //десятки
+        int units; //единицы
         int number = 137;
 
         units = number % 100 % 10;
@@ -19,9 +18,5 @@ public class Task5 {
         //четырехзначное число, полученное приписыванием цифры единиц в качестве цифры тысяч (например,
         // из числа 137 необходимо получить число 7137).
         System.out.println("4count number = " + (units*1000 + number));
-
-
-
-
     }
 }
