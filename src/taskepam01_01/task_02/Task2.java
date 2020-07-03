@@ -1,4 +1,5 @@
-package taskepam01_01.task_02;
+package by.epamtc.rumiantsau.taskepam01_01.task_02;
+
 public class Task2 {
     //не использовать массивы, реализовать на свитчах
     public static void main(String[] args) {
@@ -24,11 +25,13 @@ public class Task2 {
                 break;
             default:
             //для четных месяцев
-            if ((defaultMounth % 2) == 0)
+            if ((defaultMounth % 2) == 0){
                 res = numberOfDay - 30;
+                ]
             //для нечетных месяцев
-            else
+            else{
                 res = numberOfDay - 31;
+            }
                 break;
         }
         //конец свитча
@@ -41,15 +44,10 @@ public class Task2 {
 
             numberOfDay = res;
             defaultMounth++;
+                
         }
 
         System.out.println("Current Date: Day " + day + " / Month " + month);
-
-
-
-
-
-
 
     }
 }
