@@ -1,4 +1,4 @@
-package taskepam01_01.task_09;
+package by.epamtc.rumiantsau.taskepam01_01.task_01;
 
 public class Task9 {
     public static void main(String[] args) {
