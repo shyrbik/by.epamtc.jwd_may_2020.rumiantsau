@@ -1,4 +1,4 @@
-package taskepam01_01.task_03;
+package by.epamtc.rumiantsau.taskepam01_01.task_03;
 import static java.lang.Math.abs;
 
 public class Task3 {
